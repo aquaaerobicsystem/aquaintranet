@@ -26,3 +26,5 @@ nodejsapps/
 sendthisfile/
 ssrsexamples/
 template/
+node_modules/
+*.db

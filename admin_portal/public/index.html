@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqua Intranet Admin Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'DM Sans', sans-serif; background: #f1f5f9; color: #1e293b; margin: 0; padding: 0; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+        h1, h2, h3, h4 { color: #005f9e; margin-top: 0; }
+        input, select, textarea { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box; font-family: 'DM Sans', sans-serif; }
+        button { background: #005f9e; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: bold; margin-bottom: 0.5rem; }
+        button.btn-danger { background: #ef4444; }
+        button.btn-secondary { background: #64748b; }
+        button:hover { opacity: 0.9; }
+        .hidden { display: none; }
+        .nav-tabs { display: flex; gap: 1rem; margin-bottom: 1rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .nav-tabs a { text-decoration: none; color: #64748b; font-weight: 500; cursor: pointer; padding: 0.5rem; }
+        .nav-tabs a.active { color: #005f9e; border-bottom: 2px solid #005f9e; }
+        .toast { position: fixed; top: 1rem; right: 1rem; background: #10b981; color: white; padding: 1rem; border-radius: 4px; display: none; z-index: 1000; }
+        
+        .item-box { border: 1px solid #e2e8f0; padding: 1rem; border-radius: 4px; margin-bottom: 1rem; background: #f8fafc; position: relative; }
+        .item-box h4 { margin-bottom: 0.5rem; }
+        .flex-row { display: flex; gap: 1rem; }
+        .flex-row > div { flex: 1; }
+        
+        .nested-box { margin-left: 2rem; border-left: 3px solid #005f9e; padding-left: 1rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div id="toast" class="toast"></div>
+
+    <div class="container">
+        <div id="login-section" class="card">
+            <h2>Admin Login</h2>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <div id="app-section" class="hidden">
+            <div class="header">
+                <h1>Aqua Intranet Admin</h1>
+                <div>
+                    <span id="user-info" style="margin-right: 1rem; font-weight: bold;"></span>
+                    <button onclick="logout()" class="btn-secondary">Logout</button>
+                </div>
+            </div>
+
+            <div class="nav-tabs" id="tabs">
+                <a class="active" onclick="showTab('editor-tab')">Manage Links</a>
+                <a id="nav-users" onclick="showTab('users-tab')" class="hidden">Manage Users</a>
+                <a id="nav-settings" onclick="showTab('settings-tab')" class="hidden">Settings</a>
+                <a id="nav-password" onclick="showTab('password-tab')">Change Password</a>
+            </div>
+
+            <div id="editor-tab" class="card">
+                <h2>Manage Content Areas</h2>
+                <select id="area-select" onchange="loadAreaContent()">
+                    <option value="">-- Select Area --</option>
+                </select>
+                <div class="hidden" id="area-editor-wrap">
+                    <p style="color: #64748b; font-size: 0.9rem;">You can now easily add, edit, or remove links without touching HTML.</p>
+                    <input type="text" id="quick-search" placeholder="🔍 Quick Search (type to filter...)" onkeyup="filterGUI(this.value)" style="margin-bottom: 1rem; border: 2px solid #005f9e;">
+                    <div id="gui-builder"></div>
+                    <button onclick="saveAreaContent()" style="width:100%; padding: 1rem; font-size: 1.1rem; margin-top: 1rem; background: #10b981;">Save & Publish to Intranet</button>
+                </div>
+            </div>
+
+            <div id="users-tab" class="card hidden">
+                <h2>Manage Users</h2>
+                
+                <table style="width: 100%; text-align: left; margin-bottom: 2rem; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #cbd5e1;">
+                            <th style="padding: 0.5rem;">Username</th>
+                            <th style="padding: 0.5rem;">Role</th>
+                            <th style="padding: 0.5rem;">Allowed Areas</th>
+                            <th style="padding: 0.5rem;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-tbody"></tbody>
+                </table>
+
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px;">
+                    <h3>Add New User</h3>
+                    <form onsubmit="addUser(event)">
+                        <input type="text" id="new-username" placeholder="Username" required>
+                        <input type="password" id="new-password" placeholder="Password" required>
+                        <select id="new-role">
+                            <option value="editor">Editor</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <label>Allowed Areas (Ctrl+Click for multiple):</label>
+                        <select id="new-areas" multiple size="4">
+                            <option value="Quick Access">Quick Access</option>
+                            <option value="Directory">Directory</option>
+                            <option value="Company Resources">Company Resources</option>
+                            <option value="Quick Search">Quick Search</option>
+                        </select>
+                        <button type="submit" style="margin-top: 1rem;">Add User</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="password-tab" class="card hidden">
+                <h2>Change My Password</h2>
+                <form onsubmit="changeMyPassword(event)">
+                    <input type="password" id="my-new-password" placeholder="New Password" required>
+                    <button type="submit">Update Password</button>
+                </form>
+            </div>
+            <div id="settings-tab" class="card hidden">
+                <h2>Settings</h2>
+                <form id="settings-form">
+                    <label>Target HTML File Path (relative to server.js):</label>
+                    <input type="text" id="target-file" required>
+                    <button type="submit">Save Settings</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let currentData = null; // Holds the JSON structure currently being edited
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 3000);
+        }
+
+        async function fetchAPI(url, options = {}) {
+            options.headers = { 'Content-Type': 'application/json', ...options.headers };
+            const res = await fetch(url, options);
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'API Error');
+            return data;
+        }
+
+        document.getElementById('login-form').onsubmit = async (e) => {
+            e.preventDefault();
+            try {
+                const res = await fetchAPI('/api/login', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        username: document.getElementById('username').value,
+                        password: document.getElementById('password').value
+                    })
+                });
+                currentUser = res.user;
+                initApp();
+            } catch (err) { alert(err.message); }
+        };
+
+        async function logout() {
+            await fetchAPI('/api/logout', { method: 'POST' });
+            location.reload();
+        }
+
+        async function checkSession() {
+            try {
+                const res = await fetchAPI('/api/session');
+                currentUser = res.user;
+                initApp();
+            } catch (err) {}
+        }
+
+        function initApp() {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('app-section').classList.remove('hidden');
+            document.getElementById('user-info').textContent = `Logged in as: ${currentUser.username} (${currentUser.role})`;
+
+            if (currentUser.role === 'admin') {
+                document.getElementById('nav-users').classList.remove('hidden');
+                document.getElementById('nav-settings').classList.remove('hidden');
+                loadUsers();
+            }
+
+            const areaSelect = document.getElementById('area-select');
+            areaSelect.innerHTML = '<option value="">-- Select Area --</option>';
+            const availableAreas = [...currentUser.areas];
+            if (currentUser.role === 'admin' && !availableAreas.includes('Quick Search')) {
+                availableAreas.push('Quick Search');
+            }
+            
+            availableAreas.forEach(area => {
+                const opt = document.createElement('option');
+                opt.value = area;
+                opt.textContent = area;
+                areaSelect.appendChild(opt);
+            });
+
+            if (currentUser.role === 'admin') {
+                document.getElementById('nav-users').classList.remove('hidden');
+                document.getElementById('nav-settings').classList.remove('hidden');
+                loadSettings();
+                loadUsers();
+            }
+        }
+
+        function showTab(tabId) {
+            ['editor-tab', 'users-tab', 'settings-tab'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(tabId).classList.remove('hidden');
+            document.querySelectorAll('.nav-tabs a').forEach(a => a.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        async function loadAreaContent() {
+            const area = document.getElementById('area-select').value;
+            if (!area) {
+                document.getElementById('area-editor-wrap').classList.add('hidden');
+                return;
+            }
+            try {
+                // Fetch JSON structured data
+                currentData = await fetchAPI(`/api/areas/${encodeURIComponent(area)}/json`);
+                renderGUI();
+                document.getElementById('area-editor-wrap').classList.remove('hidden');
+            } catch (err) {
+                alert(err.message);
+            }
+        }
+
+        // --- GUI BUILDER LOGIC ---
+
+        const ICONS = {
+            "default": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
+            "home": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+            "link": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+            "document": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+            "users": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+            "map": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+            "chat": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
+            "chart": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+            "globe": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+            "mail": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+            "id-card": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 9h6M9 13h6M9 17h4"/></svg>',
+            "folder": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
+            "settings": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+            "calendar": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+            "search": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+            "phone": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+            "star": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+            "check": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+            "alert": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+            "download": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+            "upload": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
+            "tool": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+            "clock": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+            "monitor": '<svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>'
+        };
+
+        function getIconSelectOptions(currentSvg, pathStr) {
+            let matchedName = 'custom';
+            // Extract ONLY the <svg ...>...</svg> from currentSvg to prevent rogue text
+            let matchedSvg = '';
+            if (currentSvg) {
+                const svgMatch = currentSvg.match(/<svg[\s\S]*?<\/svg>/i);
+                matchedSvg = svgMatch ? svgMatch[0] : '';
+            }
+            
+            const safeCurrent = matchedSvg.replace(/\s+/g, '');
+            for (const [name, svgStr] of Object.entries(ICONS)) {
+                // We compare the full SVG string to ensure we don't just match the <svg> opening tag!
+                if (safeCurrent.includes(svgStr.replace(/\s+/g, ''))) {
+                    matchedName = name;
+                    matchedSvg = svgStr;
+                    break;
+                }
+            }
+
+            let itemsHtml = '';
+            for (const [name, svgStr] of Object.entries(ICONS)) {
+                itemsHtml += `<div onclick="updateIcon('${pathStr}', '${name}', ''); renderGUI();" style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem; cursor:pointer; border-bottom:1px solid #eee;">
+                    <span>${name.charAt(0).toUpperCase() + name.slice(1)}</span>
+                    <span style="color:#005f9e; width:18px; height:18px; display:flex;">${svgStr}</span>
+                </div>`;
+            }
+            itemsHtml += `<div onclick="updateIcon('${pathStr}', 'custom', \`${escapeHtml(currentSvg||'')}\`); renderGUI();" style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem; cursor:pointer;">
+                <span>Custom SVG (Keep Existing)</span>
+                <span style="color:#005f9e; width:18px; height:18px; display:flex;">${matchedName === 'custom' ? matchedSvg : ''}</span>
+            </div>`;
+
+            return `
+                <div class="custom-select" style="position:relative; width:100%; margin-bottom:1rem;">
+                    <div onclick="closeAllSelects(this); this.nextElementSibling.classList.toggle('hidden')" style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem; border:1px solid #cbd5e1; border-radius:4px; background:#fff; cursor:pointer;">
+                        <span>${matchedName.charAt(0).toUpperCase() + matchedName.slice(1)}</span>
+                        <span style="color:#005f9e; width:18px; height:18px; display:flex;">${matchedSvg}</span>
+                    </div>
+                    <div class="hidden" style="position:absolute; top:100%; left:0; right:0; background:#fff; border:1px solid #cbd5e1; border-radius:4px; z-index:99; max-height:200px; overflow-y:auto; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+                        ${itemsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        async function addUser(e) {
+            e.preventDefault();
+            const username = document.getElementById('new-username').value;
+            const password = document.getElementById('new-password').value;
+            const role = document.getElementById('new-role').value;
+            const areasSelect = document.getElementById('new-areas');
+            const areas = Array.from(areasSelect.selectedOptions).map(opt => opt.value);
+
+            try {
+                await fetchAPI('/api/users', {
+                    method: 'POST',
+                    body: JSON.stringify({ username, password, role, areas })
+                });
+                showToast('User created successfully');
+                e.target.reset();
+                loadUsers();
+            } catch (err) { alert(err.message); }
+        }
+
+        async function loadUsers() {
+            try {
+                const users = await fetchAPI('/api/users');
+                const tbody = document.getElementById('users-tbody');
+                tbody.innerHTML = '';
+                
+                users.forEach(u => {
+                    const tr = document.createElement('tr');
+                    tr.style.borderBottom = '1px solid #e2e8f0';
+                    tr.innerHTML = `
+                        <td style="padding: 0.5rem;"><input type="text" value="${u.username}" id="u-name-${u.username}"></td>
+                        <td style="padding: 0.5rem;">
+                            <select id="u-role-${u.username}">
+                                <option value="editor" ${u.role === 'editor' ? 'selected' : ''}>Editor</option>
+                                <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
+                            </select>
+                        </td>
+                        <td style="padding: 0.5rem;">
+                            <select id="u-areas-${u.username}" multiple size="4" style="width:200px;">
+                                <option value="Quick Access" ${u.areas.includes('Quick Access') ? 'selected' : ''}>Quick Access</option>
+                                <option value="Directory" ${u.areas.includes('Directory') ? 'selected' : ''}>Directory</option>
+                                <option value="Company Resources" ${u.areas.includes('Company Resources') ? 'selected' : ''}>Company Resources</option>
+                                <option value="Quick Search" ${u.areas.includes('Quick Search') ? 'selected' : ''}>Quick Search</option>
+                            </select>
+                        </td>
+                        <td style="padding: 0.5rem;">
+                            <input type="password" id="u-pass-${u.username}" placeholder="New Pass (optional)" style="width: 140px; margin-bottom:0;">
+                            <br>
+                            <button class="btn-primary btn-sm" onclick="editUser('${u.username}')" style="margin-top:0.25rem;">Save</button>
+                            ${u.username !== 'admin' ? `<button class="btn-danger btn-sm" onclick="deleteUser('${u.username}')" style="margin-top:0.25rem;">Delete</button>` : ''}
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function editUser(oldUsername) {
+            const newUsername = document.getElementById(`u-name-${oldUsername}`).value;
+            const password = document.getElementById(`u-pass-${oldUsername}`).value;
+            const role = document.getElementById(`u-role-${oldUsername}`).value;
+            const areasSelect = document.getElementById(`u-areas-${oldUsername}`);
+            const areas = Array.from(areasSelect.selectedOptions).map(opt => opt.value);
+
+            try {
+                await fetchAPI(`/api/users/${oldUsername}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ newUsername, password, role, areas })
+                });
+                showToast('User updated successfully');
+                loadUsers();
+            } catch (err) { alert(err.message); }
+        }
+
+        async function deleteUser(username) {
+            if (!confirm(`Are you sure you want to delete ${username}?`)) return;
+            try {
+                await fetchAPI(`/api/users/${username}`, { method: 'DELETE' });
+                showToast('User deleted');
+                loadUsers();
+            } catch (err) { alert(err.message); }
+        }
+
+        async function changeMyPassword(e) {
+            e.preventDefault();
+            const password = document.getElementById('my-new-password').value;
+            try {
+                await fetchAPI('/api/users/me/password', {
+                    method: 'PUT',
+                    body: JSON.stringify({ password })
+                });
+                showToast('Password updated');
+                document.getElementById('my-new-password').value = '';
+            } catch (err) { alert(err.message); }
+        }
+
+        function closeAllSelects(exclude) {
+            document.querySelectorAll('.custom-select > div:nth-child(2)').forEach(el => {
+                if (el.previousElementSibling !== exclude) el.classList.add('hidden');
+            });
+        }
+
+        function filterGUI(query) {
+            const term = query.toLowerCase();
+            const container = document.getElementById('gui-builder');
+            if (!container) return;
+            
+            Array.from(container.children).forEach(child => {
+                // Ignore the "Add" button at the bottom
+                if (child.tagName !== 'DIV' || !child.classList.contains('item-box')) return;
+                
+                const text = child.innerText.toLowerCase();
+                const inputs = Array.from(child.querySelectorAll('input, select')).map(i => i.value.toLowerCase()).join(' ');
+                
+                if (text.includes(term) || inputs.includes(term)) {
+                    child.style.display = 'block';
+                } else {
+                    child.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.custom-select')) {
+                closeAllSelects();
+            }
+        });
+
+        window.updateIcon = function(pathStr, selectVal, currentSvg) {
+            const path = JSON.parse(pathStr);
+            if (selectVal !== 'custom') {
+                updateData(path, ICONS[selectVal]);
+            } else {
+                updateData(path, currentSvg);
+            }
+        };
+
+        function renderGUI() {
+            const wrap = document.getElementById('gui-builder');
+            wrap.innerHTML = '';
+            
+            // Reset search box when rendering
+            const searchBox = document.getElementById('quick-search');
+            if (searchBox) searchBox.value = '';
+
+            if (currentData.type === 'flat') {
+                currentData.items.forEach((item, index) => {
+                    wrap.appendChild(createFlatItemNode(item, index));
+                });
+                const addBtn = document.createElement('button');
+                addBtn.textContent = '+ Add New Link';
+                addBtn.onclick = () => {
+                    currentData.items.push({ name: '', desc: '', title: '', url: '', svg: '' });
+                    renderGUI();
+                };
+                wrap.appendChild(addBtn);
+            } else if (currentData.type === 'chips') {
+                currentData.items.forEach((item, index) => {
+                    wrap.appendChild(createChipNode(item, index));
+                });
+                const addBtn = document.createElement('button');
+                addBtn.textContent = '+ Add New Chip';
+                addBtn.onclick = () => {
+                    currentData.items.push({ name: '', title: '', url: '', svg: '' });
+                    renderGUI();
+                };
+                wrap.appendChild(addBtn);
+            } else if (currentData.type === 'nested') {
+                currentData.items.forEach((cat, cIdx) => {
+                    wrap.appendChild(createCatNode(cat, cIdx));
+                });
+                const addBtn = document.createElement('button');
+                addBtn.textContent = '+ Add New Category';
+                addBtn.onclick = () => {
+                    currentData.items.push({ id: 'cat-'+Date.now(), title: '', desc: '', iconSvg: '', modals: [] });
+                    renderGUI();
+                };
+                wrap.appendChild(addBtn);
+            }
+        }
+
+        // Update data state on input
+        function updateData(path, value) {
+            let obj = currentData.items;
+            for (let i = 0; i < path.length - 1; i++) {
+                obj = obj[path[i]];
+            }
+            obj[path[path.length - 1]] = value;
+        }
+
+        function moveItem(path, idx, dir) {
+            let target = currentData.items;
+            for (let i = 0; i < path.length; i++) {
+                target = target[path[i]];
+            }
+            if (idx + dir < 0 || idx + dir >= target.length) return;
+            const temp = target[idx];
+            target[idx] = target[idx + dir];
+            target[idx + dir] = temp;
+            renderGUI();
+        }
+
+        // Flat: Create DOM for a single link
+        function createFlatItemNode(item, index) {
+            const div = document.createElement('div');
+            div.className = 'item-box';
+            div.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h4>Link #${index + 1}</h4>
+                    <div>
+                        <button class="btn-primary btn-sm" onclick="moveItem([], ${index}, -1)">↑</button>
+                        <button class="btn-primary btn-sm" onclick="moveItem([], ${index}, 1)">↓</button>
+                        <button class="btn-danger btn-sm" onclick="removeFlatItem(${index})" style="margin-left:0.5rem;">Delete</button>
+                    </div>
+                </div>
+                <div class="flex-row">
+                    <div>
+                        <label>Display Name</label>
+                        <input type="text" value="${escapeHtml(item.name)}" onchange="updateData([${index}, 'name'], this.value)">
+                    </div>
+                    <div>
+                        <label>Description</label>
+                        <input type="text" value="${escapeHtml(item.desc)}" onchange="updateData([${index}, 'desc'], this.value)">
+                    </div>
+                </div>
+                <div class="flex-row">
+                    <div>
+                        <label>Target URL</label>
+                        <input type="text" value="${escapeHtml(item.url)}" onchange="updateData([${index}, 'url'], this.value)">
+                    </div>
+                    <div>
+                        <label>Hover Title</label>
+                        <input type="text" value="${escapeHtml(item.title)}" onchange="updateData([${index}, 'title'], this.value)">
+                    </div>
+                </div>
+                <label>Select Icon</label>
+                ${getIconSelectOptions(item.svg, JSON.stringify([index, "svg"]).replace(/"/g, '&quot;'))}
+            `;
+            return div;
+        }
+
+        function removeFlatItem(idx) {
+            currentData.items.splice(idx, 1);
+            renderGUI();
+        }
+
+        // Chips: Create DOM for a single search chip
+        function createChipNode(item, index) {
+            const div = document.createElement('div');
+            div.className = 'item-box';
+            
+            // Set defaults and handle legacy raw onclick strings
+            let actionType = item.actionType || 'window';
+            let url = item.url || '';
+            let query = item.query || '';
+            let source = item.source || '';
+            let ext = item.ext || '';
+            
+            // Clean up legacy onclick scripts that might have been saved in the 'url' field
+            if (url.includes('openAquaSearch')) {
+                actionType = 'search';
+                const match = url.match(/openAquaSearch\((.*?)\)/);
+                if (match) {
+                    const args = match[1].split(',').map(s => s.trim().replace(/^['"]|['"]$/g, ''));
+                    query = args[0] || query;
+                    source = args[1] || source;
+                    ext = args[2] || ext;
+                }
+                url = ''; // clear url since it's a search
+                
+                // Update the state so it saves cleanly
+                item.actionType = actionType;
+                item.query = query;
+                item.source = source;
+                item.ext = ext;
+                item.url = '';
+            } else if (url.includes('window.open')) {
+                actionType = 'window';
+                const match = url.match(/window\.open\(['"](.*?)['"]/);
+                if (match) url = match[1];
+                
+                // Update the state so it saves cleanly
+                item.actionType = actionType;
+                item.url = url;
+            } else if (!item.actionType) {
+                // Default clean state
+                item.actionType = 'window';
+            }
+            
+            const isWindow = actionType === 'window';
+
+            div.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h4>Search Chip #${index + 1}</h4>
+                    <div>
+                        <button class="btn-primary btn-sm" onclick="moveItem([], ${index}, -1)">↑</button>
+                        <button class="btn-primary btn-sm" onclick="moveItem([], ${index}, 1)">↓</button>
+                        <button class="btn-danger btn-sm" onclick="removeFlatItem(${index})" style="margin-left:0.5rem;">Delete</button>
+                    </div>
+                </div>
+                <div class="flex-row">
+                    <div>
+                        <label>Chip Display Name</label>
+                        <input type="text" value="${escapeHtml(item.name)}" onchange="updateData([${index}, 'name'], this.value)">
+                    </div>
+                    <div>
+                        <label>Hover Title</label>
+                        <input type="text" value="${escapeHtml(item.title)}" onchange="updateData([${index}, 'title'], this.value)">
+                    </div>
+                </div>
+                
+                <label>Action Type</label>
+                <select onchange="updateData([${index}, 'actionType'], this.value); renderGUI();" style="margin-bottom:1rem;">
+                    <option value="window" ${isWindow ? 'selected' : ''}>Standard URL (window.open)</option>
+                    <option value="search" ${!isWindow ? 'selected' : ''}>Aqua Search (openAquaSearch)</option>
+                </select>
+                
+                <div class="${isWindow ? '' : 'hidden'}" style="background:#f1f5f9; padding:1rem; border-radius:4px; margin-bottom:1rem;">
+                    <label>Target URL (will automatically open in _blank)</label>
+                    <input type="text" placeholder="http://..." value="${escapeHtml(url)}" onchange="updateData([${index}, 'url'], this.value)" style="margin-bottom:0;">
+                </div>
+                
+                <div class="${!isWindow ? '' : 'hidden'}" style="background:#f1f5f9; padding:1rem; border-radius:4px; margin-bottom:1rem;">
+                    <div class="flex-row">
+                        <div>
+                            <label>Search Term</label>
+                            <input type="text" placeholder="e.g. Engineering Index.html" value="${escapeHtml(query)}" onchange="updateData([${index}, 'query'], this.value)" style="margin-bottom:0;">
+                        </div>
+                        <div>
+                            <label>Source (Optional)</label>
+                            <input type="text" value="${escapeHtml(source)}" onchange="updateData([${index}, 'source'], this.value)" style="margin-bottom:0;">
+                        </div>
+                        <div>
+                            <label>File Filter (Optional)</label>
+                            <input type="text" placeholder="e.g. pdf, docs, xlsx" value="${escapeHtml(ext)}" onchange="updateData([${index}, 'ext'], this.value)" style="margin-bottom:0;">
+                        </div>
+                    </div>
+                </div>
+                
+                <label>Select Icon</label>
+                ${getIconSelectOptions(item.svg, JSON.stringify([index, "svg"]).replace(/"/g, '&quot;'))}
+            `;
+            return div;
+        }
+
+        // Nested: Create DOM for a Directory Category
+        function createCatNode(cat, cIdx) {
+            const div = document.createElement('div');
+            div.className = 'item-box';
+            
+            let modalsHtml = document.createElement('div');
+            cat.modals.forEach((mod, mIdx) => {
+                modalsHtml.appendChild(createModalNode(mod, cIdx, mIdx));
+            });
+
+            const addModalBtn = document.createElement('button');
+            addModalBtn.className = 'btn-secondary';
+            addModalBtn.textContent = '+ Add Sub-Category/Modal';
+            addModalBtn.onclick = () => {
+                currentData.items[cIdx].modals.push({ title: '', desc: '', links: [] });
+                renderGUI();
+            };
+
+            div.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3>Category: <input type="text" value="${escapeHtml(cat.title)}" onchange="updateData([${cIdx}, 'title'], this.value)" style="display:inline; width:200px; margin:0;"></h3>
+                    <div>
+                        <button class="btn-primary btn-sm" onclick="moveItem([], ${cIdx}, -1)">↑</button>
+                        <button class="btn-primary btn-sm" onclick="moveItem([], ${cIdx}, 1)">↓</button>
+                        <button class="btn-danger btn-sm" onclick="removeCat(${cIdx})" style="margin-left:0.5rem;">Delete Category</button>
+                    </div>
+                </div>
+                <hr style="border:0; border-top:1px solid #e2e8f0; margin:1rem 0;">
+                <div class="flex-row">
+                    <div>
+                        <label>Category Title</label>
+                        <input type="text" value="${escapeHtml(cat.title)}" onchange="updateData([${cIdx}, 'title'], this.value); renderGUI();">
+                    </div>
+                    <div>
+                        <label>Category HTML ID (no spaces)</label>
+                        <input type="text" value="${escapeHtml(cat.id)}" onchange="updateData([${cIdx}, 'id'], this.value)">
+                    </div>
+                </div>
+                <label>Category Description</label>
+                <input type="text" value="${escapeHtml(cat.desc)}" onchange="updateData([${cIdx}, 'desc'], this.value)">
+                <label>Select Icon</label>
+                ${getIconSelectOptions(cat.iconSvg, JSON.stringify([cIdx, "iconSvg"]).replace(/"/g, '&quot;'))}
+                
+                <h4>Sub-Categories (Modals)</h4>
+            `;
+            div.appendChild(modalsHtml);
+            div.appendChild(addModalBtn);
+            return div;
+        }
+
+        function removeCat(cIdx) {
+            currentData.items.splice(cIdx, 1);
+            renderGUI();
+        }
+
+        function createModalNode(mod, cIdx, mIdx) {
+            const div = document.createElement('div');
+            div.className = 'nested-box item-box';
+            
+            let linksHtml = document.createElement('div');
+            mod.links.forEach((lnk, lIdx) => {
+                linksHtml.appendChild(createLinkNode(lnk, cIdx, mIdx, lIdx));
+            });
+
+            const addLinkBtn = document.createElement('button');
+            addLinkBtn.className = 'btn-secondary';
+            addLinkBtn.textContent = '+ Add Link';
+            addLinkBtn.onclick = () => {
+                currentData.items[cIdx].modals[mIdx].links.push({ title: '', text: '', url: '' });
+                renderGUI();
+            };
+
+            div.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h4>Sub-Category: <input type="text" value="${escapeHtml(mod.title)}" onchange="updateData([${cIdx}, 'modals', ${mIdx}, 'title'], this.value)" style="display:inline; width:150px; margin:0;"></h4>
+                    <div>
+                        <button class="btn-primary btn-sm" onclick="moveItem([${cIdx}, 'modals'], ${mIdx}, -1)">↑</button>
+                        <button class="btn-primary btn-sm" onclick="moveItem([${cIdx}, 'modals'], ${mIdx}, 1)">↓</button>
+                        <button class="btn-danger btn-sm" onclick="removeModal(${cIdx}, ${mIdx})" style="margin-left:0.5rem;">Delete Sub</button>
+                    </div>
+                </div>
+                <div class="flex-row">
+                    <div>
+                        <label>Title</label>
+                        <input type="text" value="${escapeHtml(mod.title)}" onchange="updateData([${cIdx}, 'modals', ${mIdx}, 'title'], this.value); renderGUI();">
+                    </div>
+                    <div>
+                        <label>Description</label>
+                        <input type="text" value="${escapeHtml(mod.desc)}" onchange="updateData([${cIdx}, 'modals', ${mIdx}, 'desc'], this.value)">
+                    </div>
+                </div>
+                <h5>Links inside this sub-category</h5>
+            `;
+            div.appendChild(linksHtml);
+            div.appendChild(addLinkBtn);
+            return div;
+        }
+
+        function removeModal(cIdx, mIdx) {
+            currentData.items[cIdx].modals.splice(mIdx, 1);
+            renderGUI();
+        }
+
+        function createLinkNode(lnk, cIdx, mIdx, lIdx) {
+            const div = document.createElement('div');
+            div.style.borderLeft = "2px solid #cbd5e1";
+            div.style.paddingLeft = "1rem";
+            div.style.marginBottom = "1rem";
+            div.innerHTML = `
+                <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <input type="text" placeholder="Name" value="${escapeHtml(lnk.text)}" onchange="updateData([${cIdx}, 'modals', ${mIdx}, 'links', ${lIdx}, 'text'], this.value)">
+                    <input type="text" placeholder="Target URL" value="${escapeHtml(lnk.url)}" onchange="updateData([${cIdx}, 'modals', ${mIdx}, 'links', ${lIdx}, 'url'], this.value)">
+                    <input type="text" placeholder="Hover Title" value="${escapeHtml(lnk.title)}" onchange="updateData([${cIdx}, 'modals', ${mIdx}, 'links', ${lIdx}, 'title'], this.value)">
+                    <button class="btn-primary btn-sm" onclick="moveItem([${cIdx}, 'modals', ${mIdx}, 'links'], ${lIdx}, -1)">↑</button>
+                    <button class="btn-primary btn-sm" onclick="moveItem([${cIdx}, 'modals', ${mIdx}, 'links'], ${lIdx}, 1)">↓</button>
+                    <button class="btn-danger btn-sm" onclick="removeLink(${cIdx}, ${mIdx}, ${lIdx})">X</button>
+                </div>
+            `;
+            return div;
+        }
+
+        function removeLink(cIdx, mIdx, lIdx) {
+            currentData.items[cIdx].modals[mIdx].links.splice(lIdx, 1);
+            renderGUI();
+        }
+
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        async function saveAreaContent() {
+            const area = document.getElementById('area-select').value;
+            try {
+                const res = await fetchAPI(`/api/areas/${encodeURIComponent(area)}/json`, {
+                    method: 'POST',
+                    body: JSON.stringify(currentData)
+                });
+                showToast(res.message);
+            } catch (err) {
+                alert(err.message);
+            }
+        }
+
+        // Settings / Users logic identical to before
+        async function loadSettings() {
+            try {
+                const res = await fetchAPI('/api/settings');
+                document.getElementById('target-file').value = res.target_file;
+            } catch (err) {}
+        }
+
+        document.getElementById('settings-form').onsubmit = async (e) => {
+            e.preventDefault();
+            try {
+                await fetchAPI('/api/settings', {
+                    method: 'POST',
+                    body: JSON.stringify({ target_file: document.getElementById('target-file').value })
+                });
+                showToast('Settings saved');
+            } catch (err) { alert(err.message); }
+        };
+
+        checkSession();
+    </script>
+</body>
+</html>
