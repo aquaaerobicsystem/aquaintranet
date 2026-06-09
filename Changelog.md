@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-06-09
+### Added
+- **Admin Portal Guide** (`admin_portal/public/admin_guide.html`) — full step-by-step guide covering Manage Links, Categories, Quick Search Chips, Icons & Custom SVG, Reordering, Manage Users, Change Password, Testing Tracker, and Tips & Best Practices. Includes sticky TOC sidebar, hero banner, numbered step cards, role comparison table, and callout blocks.
+- **📖 Admin Guide** link added to Admin Portal nav bar (`index.html`) — opens guide in a new tab.
+- **← Return to Employee Hub** link added to Admin Portal nav bar (`index.html`) — links to `http://www.aqua-aerobic.net/indexdev.html`.
+- **← Return to Aqua Intranet Admin** button in the Admin Guide sticky header — links back to `http://www.aqua-aerobic.net:5025/`.
+
 ## [1.3.0] - 2026-06-09
 ### Added
 - **Beta Testing Tracker** (`testing_tracker.html`) — full visual redesign with hero banner, sticky header, card-based layout, animated accordion panels, polished checkbox rows, and live participant/issue count badges.

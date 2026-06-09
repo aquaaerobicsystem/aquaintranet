@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal Guide — Aqua Intranet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --aqua-blue: #005f9e;
+      --aqua-dark: #003f66;
+      --aqua-mid: #0077bb;
+      --aqua-light: #c8e6f8;
+      --aqua-xlight: #eef7fd;
+      --accent: #00b4d8;
+      --green: #10b981;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --text: #0f2235;
+      --radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(0,63,102,0.08);
+      --shadow: 0 4px 20px rgba(0,63,102,0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #eef3f9;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* HEADER */
+    .site-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 32px;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-header::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: linear-gradient(90deg, var(--aqua-dark), var(--aqua-mid) 60%, var(--accent));
+      margin: 0 -32px;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+    }
+    .brand-logo { max-width: 200px; height: auto; }
+    .header-title { font-family: 'DM Serif Display', serif; color: var(--aqua-dark); font-size: 16px; }
+    .header-sub { font-size: 11px; color: var(--gray-400); }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--aqua-blue);
+      color: #fff;
+      text-decoration: none;
+      padding: 7px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .back-btn:hover { background: var(--aqua-dark); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--aqua-dark) 0%, var(--aqua-mid) 100%);
+      color: #fff;
+      padding: 50px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: 34px; margin-bottom: 10px; position: relative; z-index: 1; }
+    .hero p { color: rgba(255,255,255,0.85); font-size: 16px; position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+
+    /* LAYOUT */
+    .page-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* SIDEBAR TOC */
+    .toc {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 80px;
+    }
+    .toc h3 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray-400);
+      margin-bottom: 12px;
+    }
+    .toc ul { list-style: none; }
+    .toc ul li { margin-bottom: 4px; }
+    .toc ul li a {
+      text-decoration: none;
+      font-size: 13px;
+      color: var(--gray-600);
+      padding: 5px 8px;
+      display: block;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .toc ul li a:hover, .toc ul li a.active { background: var(--aqua-xlight); color: var(--aqua-dark); font-weight: 600; }
+    .toc-divider { height: 1px; background: var(--gray-100); margin: 8px 0; }
+
+    /* CONTENT */
+    .content section { margin-bottom: 52px; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 8px;
+    }
+    .content h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: var(--aqua-dark);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--aqua-light);
+    }
+    .content h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin: 24px 0 8px;
+    }
+    .content p { color: var(--gray-600); font-size: 14.5px; margin-bottom: 12px; }
+    .content ul, .content ol { padding-left: 20px; color: var(--gray-600); font-size: 14.5px; }
+    .content li { margin-bottom: 6px; }
+    .content strong { color: var(--gray-800); }
+
+    /* STEP CARDS */
+    .steps { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--aqua-blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+    .step-body { flex: 1; }
+    .step-body strong { display: block; font-size: 14px; color: var(--gray-800); margin-bottom: 3px; }
+    .step-body span { font-size: 13.5px; color: var(--gray-500); }
+
+    /* CALLOUTS */
+    .callout {
+      display: flex;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      margin: 16px 0;
+      font-size: 13.5px;
+    }
+    .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .callout.tip { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    .callout.note { background: var(--aqua-xlight); border: 1px solid var(--aqua-light); color: var(--aqua-dark); }
+    .callout.warning { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+
+    /* ROLE TABLE */
+    .role-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13.5px; }
+    .role-table th { background: var(--gray-50); padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray-500); border-bottom: 1px solid var(--gray-200); }
+    .role-table td { padding: 10px 14px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); }
+    .role-table tbody tr:hover td { background: var(--aqua-xlight); }
+    .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .pill.admin { background: #fee2e2; color: #991b1b; }
+    .pill.editor { background: #d1fae5; color: #065f46; }
+
+    /* FEATURE CARD GRID */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .feature-card .icon { font-size: 22px; margin-bottom: 8px; }
+    .feature-card h4 { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
+    .feature-card p { font-size: 13px; color: var(--gray-500); margin: 0; }
+
+    /* BADGE */
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; background: var(--aqua-xlight); color: var(--aqua-dark); margin-left: 6px; vertical-align: middle; }
+
+    /* CTA */
+    .cta-box {
+      background: linear-gradient(135deg, var(--aqua-dark), var(--aqua-mid));
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .cta-box h3 { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 8px; }
+    .cta-box p { color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 20px; }
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--aqua-dark);
+      text-decoration: none;
+      padding: 10px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: opacity 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.9; }
+
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--gray-200);
+      text-align: center;
+      padding: 20px;
+      color: var(--gray-400);
+      font-size: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/indexdev.html">
+      <img class="brand-logo" src="http://www.aqua-aerobic.net/images/newlogo.png" alt="Aqua-Aerobic Systems" onerror="this.src='http://www.aqua-aerobic.net:3000/logo.jpg'">
+    </a>
+    <div>
+      <div class="header-title">Admin Portal Guide</div>
+      <div class="header-sub">Aqua Intranet — Internal Documentation</div>
+    </div>
+    <a href="http://www.aqua-aerobic.net:5025/" class="back-btn" target="_blank">← Return to Aqua Intranet Admin</a>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Admin Portal Guide</h1>
+  <p>Everything you need to know to manage the Employee Hub — no coding required.</p>
+</div>
+
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
+  <nav class="toc">
+    <h3>Contents</h3>
+    <ul>
+      <li><a href="#getting-started">Getting Started</a></li>
+      <li><a href="#manage-links">Manage Links</a></li>
+      <div class="toc-divider"></div>
+      <li><a href="#categories">Categories & Sub-Categories</a></li>
+      <li><a href="#quick-search">Quick Search Chips</a></li>
+      <li><a href="#icons">Icons & Customization</a></li>
+      <li><a href="#reordering">Reordering Items</a></li>
+      <div class="toc-divider"></div>
+      <li><a href="#users">Manage Users</a></li>
+      <li><a href="#password">Change Password</a></li>
+      <li><a href="#tracker">Testing Tracker</a></li>
+      <li><a href="#tips">Tips & Best Practices</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="content">
+
+    <!-- GETTING STARTED -->
+    <section id="getting-started">
+      <div class="section-label">Overview</div>
+      <h2>Getting Started</h2>
+      <p>The Admin Portal lets you manage all content on the Employee Hub intranet through a visual interface. No HTML knowledge is required — every change is point-and-click.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="icon">🔗</div>
+          <h4>Manage Links</h4>
+          <p>Add, edit, remove, and reorder directory links, Quick Access chips, and Company Resources.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">👥</div>
+          <h4>Manage Users</h4>
+          <p>Create and manage admin/editor accounts and control which areas each user can edit.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🎨</div>
+          <h4>Icons & Customization</h4>
+          <p>Choose from 30+ built-in icons or paste your own custom SVG for any link.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📋</div>
+          <h4>Testing Tracker</h4>
+          <p>View and manage beta testing submissions and reported issues from the team.</p>
+        </div>
+      </div>
+
+      <h3>Logging In</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Navigate to the Admin Portal</strong>
+            <span>Go to <a href="http://www.aqua-aerobic.net:5025/" target="_blank" style="color:var(--aqua-blue);">http://www.aqua-aerobic.net:5025/</a></span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Enter your credentials</strong>
+            <span>Enter your username and password, then click Login.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>You're in!</strong>
+            <span>The portal will show your username and role in the top bar. Admin accounts see all tabs; Editor accounts only see areas they're assigned to.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout note" style="margin-top:20px;">
+        <span class="callout-icon">ℹ️</span>
+        <span>Contact IT if you need a login created or your password reset.</span>
+      </div>
+    </section>
+
+    <!-- MANAGE LINKS -->
+    <section id="manage-links">
+      <div class="section-label">Core Feature</div>
+      <h2>Manage Links</h2>
+      <p>The <strong>Manage Links</strong> tab is your main workspace. All changes to the Employee Hub directory, Quick Access chips, and Company Resources happen here.</p>
+
+      <h3>Selecting an Area</h3>
+      <p>Use the <strong>Select Area</strong> dropdown at the top to pick which section of the intranet you want to edit. Each area corresponds to a section visible to employees.</p>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <span>Use the <strong>Quick Search</strong> box inside the editor to instantly filter through all links without scrolling.</span>
+      </div>
+
+      <h3>Adding a Link</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Scroll to the category</strong>
+            <span>Find the Category or Sub-Category where the link belongs.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Click "Add Link"</strong>
+            <span>A new row appears with fields for the link label, URL, and icon.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Fill in the details</strong>
+            <span>Enter the display name, the full file path or URL, and choose an icon from the dropdown.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Click "Save & Publish to Intranet"</strong>
+            <span>Changes go live immediately on the Employee Hub.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Editing or Removing a Link</h3>
+      <ul>
+        <li>Click directly into the <strong>label</strong> or <strong>URL</strong> field to edit it inline.</li>
+        <li>Use the <strong>icon dropdown</strong> to change the icon — pick from the list or choose Custom SVG to paste your own.</li>
+        <li>Click the <strong>🗑️ Remove</strong> button to delete a link. This cannot be undone after saving.</li>
+      </ul>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <span>Always click <strong>Save & Publish</strong> after making changes — edits are not saved automatically.</span>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="categories">
+      <div class="section-label">Structure</div>
+      <h2>Categories & Sub-Categories</h2>
+      <p>The directory is organized into <strong>Categories</strong> (top-level folders) and optional <strong>Sub-Categories</strong> (nested folders within a category).</p>
+
+      <h3>Adding a Category</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Click "Add Category"</strong>
+            <span>Found at the bottom of the editor area.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Enter a name</strong>
+            <span>Give the category a clear, descriptive name that employees will recognize.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Add links and save</strong>
+            <span>Click "Add Link" inside the new category, then Save & Publish when done.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Adding a Sub-Category</h3>
+      <p>Inside any Category, click <strong>"Add Sub-Category"</strong> to create a nested folder. Sub-Categories appear as collapsible sections within a Category on the Employee Hub.</p>
+    </section>
+
+    <!-- QUICK SEARCH -->
+    <section id="quick-search">
+      <div class="section-label">Navigation</div>
+      <h2>Quick Search Chips</h2>
+      <p>Quick Search chips appear as clickable shortcuts at the top of the Employee Hub. Each chip links to a resource or launches AquaSearch.</p>
+
+      <h3>Two Types of Quick Search</h3>
+      <ul>
+        <li><strong>Standard URL</strong> — Links directly to a web page, shared drive path, or document.</li>
+        <li><strong>AquaSearch</strong> — Launches AquaSearch pre-filled with the chip's keyword, helping employees find documents instantly.</li>
+      </ul>
+
+      <h3>Adding a Chip</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Click "Add Quick Search Chip"</strong>
+            <span>In the Quick Search section of the editor.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Enter a label and type</strong>
+            <span>Set the chip label and choose Standard URL or AquaSearch from the dropdown.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Enter the URL or keyword</strong>
+            <span>For AquaSearch chips, enter the search keyword. For Standard URL, enter the full link.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Save & Publish</strong>
+            <span>The chip appears immediately on the Employee Hub.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ICONS -->
+    <section id="icons">
+      <div class="section-label">Customization</div>
+      <h2>Icons & Customization</h2>
+      <p>Every link and category can have an icon. Choose from the built-in library or use a custom SVG.</p>
+
+      <h3>Built-In Icons</h3>
+      <p>The icon dropdown includes 30+ pre-made icons covering common topics: Folder, Document, Search, People, Engineering, Calendar, Plane, Training, and more. Simply select from the list next to any link.</p>
+
+      <h3>Custom SVG Icons</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Select "Custom SVG" from the icon dropdown</strong>
+            <span>A text box appears for you to paste your SVG code.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Paste your SVG code</strong>
+            <span>Copy raw SVG markup (starting with <code>&lt;svg&gt;</code>) and paste it in. Free SVG icons are available at <a href="https://heroicons.com" target="_blank" style="color:var(--aqua-blue);">heroicons.com</a> and <a href="https://lucide.dev" target="_blank" style="color:var(--aqua-blue);">lucide.dev</a>.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Save & Publish</strong>
+            <span>The custom icon appears on the Employee Hub.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <span>If an icon looks wrong or you accidentally overwrite it, use the <strong>"Restore Original Custom SVG"</strong> button that appears next to the dropdown after selecting Custom SVG.</span>
+      </div>
+    </section>
+
+    <!-- REORDERING -->
+    <section id="reordering">
+      <div class="section-label">Organization</div>
+      <h2>Reordering Items</h2>
+      <p>Every item in the editor has <strong>Move Up ↑</strong> and <strong>Move Down ↓</strong> buttons. Use these to rearrange:</p>
+      <ul>
+        <li>Links within a category or sub-category</li>
+        <li>Categories within an area</li>
+        <li>Sub-categories within a category</li>
+        <li>Quick Search chips</li>
+      </ul>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <span>Remember to click <strong>Save & Publish</strong> after reordering to apply changes.</span>
+      </div>
+    </section>
+
+    <!-- USERS -->
+    <section id="users">
+      <div class="section-label">Admin Only</div>
+      <h2>Manage Users <span class="tag">Admin</span></h2>
+      <p>The <strong>Manage Users</strong> tab is visible only to users with the <strong>Admin</strong> role. Use it to create, edit, and delete portal accounts.</p>
+
+      <h3>User Roles</h3>
+      <table class="role-table">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Can Do</th>
+            <th>Cannot Do</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pill admin">Admin</span></td>
+            <td>Edit all areas, manage users, view all tabs, delete tracker entries</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><span class="pill editor">Editor</span></td>
+            <td>Edit their assigned areas only</td>
+            <td>Manage Users, Settings, delete tracker entries</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Adding a New User</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Go to the "Manage Users" tab</strong>
+            <span>Visible only to Admin accounts.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Fill in the Add New User form</strong>
+            <span>Enter a username, password, select a role (Admin or Editor), and choose which areas the user can edit.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Click "Add User"</strong>
+            <span>The new account appears in the user table immediately.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Editing or Deleting a User</h3>
+      <ul>
+        <li>Click <strong>Edit</strong> next to any user to update their username, role, or allowed areas.</li>
+        <li>Click <strong>Delete</strong> to permanently remove an account.</li>
+      </ul>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <span>You cannot delete your own account while logged in.</span>
+      </div>
+    </section>
+
+    <!-- PASSWORD -->
+    <section id="password">
+      <div class="section-label">Account</div>
+      <h2>Change Password</h2>
+      <p>Any logged-in user can change their own password from the <strong>Change Password</strong> tab.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Click "Change Password" in the top nav</strong>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Enter your current password</strong>
+            <span>This confirms your identity before allowing a change.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Enter and confirm your new password</strong>
+            <span>Then click "Update Password".</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRACKER -->
+    <section id="tracker">
+      <div class="section-label">Beta Testing</div>
+      <h2>Testing Tracker</h2>
+      <p>The <strong>📋 Testing Tracker</strong> link in the top nav opens the Beta Testing Tracker in a new tab. As an admin, you have additional capabilities:</p>
+      <ul>
+        <li>🗑️ <strong>Delete</strong> any test submission or reported issue (regular users cannot delete)</li>
+        <li>✏️ <strong>Edit</strong> any entry without needing an access code</li>
+        <li>🔐 <strong>Admin Note</strong> — add an internal note to any entry (only visible when logged in as admin)</li>
+        <li>💬 Delete comments and replies in the General Discussion board</li>
+        <li>🗂️ Remove attachments on any issue</li>
+      </ul>
+      <div class="callout note">
+        <span class="callout-icon">ℹ️</span>
+        <span>You must be logged into the Admin Portal first for the tracker to recognize your admin session.</span>
+      </div>
+    </section>
+
+    <!-- TIPS -->
+    <section id="tips">
+      <div class="section-label">Reference</div>
+      <h2>Tips & Best Practices</h2>
+      <ul>
+        <li>✅ Always <strong>Save & Publish</strong> after making changes — the green button at the bottom of the editor.</li>
+        <li>🔍 Use the <strong>Quick Search</strong> filter inside the editor when working with large areas — it narrows results instantly without page reload.</li>
+        <li>🖼️ Keep icon choices consistent — try to use the same icon for the same type of resource across areas (e.g. always use the Folder icon for directories).</li>
+        <li>🔗 Use full file paths for network drives (e.g. <code>\\aqua47\shared\...</code>) and full URLs for web links.</li>
+        <li>🔒 Share Editor accounts (not Admin) with department leads who only need to update their own section.</li>
+        <li>📋 Check the Testing Tracker regularly during the beta period to stay on top of reported issues.</li>
+      </ul>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <h3>Ready to make changes?</h3>
+      <p>Open the Admin Portal and log in to get started.</p>
+      <a href="http://www.aqua-aerobic.net:5025/" target="_blank" class="cta-btn">🔐 Open Admin Portal</a>
+    </div>
+
+  </div><!-- end .content -->
+</div><!-- end .page-wrap -->
+
+<footer>
+  <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Aqua-Aerobic Systems, Inc. &mdash; Internal Use Only</p>
+</footer>
+
+</body>
+</html>
