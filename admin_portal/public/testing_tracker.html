@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beta Testing Tracker — Employee Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --aqua-blue: #005f9e;
+      --aqua-dark: #003f66;
+      --aqua-mid: #0077bb;
+      --aqua-light: #c8e6f8;
+      --aqua-xlight: #eef7fd;
+      --accent: #00b4d8;
+      --accent-warm: #f4a261;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --text: #0f2235;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 1px 3px rgba(0,63,102,0.08);
+      --shadow: 0 4px 20px rgba(0,63,102,0.10);
+      --shadow-lg: 0 12px 40px rgba(0,63,102,0.14);
+      --transition: 0.2s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #eef3f9;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 32px;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-header::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: linear-gradient(90deg, var(--aqua-dark), var(--aqua-mid) 60%, var(--accent));
+      margin: 0 -32px;
+    }
+    .header-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+    }
+    .brand-logo { max-width: 220px; height: auto; }
+    .header-text { text-align: right; }
+    .header-text h1 { font-size: 16px; font-weight: 700; color: var(--aqua-dark); font-family: 'DM Serif Display', serif; }
+    .header-text p.sub { font-size: 11px; color: var(--gray-400); margin: 0; }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      background: linear-gradient(135deg, var(--aqua-dark) 0%, var(--aqua-mid) 100%);
+      color: #fff;
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero h2 { font-family: 'DM Serif Display', serif; font-size: 30px; margin-bottom: 8px; position: relative; z-index: 1; }
+    .hero p { color: rgba(255,255,255,0.8); font-size: 15px; margin: 0; position: relative; z-index: 1; }
+
+    /* ── ADMIN BANNER ── */
+    .admin-banner {
+      background: linear-gradient(90deg, var(--aqua-dark), #005a8e);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 24px;
+      font-size: 14px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      border-left: 4px solid var(--accent);
+    }
+    .admin-banner strong { color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    .page-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 24px 60px;
+      width: 100%;
+      flex: 1;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 16px;
+      margin-top: 48px;
+    }
+    .section-label:first-child { margin-top: 0; }
+
+    /* ── ACCORDION ── */
+    details.panel {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: box-shadow var(--transition);
+    }
+    details.panel:hover { box-shadow: var(--shadow); }
+    details.panel summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--aqua-dark);
+      list-style: none;
+      user-select: none;
+      border-radius: var(--radius);
+    }
+    details.panel summary::-webkit-details-marker { display: none; }
+    details.panel summary::before {
+      content: '+';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: var(--aqua-xlight);
+      color: var(--aqua-blue);
+      border-radius: 50%;
+      font-size: 16px;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: transform var(--transition), background var(--transition);
+    }
+    details.panel[open] summary::before { content: '−'; background: var(--aqua-blue); color: #fff; }
+    details.panel summary:hover { background: var(--gray-50); }
+    .panel-body { padding: 0 20px 20px; }
+
+    /* ── FORMS ── */
+    .form-grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+    .form-grid .full { grid-column: 1 / -1; }
+    .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 5px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--aqua-blue);
+      box-shadow: 0 0 0 3px rgba(0,95,158,0.12);
+    }
+    .form-textarea { resize: vertical; min-height: 90px; }
+    .checkbox-group { display: flex; flex-direction: column; gap: 10px; }
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .checkbox-item:hover { background: var(--aqua-xlight); border-color: var(--aqua-light); }
+    .checkbox-item input[type=checkbox] { margin-top: 2px; accent-color: var(--aqua-blue); width:16px; height:16px; flex-shrink:0; }
+    .checkbox-item .cb-label { font-size: 14px; color: var(--gray-700); line-height: 1.5; }
+    .checkbox-item .cb-label strong { color: var(--aqua-dark); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--aqua-blue);
+      color: var(--white);
+      text-decoration: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 2px 8px rgba(0,95,158,0.25);
+    }
+    .btn:hover { background: var(--aqua-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,63,102,0.3); }
+    .btn:active { transform: translateY(0); }
+
+    /* ── TABLES ── */
+    .table-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .table-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .table-header h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 17px;
+      color: var(--aqua-dark);
+      margin: 0;
+      border: none;
+      padding: 0;
+    }
+    .table-header .badge {
+      background: var(--aqua-xlight);
+      color: var(--aqua-blue);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    th {
+      padding: 11px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--gray-100);
+      color: var(--gray-700);
+      vertical-align: top;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--aqua-xlight); }
+
+    /* ── STATUS BADGES ── */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .status-pending  { background: #fef3c7; color: #92400e; }
+    .status-completed { background: #d1fae5; color: #065f46; }
+    .status-issue    { background: #fee2e2; color: #991b1b; }
+
+    /* ── ACTIONS ── */
+    .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+    .action-btn {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--gray-600);
+      font-size: 12px;
+      font-weight: 500;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .action-btn:hover { background: var(--gray-100); border-color: var(--gray-300); }
+
+    /* ── CHIPS & ATTACHMENTS ── */
+    .admin-note-cell { font-size: 12px; color: var(--aqua-dark); font-style: italic; background: var(--aqua-xlight); border-radius: 4px; padding: 3px 8px; display: inline-block; }
+    .file-upload-area {
+      border: 2px dashed var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color var(--transition), background var(--transition);
+      background: var(--gray-50);
+      color: var(--gray-500);
+      font-size: 13px;
+    }
+    .file-upload-area:hover { border-color: var(--aqua-mid); background: var(--aqua-xlight); color: var(--aqua-blue); }
+    .file-upload-area input[type=file] { display:none; }
+    .attachment-chip { display:inline-flex; align-items:center; gap:5px; background:var(--aqua-xlight); border:1px solid var(--aqua-light); border-radius:20px; padding:3px 10px; font-size:12px; text-decoration:none; color:var(--aqua-dark); margin:2px; transition: background var(--transition); }
+    .attachment-chip:hover { background:var(--aqua-light); }
+    .del-attach { background:none; border:none; cursor:pointer; color:#c0392b; font-size:13px; padding:0; margin-left:2px; line-height:1; }
+
+    /* ── COMMENTS ── */
+    .comment-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .comment-card .comment-meta { font-size: 12px; color: var(--gray-400); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .comment-card .comment-meta strong { color: var(--aqua-dark); font-size: 13px; }
+    .comment-card .comment-body { font-size: 14px; color: var(--gray-700); line-height: 1.65; }
+    .comment-reply-btn {
+      background: none;
+      border: 1px solid var(--gray-200);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--aqua-blue);
+      margin-top: 10px;
+      font-weight: 500;
+      transition: background var(--transition);
+    }
+    .comment-reply-btn:hover { background: var(--aqua-xlight); }
+    .reply-thread { margin-left: 24px; margin-top: 10px; border-left: 3px solid var(--aqua-light); padding-left: 16px; }
+    .reply-card {
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      border: 1px solid var(--gray-100);
+    }
+    .reply-card .comment-meta { font-size: 11px; color: var(--gray-400); margin-bottom: 4px; }
+    .reply-card .comment-meta strong { color: var(--aqua-dark); font-size: 12px; }
+    .inline-reply-form { margin-top: 12px; display: none; background: var(--gray-50); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); }
+    .inline-reply-form textarea { width: 100%; padding: 8px 10px; border: 1.5px solid var(--gray-200); border-radius: 6px; font-size: 13px; height: 70px; resize: vertical; box-sizing: border-box; font-family: 'DM Sans', sans-serif; outline: none; }
+    .inline-reply-form textarea:focus { border-color: var(--aqua-blue); }
+    .inline-reply-form input { width: 100%; padding: 7px 10px; border: 1.5px solid var(--gray-200); border-radius: 6px; font-size: 13px; margin-bottom: 8px; box-sizing: border-box; font-family: 'DM Sans', sans-serif; outline: none; }
+    .inline-reply-form input:focus { border-color: var(--aqua-blue); }
+    .inline-reply-form .reply-actions { display: flex; gap: 8px; margin-top: 8px; }
+    .reply-submit-btn { background: var(--aqua-blue); color: #fff; border: none; padding: 7px 18px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600; transition: background var(--transition); }
+    .reply-submit-btn:hover { background: var(--aqua-dark); }
+    .reply-cancel-btn { background: none; border: 1px solid var(--gray-200); padding: 7px 14px; border-radius: 20px; cursor: pointer; font-size: 13px; color: var(--gray-500); }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider { height: 1px; background: var(--gray-100); margin: 48px 0 32px; }
+    .contact-note {
+      text-align: center;
+      padding: 16px 24px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-size: 13px;
+      color: var(--gray-500);
+      box-shadow: var(--shadow-sm);
+    }
+    .contact-note strong { color: var(--gray-700); }
+    .contact-note a { color: var(--aqua-blue); text-decoration: none; font-weight: 500; }
+    .contact-note a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--gray-200);
+      text-align: center;
+      padding: 24px;
+      color: var(--gray-400);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="indexdev.html" title="Back to Home"><img class="brand-logo" src="http://www.aqua-aerobic.net/images/newlogo.png" alt="Aqua-Aerobic Systems, Inc." onerror="this.src='http://www.aqua-aerobic.net:3000/logo.jpg'"></a>
+      <div class="header-text" style="text-align:right;">
+        <h1>Beta Testing Tracker</h1>
+        <p class="sub">Monitor User Feedback & Testing Progress</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h2>📋 Intranet Beta Testing Tracker</h2>
+    <p>Submit your test results, report issues, and share feedback on the new Employee Hub.</p>
+  </div>
+
+  <div class="page-body">
+    <div id="adminBanner" class="admin-banner">
+      🔐 <strong>Admin Mode</strong> — You are logged in as admin. Edit any entry directly without a code.
+    </div>
+
+    <p class="section-label">Submit Your Feedback</p>
+    <details class="panel">
+      <summary>✅ Submit Testing Results</summary>
+      <div class="panel-body">
+      <form id="trackerForm" class="form-grid" style="margin-top:4px;">
+        <div>
+          <label class="form-label">Full Name / Department</label>
+          <input type="text" id="tfName" required placeholder="e.g. Jane Doe (HR)" class="form-input">
+        </div>
+        <div>
+          <label class="form-label">Access Code</label>
+          <input type="password" id="tfCode" required placeholder="Enter code" class="form-input">
+        </div>
+
+        <div class="full">
+          <label class="form-label" style="margin-bottom:10px;">Check the items you have successfully tested:</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" id="tfLinks"><span class="cb-label"><strong>File Links:</strong> Clicked through directory folders, Quick Access chips, and Company Resources.</span></label>
+            <label class="checkbox-item"><input type="checkbox" id="tfSearch"><span class="cb-label"><strong>Search:</strong> Tested phrases like 174523, 2026 Rental Business Initiatives, and Benefits questions.</span></label>
+            <label class="checkbox-item"><input type="checkbox" id="tfLayout"><span class="cb-label"><strong>Layout &amp; Structure:</strong> Flow is intuitive, no missing folders, User Guide loads properly.</span></label>
+          </div>
+        </div>
+
+        <div class="full">
+          <label class="form-label">Additional Notes (Optional)</label>
+          <textarea id="tfNotes" placeholder="Any general comments or observations..." class="form-textarea"></textarea>
+        </div>
+
+        <div class="full">
+          <button type="submit" class="btn">✔ Submit Testing Results</button>
+        </div>
+      </form>
+      </div>
+    </details>
+
+    <details class="panel">
+      <summary>🚨 Report an Issue</summary>
+      <div class="panel-body">
+      <form id="issueForm" class="form-grid" style="margin-top:4px;">
+        <div>
+          <label class="form-label">Full Name</label>
+          <input type="text" id="ifName" required placeholder="Your Name" class="form-input">
+        </div>
+        <div>
+          <label class="form-label">Access Code</label>
+          <input type="password" id="ifCode" required placeholder="Enter code" class="form-input">
+        </div>
+        <div>
+          <label class="form-label">Category</label>
+          <select id="ifCategory" class="form-select">
+            <option>Broken Link</option>
+            <option>Search Issue</option>
+            <option>Missing File/Folder</option>
+            <option>Other / Structural</option>
+          </select>
+        </div>
+        <div class="full">
+          <label class="form-label">Issue Description</label>
+          <textarea id="ifDesc" required placeholder="Describe the issue in detail..." class="form-textarea"></textarea>
+        </div>
+        <div class="full">
+          <label class="form-label">Attachments <span style="font-weight:400; color:var(--gray-400);">(PDF, DOCX, or images — optional)</span></label>
+          <div class="file-upload-area" onclick="document.getElementById('ifFiles').click()">
+            <input type="file" id="ifFiles" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.gif,.webp,.bmp">
+            <span id="ifFilesLabel">📎 Click to attach files or drag &amp; drop</span>
+          </div>
+        </div>
+        <div class="full">
+          <button type="submit" class="btn">🚨 Submit Issue</button>
+        </div>
+      </form>
+      </div>
+    </details>
+
+    <p class="section-label">Testing Progress</p>
+    <div class="table-card">
+      <div class="table-header">
+        <h3>Testing Requirements Tracker</h3>
+        <span class="badge" id="userCountBadge">loading...</span>
+      </div>
+    <table id="usersTable">
+      <thead>
+        <tr>
+          <th>User / Department</th>
+          <th>File Links Tested</th>
+          <th>Search Tested</th>
+          <th>Layout Reviewed</th>
+          <th>Status</th>
+          <th>Notes</th>
+          <th>Admin Note</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="usersBody">
+        <tr><td colspan="8">Loading...</td></tr>
+      </tbody>
+    </table>
+
+    </div>
+
+    <div class="table-card" style="margin-top:20px;">
+      <div class="table-header">
+        <h3>Reported Issues &amp; Feedback Log</h3>
+        <span class="badge" id="issueCountBadge">loading...</span>
+      </div>
+    <table id="issuesTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Reported By</th>
+          <th>Category</th>
+          <th>Issue Description</th>
+          <th>Status</th>
+          <th>Attachments</th>
+          <th>Admin Note</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="issuesBody">
+        <tr><td colspan="8">Loading...</td></tr>
+      </tbody>
+    </table>
+
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+      <a href="http://www.aqua-aerobic.net/indexdev.html" class="btn">← Return to Employee Hub</a>
+    </div>
+
+    <div class="contact-note" style="margin-top:20px;">
+      <strong>Need to delete something?</strong><br>
+      Contact <a href="mailto:ckonkol@aqua-aerobic.com">ckonkol@aqua-aerobic.com</a>
+      or <a href="mailto:cshields@aqua-aerobic.com">cshields@aqua-aerobic.com</a>
+    </div>
+
+    <div class="section-divider"></div>
+    <p class="section-label">Discussion</p>
+    <h3 style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--aqua-dark); border:none; padding:0; margin:0 0 6px;">💬 General Comments &amp; Discussion</h3>
+    <p style="font-size:14px; color:var(--gray-500); margin-bottom:20px;">Have a thought that doesn't fit in the forms above? Leave a general comment or reply to someone else's feedback.</p>
+
+    <details class="panel" style="margin-bottom:24px;">
+      <summary>✏️ Submit a General Comment</summary>
+      <div class="panel-body">
+      <form id="commentForm" style="display:grid; gap:14px; margin-top:6px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div>
+            <label class="form-label">Full Name</label>
+            <input type="text" id="cmtName" required placeholder="Your Name" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Access Code</label>
+            <input type="password" id="cmtCode" required placeholder="Enter code" class="form-input">
+          </div>
+        </div>
+        <div>
+          <label class="form-label">Comment</label>
+          <textarea id="cmtText" required placeholder="Share your thoughts, suggestions, or general feedback..." class="form-textarea" style="min-height:110px;"></textarea>
+        </div>
+        <div><button type="submit" class="btn">💬 Post Comment</button></div>
+      </form>
+      </div>
+    </details>
+
+    <div id="commentsBoard"><p style="color:var(--gray-400); font-size:14px;">Loading comments...</p></div>
+  </div>
+
+  <!-- EDIT MODAL -->
+  <div id="editModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:10px; padding:30px; max-width:580px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.3); max-height:90vh; overflow-y:auto;">
+      <h3 id="modalTitle" style="color:var(--aqua-dark); font-family:'DM Serif Display',serif; margin-bottom:15px;"></h3>
+      <div id="modalBody"></div>
+      <div style="display:flex; gap:10px; margin-top:20px;">
+        <button id="modalSaveBtn" class="btn" style="cursor:pointer; flex:1;">Save Changes</button>
+        <button onclick="closeModal()" style="flex:1; padding:10px; border:1px solid var(--gray-200); border-radius:50px; cursor:pointer; background:#fff; color:var(--gray-600); font-weight:500;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let editTarget = null;
+    let isAdmin = false;
+
+    // Check admin session on load
+    async function checkAdmin() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        if (data.loggedIn && data.role === 'admin') {
+          isAdmin = true;
+          document.getElementById('adminBanner').style.display = 'block';
+        }
+      } catch(e) {}
+    }
+
+    function closeModal() {
+      document.getElementById('editModal').style.display = 'none';
+      editTarget = null;
+    }
+
+    function codeField() {
+      if (isAdmin) return '';
+      return `<label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Access Code</label>
+        <input id="mCode" type="password" placeholder="Enter access code" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;margin-bottom:12px;">`;
+    }
+
+    function openEditUser(u) {
+      editTarget = { type: 'user', id: u.id };
+      document.getElementById('modalTitle').textContent = 'Edit Testing Results — ' + u.name;
+      document.getElementById('modalBody').innerHTML = `
+        ${codeField()}
+        <label style="display:block;margin-bottom:6px;"><input type="checkbox" id="mLinks" ${u.links_tested.includes('✅')?'checked':''}> <strong>File Links</strong> tested</label>
+        <label style="display:block;margin-bottom:6px;"><input type="checkbox" id="mSearch" ${u.search_tested.includes('✅')?'checked':''}> <strong>Search</strong> tested</label>
+        <label style="display:block;margin-bottom:12px;"><input type="checkbox" id="mLayout" ${u.layout_reviewed.includes('✅')?'checked':''}> <strong>Layout & Structure</strong> reviewed</label>
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Notes</label>
+        <input id="mNotes" type="text" value="${u.notes||''}" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;margin-bottom:12px;">
+        ${isAdmin ? `<label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;color:var(--aqua-dark);">🔐 Admin Note</label>
+        <textarea id="mAdminNote" style="width:100%;padding:8px;border:2px solid var(--aqua-mid);border-radius:4px;height:70px;">${u.admin_note||''}</textarea>` : ''}
+      `;
+      document.getElementById('editModal').style.display = 'flex';
+    }
+
+    function renderModalAttachments(attachments) {
+      const container = document.getElementById('modalAttachContainer');
+      if (!container) return;
+      if (!attachments || !attachments.length) {
+        container.innerHTML = '<span style="color:var(--gray-400);font-size:12px;">None</span>';
+        return;
+      }
+      container.innerHTML = attachments.map(a => {
+        const ext = a.originalname.split('.').pop().toLowerCase();
+        const icon = ['jpg','jpeg','png','gif','webp','bmp'].includes(ext) ? '🖼️' : ext === 'pdf' ? '📄' : '📝';
+        return `<span style="display:inline-flex;align-items:center;gap:4px;" >
+          <a class="attachment-chip" href="/uploads/${a.filename}" target="_blank">${icon} ${a.originalname}</a>
+          <button class="del-attach" onclick="deleteAttachmentInModal(${a.id})" title="Remove attachment">&times;</button>
+        </span>`;
+      }).join('');
+    }
+
+    async function deleteAttachmentInModal(id) {
+      if (!confirm('Remove this attachment?')) return;
+      const code = isAdmin ? '1969' : (document.getElementById('mCode') ? document.getElementById('mCode').value : '');
+      if (!isAdmin && !code) return alert('Enter your access code first.');
+      const res = await fetch('/api/tracker/attachment/' + id, {
+        method: 'DELETE',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ code: isAdmin ? '1969' : code })
+      });
+      if (!res.ok) return alert('Failed to remove attachment.');
+      // Refresh just the attachment list inside the modal
+      const r = await fetch('/api/tracker');
+      const d = await r.json();
+      const issue = d.issues.find(i => i.id === editTarget.id);
+      if (issue) renderModalAttachments(issue.attachments);
+    }
+
+    function openEditIssue(i) {
+      editTarget = { type: 'issue', id: i.id };
+      document.getElementById('modalTitle').textContent = 'Edit Issue #' + i.id;
+
+      document.getElementById('modalBody').innerHTML = `
+        ${codeField()}
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Category</label>
+        <select id="mCategory" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;margin-bottom:12px;">
+          <option ${i.category==='Broken Link'?'selected':''}>Broken Link</option>
+          <option ${i.category==='Search Issue'?'selected':''}>Search Issue</option>
+          <option ${i.category==='Missing File/Folder'?'selected':''}>Missing File/Folder</option>
+          <option ${i.category==='Other / Structural'?'selected':''}>Other / Structural</option>
+        </select>
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Description</label>
+        <textarea id="mDesc" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;height:80px;margin-bottom:12px;">${i.description}</textarea>
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Status</label>
+        <select id="mStatus" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;margin-bottom:12px;">
+          <option ${i.status==='Open'?'selected':''}>Open</option>
+          <option ${i.status==='Resolved'?'selected':''}>Resolved</option>
+        </select>
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">Current Attachments</label>
+        <div id="modalAttachContainer" style="margin-bottom:12px;"></div>
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Add More Attachments <span style="font-weight:400;color:var(--gray-400);">(PDF, DOCX, or images)</span></label>
+        <div class="file-upload-area" onclick="document.getElementById('mFiles').click()" style="margin-bottom:12px;">
+          <input type="file" id="mFiles" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.gif,.webp,.bmp" onchange="updateModalFileLabel(this)">
+          <span id="mFilesLabel">📎 Click to attach files</span>
+        </div>
+        ${isAdmin ? `<label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;color:var(--aqua-dark);">🔐 Admin Note</label>
+        <textarea id="mAdminNote" style="width:100%;padding:8px;border:2px solid var(--aqua-mid);border-radius:4px;height:70px;">${i.admin_note||''}</textarea>` : ''}
+      `;
+      // Render attachment chips separately so they can be updated independently
+      renderModalAttachments(i.attachments);
+      document.getElementById('editModal').style.display = 'flex';
+    }
+
+    function updateModalFileLabel(input) {
+      const label = document.getElementById('mFilesLabel');
+      if (input.files.length > 0) {
+        label.textContent = `📎 ${input.files.length} file(s): ${Array.from(input.files).map(f => f.name).join(', ')}`;
+      } else {
+        label.textContent = '📎 Click to attach files';
+      }
+    }
+
+    document.getElementById('modalSaveBtn').onclick = async () => {
+      if (!editTarget) return;
+      let code = '';
+      if (!isAdmin) {
+        code = document.getElementById('mCode').value;
+        if (!code) return alert('Please enter the access code.');
+        if (code !== '1969') return alert('Invalid code.');
+      }
+
+      const endpoint = isAdmin ? '/api/admin' : '/api';
+      let res;
+      if (editTarget.type === 'user') {
+        res = await fetch(`${endpoint}/tracker/user/${editTarget.id}`, {
+          method: 'PUT',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            code,
+            links_tested: document.getElementById('mLinks').checked,
+            search_tested: document.getElementById('mSearch').checked,
+            layout_reviewed: document.getElementById('mLayout').checked,
+            notes: document.getElementById('mNotes').value,
+            admin_note: isAdmin ? document.getElementById('mAdminNote').value : undefined
+          })
+        });
+      } else {
+        res = await fetch(`${endpoint}/tracker/issue/${editTarget.id}`, {
+          method: 'PUT',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            code,
+            category: document.getElementById('mCategory').value,
+            description: document.getElementById('mDesc').value,
+            status: document.getElementById('mStatus').value,
+            admin_note: isAdmin ? document.getElementById('mAdminNote').value : undefined
+          })
+        });
+      }
+      if (res.ok) {
+        // After saving text fields, upload any new files if this is an issue edit
+        if (editTarget.type === 'issue') {
+          const mFiles = document.getElementById('mFiles');
+          if (mFiles && mFiles.files.length > 0) {
+            const uploadCode = isAdmin ? '1969' : (document.getElementById('mCode') ? document.getElementById('mCode').value : '1969');
+            const fd = new FormData();
+            fd.append('code', uploadCode);
+            Array.from(mFiles.files).forEach(f => fd.append('files', f));
+            const uploadRes = await fetch(`/api/tracker/issue/${editTarget.id}/upload`, {
+              method: 'POST',
+              body: fd
+            });
+            if (!uploadRes.ok) {
+              const ud = await uploadRes.json();
+              alert('Changes saved, but file upload failed: ' + (ud.error || 'Unknown error'));
+            }
+          }
+        }
+        closeModal();
+        loadData();
+      }
+      else { const d = await res.json(); alert(d.error || 'Error saving.'); }
+    };
+
+    async function deleteUser(id) {
+      const code = isAdmin ? '1969' : prompt('Enter access code to delete this entry:');
+      if (!isAdmin && !code) return;
+      if (!isAdmin && code !== '1969') return alert('Invalid code.');
+      if (!confirm('Are you sure you want to delete this testing result?')) return;
+      const res = await fetch('/api/tracker/user/' + id, {
+        method: 'DELETE',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ code: '1969' })
+      });
+      if (res.ok) loadData();
+    }
+
+    async function deleteIssue(id) {
+      const code = isAdmin ? '1969' : prompt('Enter access code to delete this issue:');
+      if (!isAdmin && !code) return;
+      if (!isAdmin && code !== '1969') return alert('Invalid code.');
+      if (!confirm('Are you sure you want to delete this issue?')) return;
+      const res = await fetch('/api/tracker/issue/' + id, {
+        method: 'DELETE',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ code: '1969' })
+      });
+      if (res.ok) loadData();
+    }
+
+    async function deleteAttachment(id) {
+      if (!confirm('Remove this attachment?')) return;
+      const res = await fetch('/api/tracker/attachment/' + id, {
+        method: 'DELETE',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ code: '1969' })
+      });
+      if (res.ok) loadData();
+      else alert('Failed to delete attachment.');
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch('/api/tracker');
+        const data = await res.json();
+
+        document.getElementById('usersBody').innerHTML = data.users.length ? data.users.map(u => `
+          <tr>
+            <td><strong>${u.name}</strong></td>
+            <td>${u.links_tested}</td>
+            <td>${u.search_tested}</td>
+            <td>${u.layout_reviewed}</td>
+            <td><span class="status-badge ${u.status==='Completed'?'status-completed':'status-pending'}">${u.status}</span></td>
+            <td>${u.notes||''}</td>
+            <td>${u.admin_note ? `<span class="admin-note-cell">${u.admin_note}</span>` : '<span style="color:var(--gray-400);font-size:12px;">—</span>'}</td>
+            <td class="actions">
+              <button class="action-btn" onclick='openEditUser(${JSON.stringify(u)})'>✏️ Edit</button>
+              ${isAdmin ? `<button class="action-btn" style="color:#c0392b;" onclick="deleteUser(${u.id})">🗑️ Delete</button>` : ''}
+            </td>
+          </tr>
+        `).join('') : '<tr><td colspan="8">No testing results submitted yet.</td></tr>';
+
+        const ub = document.getElementById('userCountBadge');
+        if (ub) ub.textContent = data.users.length + ' participant' + (data.users.length !== 1 ? 's' : '');
+
+        document.getElementById('issuesBody').innerHTML = data.issues.length ? data.issues.map(i => {
+          const attachHtml = (i.attachments && i.attachments.length)
+            ? i.attachments.map(a => {
+                const ext = a.originalname.split('.').pop().toLowerCase();
+                const icon = ['jpg','jpeg','png','gif','webp','bmp'].includes(ext) ? '🖼️' : ext === 'pdf' ? '📄' : '📝';
+                const delBtn = isAdmin ? `<button class="del-attach" onclick="deleteAttachment(${a.id})" title="Delete attachment">&times;</button>` : '';
+                return `<a class="attachment-chip" href="/uploads/${a.filename}" target="_blank">${icon} ${a.originalname}${delBtn}</a>`;
+              }).join('')
+            : '<span style="color:var(--gray-400);font-size:12px;">—</span>';
+          return `
+          <tr>
+            <td>${i.date}</td>
+            <td><strong>${i.reported_by}</strong></td>
+            <td>${i.category}</td>
+            <td>${i.description}</td>
+            <td><span class="status-badge ${i.status==='Resolved'?'status-completed':'status-issue'}">${i.status}</span></td>
+            <td>${attachHtml}</td>
+            <td>${i.admin_note ? `<span class="admin-note-cell">${i.admin_note}</span>` : '<span style="color:var(--gray-400);font-size:12px;">—</span>'}</td>
+            <td class="actions">
+              <button class="action-btn" onclick='openEditIssue(${JSON.stringify(i)})'>✏️ Edit</button>
+              ${isAdmin ? `<button class="action-btn" style="color:#c0392b;" onclick="deleteIssue(${i.id})">🗑️ Delete</button>` : ''}
+            </td>
+          </tr>`;
+        }).join('') : '<tr><td colspan="8">No issues reported yet.</td></tr>';
+
+        const ib = document.getElementById('issueCountBadge');
+        if (ib) ib.textContent = data.issues.length + ' issue' + (data.issues.length !== 1 ? 's' : '');
+
+      } catch(e) { console.error(e); }
+    }
+
+    document.getElementById('trackerForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const code = document.getElementById('tfCode').value;
+      if(code !== '1969') return alert('Invalid code.');
+      const payload = {
+        code,
+        name: document.getElementById('tfName').value,
+        links_tested: document.getElementById('tfLinks').checked,
+        search_tested: document.getElementById('tfSearch').checked,
+        layout_reviewed: document.getElementById('tfLayout').checked,
+        notes: document.getElementById('tfNotes').value
+      };
+      try {
+        const res = await fetch('/api/tracker/user', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+        });
+        if(res.ok) { alert('Testing results submitted!'); loadData(); }
+        else { const d = await res.json(); alert(d.error); }
+      } catch(e) { alert(e.message); }
+    };
+
+    document.getElementById('issueForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const code = document.getElementById('ifCode').value;
+      if(code !== '1969') return alert('Invalid code.');
+
+      // Step 1: Submit the issue as JSON to get the new issue ID
+      const issuePayload = {
+        code,
+        reported_by: document.getElementById('ifName').value,
+        category: document.getElementById('ifCategory').value,
+        description: document.getElementById('ifDesc').value
+      };
+      try {
+        const res = await fetch('/api/tracker/issue', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(issuePayload)
+        });
+        if (!res.ok) { const d = await res.json(); return alert(d.error); }
+        const data = await res.json();
+
+        // Step 2: If files selected, upload them using multipart FormData
+        const fileInput = document.getElementById('ifFiles');
+        if (fileInput && fileInput.files.length > 0 && data.id) {
+          const fd = new FormData();
+          fd.append('code', code);
+          Array.from(fileInput.files).forEach(f => fd.append('files', f));
+          const uploadRes = await fetch(`/api/tracker/issue/${data.id}/upload`, {
+            method: 'POST',
+            body: fd  // NO Content-Type header — browser sets multipart boundary automatically
+          });
+          if (!uploadRes.ok) {
+            const ud = await uploadRes.json();
+            alert('Issue saved, but file upload failed: ' + (ud.error || 'Unknown error'));
+          }
+        }
+
+        alert('Issue reported!');
+        document.getElementById('ifDesc').value = '';
+        if (fileInput) { fileInput.value = ''; document.getElementById('ifFilesLabel').textContent = '📎 Click to attach files or drag & drop'; }
+        loadData();
+      } catch(e) { alert(e.message); }
+    };
+
+    // Update file input label when files are picked
+    document.getElementById('ifFiles').addEventListener('change', function() {
+      const label = document.getElementById('ifFilesLabel');
+      if (this.files.length > 0) {
+        label.textContent = `📎 ${this.files.length} file(s) selected: ${Array.from(this.files).map(f => f.name).join(', ')}`;
+      } else {
+        label.textContent = '📎 Click to attach files or drag & drop';
+      }
+    });
+
+    // ── COMMENTS ─────────────────────────────────────────────────────────────
+    async function loadComments() {
+      try {
+        const res = await fetch('/api/tracker/comments');
+        const comments = await res.json();
+        const board = document.getElementById('commentsBoard');
+        if (!comments.length) {
+          board.innerHTML = '<p style="color:var(--gray-400); font-size:14px; text-align:center; padding:20px 0;">No comments yet. Be the first to leave feedback!</p>';
+          return;
+        }
+        board.innerHTML = comments.map(c => `
+          <div class="comment-card" id="cmt-${c.id}">
+            <div class="comment-meta">
+              <strong>${c.name}</strong> &nbsp;·&nbsp; ${c.date}
+              ${isAdmin ? `<button onclick="deleteComment(${c.id})" style="float:right;background:none;border:none;cursor:pointer;color:#c0392b;font-size:12px;">🗑️ Delete</button>` : ''}
+            </div>
+            <div class="comment-body">${c.comment.replace(/\n/g, '<br>')}</div>
+            <button class="comment-reply-btn" onclick="toggleReply(${c.id})">↩ Reply</button>
+
+            <!-- Inline reply form -->
+            <div class="inline-reply-form" id="replyForm-${c.id}">
+              <input type="text" id="rName-${c.id}" placeholder="Your Name" required>
+              <input type="password" id="rCode-${c.id}" placeholder="Access code">
+              <textarea id="rText-${c.id}" placeholder="Write your reply..."></textarea>
+              <div class="reply-actions">
+                <button class="reply-submit-btn" onclick="submitReply(${c.id})">Post Reply</button>
+                <button class="reply-cancel-btn" onclick="toggleReply(${c.id})">Cancel</button>
+              </div>
+            </div>
+
+            <!-- Replies -->
+            ${c.replies && c.replies.length ? `
+              <div class="reply-thread">
+                ${c.replies.map(r => `
+                  <div class="reply-card">
+                    <div class="comment-meta">
+                      <strong>${r.name}</strong> &nbsp;·&nbsp; ${r.date}
+                      ${isAdmin ? `<button onclick="deleteComment(${r.id})" style="float:right;background:none;border:none;cursor:pointer;color:#c0392b;font-size:11px;">🗑️</button>` : ''}
+                    </div>
+                    <div>${r.comment.replace(/\n/g, '<br>')}</div>
+                  </div>`).join('')}
+              </div>` : ''}
+          </div>
+        `).join('');
+      } catch(e) { console.error(e); }
+    }
+
+    function toggleReply(id) {
+      const form = document.getElementById('replyForm-' + id);
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+
+    async function submitReply(parentId) {
+      const name = document.getElementById('rName-' + parentId).value.trim();
+      const code = document.getElementById('rCode-' + parentId).value.trim();
+      const comment = document.getElementById('rText-' + parentId).value.trim();
+      if (!name) return alert('Please enter your name.');
+      if (code !== '1969') return alert('Invalid code.');
+      if (!comment) return alert('Reply cannot be empty.');
+      const res = await fetch('/api/tracker/comment', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ code, name, comment, parent_id: parentId })
+      });
+      if (res.ok) { loadComments(); }
+      else { const d = await res.json(); alert(d.error || 'Error posting reply.'); }
+    }
+
+    async function deleteComment(id) {
+      if (!confirm('Delete this comment and all its replies?')) return;
+      await fetch('/api/tracker/comment/' + id, { method: 'DELETE' });
+      loadComments();
+    }
+
+    document.getElementById('commentForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('cmtName').value.trim();
+      const code = document.getElementById('cmtCode').value.trim();
+      const comment = document.getElementById('cmtText').value.trim();
+      if (code !== '1969') return alert('Invalid code.');
+      const res = await fetch('/api/tracker/comment', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ code, name, comment })
+      });
+      if (res.ok) {
+        document.getElementById('cmtText').value = '';
+        loadComments();
+      } else { const d = await res.json(); alert(d.error || 'Error posting comment.'); }
+    };
+    // ─────────────────────────────────────────────────────────────────────────
+
+    checkAdmin();
+    loadData();
+    loadComments();
+  </script>
+
+  <footer>
+    <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Aqua-Aerobic Systems, Inc. &mdash; All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>

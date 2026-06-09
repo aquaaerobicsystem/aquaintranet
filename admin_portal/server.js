@@ -7,6 +7,29 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
+const multer = require('multer');
+
+// ── Multer setup for issue attachments ────────────────────────────────────────
+const uploadsDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, uploadsDir),
+    filename: (req, file, cb) => {
+        const safe = file.originalname.replace(/[^a-zA-Z0-9._-]/g, '_');
+        cb(null, Date.now() + '_' + safe);
+    }
+});
+const upload = multer({
+    storage,
+    limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB per file
+    fileFilter: (req, file, cb) => {
+        const allowed = /\.(pdf|docx|doc|png|jpg|jpeg|gif|webp|bmp)$/i;
+        if (allowed.test(path.extname(file.originalname))) cb(null, true);
+        else cb(new Error('Only PDF, DOCX, DOC, and image files are allowed'));
+    }
+});
+// ──────────────────────────────────────────────────────────────────────────────
 
 const app = express();
 const PORT = process.env.PORT || 5025;
@@ -26,6 +49,13 @@ const db = new sqlite3.Database(dbFile);
 db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT, role TEXT, areas TEXT)`);
     db.run(`CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)`);
+    db.run(`CREATE TABLE IF NOT EXISTS tracker_users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, links_tested TEXT, search_tested TEXT, layout_reviewed TEXT, status TEXT, notes TEXT, admin_note TEXT DEFAULT '')`);
+    db.run(`CREATE TABLE IF NOT EXISTS tracker_issues (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, reported_by TEXT, category TEXT, description TEXT, status TEXT, admin_note TEXT DEFAULT '')`);
+    db.run(`CREATE TABLE IF NOT EXISTS tracker_attachments (id INTEGER PRIMARY KEY AUTOINCREMENT, issue_id INTEGER, filename TEXT, originalname TEXT, uploaded_at TEXT)`);
+    db.run(`CREATE TABLE IF NOT EXISTS tracker_comments (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER DEFAULT NULL, name TEXT, comment TEXT, date TEXT)`);
+    // Add admin_note columns to existing tables if they don't exist
+    db.run(`ALTER TABLE tracker_users ADD COLUMN admin_note TEXT DEFAULT ''`, () => {});
+    db.run(`ALTER TABLE tracker_issues ADD COLUMN admin_note TEXT DEFAULT ''`, () => {});
     db.get(`SELECT id FROM users WHERE username = 'admin'`, (err, row) => {
         if (!row) {
             const hash = bcrypt.hashSync('admin123', 8);
@@ -47,6 +77,175 @@ function requireAdmin(req, res, next) {
     else res.status(403).json({ error: 'Forbidden' });
 }
 
+// -----------------------------------------------------------------------------
+// TRACKER API
+// -----------------------------------------------------------------------------
+app.get('/api/tracker/comments', (req, res) => {
+    db.all(`SELECT * FROM tracker_comments ORDER BY id ASC`, [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        // Build threaded structure: top-level comments with nested replies
+        const topLevel = (rows || []).filter(r => !r.parent_id);
+        const withReplies = topLevel.map(c => ({
+            ...c,
+            replies: (rows || []).filter(r => r.parent_id === c.id)
+        }));
+        res.json(withReplies);
+    });
+});
+
+app.post('/api/tracker/comment', (req, res) => {
+    const { code, name, comment, parent_id } = req.body;
+    if (code !== '1969') return res.status(403).json({ error: 'Invalid code' });
+    if (!name || !comment) return res.status(400).json({ error: 'Name and comment required' });
+    const date = new Date().toLocaleString();
+    db.run(`INSERT INTO tracker_comments (parent_id, name, comment, date) VALUES (?, ?, ?, ?)`,
+        [parent_id || null, name, comment, date],
+        function(err) { res.json({ success: true, id: this.lastID }); });
+});
+
+app.delete('/api/tracker/comment/:id', requireAdmin, (req, res) => {
+    db.run(`DELETE FROM tracker_comments WHERE id = ? OR parent_id = ?`,
+        [req.params.id, req.params.id], () => res.json({ success: true }));
+});
+// -----------------------------------------------------------------------------
+app.get('/api/tracker', (req, res) => {
+    db.all(`SELECT * FROM tracker_users`, [], (err, users) => {
+        db.all(`SELECT * FROM tracker_issues`, [], (err2, issues) => {
+            db.all(`SELECT * FROM tracker_attachments`, [], (err3, attachments) => {
+                const issuesWithAttachments = (issues || []).map(issue => ({
+                    ...issue,
+                    attachments: (attachments || []).filter(a => a.issue_id === issue.id)
+                }));
+                res.json({ users: users || [], issues: issuesWithAttachments });
+            });
+        });
+    });
+});
+
+app.post('/api/tracker/user', (req, res) => {
+    const { code, name, links_tested, search_tested, layout_reviewed, notes } = req.body;
+    if (code !== '1969') return res.status(403).json({ error: 'Invalid code' });
+    if (!name) return res.status(400).json({ error: 'Name is required' });
+    
+    const status = (links_tested && search_tested && layout_reviewed) ? 'Completed' : 'Pending';
+    const l = links_tested ? '✅ Completed' : '❌ Pending';
+    const s = search_tested ? '✅ Completed' : '❌ Pending';
+    const r = layout_reviewed ? '✅ Completed' : '❌ Pending';
+
+    db.get(`SELECT id FROM tracker_users WHERE name = ?`, [name], (err, row) => {
+        if (row) {
+            db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=? WHERE name=?`,
+                [l, s, r, status, notes || '', name], () => res.json({ success: true }));
+        } else {
+            db.run(`INSERT INTO tracker_users (name, links_tested, search_tested, layout_reviewed, status, notes) VALUES (?, ?, ?, ?, ?, ?)`, 
+                [name, l, s, r, status, notes || ''], () => res.json({ success: true }));
+        }
+    });
+});
+
+app.post('/api/tracker/issue', (req, res) => {
+    const { code, reported_by, category, description } = req.body;
+    if (code !== '1969') return res.status(403).json({ error: 'Invalid code' });
+    if (!reported_by || !description) return res.status(400).json({ error: 'Name and description required' });
+    
+    const date = new Date().toLocaleDateString();
+    db.run(`INSERT INTO tracker_issues (date, reported_by, category, description, status) VALUES (?, ?, ?, ?, ?)`, 
+      [date, reported_by, category || 'General', description, 'Open'], function(err) {
+        res.json({ success: true, id: this.lastID });
+    });
+});
+
+app.post('/api/tracker/issue/:id/resolve', requireAdmin, (req, res) => {
+    db.run(`UPDATE tracker_issues SET status = 'Resolved' WHERE id = ?`, [req.params.id], () => res.json({ success: true }));
+});
+
+app.put('/api/tracker/user/:id', (req, res) => {
+    const { code, links_tested, search_tested, layout_reviewed, notes } = req.body;
+    if (code !== '1969') return res.status(403).json({ error: 'Invalid code' });
+    const status = (links_tested && search_tested && layout_reviewed) ? 'Completed' : 'Pending';
+    const l = links_tested ? '✅ Completed' : '❌ Pending';
+    const s = search_tested ? '✅ Completed' : '❌ Pending';
+    const r = layout_reviewed ? '✅ Completed' : '❌ Pending';
+    db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=? WHERE id=?`,
+        [l, s, r, status, notes || '', req.params.id], () => res.json({ success: true }));
+});
+
+app.delete('/api/tracker/user/:id', (req, res) => {
+    const { code } = req.body;
+    if (code !== '1969') return res.status(403).json({ error: 'Invalid code' });
+    db.run(`DELETE FROM tracker_users WHERE id = ?`, [req.params.id], () => res.json({ success: true }));
+});
+
+app.put('/api/tracker/issue/:id', (req, res) => {
+    const { code, category, description, status } = req.body;
+    if (code !== '1969') return res.status(403).json({ error: 'Invalid code' });
+    db.run(`UPDATE tracker_issues SET category=?, description=?, status=? WHERE id=?`,
+        [category, description, status || 'Open', req.params.id], () => res.json({ success: true }));
+});
+
+app.delete('/api/tracker/issue/:id', (req, res) => {
+    const { code } = req.body;
+    if (code !== '1969') return res.status(403).json({ error: 'Invalid code' });
+    db.run(`DELETE FROM tracker_issues WHERE id = ?`, [req.params.id], () => res.json({ success: true }));
+});
+
+// Upload attachments to an issue (code 1969 or admin session)
+app.post('/api/tracker/issue/:id/upload', upload.array('files', 10), (req, res) => {
+    const code = req.body.code;
+    const isAdminSession = req.session && req.session.role === 'admin';
+    if (!isAdminSession && code !== '1969') return res.status(403).json({ error: 'Invalid code' });
+    if (!req.files || req.files.length === 0) return res.status(400).json({ error: 'No files uploaded' });
+    const issueId = req.params.id;
+    const uploadedAt = new Date().toLocaleDateString();
+    const stmt = db.prepare(`INSERT INTO tracker_attachments (issue_id, filename, originalname, uploaded_at) VALUES (?, ?, ?, ?)`);
+    req.files.forEach(f => stmt.run(issueId, f.filename, f.originalname, uploadedAt));
+    stmt.finalize(() => res.json({ success: true, count: req.files.length }));
+});
+
+// Delete a single attachment (code 1969 or admin)
+app.delete('/api/tracker/attachment/:id', (req, res) => {
+    const code = req.body.code;
+    const isAdminSession = req.session && req.session.role === 'admin';
+    if (!isAdminSession && code !== '1969') return res.status(403).json({ error: 'Invalid code' });
+    db.get(`SELECT filename FROM tracker_attachments WHERE id = ?`, [req.params.id], (err, row) => {
+        if (!row) return res.status(404).json({ error: 'Not found' });
+        const filePath = path.join(uploadsDir, row.filename);
+        fs.unlink(filePath, () => {}); // delete file from disk
+        db.run(`DELETE FROM tracker_attachments WHERE id = ?`, [req.params.id], () => res.json({ success: true }));
+    });
+});
+
+// Admin-only tracker edits (session-based, no code needed)
+app.put('/api/admin/tracker/user/:id', requireAdmin, (req, res) => {
+    const { links_tested, search_tested, layout_reviewed, notes, admin_note, status } = req.body;
+    const l = links_tested !== undefined ? (links_tested ? '✅ Completed' : '❌ Pending') : null;
+    const s = search_tested !== undefined ? (search_tested ? '✅ Completed' : '❌ Pending') : null;
+    const r = layout_reviewed !== undefined ? (layout_reviewed ? '✅ Completed' : '❌ Pending') : null;
+    const computedStatus = (links_tested && search_tested && layout_reviewed) ? 'Completed' : (status || 'Pending');
+    db.get(`SELECT * FROM tracker_users WHERE id = ?`, [req.params.id], (err, row) => {
+        if (!row) return res.status(404).json({ error: 'Not found' });
+        db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=?, admin_note=? WHERE id=?`,
+            [l || row.links_tested, s || row.search_tested, r || row.layout_reviewed,
+             computedStatus, notes !== undefined ? notes : row.notes,
+             admin_note !== undefined ? admin_note : (row.admin_note || ''), req.params.id],
+            () => res.json({ success: true }));
+    });
+});
+
+app.put('/api/admin/tracker/issue/:id', requireAdmin, (req, res) => {
+    const { category, description, status, admin_note } = req.body;
+    db.get(`SELECT * FROM tracker_issues WHERE id = ?`, [req.params.id], (err, row) => {
+        if (!row) return res.status(404).json({ error: 'Not found' });
+        db.run(`UPDATE tracker_issues SET category=?, description=?, status=?, admin_note=? WHERE id=?`,
+            [category || row.category, description || row.description,
+             status || row.status, admin_note !== undefined ? admin_note : (row.admin_note || ''), req.params.id],
+            () => res.json({ success: true }));
+    });
+});
+// -----------------------------------------------------------------------------
+
+
+
 function getTargetFilePath(callback) {
     db.get(`SELECT value FROM settings WHERE key = 'target_file'`, (err, row) => {
         if (err || !row) return callback(err || new Error("Target file setting not found"));
@@ -55,11 +254,41 @@ function getTargetFilePath(callback) {
 }
 
 // Auth API
+const loginAttempts = {};
+
+app.get('/api/me', (req, res) => {
+    if (req.session && req.session.userId) {
+        res.json({ loggedIn: true, username: req.session.username, role: req.session.role });
+    } else {
+        res.json({ loggedIn: false });
+    }
+});
+
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
+    const ip = req.ip || req.connection.remoteAddress;
+
+    if (!loginAttempts[ip]) loginAttempts[ip] = { count: 0, lockUntil: 0 };
+    if (loginAttempts[ip].lockUntil > Date.now()) {
+        const remaining = Math.ceil((loginAttempts[ip].lockUntil - Date.now()) / 60000);
+        return res.status(429).json({ error: `Too many failed attempts. Try again in ${remaining} minutes.` });
+    }
+
     db.get(`SELECT * FROM users WHERE username = ?`, [username], (err, user) => {
         if (err) return res.status(500).json({ error: err.message });
-        if (!user || !bcrypt.compareSync(password, user.password)) return res.status(400).json({ error: 'Invalid credentials' });
+        
+        if (!user || !bcrypt.compareSync(password, user.password)) {
+            loginAttempts[ip].count++;
+            if (loginAttempts[ip].count >= 3) {
+                loginAttempts[ip].lockUntil = Date.now() + 10 * 60 * 1000; // 10 minutes
+            }
+            return res.status(400).json({ error: 'Invalid credentials' });
+        }
+
+        // Reset on success
+        loginAttempts[ip].count = 0;
+        loginAttempts[ip].lockUntil = 0;
+
         req.session.userId = user.id;
         req.session.username = user.username;
         req.session.role = user.role;

@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-06-09
+### Added
+- **Beta Testing Tracker** (`testing_tracker.html`) — full visual redesign with hero banner, sticky header, card-based layout, animated accordion panels, polished checkbox rows, and live participant/issue count badges.
+- **General Comments & Discussion** — threaded comment board at the bottom of the tracker with inline reply forms, admin delete, and real-time refresh.
+- **File Attachments on Issues** — users can upload multiple PDFs, DOCXs, or images when submitting or editing an issue; attachments display as clickable chips with icons.
+- **Attachment Management in Edit Modal** — existing attachments shown with individual ✕ remove buttons; new files can be added without closing the modal.
+- **Admin-only Delete** — Delete buttons on Testing Requirements Tracker and Reported Issues are now restricted to logged-in admins only; regular users see only Edit.
+- **Testing Tracker link** added to the Admin Portal nav bar (`admin_portal/public/index.html`).
+- `tracker_attachments` SQLite table to persist issue file uploads.
+- `tracker_comments` SQLite table with `parent_id` support for threaded replies.
+- `POST /api/tracker/issue/:id/upload` — multipart file upload endpoint (multer, 20 MB/file limit).
+- `DELETE /api/tracker/attachment/:id` — remove a single attachment from disk and database.
+- `GET /api/tracker/comments`, `POST /api/tracker/comment`, `DELETE /api/tracker/comment/:id` API endpoints.
+- **Notes field** in Submit Testing Results upgraded from single-line input to resizable textarea.
+- **Contact note** at the bottom of the tracker: "Need to delete something? Contact ckonkol@ or cshields@".
+- `multer` dependency added to `admin_portal/package.json`.
+
+### Changed
+- `GET /api/tracker` now includes `attachments` array nested inside each issue object.
+- `POST /api/tracker/issue` now returns `{ success, id }` so the frontend can immediately upload files to the new issue.
+- Issue form submit handler rewritten to use two-step flow: JSON post → FormData file upload.
+- All visible references to the access code removed from page text and form placeholders.
+- Admin banner updated to use gradient style with accent left-border.
+
+### Fixed
+- File uploads were silently ignored because the form used `application/json` instead of `multipart/form-data`; fixed by separating issue creation and file upload into two sequential requests.
+
+## [1.2.0] - 2026-06-09
+### Added
+- **Beta Testing Tracker** page (`admin_portal/public/testing_tracker.html`) — tracks which users completed testing and submitted issues.
+- **Admin Portal** edit/delete capabilities for tracker entries with session-based bypass of the access code.
+- `admin_note` column on both `tracker_users` and `tracker_issues` tables; admins see a highlighted note field in the edit modal.
+- `/api/me` endpoint to detect logged-in admin session from the frontend.
+- `PUT /api/admin/tracker/user/:id` and `PUT /api/admin/tracker/issue/:id` admin-only edit endpoints.
+- Edit and Delete action buttons in both tracker tables; edit opens a modal; delete prompts for confirmation.
+- Collapsible `<details>` sections for "Submit Testing Results" and "Report an Issue" forms.
+- Link to Beta Testing Tracker added to `indexdev.html` footer.
+
+### Changed
+- Testing Tracker moved to `admin_portal/public/` so it is served by the Express server.
+
 ## [1.1.1] - 2026-06-09
 ### Added
 - "Restore Original Custom SVG" feature, providing a robust safety net when an unrecognized legacy SVG icon is overwritten.
