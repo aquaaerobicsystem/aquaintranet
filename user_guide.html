@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Guide — Employee Hub</title>
+  <title>User Guide — Employee Hub | Aqua-Aerobic Systems</title>
+  <meta name="description" content="Learn how to use the Aqua-Aerobic Employee Hub — Quick Search, Quick Access, Directory, AquaSearch, and the Beta Testing Tracker.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <style>
@@ -11,137 +12,830 @@
       --aqua-blue: #005f9e;
       --aqua-dark: #003f66;
       --aqua-mid: #0077bb;
-      --aqua-light: #e4f2fb;
-      --aqua-xlight: #f0f8ff;
+      --aqua-light: #c8e6f8;
+      --aqua-xlight: #eef7fd;
       --accent: #00b4d8;
+      --green: #10b981;
+      --green-light: #d1fae5;
+      --green-dark: #065f46;
+      --amber: #f59e0b;
+      --amber-light: #fef3c7;
+      --amber-dark: #92400e;
       --white: #ffffff;
       --gray-50: #f8fafc;
       --gray-100: #f1f5f9;
       --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
       --gray-400: #94a3b8;
+      --gray-500: #64748b;
       --gray-600: #475569;
+      --gray-700: #334155;
       --gray-800: #1e293b;
       --text: #0f2235;
-      --radius: 10px;
-      --shadow-sm: 0 1px 3px rgba(0, 63, 102, 0.08), 0 1px 2px rgba(0, 63, 102, 0.04);
-      --shadow: 0 4px 16px rgba(0, 63, 102, 0.10), 0 1px 4px rgba(0, 63, 102, 0.06);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 1px 3px rgba(0,63,102,0.08);
+      --shadow: 0 4px 20px rgba(0,63,102,0.10);
+      --transition: 0.2s ease;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'DM Sans', sans-serif;
-      background: var(--gray-50);
+      background: #eef3f9;
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.7;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
+
+    /* ── HEADER ── */
     .site-header {
       background: var(--white);
       border-bottom: 1px solid var(--gray-200);
       padding: 0 32px;
       box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     .site-header::before {
       content: '';
       display: block;
       height: 3px;
-      background: linear-gradient(90deg, var(--aqua-dark) 0%, var(--aqua-mid) 60%, var(--accent) 100%);
+      background: linear-gradient(90deg, var(--aqua-dark), var(--aqua-mid) 60%, var(--accent));
       margin: 0 -32px;
     }
     .header-inner {
-      max-width: 1360px;
+      max-width: 1100px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 0;
+      padding: 10px 0;
     }
-    .brand-logo { max-width: 250px; height: auto; }
-    .header-text h1 { font-size: 17px; font-weight: 700; color: var(--aqua-dark); font-family: 'DM Serif Display', serif; margin-bottom:2px;}
-    .header-text p.sub { font-size: 12px; color: var(--gray-400); }
-    
-    .container {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 40px;
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+    .brand-logo { max-width: 200px; height: auto; }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .header-title { text-align: right; }
+    .header-title h1 { font-family: 'DM Serif Display', serif; color: var(--aqua-dark); font-size: 16px; }
+    .header-title p { font-size: 11px; color: var(--gray-400); margin: 0; }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--aqua-blue);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background var(--transition);
+      white-space: nowrap;
+    }
+    .back-btn:hover { background: var(--aqua-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--aqua-dark) 0%, var(--aqua-mid) 100%);
+      color: #fff;
+      padding: 56px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.05em;
+    }
+    .hero h2 { font-family: 'DM Serif Display', serif; font-size: 36px; margin-bottom: 12px; position: relative; z-index: 1; }
+    .hero p { color: rgba(255,255,255,0.82); font-size: 16px; position: relative; z-index: 1; max-width: 580px; margin: 0 auto 24px; }
+    .hero-chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+    .hero-chip {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 40px;
+      align-items: start;
       flex: 1;
     }
-    h2 { font-family: 'DM Serif Display', serif; color: var(--aqua-dark); font-size: 28px; margin-bottom: 10px; }
-    p { margin-bottom: 20px; color: var(--gray-600); }
-    h3 { color: var(--aqua-blue); font-size: 18px; margin-top: 30px; margin-bottom: 10px; border-bottom: 1px solid var(--gray-100); padding-bottom: 5px; }
-    ul { margin-left: 20px; margin-bottom: 20px; color: var(--gray-600); }
-    li { margin-bottom: 8px; }
-    .btn { display: inline-block; background: var(--aqua-blue); color: var(--white); text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 500; transition: background 0.2s; margin-top: 10px;}
-    .btn:hover { background: var(--aqua-dark); }
-    
-    .note {
-      background: var(--aqua-xlight);
-      border-left: 4px solid var(--aqua-blue);
-      padding: 15px 20px;
-      border-radius: 4px;
-      margin-top: 30px;
-      font-size: 14px;
-    }
-    .note strong { color: var(--aqua-dark); }
 
+    /* ── TOC ── */
+    .toc {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 80px;
+    }
+    .toc-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray-400);
+      margin-bottom: 12px;
+    }
+    .toc ul { list-style: none; }
+    .toc ul li { margin-bottom: 2px; }
+    .toc ul li a {
+      text-decoration: none;
+      font-size: 13px;
+      color: var(--gray-600);
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 6px;
+      transition: background var(--transition), color var(--transition);
+    }
+    .toc ul li a:hover { background: var(--aqua-xlight); color: var(--aqua-dark); font-weight: 600; }
+    .toc ul li a .toc-icon { font-size: 14px; flex-shrink: 0; }
+    .toc-divider { height: 1px; background: var(--gray-100); margin: 8px 0; }
+    .toc-cta {
+      margin-top: 16px;
+      padding: 12px;
+      background: var(--aqua-xlight);
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-size: 12px;
+      color: var(--aqua-dark);
+    }
+    .toc-cta a { color: var(--aqua-blue); font-weight: 600; text-decoration: none; }
+
+    /* ── CONTENT ── */
+    .content section { margin-bottom: 56px; scroll-margin-top: 90px; }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 8px;
+    }
+    .content h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--aqua-dark);
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--aqua-light);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .content h2 .sec-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--aqua-xlight);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .content h3 { font-size: 15px; font-weight: 700; color: var(--gray-800); margin: 22px 0 8px; }
+    .content p { color: var(--gray-600); font-size: 14.5px; margin-bottom: 14px; }
+    .content ul, .content ol { padding-left: 20px; color: var(--gray-600); font-size: 14.5px; margin-bottom: 14px; }
+    .content li { margin-bottom: 6px; }
+    .content strong { color: var(--gray-800); }
+    .content a { color: var(--aqua-blue); }
+
+    /* ── FEATURE OVERVIEW CARDS ── */
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0 8px; }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition), transform var(--transition);
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .feature-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .feature-card .fc-icon { font-size: 26px; margin-bottom: 10px; }
+    .feature-card h4 { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
+    .feature-card p { font-size: 12.5px; color: var(--gray-500); margin: 0; }
+
+    /* ── UI MOCKUP ── */
+    .ui-mockup {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    .ui-mockup .mock-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 10px; }
+    .mock-search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      border: 2px solid var(--aqua-blue);
+      border-radius: 50px;
+      padding: 9px 18px;
+      font-size: 14px;
+      color: var(--gray-400);
+    }
+    .mock-search span { font-size: 16px; }
+    .mock-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .mock-chip {
+      background: var(--aqua-xlight);
+      border: 1px solid var(--aqua-light);
+      color: var(--aqua-dark);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .mock-directory {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mock-dir-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--gray-700);
+    }
+    .mock-dir-item .di-icon { font-size: 16px; }
+    .mock-dir-item .di-arrow { margin-left: auto; color: var(--gray-300); font-size: 12px; }
+
+    /* ── STEPS ── */
+    .steps { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--aqua-blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+    .step-body { flex: 1; }
+    .step-body strong { display: block; font-size: 14px; color: var(--gray-800); margin-bottom: 2px; }
+    .step-body span { font-size: 13px; color: var(--gray-500); }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      display: flex;
+      gap: 12px;
+      padding: 13px 16px;
+      border-radius: var(--radius-sm);
+      margin: 14px 0;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .callout.tip { background: var(--green-light); border: 1px solid #6ee7b7; color: var(--green-dark); }
+    .callout.note { background: var(--aqua-xlight); border: 1px solid var(--aqua-light); color: var(--aqua-dark); }
+    .callout.info { background: var(--amber-light); border: 1px solid #fcd34d; color: var(--amber-dark); }
+
+    /* ── TRACKER CARDS ── */
+    .tracker-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 16px 0; }
+    .tracker-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .tracker-card .tc-icon { font-size: 22px; margin-bottom: 8px; }
+    .tracker-card h4 { font-size: 13.5px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
+    .tracker-card p { font-size: 12.5px; color: var(--gray-500); margin: 0; }
+
+    /* ── CTA ── */
+    .cta-box {
+      background: linear-gradient(135deg, var(--aqua-dark), var(--aqua-mid));
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 30px 36px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .cta-box h3 { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 8px; }
+    .cta-box p { color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 22px; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--aqua-dark);
+      text-decoration: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: opacity var(--transition);
+    }
+    .cta-btn:hover { opacity: 0.9; }
+    .cta-btn.outline {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+    .cta-btn.outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── DIVIDER ── */
+    .section-divider { height: 1px; background: var(--gray-100); margin: 48px 0 40px; }
+
+    /* ── FOOTER ── */
     footer {
       background: var(--white);
       border-top: 1px solid var(--gray-200);
       text-align: center;
-      padding: 30px;
+      padding: 22px;
       color: var(--gray-400);
       font-size: 12px;
-      margin-top: auto;
+    }
+
+    @media (max-width: 740px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+      .tracker-cards { grid-template-columns: 1fr; }
+      .hero h2 { font-size: 26px; }
+    }
+    @media (max-width: 480px) {
+      .feature-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="indexdev.html" title="Back to Home"><img class="brand-logo" src="http://www.aqua-aerobic.net/images/newlogo.png" alt="Aqua-Aerobic Systems, Inc." onerror="this.src='http://www.aqua-aerobic.net:3000/logo.jpg'"></a>
-      <div class="header-text" style="text-align:right;">
-        <h1>User Guide</h1>
-        <p class="sub">How to use your new Employee Hub</p>
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="indexdev.html">
+      <img class="brand-logo" src="http://www.aqua-aerobic.net/images/newlogo.png" alt="Aqua-Aerobic Systems" onerror="this.src='http://www.aqua-aerobic.net:3000/logo.jpg'">
+    </a>
+    <div class="header-right">
+      <div class="header-title">
+        <h1>Employee Hub — User Guide</h1>
+        <p>How to use your new intranet</p>
       </div>
-    </div>
-  </header>
-
-  <div class="container">
-    <h2>Welcome to the Employee Hub</h2>
-    <p>The newly redesigned Aqua-Aerobic Employee Hub is your central location for finding company tools, dashboards, HR resources, and manuals. This guide will help you navigate the new layout efficiently.</p>
-
-    <h3>1. Quick Search</h3>
-    <p>At the top right of the homepage, you'll find the main search bar. Typing a query and pressing <strong>Enter</strong> allows you to quickly locate files and resources across the intranet.</p>
-
-    <h3>2. Quick Access</h3>
-    <p>Directly below the header, you will see a scrolling list of Quick Access chips. These are one-click shortcuts to the most frequently used tools in the company, like the Company Dashboard or Concur Travel.</p>
-
-    <h3>3. Directory</h3>
-    <p>The main body of the Hub is divided into department categories (e.g., HR, Engineering, Operations). Clicking on a category will expand it to show related folders, links, and documents specific to that area.</p>
-
-    <h3>4. Company Resource</h3>
-    <p>You'll also find a dedicated section for general Company Resources, providing quick access to employee manuals, corporate policies, and other essential company-wide documents.</p>
-
-    <h3>5. AquaSearch</h3>
-    <p>If you cannot find what you are looking for using the above methods, you can use <strong>AquaSearch</strong>! AquaSearch doesn't just look at file names—it reads the <em>actual text</em> inside PDFs, Word documents, and Excel spreadsheets. If you remember a phrase inside a document but forgot where it's saved, AquaSearch will find it for you.</p>
-
-    <div class="note">
-      <strong>Managing the Hub:</strong> Currently, the IT department has access to the Admin Portal to make layout changes and add new links. However, the system is designed to be completely user-friendly via a visual GUI Builder! <strong>Anyone can be trained to make changes.</strong> If your department wants to manage its own section of the hub, please contact IT to request training and access.
-    </div>
-
-    <div style="text-align:center; margin-top:40px;">
-      <a href="indexdev.html" class="btn">Return to Employee Hub</a>
+      <a href="indexdev.html" class="back-btn">← Return to Employee Hub</a>
     </div>
   </div>
+</header>
 
-  <footer>
-    <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Aqua-Aerobic Systems, Inc. &mdash; All Rights Reserved</p>
-  </footer>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">✨ NEW — Beta Version</div>
+  <h2>Welcome to the Employee Hub</h2>
+  <p>Your central location for company tools, dashboards, HR resources, manuals, and more. Here's everything you need to get around.</p>
+  <div class="hero-chips">
+    <span class="hero-chip">🔍 Quick Search</span>
+    <span class="hero-chip">⚡ Quick Access</span>
+    <span class="hero-chip">📁 Directory</span>
+    <span class="hero-chip">🏢 Company Resources</span>
+    <span class="hero-chip">🔎 AquaSearch</span>
+    <span class="hero-chip">📋 Testing Tracker</span>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-title">On this page</div>
+    <ul>
+      <li><a href="#overview"><span class="toc-icon">🗺️</span> Overview</a></li>
+      <li><a href="#quick-search"><span class="toc-icon">🔍</span> Quick Search</a></li>
+      <li><a href="#quick-access"><span class="toc-icon">⚡</span> Quick Access</a></li>
+      <li><a href="#directory"><span class="toc-icon">📁</span> Directory</a></li>
+      <li><a href="#resources"><span class="toc-icon">🏢</span> Company Resources</a></li>
+      <li><a href="#aquasearch"><span class="toc-icon">🔎</span> AquaSearch</a></li>
+      <div class="toc-divider"></div>
+      <li><a href="#tracker"><span class="toc-icon">📋</span> Beta Testing Tracker</a></li>
+      <li><a href="#managing"><span class="toc-icon">⚙️</span> Managing the Hub</a></li>
+      <li><a href="#tips"><span class="toc-icon">💡</span> Tips</a></li>
+    </ul>
+    <div class="toc-cta">
+      Need to report an issue?<br>
+      <a href="http://www.aqua-aerobic.net:5025/testing_tracker.html" target="_blank">Open Testing Tracker →</a>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <div class="section-eyebrow">Getting Started</div>
+      <h2><span class="sec-icon">🗺️</span>What's on the Hub?</h2>
+      <p>The Aqua-Aerobic Employee Hub brings all your most-used company resources into one clean, easy-to-navigate page. Here's a quick look at what you'll find:</p>
+
+      <div class="feature-grid">
+        <a href="#quick-search" class="feature-card">
+          <div class="fc-icon">🔍</div>
+          <h4>Quick Search</h4>
+          <p>Search bar at the top to jump straight to any resource.</p>
+        </a>
+        <a href="#quick-access" class="feature-card">
+          <div class="fc-icon">⚡</div>
+          <h4>Quick Access</h4>
+          <p>One-click chips for your most-used tools.</p>
+        </a>
+        <a href="#directory" class="feature-card">
+          <div class="fc-icon">📁</div>
+          <h4>Directory</h4>
+          <p>Department folders organized by category and sub-category.</p>
+        </a>
+        <a href="#resources" class="feature-card">
+          <div class="fc-icon">🏢</div>
+          <h4>Company Resources</h4>
+          <p>Policies, manuals, and company-wide documents.</p>
+        </a>
+        <a href="#aquasearch" class="feature-card">
+          <div class="fc-icon">🔎</div>
+          <h4>AquaSearch</h4>
+          <p>Full-text search inside PDFs, Word docs, and spreadsheets.</p>
+        </a>
+        <a href="#tracker" class="feature-card">
+          <div class="fc-icon">📋</div>
+          <h4>Testing Tracker</h4>
+          <p>Submit feedback and report issues during beta testing.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- QUICK SEARCH -->
+    <section id="quick-search">
+      <div class="section-eyebrow">Feature 1</div>
+      <h2><span class="sec-icon">🔍</span>Quick Search</h2>
+      <p>The <strong>Search bar</strong> sits at the top of the Employee Hub. Type any keyword and press <strong>Enter</strong> to find files, folders, or tools instantly.</p>
+
+      <div class="ui-mockup">
+        <div class="mock-label">What it looks like</div>
+        <div class="mock-search">
+          <span>🔍</span>
+          <span style="color:var(--gray-300);">Search the Employee Hub…</span>
+        </div>
+      </div>
+
+      <h3>How to use it</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Click the search bar at the top of the page</strong>
+            <span>It's labeled "Search the Employee Hub" and is always visible.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Type your keyword</strong>
+            <span>Enter a word, part number, department name, or topic (e.g. "Concur", "HR Forms", "174523").</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Press Enter or click Search</strong>
+            <span>Results appear or AquaSearch launches to find matching documents.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <span>If Quick Search doesn't find what you need, try <strong>AquaSearch</strong> — it searches <em>inside</em> documents, not just file names. <a href="#aquasearch">Jump to AquaSearch ↓</a></span>
+      </div>
+    </section>
+
+    <!-- QUICK ACCESS -->
+    <section id="quick-access">
+      <div class="section-eyebrow">Feature 2</div>
+      <h2><span class="sec-icon">⚡</span>Quick Access Chips</h2>
+      <p><strong>Quick Access chips</strong> appear just below the header as a scrolling row of buttons. Each chip is a one-click shortcut to a frequently used tool or resource — no searching required.</p>
+
+      <div class="ui-mockup">
+        <div class="mock-label">Example chips</div>
+        <div class="mock-chips">
+          <span class="mock-chip">📊 Dashboard</span>
+          <span class="mock-chip">✈️ Concur Travel</span>
+          <span class="mock-chip">💰 Paycom</span>
+          <span class="mock-chip">🗓️ Outlook Calendar</span>
+          <span class="mock-chip">📦 Product Catalog</span>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <span class="callout-icon">ℹ️</span>
+        <span>Chips can be scrolled left and right on smaller screens. If you don't see the one you need, scroll right or check the <strong>Directory</strong> below.</span>
+      </div>
+    </section>
+
+    <!-- DIRECTORY -->
+    <section id="directory">
+      <div class="section-eyebrow">Feature 3</div>
+      <h2><span class="sec-icon">📁</span>Directory</h2>
+      <p>The <strong>Directory</strong> is the main body of the Employee Hub. It's organized into department <strong>categories</strong> (e.g., HR, Engineering, Operations, Sales) with collapsible sub-folders inside each one.</p>
+
+      <div class="ui-mockup">
+        <div class="mock-label">Example directory items</div>
+        <div class="mock-directory">
+          <div class="mock-dir-item">
+            <span class="di-icon">📁</span>
+            <span><strong>Human Resources</strong></span>
+            <span class="di-arrow">▼</span>
+          </div>
+          <div class="mock-dir-item" style="margin-left:20px; background:var(--gray-50);">
+            <span class="di-icon">📄</span>
+            <span>Benefits Enrollment</span>
+            <span class="di-arrow">→</span>
+          </div>
+          <div class="mock-dir-item" style="margin-left:20px; background:var(--gray-50);">
+            <span class="di-icon">📄</span>
+            <span>Employee Handbook</span>
+            <span class="di-arrow">→</span>
+          </div>
+          <div class="mock-dir-item">
+            <span class="di-icon">📁</span>
+            <span><strong>Engineering</strong></span>
+            <span class="di-arrow">▶</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Navigating the Directory</h3>
+      <ul>
+        <li>Click a <strong>category name</strong> to expand or collapse it.</li>
+        <li>Sub-folders inside a category can also be expanded by clicking.</li>
+        <li>Click any <strong>link</strong> inside a folder to open the file or resource directly.</li>
+        <li>If a folder is missing from your department, contact IT — it may need to be added.</li>
+      </ul>
+    </section>
+
+    <!-- COMPANY RESOURCES -->
+    <section id="resources">
+      <div class="section-eyebrow">Feature 4</div>
+      <h2><span class="sec-icon">🏢</span>Company Resources</h2>
+      <p>At the bottom of the Employee Hub you'll find a <strong>Company Resources</strong> section — a dedicated area for company-wide documents that don't belong to a single department:</p>
+      <ul>
+        <li>Employee manuals and handbooks</li>
+        <li>Corporate policies and procedures</li>
+        <li>Benefits and compliance documents</li>
+        <li>Frequently referenced forms</li>
+      </ul>
+      <div class="callout note">
+        <span class="callout-icon">ℹ️</span>
+        <span>Company Resources links appear as chips at the bottom of the page, similar to Quick Access chips at the top.</span>
+      </div>
+    </section>
+
+    <!-- AQUASEARCH -->
+    <section id="aquasearch">
+      <div class="section-eyebrow">Feature 5 — Can't find it?</div>
+      <h2><span class="sec-icon">🔎</span>AquaSearch</h2>
+      <p>Can't find what you're looking for? <strong>AquaSearch</strong> is your power tool. Unlike a normal search that only looks at file names, AquaSearch reads the <em>actual text inside</em> documents — PDFs, Word files, and Excel spreadsheets.</p>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <span><strong>Example:</strong> You remember a phrase like <em>"2026 Rental Business Initiatives"</em> was in a document but have no idea where it's saved. Type it into AquaSearch and it will find the file instantly.</span>
+      </div>
+
+      <h3>When to use AquaSearch</h3>
+      <ul>
+        <li>You remember <strong>words from inside a document</strong> but not the filename.</li>
+        <li>You know a <strong>part number or project code</strong> (e.g., <em>174523</em>).</li>
+        <li>You searched Quick Search and didn't find what you need.</li>
+        <li>You want to find <strong>all documents</strong> related to a topic (e.g., all Benefits documents).</li>
+      </ul>
+
+      <h3>How to launch AquaSearch</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Type your search term in the Quick Search bar</strong>
+            <span>Use keywords you'd expect to find inside the document — a phrase, name, part number, etc.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Press Enter</strong>
+            <span>AquaSearch will launch and begin scanning documents for your term.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Review your results</strong>
+            <span>AquaSearch shows matching files with highlighted snippets of the text it found. Click any result to open the document.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- TESTING TRACKER -->
+    <section id="tracker">
+      <div class="section-eyebrow">Beta Testing</div>
+      <h2><span class="sec-icon">📋</span>Beta Testing Tracker</h2>
+      <p>During the beta period, we have a <strong>Testing Tracker</strong> page where you can log your results and report any issues you find — directly online, no email needed.</p>
+      <p><strong>👉 Access it here:</strong> <a href="http://www.aqua-aerobic.net:5025/testing_tracker.html" target="_blank">http://www.aqua-aerobic.net:5025/testing_tracker.html</a></p>
+
+      <div class="tracker-cards">
+        <div class="tracker-card">
+          <div class="tc-icon">✅</div>
+          <h4>Submit Test Results</h4>
+          <p>Check off what you tested (links, search, layout) and add any notes.</p>
+        </div>
+        <div class="tracker-card">
+          <div class="tc-icon">🚨</div>
+          <h4>Report an Issue</h4>
+          <p>Describe a problem, pick a category, and attach a screenshot or file if helpful.</p>
+        </div>
+        <div class="tracker-card">
+          <div class="tc-icon">💬</div>
+          <h4>Leave a Comment</h4>
+          <p>Share general thoughts or reply to a colleague's feedback in the discussion board.</p>
+        </div>
+      </div>
+
+      <h3>Submitting Test Results</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Click "Submit Testing Results"</strong>
+            <span>The section expands with a form.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Enter your full name and the access code</strong>
+            <span>The access code was provided with this email — ask IT if you don't have it.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Check off items you tested and add any notes</strong>
+            <span>File Links, Search, Layout & Structure. Add any general comments in the Notes box.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Click "Submit Testing Results"</strong>
+            <span>Your entry is logged immediately and visible in the table below.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Reporting an Issue</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Click "Report an Issue"</strong>
+            <span>The form expands below the Testing Results form.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Enter your name, access code, and select a category</strong>
+            <span>Categories: Broken Link, Search Issue, Missing File/Folder, or Other.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Describe the issue and optionally attach files</strong>
+            <span>You can drag & drop or click to attach screenshots, PDFs, or Word documents.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Click "Submit Issue"</strong>
+            <span>IT reviews submissions in real time.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">📌</span>
+        <span>You can also <strong>edit your own submission</strong> after the fact by clicking the ✏️ Edit button next to your entry and re-entering your name and access code. Need to delete something? Contact <a href="mailto:ckonkol@aqua-aerobic.com">ckonkol@aqua-aerobic.com</a> or <a href="mailto:cshields@aqua-aerobic.com">cshields@aqua-aerobic.com</a>.</span>
+      </div>
+    </section>
+
+    <!-- MANAGING THE HUB -->
+    <section id="managing">
+      <div class="section-eyebrow">For Department Leads</div>
+      <h2><span class="sec-icon">⚙️</span>Managing the Hub</h2>
+      <p>The Employee Hub is managed through a visual <strong>Admin Portal</strong> — no coding required. IT currently handles all updates, but <strong>anyone can be trained</strong> to manage their own department's section.</p>
+
+      <ul>
+        <li>Add, edit, or remove links and folders through a point-and-click interface</li>
+        <li>Upload custom icons for links</li>
+        <li>Reorder categories and links with up/down buttons</li>
+        <li>Publish changes instantly — no waiting for IT</li>
+      </ul>
+
+      <div class="callout note">
+        <span class="callout-icon">ℹ️</span>
+        <span>If your department would like to manage its own section of the Hub, reach out to IT at <a href="mailto:ckonkol@aqua-aerobic.com">ckonkol@aqua-aerobic.com</a> to request training and access.</span>
+      </div>
+    </section>
+
+    <!-- TIPS -->
+    <section id="tips">
+      <div class="section-eyebrow">Quick Reference</div>
+      <h2><span class="sec-icon">💡</span>Tips & Shortcuts</h2>
+      <ul>
+        <li>🔍 <strong>Can't find something?</strong> Try AquaSearch — it reads text inside files, not just names.</li>
+        <li>⚡ <strong>Quick Access chips</strong> are scrollable — swipe or scroll right if you don't see what you need.</li>
+        <li>📁 <strong>Clicking a category name</strong> in the directory expands or collapses it.</li>
+        <li>📋 <strong>Testing Tracker</strong> — log your results at <a href="http://www.aqua-aerobic.net:5025/testing_tracker.html" target="_blank">aqua-aerobic.net:5025/testing_tracker.html</a></li>
+        <li>✉️ <strong>Still need help?</strong> Email <a href="mailto:ckonkol@aqua-aerobic.com">ckonkol@aqua-aerobic.com</a>.</li>
+      </ul>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <h3>Ready to explore?</h3>
+      <p>Head back to the Employee Hub or go straight to the Testing Tracker to log your feedback.</p>
+      <div class="cta-btns">
+        <a href="indexdev.html" class="cta-btn">← Return to Employee Hub</a>
+        <a href="http://www.aqua-aerobic.net:5025/testing_tracker.html" target="_blank" class="cta-btn outline">📋 Testing Tracker</a>
+      </div>
+    </div>
+
+  </div><!-- /.content -->
+</div><!-- /.page-wrap -->
+
+<footer>
+  <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Aqua-Aerobic Systems, Inc. &mdash; All Rights Reserved &mdash; Internal Use Only</p>
+</footer>
 
 </body>
 </html>

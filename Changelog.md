@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.2] - 2026-06-09
+### Added
+- **User Guide** (`user_guide.html`) — complete redesign with hero banner, sticky sidebar table of contents, illustrated feature overview cards (Quick Search, Quick Access, Directory, Company Resources, AquaSearch, Testing Tracker), numbered step-by-step instructions for each feature, Beta Testing Tracker section (submit results, report issues, leave comments, edit submissions), Managing the Hub section, Tips & Shortcuts, and a CTA footer with links back to the Hub and Tracker. Fully mobile-responsive with sticky TOC.
+
+### Fixed
+- Logo in the upper-left of `testing_tracker.html` was linking to a broken relative path (`indexdev.html`); corrected to `http://www.aqua-aerobic.net/indexdev.html`.
+
 ## [1.3.1] - 2026-06-09
 ### Added
 - **Admin Portal Guide** (`admin_portal/public/admin_guide.html`) — full step-by-step guide covering Manage Links, Categories, Quick Search Chips, Icons & Custom SVG, Reordering, Manage Users, Change Password, Testing Tracker, and Tips & Best Practices. Includes sticky TOC sidebar, hero banner, numbered step cards, role comparison table, and callout blocks.
