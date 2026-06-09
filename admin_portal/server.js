@@ -212,7 +212,7 @@ app.get('/api/areas/:name/json', requireAuth, (req, res) => {
                     source: searchArgs[1],
                     ext: searchArgs[2],
                     title: $(el).attr('title') || '',
-                    svg: $(el).find('svg').parent().html()?.trim() || $(el).find('svg').prop('outerHTML') || '',
+                    svg: $(el).find('svg').prop('outerHTML') || '',
                     name: clone.text().trim(),
                     desc: ''
                 });

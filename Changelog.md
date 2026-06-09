@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-06-09
+### Added
+- "Restore Original Custom SVG" feature, providing a robust safety net when an unrecognized legacy SVG icon is overwritten.
+- Robust UI-safe decoding algorithm to protect Javascript handlers from SVG-embedded strings, newlines, or quotes.
+- Prompt-based Custom SVG input box allowing raw code pasting.
+- 18 new built-in SVG icons to the dropdown (AI Chat, Building, Layers, Activity, Signal, Video, Camera, Zap, Shield, Support, Bag, Navigation, Compass, Box, Plane, Visitor, Packinglist, Products, Training).
+
+### Fixed
+- Infinite text duplication bug on Quick Search chips caused by aggressive text-node parsing in `server.js`.
+- Custom SVG prompt syntax errors arising from double-escaping and newline injection.
+
 ## [1.1.0] - 2026-06-09
 ### Added
 - Quick Search dropdown with Smart Types (Standard URL vs Aqua Search) inside the Admin Portal GUI Builder.
