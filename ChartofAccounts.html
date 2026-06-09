@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSRS Report Embedded in Iframe</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --text: #000;
+      --header: #55a0a0;
+      --nav-width: 200px;
+    }
+
+    body.dark {
+      --bg: #1e1e1e;
+      --text: #111111;
+      --header: #333;
+    }
+
+    header {
+      background: var(--header);
+      color: white;
+      padding: 10px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    #logo {
+      height: 40px;
+      margin-right: 15px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    select,
+    #reloadBtn,
+    #darkModeBtn,
+    #printBtn,
+    #toggleNavBtn {
+      padding: 6px 10px;
+      margin-left: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    #reloadBtn,
+    #darkModeBtn,
+    #printBtn,
+    #toggleNavBtn {
+      border: none;
+      background: #1a73e8;
+      color: white;
+      cursor: pointer;
+    }
+
+    #reloadBtn:hover,
+    #darkModeBtn:hover,
+    #printBtn:hover,
+    #toggleNavBtn:hover {
+      background: #0f5ec0;
+    }
+
+    nav {
+      width: var(--nav-width);
+      background: #2c3e50;
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      padding: 20px;
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    nav.hidden {
+      transform: translateX(-100%);
+    }
+
+    iframe {
+      width: calc(100% - var(--nav-width));
+      border: none;
+      background: white;
+      position: absolute;
+      top: 50px;
+      left: var(--nav-width);
+      transition: left 0.3s, width 0.3s;
+    }
+
+    iframe.full {
+      width: 100%;
+      left: 0;
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffffcf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      backdrop-filter: blur(3px);
+      transition: opacity 0.4s ease;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #ccc;
+      border-top-color: #1a73e8;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #statusBanner {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      padding: 10px 15px;
+      background: #ff9800;
+      color: white;
+      border-radius: 4px;
+      display: none;
+      z-index: 10000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-left">
+      <img id="logo" src="images/aqualogo.png" alt="Company Logo" padding-right="1000px">
+      Chart Of Accounts Listing
+      <div>
+
+        <select id="reportSelect" onchange="changeIframe()">
+          <option
+            value="http://aquaerprep/ReportServer?/carmenreports/Stephanie/ChartOfAccounts&rs:Command=Render&rc:Toolbar=false"
+            style="width:100%; height:100%; border:none;padding-top: 50px;" title="Chart Of Accounts"> Chart
+            Of
+            Accounts</option>
+
+        </select>
+
+        <button id="printBtn" onclick="printReport()">Print PDF</button>
+        <button id="darkModeBtn" onclick="toggleDarkMode()">Dark Mode</button>
+      </div>
+  </header>
+
+  <nav id="sideNav">
+    <ul>
+      <li>Chart Of Accounts</li>
+    </ul>
+  </nav>
+
+
+  <iframe id="ssrsFrame"
+    src="http://aquaerprep/ReportServer?/carmenreports/Stephanie/ChartOfAccounts&rs:Command=Render&rc:Toolbar=false"
+    style="width:90%; height:100%; border:none;padding-top: 50px; padding-left: 150px;"
+    title="Stephanie Operation Report"></iframe>
+
+  <script>
+    const iframe = document.getElementById("ssrsFrame");
+    const statusBanner = document.getElementById("statusBanner");
+    const reportSelect = document.getElementById("reportSelect");
+    const sideNav = document.getElementById("sideNav");
+
+    function resizeIframe() {
+      iframe.style.height = (window.innerHeight - document.querySelector("header").offsetHeight) + "px";
+      iframe.classList.toggle('full', sideNav.classList.contains('hidden'));
+    }
+
+    function toggleNav() {
+      sideNav.classList.toggle('hidden');
+      resizeIframe();
+    }
+
+    window.addEventListener("resize", resizeIframe);
+
+    window.addEventListener("load", () => {
+      sideNav.classList.add('hidden');
+      resizeIframe();
+      const lastUrl = localStorage.getItem('lastSSRSUrl');
+      if (lastUrl) {
+        iframe.src = lastUrl;
+      }
+    });
+
+    iframe.onload = function () {
+      const loader = document.getElementById("loader");
+      loader.style.opacity = "0";
+      setTimeout(() => loader.style.display = "none", 400);
+      showStatus("Report loaded successfully", true);
+    };
+
+    function reloadReport() {
+      document.getElementById("loader").style.display = "flex";
+      document.getElementById("loader").style.opacity = "1";
+      iframe.src = iframe.src;
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+
+    function changeIframe() {
+      const url = reportSelect.value;
+      document.getElementById("loader").style.display = "flex";
+      document.getElementById("loader").style.opacity = "1";
+      iframe.src = url;
+      localStorage.setItem('lastSSRSUrl', url);
+    }
+
+    function printReport() {
+      const printUrl = reportSelect.value + '&rs:Format=PDF';
+      window.open(printUrl, '_blank');
+    }
+
+    function showStatus(message, success) {
+      statusBanner.textContent = message;
+      statusBanner.style.background = success ? '#4caf50' : '#f44336';
+      statusBanner.style.display = 'block';
+      setTimeout(() => statusBanner.style.display = 'none', 4000);
+    }
+  </script>
+
+  <script>
+    // LOADER
+    setTimeout(() => { document.getElementById("loader").style.display = "none"; }, 2500);
+
+    // DARK MODE
+    document.getElementById("dark-toggle").onclick = () => {
+      document.body.classList.toggle("dark");
+    };
+
+    // SLIDE MENU
+    document.getElementById("menu-btn").onclick = () => {
+      document.getElementById("side-menu").style.right = "0px";
+    };
+    document.getElementById("side-menu").onclick = () => {
+      document.getElementById("side-menu").style.right = "-300px";
+    };
+
+    // KPIs Animation
+    function animateKPI(id, end, suffix = "") {
+      let obj = document.getElementById(id);
+      let start = 0;
+      let step = end / 100;
+      let interval = setInterval(() => {
+        start += step;
+        obj.textContent = Math.floor(start) + suffix;
+        if (start >= end) clearInterval(interval);
+      }, 15);
+    }
+    animateKPI("k1", 18, "%");
+    animateKPI("k2", 92, "%");
+    animateKPI("k3", 27, "");
+
+    // GSAP Scroll Animations
+    gsap.from("header h1", { opacity: 0, y: -50, duration: 1 });
+    gsap.from("header p", { opacity: 0, y: 50, duration: 1, delay: 0.3 });
+    gsap.from(".kpi", { scrollTrigger: ".kpi", opacity: 0, y: 40, stagger: 0.2 });
+    gsap.from(".card", { scrollTrigger: ".card", opacity: 0, y: 50, stagger: 0.3 });
+
+    // Tabs
+    function openTab(tab) {
+      document.querySelectorAll(".tab-content").forEach(el => el.style.display = "none");
+      document.getElementById(tab).style.display = "block";
+    }
+  </script>
+</body>
+
+</html>

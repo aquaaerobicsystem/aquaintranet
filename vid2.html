@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <title>aqua-aerobic.net</title>
+  <meta name="description" content="aqua-aerobic.net">
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <meta name="author" content="Carmen Dela Pena" />
+  <link rel='stylesheet' href='css/cssprolayout.css'>
+  <link rel='stylesheet'
+    href='https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap'>
+  <link rel="stylesheet" href="css/landingpage.css">
+  <link rel="stylesheet" href="css/cardflip.css">
+  <link rel="stylesheet" href="css/clockflapper.css">
+  <script src="https://kit.fontawesome.com/8c7e6c4f72.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --delay: 0;
+      --duration: 800ms;
+      --iterations: 1;
+    }
+
+    /* •·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•· */
+
+
+    .reveal-text,
+    .reveal-text::after {
+      animation-delay: var(--animation-delay, 2s);
+      animation-iteration-count: var(--iterations, 1);
+      animation-duration: var(--duration, 800ms);
+      animation-fill-mode: both;
+      animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+    }
+
+    .reveal-text {
+      --animation-delay: var(--delay, 0);
+      --animation-duration: var(--duration, 800ms);
+      --animation-iterations: var(--iterations, 1);
+      position: center;
+      font-size: 10vw;
+      animation-name: clip-text;
+      color: #23617a;
+      white-space: nowrap;
+      font-weight: 600;
+      cursor: default;
+
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: 999;
+        top: 0;
+        left: 0px;
+        right: 0px;
+        bottom: 0;
+        justify-content: center;
+        background-color: #212c38;
+        background-image: url("images/aqualogo.png");
+        transform: scaleX(0);
+        transform-origin: 0 90%;
+        pointer-events: none;
+        animation-name: text-revealer;
+      }
+
+    }
+
+
+    @keyframes clip-text {
+      from {
+        clip-path: inset(0 100% 0 0);
+      }
+
+      to {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+
+    @keyframes text-revealer {
+
+      0%,
+      50% {
+        transform-origin: 0 70%;
+      }
+
+      60%,
+      100% {
+        transform-origin: 100% 50%;
+      }
+
+
+      60% {
+        transform: scaleX(1);
+      }
+
+      100% {
+        transform: scaleX(0);
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="layout">
+    <main class="content">
+      <div>
+        <a id="btn-toggle" href="#" class="sidebar-toggler break-point-sm">
+          <i class="ri-menu-line ri-xl"></i>
+        </a>
+        <img src="images/aqualogo.png" / width="750px">
+      </div>
+
+      </section>
+
+
+      <h1 style="color: black">Watch informational Video about Epicor10 Live?</h1> <video width="1800" height="700"
+        controls autoplay>
+        <source src="files/video1459410122.mp4" type="video/mp4">
+        This browser doesn't support video tag.
+      </video>
+
+      <br>
+      <br>
+      <div>
+        <div class="clock" style="font-size: smaller;">
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <em class="divider">:</em>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <em class="divider">:</em>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+
+        </div>
+
+        <footer class="footer">
+          <small style="margin-bottom: 20px; display: inline-block">
+            Copyright &copy;
+            <script>document.write(new Date().getFullYear())</script> - All Rights Reserved - Aqua-Aerobic System, Inc
+          </small>
+        </footer>
+
+      </div>
+  </div>
+  <canvas id="canvas"></canvas>
+  <div id="overlay" class="overlay"> </div>
+</body>
+<!-- partial -->
+
+<script src='js/propercore.js'></script>
+<script src="js/particles.js"></script>
+<script src="js/clockflapper.js"></script>
+
+<script>
+</script>
+
+</html>

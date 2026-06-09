@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <title>aqua-aerobic.net</title>
+  <meta name="description" content="aqua-aerobic.net">
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <meta name="author" content="Carmen Dela Pena" />
+  <link rel='stylesheet' href='css/cssprolayout.css'>
+  <link rel='stylesheet'
+    href='https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap'>
+  <link rel="stylesheet" href="css/landingpage.css">
+  <link rel="stylesheet" href="css/cardflip.css">
+  <link rel="stylesheet" href="css/stickynotes.css">
+  <link rel="stylesheet" href="css/clockflapper.css">
+  <script src="https://kit.fontawesome.com/8c7e6c4f72.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --delay: 0;
+      --duration: 800ms;
+      --iterations: 1;
+    }
+
+
+    .reveal-text,
+    .reveal-text::after {
+      animation-delay: var(--animation-delay, 2s);
+      animation-iteration-count: var(--iterations, 1);
+      animation-duration: var(--duration, 800ms);
+      animation-fill-mode: both;
+      animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+    }
+
+    .reveal-text {
+      --animation-delay: var(--delay, 0);
+      --animation-duration: var(--duration, 800ms);
+      --animation-iterations: var(--iterations, 1);
+      position: center;
+      font-size: 10vw;
+      animation-name: clip-text;
+      color: #23617a;
+      white-space: nowrap;
+      font-weight: 600;
+      cursor: default;
+
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: 999;
+        top: 0;
+        left: 0px;
+        right: 0px;
+        bottom: 0;
+        justify-content: center;
+        background-color: #212c38;
+        background-image: url("images/aqualogo.png");
+        transform: scaleX(0);
+        transform-origin: 0 90%;
+        pointer-events: none;
+        animation-name: text-revealer;
+      }
+
+    }
+
+
+    @keyframes clip-text {
+      from {
+        clip-path: inset(0 100% 0 0);
+      }
+
+      to {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    @keyframes text-revealer {
+
+      0%,
+      50% {
+        transform-origin: 0 70%;
+      }
+
+      60%,
+      100% {
+        transform-origin: 100% 50%;
+      }
+
+      60% {
+        transform: scaleX(1);
+      }
+
+      100% {
+        transform: scaleX(0);
+      }
+    }
+
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 5px;
+      border: 1px solid #0f0d12;
+      width: 60%;
+      text-align: Centert;
+    }
+
+    .close {
+      color: #6b1212;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: rgb(244, 243, 243);
+      color: rgb(15, 15, 15);
+      border: none;
+      border-radius: 5px;
+      margin: 10px;
+    }
+
+    button:hover {
+      background-color: #6eaaea;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      color: #0f0d12;
+      width: 70%;
+      margin: 10px;
+    }
+
+    /* Base button style */
+    .cool-button {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+      transition: all 0.3s ease;
+      /* animation: pulse-glow 2s infinite;  */
+      position: relative;
+    }
+
+    /* On hover */
+    .cool-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(0, 242, 254, 0.6);
+    }
+
+    /* Glowing pulse animation */
+    @keyframes pulse-glow {
+      0% {
+        box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(0, 242, 254, 1);
+      }
+
+      100% {
+        box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+      }
+    }
+
+    /* Style the updated text */
+    .cool-button .updated {
+      color: #ff4d4d;
+      font-weight: bold;
+      /* animation: flash-text 1.5s infinite; */
+    }
+
+    /* Flashing text animation */
+    @keyframes flash-text {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+  </style>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    .content {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    .notes ul {
+      padding: 0;
+      margin: 0 auto;
+      list-style: none;
+      text-align: center;
+    }
+
+    .notes ul li {
+      display: inline-block;
+      margin: 10px;
+    }
+
+    .notes ul li a {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="layout has-sidebar fixed-sidebar fixed-header">
+    <aside id="sidebar" class="sidebar break-point-sm has-bg-image">
+      <a id="btn-collapse" class="sidebar-collapser">
+        <i class="fa-solid fa-arrow-left"></i></a>
+
+      <div class="sidebar-layout">
+        <div class="sidebar-header">
+          <div class="pro-sidebar-logo">
+            <h5> Network Information </h5>
+
+          </div>
+
+        </div>
+
+        <div class="sidebar-content">
+
+          <!-- Button with cool CSS -->
+          <button class="cool-button" onclick="openSearchModal()">
+            🚀 All-New Search <span class="updated"> – Start Exploring!</span>
+          </button>
+
+          <div id="searchModal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeSearchModal()">&times;</span>
+              <h2>Search Links</h2>
+              <input type="text" id="modal-search-box" placeholder="Search links..." onkeyup="filterLinks()">
+              <ul id="modal-links-list"></ul>
+            </div>
+          </div>
+
+          <nav class="menu open-current-submenu">
+            <ul>
+
+              <!--Start side-->
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-icon">
+                    <i class="fa-solid fa-address-book"></i>
+                  </span>
+                  <span class="menu-title">Directories</span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+                    <li class="menu-item">
+                      <a href="https://aqualocator.github.io/" target="_blank">
+                        <span class="menu-title">Employee Office Locator (AquaLocator)</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="updateLocator.html" target="_blank">
+                        <span class="menu-title">How do I update my information on AquaLocator?</span>
+                      </a>
+                    </li>
+
+                    <li class="menu-item">
+                      <a href="files/New Conference Room Naming.pdf" target="_blank">
+                        <span class="menu-title">New Conference Room Names</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <!--end side-->
+
+              <!--Start side-->
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-icon">
+                    <i class="fa-solid fa-building"></i>
+                  </span>
+                  <span class="menu-title">Company</span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+                    <li class="menu-item">
+                      <a href="Company/index.html" target="_blank">
+                        <span class="menu-title">Company Wide Dashboard</span>
+                      </a>
+                    </li>
+
+                    <ul>
+                      <li class="menu-item">
+                        <a href="files/Communication Tool Usage Guidelines.docx" target="_blank">
+                          <span class="menu-title">Communication Tool Usage Guidelines</span>
+                        </a>
+                      </li>
+                      <ul>
+                        <li class="menu-item sub-menu">
+                          <a href="#">
+                            <span class="menu-title"> Employee listings </span>
+                          </a>
+                          <div class="sub-menu-list">
+                            <ul>
+                              <li class="menu-item">
+                                <a href="files/EmpList_ByDept.pdf" target="_blank">
+                                  <span class="menu-title"> Employee List By Dept</span>
+                                </a>
+                              </li>
+                              <li class="menu-item">
+                                <a href="files/EmpList_ByName.pdf" target="_blank">
+                                  <span class="menu-title"> Employee List By Name</span>
+                                </a>
+                              </li>
+
+                            </ul>
+
+                        <li class="menu-item sub-menu">
+                          <a href="#">
+                            <span class="menu-title"> Aqua Talent Exchange </span>
+                          </a>
+                          <div class="sub-menu-list">
+                            <ul>
+                              <li class="menu-item">
+                                <a href="files/Aqua_Talent_Exchange_Usage_Guidelines.docx" target="_blank">
+
+                                  <span class="menu-title">Usage Guidelines</span>
+                                </a>
+                              </li>
+                              <li class="menu-item">
+                                <a href="https://app.smartsheet.com/b/form/216f61f6021e4802a70c2e8fa6f3e7c1"
+                                  target="_blank">
+                                  <span class="menu-title">Request Form</span>
+                                </a>
+                              </li>
+                              <li class="menu-item">
+                                <a href="https://app.smartsheet.com/b/publish?EQBCT=15a3b5354c2e4f0084401b667a697cd9"
+                                  target="_blank">
+                                  <span class="menu-title">Dashboard</span>
+                                </a>
+                              </li>
+
+
+
+                            </ul>
+                          </div>
+
+                        </li>
+
+                        <li class="menu-item">
+                          <a href="files/Using Outlook Invitation to Reserve a Conference Room.pdf" target="_blank">
+                            <span class="menu-title"> Outlook Invitation to Reserve a Conference Room</span>
+                          </a>
+                        </li>
+
+                        <li class="menu-item">
+                          <a href="http://www.aqua-aerobic.net/aquaai/
+" target="_blank">
+                            <span class="menu-title">AquaAI</span>
+                          </a>
+                        </li>
+
+                      </ul>
+                </div>
+              </li>
+              <!--end side-->
+              <!--start side-->
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-icon">
+                    <i class="fa-solid fa-calculator"></i>
+                  </span>
+                  <span class="menu-title">Accounting</span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+                    <li class="menu-item sub-menu">
+                      <a href="#">
+                        <span class="menu-title"> Fiscal Calendar</span>
+                      </a>
+                      <div class="sub-menu-list">
+                        <ul>
+                          <li class="menu-item">
+                            <a href="files/Fiscal Calendar 2025 - Aqua-Aerobics.xlsx" target="_blank">
+                              <span class="menu-title"> Fiscal Calendar 2025</span>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="files/Fiscal Calendar 2026 - Aqua-Aerobics.xlsx" target="_blank">
+                              <span class="menu-title"> Fiscal Calendar 2026</span>
+                            </a>
+                          </li>
+
+                          <li class="menu-item">
+                            <a href="files/Fiscal Calendar 2027 - Aqua-Aerobics.xlsx" target="_blank">
+                              <span class="menu-title"> Fiscal Calendar 2027</span>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="files/Fiscal Calendar 2028 - Aqua-Aerobics.xlsx" target="_blank">
+                              <span class="menu-title"> Fiscal Calendar 2028</span>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="files/Fiscal Calendar 2029 - Aqua-Aerobics.xlsx" target="_blank">
+                              <span class="menu-title"> Fiscal Calendar 2029</span>
+                            </a>
+                          </li>
+
+                        </ul>
+                    <li class="menu-item">
+                      <a href="files/Concur.Login.Instructions.pdf" target="_blank">
+                        <span class="menu-title">Concur Login Instructions</span>
+                      </a>
+                    </li>
+
+                    <li class="menu-item">
+                      <a href="ConcurTravel.html" target="_blank">
+                        <span class="menu-title">Concur Travel training Video</span>
+                      </a>
+                    </li>
+
+                    <li class="menu-item">
+                      <a href="ACH.html" target="_blank">
+                        <span class="menu-title">ACH Training</span>
+                      </a>
+                    </li>
+
+
+                    <li class="menu-item">
+                      <a href="ChartofAccounts.html" target="_blank">
+                        <span class="menu-title">GL Chart of Accounts Listing</span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+              </li>
+              <!--end side-->
+
+
+
+              <!--Start side-->
+              <!--            <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-icon">
+                    <i class="fa-solid fa-calculator"></i>
+                  </span>
+                  <span class="menu-title">Application</span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+                    <li class="menu-item">
+                      <a href="file://aqua26/Neptune/Dashboards/AquaLanding/aqualanding.htm" target="_blank">
+                        <span class="menu-title">AquaLanding  app</span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+              </li> 
+-->
+              <!--end side-->
+
+              <!--Start side-->
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-icon">
+                    <i class="fa-solid fa-compass-drafting"></i>
+                  </span>
+                  <span class="menu-title">Engineering</span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+                    <li class="menu-item">
+                      <a href="files/Eng Timecard Ref Guide.pdf" target="_blank">
+                        <span class="menu-title">TimeCard Complete Reference Guide</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/Eng Time Entry QWIK Guide.pdf" target="_blank">
+                        <span class="menu-title">TimeCard Time Entry Guide</span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+              </li>
+              <!--end side-->
+
+              <!--Start side-->
+
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-icon">
+                    <i class="fa-solid fa-users"></i>
+                  </span>
+                  <span class="menu-title">Human Resources</span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+                    <li class="menu-item">
+                      <a href="https://online.adp.com/signin/v1/?APPID=WFNPortal&productId=80e309c3-7085-bae1-e053-3505430b5495&returnURL=https://workforcenow.adp.com/&callingAppId=WFN"
+                        target="_blank">
+                        <span class="menu-title">ADP WorkforceNow</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/2025 New Hire Onboarding Checklist - FINAL.pdf" target="_blank">
+                        <span class="menu-title">New Hire Onboarding Checklist</span>
+                      </a>
+                    </li>
+
+                    <!-- <li class="menu-item">
+                      <a href="files/HReTime User Ref Guide.pdf" target="_blank">
+                        <span class="menu-title">HReTime User Ref Guide</span>
+                      </a>
+                    </li>
+-->
+                    <li class="menu-item">
+                      <a href="https://aquavisitorsystem.github.io/" target="_blank">
+                        <span class="menu-title">Visitor Management System Link</span>
+                      </a>
+                    </li>
+
+                    <a href="files/Open Enrollment 2026.pdf" target="_blank" hidden>Open Enrollment 2026</a>
+
+                  </ul>
+                </div>
+              </li>
+
+              <!--end side-->
+
+              <!--Start side-->
+
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-icon">
+                    <i class="fa-solid fa-user-tie"></i>
+                  </span>
+                  <span class="menu-title">Contract Administration</span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+                    <li class="menu-item">
+                      <a href="https://app.smartsheet.com/b/form/c31d0d29eb214b029f288075d7ebd68a" target="_blank">
+                        <span class="menu-title">Insurance</span>
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+              </li>
+
+              <!--end side-->
+
+              <!--start side-->
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-icon">
+                    <i class="fa-solid fa-comment-dollar"></i>
+
+                  </span>
+                  <span class="menu-title">Service Group</span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+                    <li class="menu-item sub-menu">
+                      <a href="#">
+                        <span class="menu-title"> Field Service</span>
+                      </a>
+                      <div class="sub-menu-list">
+                        <ul>
+                          <li class="menu-item">
+                            <a href="https://app.smartsheet.com/b/form/53e3f11e70004a379bc6b313641230fd"
+                              target="_blank">
+                              <span class="menu-title">On-site Support Request</span>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="https://app.smartsheet.com/b/form/05c9c254f3534276881e8ee502996b0b"
+                              target="_blank">
+                              <span class="menu-title">Service Change Request</span>
+                            </a>
+                          </li>
+
+
+                          <li class="menu-item">
+                            <a href="https://www.google.com/maps/d/viewer?mid=1EDXrOFcVYvLKr3Xv8IaUbnH2wbbQmOA&ll=41.574473196630045%2C-94.75861075&z=4"
+                              target="_blank">
+                              <span class="menu-title">Service Technician Location and Contact Info</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+
+
+                  <ul>
+
+                    <li class="menu-item sub-menu">
+                      <a href="#">
+                        <span class="menu-title"> Customer Service </span>
+                      </a>
+                      <div class="sub-menu-list">
+                        <ul>
+
+                          <li class="menu-item">
+                            <a href="https://app.smartsheet.com/b/publish?EQBCT=255ca1005dff4a2cbc03d812e70af818"
+                              target="_blank">
+                              <span class="menu-title">24-hour hotline schedule</span>
+                            </a>
+                          </li>
+
+                    </li>
+
+                    <li class="menu-item">
+                      <a href="https://app.smartsheet.com/b/form/7e90c73fc6b74bf091ec47e291f216c2" target="_blank">
+                        <span class="menu-title">Customer Support Request</span>
+                      </a>
+                    </li>
+
+              </li>
+
+            </ul>
+
+
+            <li class="menu-item sub-menu">
+              <a href="#">
+                <span class="menu-title"> Training and Development </span>
+              </a>
+              <div class="sub-menu-list">
+                <ul>
+
+                  <li class="menu-item">
+                    <a href="https://app.smartsheet.com/b/form/353e688094d844229fa0ecde2099319c" target="_blank">
+                      <span class="menu-title">Customer Training Request</span>
+                    </a>
+                  </li>
+
+            </li>
+
+
+
+        </div>
+        </li>
+        </ul>
+        <!-- end of menu -->
+
+      </div>
+      </li>
+
+
+
+
+
+      <!--start side-->
+      <li class="menu-item sub-menu">
+        <a href="#">
+          <span class="menu-icon">
+            <i class="fa-solid fa-user-secret"></i>
+          </span>
+          <span class="menu-title">Information Technology</span>
+        </a>
+        <div class="sub-menu-list">
+          <ul>
+            <li class="menu-item sub-menu">
+              <a href="#">
+                <span class="menu-title"> Cisco WebEx Calling</span>
+              </a>
+              <div class="sub-menu-list">
+                <ul>
+                  <li class="menu-item">
+                    <a href="https://settings.webex.com/login" target="_blank">
+                      <span class="menu-title"> Account Access (Voicemail Password Reset)</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="files/WebEx_Calling_Guide.pdf" target="_blank">
+                      <span class="menu-title"> Webex Calling Guide</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="files/8800-series-qsg.pdf" target="_blank">
+                      <span class="menu-title">Cisco IP Phone 8800 Series Quick Start Guide</span>
+                    </a>
+                  </li>
+
+                  <li class="menu-item">
+                    <a href="files/9800-series.pdf" target="_blank">
+                      <span class="menu-title">Cisco IP Phone 9800 Series Quick Start Guide</span>
+                    </a>
+                  </li>
+                </ul>
+
+            <li class="menu-item sub-menu">
+              <a href="#">
+                <span class="menu-title">Zoom</span>
+              </a>
+              <div class="sub-menu-list">
+                <ul>
+                  <li class="menu-item">
+                    <a href="https://learn-zoom.us/show-me" target="_blank">
+                      <span class="menu-title">Zoom Video Tutorials</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="https://learning.zoom.us/learn/external-ecommerce;view=signin;redirectURL=">
+                      <span class="menu-title">Zoom Learning Center</span>
+                    </a>
+                  </li>
+
+
+
+                </ul>
+              </div>
+
+            </li>
+
+
+            <li class="menu-item sub-menu">
+              <a href="#">
+                <span class="menu-title">Bluebeam</span>
+              </a>
+              <div class="sub-menu-list">
+                <ul>
+                  <li class="menu-item">
+                    <a href="files/Bluebeam Start Guide.pdf" target="_blank">
+                      <span class="menu-title">Bluebeam Start Guide.pdf</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="https://university.bluebeam.com">
+                      <span class="menu-title">university.bluebeam.com</span>
+                    </a>
+                  </li>
+
+
+
+                </ul>
+              </div>
+
+            </li>
+
+            <li class="menu-item sub-menu">
+              <a href="#">
+                <span class="menu-title">BAQ Session</span>
+              </a>
+              <div class="sub-menu-list">
+                <ul>
+
+                  <li class="menu-item">
+                    <a href="IT/BAQ/BAQ.html" target="_blank">
+                      <span class="menu-title">Basic Business Activity Query Function</span>
+                    </a>
+                  </li>
+
+                  <li class="menu-item">
+                    <a href="IT/BAQ/BAQReport.html" target="_blank">
+                      <span class="menu-title">Basic BAQ Report Function</span>
+                    </a>
+                  </li>
+
+
+                  <li class="menu-item">
+                    <a href="IT/BAQ/BAQTraining2.html" target="_blank">
+                      <span class="menu-title">BAQ training Session 2</span>
+                    </a>
+                  </li>
+
+                  <li class="menu-item">
+                    <a href="IT/BAQ/BAQTraining3-4.html" target="_blank">
+                      <span class="menu-title">BAQ training Session 3-4</span>
+                    </a>
+                  </li>
+
+
+                  <li class="menu-item">
+                    <a href="IT/BAQ/BAQTraining5-6.html" target="_blank">
+                      <span class="menu-title">BAQ training Session 5-6</span>
+                    </a>
+                  </li>
+
+                  <li class="menu-item">
+                    <a href="IT/BAQ/BAQTraining6.html" target="_blank">
+                      <span class="menu-title">BAQ training Session 6</span>
+                    </a>
+                  </li>
+
+                  <li class="menu-item">
+                    <a href="IT/BAQ/BAQTraining7.html" target="_blank">
+                      <span class="menu-title">BAQ training Session 7</span>
+                    </a>
+                  </li>
+
+                  <li class="menu-item">
+                    <a href="IT/BAQ/BAQTrainingQ&A.html" target="_blank">
+                      <span class="menu-title">BAQ training Q and A</span>
+                    </a>
+                  </li>
+
+                  <li class="menu-item">
+                    <a href="IT/BAQ/ExternalBAQ.html" target="_blank">
+                      <span class="menu-title">External BAQ training</span>
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+
+            </li>
+            <li class="menu-item">
+              <a href="https://owa.aqua-aerobic.net/owa" target="_blank">
+                <span class="menu-title"> Outlook Web Access</span>
+              </a>
+
+            </li>
+            <li class="menu-item">
+              <a href=".//IT/FileArchieve.html" target="_blank">
+                <span class="menu-title"> File Archive (Verint)</span>
+              </a>
+
+            </li>
+
+            <li class="menu-item">
+              <a href="files/KANA_File_Archive.pdf" target="_blank">
+                <span class="menu-title">Using Kana File Archive System</span>
+              </a>
+
+            </li>
+
+            <li class="menu-item">
+              <a href="http://www.aqua-aerobic.net/sendthisfile/" target="_blank">
+                <span class="menu-title">SendThisFile from Aqua</span>
+              </a>
+
+            </li>
+
+            <li class="menu-item">
+              <a href="images/tips.PNG" target="_blank">
+                <span class="menu-title">SECURITY HINTS & TIPS</span>
+              </a>
+
+            </li>
+
+            <li class="menu-item">
+              <a href="docs/Reporting issues with E10.docx" target="_blank">
+                <span class="menu-title">Reporting issues with E10</span>
+              </a>
+
+            </li>
+
+            <li class="menu-item">
+              <a href="IssueTracker/index.html" target="_blank">
+                <span class="menu-title">IT Issue Tracker Dashboard</span>
+              </a>
+
+            </li>
+          </ul>
+        </div>
+      </li>
+      <!--end side-->
+
+
+
+      <!--start side-->
+      <li class="menu-item sub-menu">
+        <a href="#">
+          <span class="menu-icon">
+            <i class="fa-solid fa-user-secret"></i>
+          </span>
+          <span class="menu-title">Project Management</span>
+        </a>
+        <div class="sub-menu-list">
+          <ul>
+            <li class="menu-item sub-menu">
+
+
+            <li class="menu-item">
+              <a href="http://www.aqua-aerobic.net:4000/dashboard.html" target="_blank">
+                <span class="menu-title"> Master Packing List App Dashboard </span>
+              </a>
+
+            </li>
+
+      </li>
+      </ul>
+  </div>
+  <!--end side-->
+
+  <!--Start side-->
+  <li class="menu-item sub-menu">
+    <a href="#">
+      <span class="menu-icon">
+        <i class="fa-solid fa-comment-dollar"></i>
+      </span>
+      <span class="menu-title">Sales and Marketing</span>
+    </a>
+    <div class="sub-menu-list">
+      <ul>
+
+        <li class="menu-item sub-menu">
+          <a href="#">
+            <span class="menu-title"> Trademarks & Logos </span>
+          </a>
+          <div class="sub-menu-list">
+            <ul>
+
+
+
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-title"> Trademarks </span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+
+                    <li class="menu-item">
+                      <a href="files/TRADEMARK_LIST.pdf" target="_blank">
+                        <span class="menu-title">Trademarks List</span>
+                      </a>
+                    </li>
+                  </ul>
+
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-title"> Logos </span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+
+                    <li class="menu-item">
+                      <a href="files/logo/Aqua_Logo_1Line_BlackWhite_300dpi.jpg" target="_blank">
+                        <span class="menu-title">Aqua_Logo_1Line_BlackWhite_300dpi</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/logo/Aqua_Logo_1line_Color_300dpi.jpg" target="_blank">
+                        <span class="menu-title"> Aqua_Logo_1line_Color_300dpi</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/logo/Aqua_Logo_2line_centered_BlackWhite_300dpi.jpg" target="_blank">
+                        <span class="menu-title"> Aqua_Logo_2line_centered_BlackWhite_300dpi </span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/logo/Aqua_Logo_2line_centered_Color_300dpi.jpg" target="_blank">
+                        <span class="menu-title"> Aqua_Logo_2line_centered_Color_300dpi </span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/logo/Aqua_Logo_2line_right_BlackWhite_300dpi.jpg" target="_blank">
+                        <span class="menu-title">Aeration/AquaLogo 2line right BlackWhite300dpi</span>
+                      </a>
+                    </li>
+
+                    <li class="menu-item">
+                      <a href="files/logo/Aqua_Logo_2line_right_Color_300dpi.jpg" target="_blank">
+                        <span class="menu-title"> ReportBioAqua_Logo_2line_right_Color_300dpi</span>
+                      </a>
+                    </li>
+
+                  </ul>
+            </ul>
+          </div><!--End menu-content-->
+        </li>
+        <li class="menu-item sub-menu">
+          <a href="#">
+            <span class="menu-title"> Corporate Identity and Style Guide Policy</span>
+          </a>
+          <div class="sub-menu-list">
+            <ul>
+
+
+
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-title"> Policy</span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+
+                    <li class="menu-item">
+                      <a href="files/Corporate.Identity.Policy.pdf" target="_blank">
+                        <span class="menu-title">Identity and Style Guide Policy</span>
+                      </a>
+                    </li>
+
+
+                  </ul>
+
+              <li class="menu-item sub-menu">
+                <a href="#">
+                  <span class="menu-title"> Templates</span>
+                </a>
+                <div class="sub-menu-list">
+                  <ul>
+
+
+                    <!-- <li class="menu-item">
+                      <a href="files/Aqua.E-Letterhead.docx" target="_blank">
+                        <span class="menu-title"> Electronic Letterhead 2026 (.docx)</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/Meeting Minutes.docx" target="_blank">
+                        <span class="menu-title"> Meeting Minutes 2026 (.docx)</span>
+                      </a>
+                    </li>
+
+                    <li class="menu-item">
+                      <a href="files/Memo Cover.docx" target="_blank">
+                        <span class="menu-title"> Memo 2026 (.docx)</span>
+                      </a>
+                    </li>
+                   
+                    <li class="menu-item">
+                      <a href="files/Report Template Aeration_Mixing.docx" target="_blank">
+                        <span class="menu-title"> Aeration and Mixing Report 2026 (.docx)</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/Press Release.docx" target="_blank">
+                        <span class="menu-title"> Press Release 2026 (.docx)</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/Report Template BioProcesses.docx" target="_blank">
+                        <span class="menu-title"> Biological Processes Report 2026 (.docx)</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/Report Template Customer Service.docx" target="_blank">
+                        <span class="menu-title"> Customer Service Report 2026 (.docx)</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/Report Template Filtration.docx" target="_blank">
+                        <span class="menu-title"> Filtration Report 2026 (.docx)</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/Report Template Oxidaton_Disinfection.docx" target="_blank">
+                        <span class="menu-title"> Oxidation and Disinfection Report 2026 (.docx)</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/Report Template R&D.docx" target="_blank">
+                        <span class="menu-title"> R&D Report 2026 (.docx)</span>
+                      </a>
+                    </li>
+
+                    <li class="menu-item">
+                      <a href="files/Report PFAS Solutions.docx" target="_blank">
+                        <span class="menu-title"> PFAS Solutions Report 2026 (.docx)</span>
+                      </a>
+                    </li> -->
+                    <li class="menu-item">
+                      <a href="files/Template_WIDESCREEN.pptx" target="_blank">
+                        <span class="menu-title"> PowerPoint Widescreen Format 2026 (.pptx)</span>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="files/About Aqua Aerobic Systems.pptx" target="_blank">
+                        <span class="menu-title"> About Aqua-Aerobic Systems (PowerPoint)</span>
+                      </a>
+                    </li>
+
+
+
+                  </ul>
+            </ul>
+          </div><!--End menu-content-->
+        </li>
+
+
+
+        <li class="menu-item sub-menu">
+          <a href="#">
+            <span class="menu-title"> Zoom BackGround</span>
+          </a>
+          <div class="sub-menu-list">
+            <ul>
+
+              <li class="menu-item">
+                <a href="files/Aqua_Zoom_Background1.png" target="_blank">
+                  <span class="menu-title">Aqua_Zoom_Background 1</span>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="files/Aqua_Zoom_Background2.png" target="_blank">
+                  <span class="menu-title">Aqua_Zoom_Background 2</span>
+                </a>
+              </li>
+
+            </ul>
+
+            <!--Start side-->
+
+
+        <li class="menu-item">
+          <a href="files/ProfileCapabilitiesWBios.pdf" target="_blank">
+            <span class="menu-title">Company Profile and Capabilities with Bios</span>
+          </a>
+
+        </li>
+
+
+        <li class="menu-item">
+          <a href="files/Sales Marketing Team Assignments.pdf" target="_blank">
+            <span class="menu-title"> Sales Marketing Team Assignments</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="files/Domestic Regional Territory Map.pdf" target="_blank">
+            <span class="menu-title"> Domestic Regional Territory Map</span>
+          </a>
+        </li>
+
+      </ul>
+
+      </ul>
+
+      <ul>
+        <li class="menu-item sub-menu">
+          <a href="https://aquagearstore.com/" target="_blank">
+
+            <span class="menu-icon">
+              <i class="fa-solid fa-store"></i>
+            </span>
+            <span class="menu-title">AquaGear Online Merchandise Store</span>
+          </a>
+          <div class="sub-menu-list">
+
+          </div>
+        </li>
+      </ul>
+
+      <ul>
+        <li class="menu-item sub-menu">
+          <a href="#">
+            <span class="menu-icon">
+              <i class="fa-solid fa-address-book"></i>
+            </span>
+            <span class="menu-title">Quality</span>
+          </a>
+          <div class="sub-menu-list">
+            <ul>
+
+              <li class="menu-item">
+                <a href="https://app.smartsheet.com/b/form/98a3158b9d13485890418d6f3fec2c80" target="_blank">
+                  <span class="menu-title">Claim Request</span>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+
+        </li>
+      </ul>
+
+  </li>
+  </ul>
+
+  <ul>
+    <li class="menu-item sub-menu">
+      <a href="e10.html">
+        <span class="menu-icon">
+          <i class="fa-solid fa-address-book"></i>
+        </span>
+        <span class="menu-title">Epicor10 Live</span>
+      </a>
+      <div class="sub-menu-list">
+
+      </div>
+    </li>
+  </ul>
+  </ul>
+  <!--end side-->
+  <!--end side-->
+
+
+  </ul>
+  </nav>
+
+  </div>
+
+  </div>
+  </header>
+  <!--- End Header --->
+
+  </aside>
+  <!--End Side Menu-->
+
+
+
+  <div class="layout">
+    <main class="content">
+      <div>
+        <a id="btn-toggle" href="#" class="sidebar-toggler break-point-sm">
+          <i class="ri-menu-line ri-xl"></i>
+        </a>
+        <img src="images/aqualogo.png" / width="750px">
+      </div>
+
+      <section class="card-area">
+
+        <h1 style="justify-content: center;" class="reveal-text">
+          Intranet
+        </h1>
+
+
+      </section>
+
+      <!--end of section one--->
+      <!----Section Two ----->
+
+      <!--End Of Main-->
+
+      <!--- End of Section 2 --->
+
+      <div class="notes">
+        <ul>
+          <li>
+
+            <a id="Note-three" href="Safety/index.html">
+
+              <small>Click Here!</small>
+              <h2>Get To know</h2>
+              <p>Safety Information</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <br>
+      <div>
+        <div class="clock" style="font-size: smaller;">
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <em class="divider">:</em>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <em class="divider">:</em>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+
+        </div>
+
+        <footer class="footer">
+          <small style="margin-bottom: 20px; display: inline-block">
+            Copyright &copy;
+            <script>document.write(new Date().getFullYear())</script> - All Rights Reserved - Aqua-Aerobic System, Inc
+          </small>
+        </footer>
+
+      </div>
+  </div>
+  <canvas id="canvas"></canvas>
+  <div id="overlay" class="overlay"> </div>
+
+
+  <script>
+    function findLinks() {
+      const links = document.querySelectorAll("a");
+      const modalList = document.getElementById("modal-links-list");
+      modalList.innerHTML = "";
+
+      if (links.length > 0) {
+        links.forEach(link => {
+          if (link.getAttribute("href") !== "#") {
+            const modalListItem = document.createElement("li");
+            modalListItem.textContent = link.textContent || link.href.split('/').pop();
+            modalListItem.dataset.href = link.href;
+            modalListItem.onclick = () => window.open(link.href, '_blank');
+            modalList.appendChild(modalListItem);
+          }
+        });
+      } else {
+        modalList.innerHTML = "<li>No links found.</li>";
+      }
+    }
+
+    function filterLinks() {
+      const searchValue = document.getElementById("modal-search-box").value.toLowerCase();
+      const listItems = document.querySelectorAll("#modal-links-list li");
+      listItems.forEach(item => {
+        item.style.display = item.textContent.toLowerCase().includes(searchValue) ? "" : "none";
+      });
+    }
+
+    function openSearchModal() {
+      //findLinks();
+      //document.getElementById("searchModal").style.display = "flex";
+      openCompanySearch();
+    }
+    let popupWindow = null;
+
+    function openCompanySearch() {
+      const openOrResize = () => {
+        const minWidth = 1100;   // 👈 minimum width in px
+        const minHeight = 1000;  // 👈 minimum height in px
+
+        let width = Math.floor(window.screen.width * 0.7);
+        let height = Math.floor(window.screen.height * 0.5);
+
+        // Enforce minimums
+        if (width < minWidth) width = minWidth;
+        if (height < minHeight) height = minHeight;
+
+        // Center calculation, clamp to >= 0
+        let left = Math.floor((window.screen.width - width) / 2);
+        let top = Math.floor((window.screen.height - height) / 2);
+
+        if (left < 0) left = 0;
+        if (top < 0) top = 0;
+
+        if (popupWindow && !popupWindow.closed) {
+          try {
+            //popupWindow.resizeTo(width, height);
+            //popupWindow.moveTo(left, top);
+            popupWindow.focus();  // 👈 bring it to front
+          } catch (e) {
+            console.warn("Browser blocked resize/move:", e);
+          }
+        } else {
+          popupWindow = window.open(
+            "http://www.aqua-aerobic.net:3000/",
+            "AquaCompanySearch",
+            `width=${width},height=${height},top=${top},left=${left},
+         resizable=yes,scrollbars=yes,
+         toolbar=no,menubar=no,location=no,status=no`
+          );
+        }
+      };
+
+      openOrResize();
+      window.addEventListener("resize", openOrResize);
+    }
+
+    function closeSearchModal() {
+      document.getElementById("searchModal").style.display = "none";
+    }
+
+
+  </script>
+</body>
+<!-- partial -->
+
+<script src='js/propercore.js'></script>
+<script src="js/particles.js"></script>
+<script src="js/clockflapper.js"></script>
+<script src="js/fontawesome.js"></script>
+<script>
+</script>
+
+</html>

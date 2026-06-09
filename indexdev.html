@@ -1,0 +1,2681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqua-Aerobic Systems — Employee Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --aqua-blue: #005f9e;
+      --aqua-dark: #003f66;
+      --aqua-mid: #0077bb;
+      --aqua-light: #e4f2fb;
+      --aqua-xlight: #f0f8ff;
+      --accent: #00b4d8;
+      --accent-warm: #f0a500;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --text: #0f2235;
+      --radius: 10px;
+      --shadow-sm: 0 1px 3px rgba(0, 63, 102, 0.08), 0 1px 2px rgba(0, 63, 102, 0.04);
+      --shadow: 0 4px 16px rgba(0, 63, 102, 0.10), 0 1px 4px rgba(0, 63, 102, 0.06);
+      --shadow-lg: 0 12px 40px rgba(0, 63, 102, 0.14), 0 2px 8px rgba(0, 63, 102, 0.08);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-50);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ───────────────────────────────────────────────────────────── */
+    .site-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 32px;
+      z-index: 200;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+    }
+
+    /* Thin gradient accent stripe across the very top */
+    .site-header::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: linear-gradient(90deg, var(--aqua-dark) 0%, var(--aqua-mid) 60%, var(--accent) 100%);
+      margin: 0 -32px;
+    }
+
+    .header-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+      padding: 12px 0;
+    }
+
+    .header-inner>a {
+      justify-self: start;
+    }
+
+    .brand-logo {
+      display: block;
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+    }
+
+    .header-text {
+      text-align: center;
+      justify-self: center;
+      min-width: 0;
+    }
+
+    .site-header h1 {
+      margin: 0 0 1px 0;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--aqua-dark);
+      font-family: 'DM Serif Display', serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .site-header p.sub {
+      margin: 0;
+      font-size: 12px;
+      color: var(--gray-400);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-logo {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .header-search {
+      flex-shrink: 0;
+      width: 340px;
+      position: relative;
+      justify-self: end;
+    }
+
+    .header-search input {
+      width: 100%;
+      padding: 9px 16px 9px 40px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      color: var(--text);
+      background: var(--gray-50);
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      outline: none;
+    }
+
+    .header-search input:focus {
+      border-color: var(--aqua-blue);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(0, 95, 158, 0.12);
+    }
+
+    .header-search input::placeholder {
+      color: var(--gray-400);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-400);
+      pointer-events: none;
+    }
+
+    .aquasearch-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      background: linear-gradient(135deg, var(--aqua-blue) 0%, var(--aqua-mid) 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0, 95, 158, 0.30);
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .aquasearch-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0, 95, 158, 0.40);
+    }
+
+    .aquasearch-btn:active {
+      transform: translateY(0);
+    }
+
+    .aquasearch-btn svg {
+      flex-shrink: 0;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: scale(1.3);
+      }
+    }
+
+    /* ── QUICK-SEARCH CHIPS BAR ───────────────────────────────────────────── */
+    .search-hero {
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 10px 32px;
+    }
+
+    .search-hero-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .search-hero-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--gray-400);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .search-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 11px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 50px;
+      font-size: 12.5px;
+      color: var(--aqua-dark);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s, color 0.15s;
+      font-weight: 500;
+    }
+
+    .chip:hover {
+      background: var(--aqua-xlight);
+      border-color: var(--aqua-blue);
+      color: var(--aqua-blue);
+      transform: translateY(-1px);
+    }
+
+    .chip svg {
+      opacity: 0.65;
+    }
+
+    .search-hero-cta {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--gray-600);
+    }
+
+    .search-hero-cta strong {
+      color: var(--aqua-dark);
+    }
+
+    /* ── LAYOUT ───────────────────────────────────────────────────────────── */
+    .page-body {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 32px 32px 32px;
+    }
+
+    /* ── SECTION HEADERS ─────────────────────────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .section-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--aqua-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Colored left-bar accent before each section heading */
+    .section-header h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 20px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, var(--aqua-mid) 0%, var(--accent) 100%);
+      flex-shrink: 0;
+    }
+
+    .section-count {
+      font-size: 11.5px;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+
+    /* ── CATEGORY GRID ────────────────────────────────────────────────────── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    /* ── ACCORDION CARD ───────────────────────────────────────────────────── */
+    details.cat-card {
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    details.cat-card[open] {
+      border-color: var(--aqua-blue);
+      box-shadow: var(--shadow);
+    }
+
+    details.cat-card>summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--aqua-dark);
+      background: var(--white);
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+
+    details.cat-card>summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.cat-card>summary:hover {
+      background: var(--aqua-xlight);
+      color: var(--aqua-mid);
+    }
+
+    details.cat-card[open]>summary {
+      background: var(--aqua-xlight);
+      border-bottom: 1px solid var(--aqua-light);
+      color: var(--aqua-mid);
+    }
+
+    .cat-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--aqua-light) 0%, #cce9f8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--aqua-blue);
+      flex-shrink: 0;
+    }
+
+    .cat-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .cat-title {
+      flex: 1;
+    }
+
+    .cat-arrow {
+      color: var(--gray-400);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    details.cat-card[open] .cat-arrow {
+      transform: rotate(90deg);
+    }
+
+    .cat-body {
+      padding: 12px 18px 16px;
+    }
+
+    .cat-desc {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.55;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--gray-200);
+    }
+
+    /* Modal section inside card */
+    details.sub,
+    details.modal {
+      margin-bottom: 4px;
+      border-radius: 6px;
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    details.sub[open],
+    details.modal[open] {
+      border-color: var(--aqua-mid);
+    }
+
+    details.sub>summary,
+    details.modal>summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--aqua-dark);
+      background: var(--gray-50);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    details.sub>summary::-webkit-details-marker,
+    details.modal>summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.sub>summary:hover,
+    details.modal>summary:hover {
+      background: var(--aqua-xlight);
+      color: var(--aqua-mid);
+    }
+
+    details.sub[open]>summary,
+    details.modal[open]>summary {
+      background: var(--aqua-light);
+      border-bottom: 1px solid var(--gray-200);
+      color: var(--aqua-dark);
+    }
+
+    .sub-arrow,
+    .modal-arrow {
+      margin-left: auto;
+      color: var(--gray-400);
+      transition: transform 0.2s;
+    }
+
+    details.sub[open] .sub-arrow,
+    details.modal[open] .modal-arrow {
+      transform: rotate(90deg);
+    }
+
+    .sub-body,
+    .modal-body {
+      padding: 10px 12px 12px 16px;
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      border-left: 3px solid var(--aqua-mid);
+    }
+
+    .sub-body p,
+    .modal-body p {
+      margin-bottom: 0;
+    }
+
+    /* Search-this-section button */
+    .search-section-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 8px;
+      margin-right: 4px;
+      padding: 5px 11px;
+      background: var(--aqua-xlight);
+      border: 1px solid var(--aqua-light);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--aqua-blue);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .search-section-btn:hover {
+      background: var(--aqua-light);
+      border-color: var(--aqua-blue);
+      color: var(--aqua-dark);
+      text-decoration: none;
+    }
+
+    /* Remove emoji from button text via a CSS arrow prefix on btn with data-icon */
+    /* Note / warning callout */
+    .note {
+      background: #fff8e6;
+      border-left: 4px solid var(--accent-warm);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin-top: 10px;
+      font-size: 12.5px;
+      color: #6b4400;
+      line-height: 1.5;
+    }
+
+    /* ── QUICK LINKS GRID ────────────────────────────────────────────────── */
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .quick-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.12s, background 0.15s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .quick-link:hover {
+      border-color: var(--aqua-blue);
+      background: var(--aqua-xlight);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    .quick-link-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--aqua-light) 0%, #cce9f8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--aqua-blue);
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .quick-link:hover .quick-link-icon {
+      background: linear-gradient(135deg, #cce9f8 0%, var(--aqua-light) 100%);
+    }
+
+    .quick-link-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+
+    .quick-link-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--aqua-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .quick-link-desc {
+      font-size: 11px;
+      color: var(--gray-400);
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── AQUASEARCH CALLOUT ───────────────────────────────────────────────── */
+    .aquasearch-callout-wrap {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 32px 32px;
+    }
+
+    .aquasearch-callout {
+      background: linear-gradient(135deg, var(--aqua-dark) 0%, var(--aqua-blue) 100%);
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .aquasearch-callout-text h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .aquasearch-callout-text p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 600px;
+      margin: 0;
+    }
+
+    .aquasearch-callout .aquasearch-btn {
+      background: var(--white);
+      color: var(--aqua-dark);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.20);
+      flex-shrink: 0;
+    }
+
+    .aquasearch-callout .aquasearch-btn:hover {
+      background: var(--aqua-xlight);
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--gray-200);
+      padding: 24px 32px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    /* ── VISITOR COUNTER ─────────────────────────────────────────────────── */
+    .visitor-counter-wrap {
+      margin-bottom: 10px;
+    }
+
+    .vc-label {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray-400);
+      margin-bottom: 6px;
+    }
+
+    .visitor-counter {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 50px;
+      padding: 8px 20px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s;
+    }
+
+    .visitor-counter:hover {
+      box-shadow: var(--shadow);
+    }
+
+    .vc-stat {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
+    .vc-stat svg {
+      color: var(--aqua-blue);
+      flex-shrink: 0;
+    }
+
+    .vc-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--aqua-dark);
+      min-width: 28px;
+      display: inline-block;
+      text-align: center;
+      transition: color 0.4s;
+    }
+
+    .vc-num.loading {
+      color: var(--gray-400);
+      font-weight: 400;
+    }
+
+    .vc-divider {
+      width: 1px;
+      height: 18px;
+      background: var(--gray-200);
+    }
+
+    @keyframes vc-tick {
+      0% {
+        transform: scale(1);
+      }
+
+      30% {
+        transform: scale(1.25);
+        color: var(--accent);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .vc-num.tick {
+      animation: vc-tick 0.5s ease;
+    }
+
+    /* ── PRINT ────────────────────────────────────────────────────────────── */
+    @media print {
+
+      .site-header,
+      .search-hero,
+      .aquasearch-callout-wrap,
+      .aquasearch-btn,
+      .search-section-btn,
+      .chip,
+      .pulse-dot {
+        display: none !important;
+      }
+
+      .page-body {
+        padding: 0;
+      }
+
+      details {
+        break-inside: avoid;
+      }
+
+      details:not([open]) .cat-body {
+        display: block;
+      }
+
+      details:not([open]) .sub-body,
+      details:not([open]) .modal-body {
+        display: block;
+      }
+
+      details>summary {
+        background: none !important;
+        color: #003f66 !important;
+      }
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .site-header {
+        padding: 0 20px;
+      }
+
+      .site-header::before {
+        margin: 0 -20px;
+      }
+
+      .header-inner {
+        gap: 12px;
+      }
+
+      .header-search {
+        width: 220px;
+      }
+
+      .brand-logo {
+        max-width: 160px;
+      }
+
+      .site-header h1 {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .site-header {
+        padding: 0 16px;
+      }
+
+      .site-header::before {
+        margin: 0 -16px;
+      }
+
+      .header-inner {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 10px 0;
+      }
+
+      .header-inner>a {
+        flex-shrink: 0;
+      }
+
+      .header-text {
+        text-align: right;
+        flex: 1;
+      }
+
+      .brand-logo {
+        max-width: 140px;
+      }
+
+      .site-header h1 {
+        font-size: 13px;
+      }
+
+      .site-header p.sub {
+        display: none;
+      }
+
+      .header-search {
+        width: 100%;
+        order: 3;
+      }
+
+      .aquasearch-btn span:not(.pulse-dot) {
+        display: none;
+      }
+
+      .search-hero {
+        padding: 10px 16px;
+      }
+
+      .page-body {
+        padding: 20px 16px 48px;
+      }
+
+      .aquasearch-callout-wrap {
+        padding: 0 16px 24px;
+      }
+
+      .aquasearch-callout {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="http://www.aqua-aerobic.net" title="Aqua-Aerobic Intranet Home" style="line-height:0;">
+        <img class="brand-logo" src="http://www.aqua-aerobic.net/images/newlogo.png" alt="Aqua-Aerobic Systems, Inc."
+          onerror="this.src='http://www.aqua-aerobic.net:3000/logo.jpg'">
+      </a>
+      <div class="header-text">
+        <h1>Aqua-Aerobic Systems — Employee Hub</h1>
+        <p class="sub">Your central hub for all company resources, tools, and information.</p>
+      </div>
+      <!-- Inline search → opens AquaSearch -->
+      <div class="header-search">
+        <svg class="search-icon" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
+        </svg>
+        <input type="text" placeholder="Search all company files… (Enter)" id="headerSearchInput"
+          onkeydown="if(event.key==='Enter'&&this.value.trim()){openAquaSearch(this.value.trim());}">
+      </div>
+    </div>
+  </header>
+
+  <!-- QUICK-SEARCH CHIPS -->
+  <div class="search-hero">
+    <div class="search-hero-inner">
+      <span class="search-hero-label">Quick search:</span>
+      <div class="search-chips">
+        <button class="chip"
+          onclick="window.open('http://www.aqua-aerobic.net/Company/index.html#:~:text=Company%20Wide%20Dashboard', '_blank')"
+          title="Company Dashboard">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+          Company Dashboard
+        </button>
+
+        <button class="chip"
+          onclick="window.open('http://www.aqua-aerobic.net:3000/api/file?path=file%3A%2F%2F%2FQ%3A%2FProjects%2FAquaSearch%2FOrders%2520Received%2520Over%2520100k.html#:~:text=Orders%20Received%20Over%20100k.', '_blank')"
+          title="Orders Received Over 100k">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          Orders Received Over 100k
+        </button>
+
+        <button class="chip" onclick="openAquaSearch('Engineering Index.html')" title="Engineering Index">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg>
+          Engineering Index
+        </button>
+        <button class="chip" onclick="openAquaSearch('O&M manual')" title="O&amp;M Manuals">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg>
+          O&amp;M Manuals
+        </button>
+        <button class="chip"
+          onclick="window.open('http://www.aqua-aerobic.net/files/2025%20New%20Hire%20Onboarding%20Checklist%20-%20FINAL.pdf', '_blank')"
+          title="New Hire Onboarding">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="8.5" cy="7" r="4" />
+            <polyline points="17 11 19 13 23 9" />
+          </svg>
+          New Hire Onboarding
+        </button>
+        <button class="chip"
+          onclick="window.open('http://www.aqua-aerobic.net/files/Concur.Login.Instructions.pdf', '_blank')"
+          title="Concur Travel">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+          Concur Travel
+        </button>
+        <button class="chip"
+          onclick="window.open('http://www.aqua-aerobic.net:3000/api/file?path=file%3A%2F%2Faqua47%2Faquaintranet%2Ffiles%2FFiscal%2520Calendar%25202026%2520-%2520Aqua-Aerobics.pdf', '_blank')"
+          title="Fiscal Calendar 2026">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          Fiscal Calendar 2026
+        </button>
+      </div>
+      <div class="search-hero-cta">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#4ade80" stroke-width="2.5">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+          <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
+        <span>AquaSearch is <strong>live</strong> — automatically updating files throughout the day</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+
+    <!-- QUICK LINKS -->
+    <div class="section-header">
+      <h2>Quick Access</h2>
+      <span class="section-count">Commonly used links</span>
+    </div>
+    <div class="quick-links">
+      <a class="quick-link" href="http://www.aqua-aerobic.net:3000/hrchat/" target="_blank"
+        title="AVA – HR Assistant Instant answers 24/7">
+        <span class="quick-link-icon">
+          <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">AVA – HR Assistant</span>
+          <span class="quick-link-desc">Instant answers 24/7</span>
+        </span>
+      </a>
+      <a class="quick-link" href="https://aqualocator.github.io/" target="_blank"
+        title="AquaLocator Employee office locator">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">AquaLocator</span>
+          <span class="quick-link-desc">Employee office locator</span>
+        </span>
+      </a>
+      <a class="quick-link"
+        href="https://online.adp.com/signin/v1/?APPID=WFNPortal&productId=80e309c3-7085-bae1-e053-3505430b5495&returnURL=https://workforcenow.adp.com/&callingAppId=WFN"
+        target="_blank" title="ADP WorkforceNow Payroll &amp; HR portal">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M9 9h6M9 13h6M9 17h4" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">ADP WorkforceNow</span>
+          <span class="quick-link-desc">Payroll &amp; HR portal</span>
+        </span>
+      </a>
+      <a class="quick-link" href="https://outlook.office365.com/owa/aqua-aerobic.com" target="_blank"
+        title="Outlook Web Company email">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">Outlook Web</span>
+          <span class="quick-link-desc">Company email</span>
+        </span>
+      </a>
+      <a class="quick-link" href="https://aquavisitorsystem.github.io/" target="_blank"
+        title="Visitor Management Sign in guests">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">Visitor Management</span>
+          <span class="quick-link-desc">Sign in guests</span>
+        </span>
+      </a>
+      <a class="quick-link" href="http://www.aqua-aerobic.net:4000/dashboard.html" target="_blank"
+        title="Master Packing List Production dashboard">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">Master Packing List</span>
+          <span class="quick-link-desc">Production dashboard</span>
+        </span>
+      </a>
+      <a class="quick-link" href="https://optiaqua.github.io/" target="_blank"
+        title="OptiAqua Live operational snapshot">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">OptiAqua</span>
+          <span class="quick-link-desc">Live operational snapshot</span>
+        </span>
+      </a>
+      <a class="quick-link" href="https://aquaguide.app/" target="_blank" title="1-Minute Guide Quick reference portal">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">1-Minute Guide</span>
+          <span class="quick-link-desc">Quick reference portal</span>
+        </span>
+      </a>
+      <a class="quick-link" href="http://192.168.1.83:8080/reports" target="_blank"
+        title="Project Schedule APD Schedule">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">Project Schedule</span>
+          <span class="quick-link-desc">APD Schedule</span>
+        </span>
+      </a>
+      <a class="quick-link"
+        href="http://aqua55/Reports/Pages/Report.aspx?ItemPath=/MgrReports/v10_EngProjectSchedulebyProdbyDateSoShipDateDev2"
+        target="_blank" title="Eng Schedule SSRS project schedule">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+            <line x1="8" y1="14" x2="16" y2="14" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">Eng Schedule</span>
+          <span class="quick-link-desc">SSRS project schedule</span>
+        </span>
+      </a>
+    </div>
+
+
+    <!-- MAIN DIRECTORY SECTIONS -->
+    <div class="section-header">
+      <h2>Directory <span class="section-count">(14)</span></h2>
+    </div>
+    <div class="cat-grid">
+      <!-- Company Information -->
+      <details class="cat-card" id="company-information">
+        <summary title="Expand/Collapse Company Information">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg></span>
+          <span class="cat-title">Company Information</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">General company information that applies broadly across the organization.</p>
+          <details class="modal">
+            <summary title="Expand/Collapse Company Overview">Company Overview<svg class="modal-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="modal-body">
+              <p>General overview of Aqua-Aerobic Systems and companywide information displayed in modal style.</p> <a
+                href="http://www.aqua-aerobic.net/files/ProfileCapabilitiesWBios.pdf" target="_blank"
+                class="search-section-btn" title="📋 Company Profile with Bios">📋 Company Profile with Bios</a>
+              <br> <a href="http://www.aqua-aerobic.net/files/about/index.html" target="_blank"
+                class="search-section-btn" title="🔗 About Aqua Aerobic Systems">🔗
+                About Aqua Aerobic Systems</a>
+            </div>
+          </details>
+
+          <details class="modal">
+            <summary title="Expand/Collapse Facility Information">Facility Information<svg class="modal-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="modal-body">
+              <p>Building maps, conference rooms, and facility resources displayed in modal style.</p>
+              <a href="http://www.aqua-aerobic.net/files/aasi_facility_floorplan.pdf" target="_blank"
+                class="search-section-btn" title="📋 Building Maps & Conference Rooms">📋 Building Maps & Conference
+                Rooms</a>
+            </div>
+          </details>
+          <details class="modal">
+            <summary title="Expand/Collapse Company Announcements">Company Announcements<svg class="modal-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="modal-body">
+              <p>Company-wide announcements and news displayed in modal style.</p>
+              <a href="https://aquaguide.app/" target="_blank" class="search-section-btn" title="📋 1-Minute Guide">📋
+                1-Minute Guide</a>
+              <a href="http://www.aqua-aerobic.net:3000/hrchat/" target="_blank" class="search-section-btn"
+                title="📢 HR Announcements">📢 HR
+                Announcements</a>
+            </div>
+          </details>
+
+          <details class="modal">
+            <summary title="Expand/Collapse Acronyms &amp; Terminology">Acronyms &amp; Terminology<svg
+                class="modal-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="modal-body">
+              <p>Common abbreviations and terminology used across departments, now shown in modal style.</p><a
+                href="http://www.aqua-aerobic.net:3000/api/file?path=file%3A%2F%2F%2FQ%3A%2FMarketing%2FPowerPoint%2FSEMINARS%2520AND%2520SALES%2520MEETINGS.PPT%2FRep%2520Training%2520Seminars%2F2021%2520General%2520Rep%2520Training%2FRep%2520Training_Acronym%2520Cheat%2520Sheet.pdf"
+                target="_blank" class="search-section-btn" title="📋 Common Acronyms and Terms">📋 Common Acronyms and
+                Terms</a>
+            </div>
+          </details>
+          <a class="search-section-btn" onclick="openAquaSearch('company information')"
+            title="🔍 Search Company Information in AquaSearch">🔍 Search Company Information in
+            AquaSearch</a>
+        </div>
+      </details>
+
+      <!-- Employee Resources & Reservations -->
+      <details class="cat-card" id="employee-resources-reservations">
+        <summary title="Expand/Collapse Employee Resources &amp; Reservations">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg></span>
+          <span class="cat-title">Employee Resources &amp; Reservations</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Employee directories, talent exchange programs, and conference room booking instructions.
+          </p>
+          <a href="http://www.aqua-aerobic.net/files/EmpList_ByDept.pdf" target="_blank" class="search-section-btn"
+            title="📋 Employee List By Dept">📋 Employee List By Dept</a>
+          <a href="http://www.aqua-aerobic.net/files/EmpList_ByName.pdf" target="_blank" class="search-section-btn"
+            title="📋 Employee List By Name">📋 Employee List By Name</a>
+
+          <p style="margin-top:12px; margin-bottom: 8px;"><strong>Aqua Talent Exchange</strong></p>
+          <a href="http://www.aqua-aerobic.net/files/Aqua_Talent_Exchange_Usage_Guidelines.docx" target="_blank"
+            class="search-section-btn" title="📄 Usage Guidelines">📄 Usage Guidelines</a>
+          <a href="https://app.smartsheet.com/b/form/216f61f6021e4802a70c2e8fa6f3e7c1" target="_blank"
+            class="search-section-btn" title="🔗 Request Form">🔗 Request Form</a>
+          <a href="https://app.smartsheet.com/b/publish?EQBCT=15a3b5354c2e4f0084401b667a697cd9" target="_blank"
+            class="search-section-btn" title="📊 Dashboard">📊 Dashboard</a>
+
+          <p style="margin-top:12px; margin-bottom: 8px;"><strong>Reservations</strong></p>
+          <a href="http://www.aqua-aerobic.net/files/Using%20Outlook%20Invitation%20to%20Reserve%20a%20Conference%20Room.pdf"
+            target="_blank" class="search-section-btn" title="📋 Outlook Invitation to Reserve a Conference Room">📋
+            Outlook Invitation to Reserve a Conference Room</a>
+        </div>
+      </details>
+
+      <!-- Departments -->
+      <details class="cat-card" id="departments">
+        <summary title="Expand/Collapse Departments">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+              <line x1="12" y1="12" x2="12" y2="17" />
+              <line x1="9" y1="14.5" x2="15" y2="14.5" />
+            </svg></span>
+          <span class="cat-title">Departments</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Resources for departments — contacts, tools, workflows, and commonly used resources.</p>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Sales">Sales<svg class="sub-arrow" width="12" height="12" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Sales department overview, contacts, tools, and commonly used resources.</p>
+              <a href="files/Sales Marketing Team Assignments.pdf" target="_blank" class="search-section-btn"
+                title="📄 Sales Team Assignments">📄 Sales
+                Team Assignments</a>
+              <a href="files/Domestic Regional Territory Map.pdf" target="_blank" class="search-section-btn"
+                title="📄 Domestic Territory Map">📄 Domestic
+                Territory Map</a>
+              <a class="search-section-btn"
+                onclick="openAquaSearch('Browse Q:\\Sales & Marketing','Q Sales & Marketing')" title="🔍 Files">🔍
+                Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Marketing">Marketing<svg class="sub-arrow" width="12" height="12"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Marketing resources, contacts, branding guidance, and department information.</p>
+              <a href="files/Corporate.Identity.Policy.pdf" target="_blank" class="search-section-btn"
+                title="📄 Identity &amp; Style Guide Policy">📄 Identity &amp;
+                Style Guide Policy</a>
+              <a href="files/Employee Memo_Graphics Policy.pdf" target="_blank" class="search-section-btn"
+                title="📄 Graphics Policy Memo">📄 Graphics
+                Policy Memo</a>
+              <a class="search-section-btn"
+                onclick="openAquaSearch('Browse Q:\\Marketing Folders & Files','Q Marketing')"
+                title="🔍 Search Marketing Files">🔍
+                Search Marketing
+                Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Applications Engineering">Applications Engineering<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Applications Engineering resources, contacts, tools, and procedures.</p>
+              <a class="search-section-btn"
+                onclick="openAquaSearch('Browse Q:\Applications Engineering Folders & Files','Q Applications Engineering')"
+                title="🔍 Search App Engineering Files">🔍
+                Search App Engineering Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Product Management">Product Management<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Product Management resources, product ownership, tools, and references.</p>
+              <a class="search-section-btn"
+                onclick="openAquaSearch('Browse Q:\\Product Management Folders & Files','Q Product Management')"
+                title="🔍 Search Product Management Files">🔍
+                Search Product
+                Management Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Engineering">Engineering<svg class="sub-arrow" width="12" height="12"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Engineering resources, contacts, standards, procedures, and tools.</p>
+              <a href="http://www.aqua-aerobic.net/files/2026%20Engineering%20Organization.pptx" target="_blank"
+                class="search-section-btn" title="📊 2026 Engineering Organization">📊 2026 Engineering Organization</a>
+              <a href="http://www.aqua-aerobic.net/files/Eng%20Timecard%20Ref%20Guide.pdf" target="_blank"
+                class="search-section-btn" title="📄 TimeCard Complete Reference Guide">📄 TimeCard Complete Reference
+                Guide</a>
+              <a href="http://www.aqua-aerobic.net/files/Eng%20Time%20Entry%20QWIK%20Guide.pdf" target="_blank"
+                class="search-section-btn" title="📄 TimeCard Time Entry Guide">📄 TimeCard Time Entry Guide</a>
+              <a class="search-section-btn" onclick="openAquaSearch('Engineering Index.html')"
+                title="🔍 Engineering Index">🔍 Engineering Index</a>
+              <a class="search-section-btn" onclick="openAquaSearch('', 'Engineering Index')"
+                title="🔍 Search Engineering Files">🔍
+                Search
+                Engineering Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Project Management">Project Management<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Project Management resources, project tracking tools, and execution guidance.</p>
+              <a class="search-section-btn" onclick="openAquaSearch('Project Management','Engineering Index')"
+                title="🔍 Project Management Files">🔍
+                Project Management Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Customer Service">Customer Service<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Customer Service resources, contacts, warranty information, and support procedures.</p>
+              <a href="https://app.smartsheet.com/b/form/53e3f11e70004a379bc6b313641230fd" target="_blank"
+                class="search-section-btn" title="📋 On-site Support Request">📋 On-site Support Request</a>
+              <a href="https://app.smartsheet.com/b/form/7e90c73fc6b74bf091ec47e291f216c2" target="_blank"
+                class="search-section-btn" title="📋 Customer Support Request">📋 Customer Support Request</a>
+              <a class="search-section-btn" onclick="openAquaSearch('','I Service Drive')"
+                title="🔍 Search Customer Service Files">🔍 Search
+                Customer Service Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Production">Production<svg class="sub-arrow" width="12" height="12"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Production resources, contacts, procedures, and related references.</p>
+              <a href="http://www.aqua-aerobic.net:4000/dashboard.html" target="_blank" class="search-section-btn"
+                title="📊 Master Packing List Dashboard">📊
+                Master Packing List Dashboard</a>
+              <a class="search-section-btn" onclick="openAquaSearch('Browse Q:\\SHIPPING Folders & Files','Q Shipping')"
+                title="🔍 Search Production Files">🔍 Search
+                Production Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Purchasing">Purchasing<svg class="sub-arrow" width="12" height="12"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Purchasing resources, contacts, procedures, and supplier-related information.</p>
+              <a class="search-section-btn" onclick="openAquaSearch('Purchasing','Q Contract Admin')"
+                title="🔍 Search Purchasing Files">🔍 Search
+                Purchasing Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Quality">Quality<svg class="sub-arrow" width="12" height="12" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Quality resources, standards, contacts, and quality-related procedures.</p>
+              <a class="search-section-btn" onclick="openAquaSearch('quality','Q Product Management')"
+                title="🔍 Search Quality Files">🔍 Search
+                Quality Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Human Resources">Human Resources<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>HR contacts and links to employee resources, benefits, payroll, and onboarding.</p>
+              <a href="https://online.adp.com/signin/v1/?APPID=WFNPortal&productId=80e309c3-7085-bae1-e053-3505430b5495&returnURL=https://workforcenow.adp.com/&callingAppId=WFN"
+                target="_blank" class="search-section-btn" title="🔗 ADP WorkforceNow">🔗 ADP WorkforceNow</a>
+              <a href="files/2025 New Hire Onboarding Checklist - FINAL.pdf" target="_blank" class="search-section-btn"
+                title="📄 New Hire Onboarding Checklist">📄 New Hire Onboarding Checklist</a>
+              <a class="search-section-btn" onclick="openAquaSearch('onboarding new hire training')"
+                title="🔍 Search Onboarding Materials">🔍 Search
+                Onboarding Materials</a>
+              <details class="sub" style="margin-top:6px;">
+                <summary title="Expand/Collapse Aqua Talent Exchange">Aqua Talent Exchange<svg class="sub-arrow"
+                    width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg></summary>
+                <div class="sub-body">
+                  <a href="files/Aqua_Talent_Exchange_Usage_Guidelines.docx" target="_blank" class="search-section-btn"
+                    title="📄 Usage Guidelines">📄 Usage Guidelines</a>
+                  <a href="https://app.smartsheet.com/b/form/216f61f6021e4802a70c2e8fa6f3e7c1" target="_blank"
+                    class="search-section-btn" title="📋 Request Form">📋 Request Form</a>
+                  <a href="https://app.smartsheet.com/b/publish?EQBCT=15a3b5354c2e4f0084401b667a697cd9" target="_blank"
+                    class="search-section-btn" title="📊 Dashboard">📊 Dashboard</a>
+                </div>
+              </details>
+              <a class="search-section-btn" onclick="openAquaSearch('Browse HR Quick Answer Files','HR Quick Answers')"
+                title="🔍 Search HR Files">🔍 Search HR Files</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse IT">IT<svg class="sub-arrow" width="12" height="12" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>IT resources, support contacts, systems guidance, and technology procedures.</p>
+              <a href="IssueTracker/index.html" target="_blank" class="search-section-btn"
+                title="🔗 IT Issue Tracker Dashboard">🔗 IT Issue Tracker
+                Dashboard</a>
+              <a href="images/tips.PNG" target="_blank" class="search-section-btn"
+                title="🔒 Security Hints &amp; Tips">🔒 Security Hints &amp; Tips</a>
+              <a href="files/Communication Tool Usage Guidelines.docx" target="_blank" class="search-section-btn"
+                title="📄 Communication Tool Usage Guidelines">📄
+                Communication Tool Usage Guidelines</a>
+              <a href="mailto:ITHelpDesk@aqua-aerobic.com" class="search-section-btn" title="📧 Email IT Help Desk">📧
+                Email IT Help Desk</a>
+            </div>
+          </details>
+
+          <details class="sub">
+            <summary title="Expand/Collapse Finance">Finance<svg class="sub-arrow" width="12" height="12" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Finance resources, contacts, procedures, and commonly used references.</p>
+              <a href="files/Fiscal Calendar 2025 - Aqua-Aerobics.pdf" target="_blank" class="search-section-btn"
+                title="📅 Fiscal Calendar 2025">📅
+                Fiscal Calendar 2025</a>
+              <a href="files/Fiscal Calendar 2026 - Aqua-Aerobics.pdf" target="_blank" class="search-section-btn"
+                title="📅 Fiscal Calendar 2026">📅
+                Fiscal Calendar 2026</a>
+              <a href="files/Fiscal Calendar 2027 - Aqua-Aerobics.pdf" target="_blank" class="search-section-btn"
+                title="📅 Fiscal Calendar 2027">📅
+                Fiscal Calendar 2027</a>
+              <a href="files/Concur.Login.Instructions.pdf" target="_blank" class="search-section-btn"
+                title="📄 Concur Login Instructions">📄 Concur Login
+                Instructions</a>
+              <a href="ConcurTravel.html" target="_blank" class="search-section-btn"
+                title="🎬 Concur Travel Training Video">🎬 Concur Travel Training Video</a>
+              <a href="ACH.html" target="_blank" class="search-section-btn" title="🎬 ACH Training">🎬 ACH Training</a>
+              <a href="ChartofAccounts.html" target="_blank" class="search-section-btn"
+                title="📄 GL Chart of Accounts Listing">📄 GL Chart of Accounts
+                Listing</a>
+              <a href="mailto:AccountingDept@aqua-aerobic.com" class="search-section-btn"
+                title="📧 Email Accounting Dept">📧 Email Accounting Dept</a>
+            </div>
+          </details>
+
+          <a class="search-section-btn" onclick="openAquaSearch('')" title="🔍 Search All in AquaSearch">🔍 Search All
+            in
+            AquaSearch</a>
+        </div>
+      </details>
+
+      <!-- Products & Technologies -->
+      <details class="cat-card" id="products-technologies">
+        <summary title="Expand/Collapse Products &amp; Technologies">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg></span>
+          <span class="cat-title">Products &amp; Technologies</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Technical documentation, resources, and tools organized by product line.</p>
+          <details class="sub">
+            <summary title="Expand/Collapse Aeration &amp; Mixing">Aeration &amp; Mixing<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Aeration systems documentation, design manuals, and sales resources.</p><a class="search-section-btn"
+                onclick="openAquaSearch('- Aeration & Mixing','Engineering Index')" title="🔍 Search Aeration">🔍 Search
+                Aeration</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Biological Treatment (MBR / SBR)">Biological Treatment (MBR / SBR)<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>MBR, SBR biological process documentation and resources.</p><a class="search-section-btn"
+                onclick="openAquaSearch('- Biological Products','Engineering Index')" title="🔍 Search Biological">🔍
+                Search Biological</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Filtration (AquaDisk / Cloth Media)">Filtration (AquaDisk / Cloth Media)<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Cloth media filtration, AquaDisk, AquaMegaDisk documentation.</p><a class="search-section-btn"
+                onclick="openAquaSearch('- Filtration Products','Engineering Index')" title="🔍 Search Filtration">🔍
+                Search Filtration</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse PFAS Solutions &amp; Oxidation / Disinfection">PFAS Solutions &amp;
+              Oxidation / Disinfection<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>PFAS, oxidation, and disinfection product documentation.</p><a class="search-section-btn"
+                onclick="openAquaSearch('- Disinfection - ElectrOzone','Engineering Index')"
+                title="🔍 Search PFAS / Oxidation">🔍 Search PFAS /
+                Oxidation</a>
+              <a href="https://aquaguide.app/?q=PFAS" target="_blank" class="search-section-btn"
+                title="📋 Search &quot;PFAS&quot; on 1-Minute Guide">📋 Search "PFAS" on
+                1-Minute Guide</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Controls &amp; Aftermarket">Controls &amp; Aftermarket<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Controls documentation and aftermarket product information.</p><a class="search-section-btn"
+                onclick="openAquaSearch('Aftermarket Training Docs & Videos','J Sales Drive')"
+                title="🔍 Search Controls">🔍 Search Controls</a>
+            </div>
+          </details>
+          <a class="search-section-btn" onclick="openAquaSearch('Engineering Index.html','Engineering Index')"
+            title="🔍 Search All Product Files">🔍 Search
+            All Product
+            Files</a>
+        </div>
+      </details>
+
+      <!-- Sales & Marketing -->
+      <details class="cat-card" id="sales-marketing">
+        <summary title="Expand/Collapse Sales &amp; Marketing Resources">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg></span>
+          <span class="cat-title">Sales &amp; Marketing Resources</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Brochures, proposals, presentations, branding, competitive info, and marketing materials.
+          </p>
+          <details class="sub">
+            <summary title="Expand/Collapse Sales Tools &amp; Proposals">Sales Tools &amp; Proposals<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Proposal templates, qualification documents, standard specifications.</p><a class="search-section-btn"
+                onclick="openAquaSearch('Q:\\Sales & Marketing Index —','Q Sales & Marketing')"
+                title="🔍 Search Sales Tools">🔍 Search Sales
+                Tools</a>
+              <a class="search-section-btn" onclick="openAquaSearch('Templates','','html')" title="🔍 Search Templates">
+                🔍 Search Templates</a>
+              <a class="search-section-btn" onclick="openAquaSearch('Documents','','html')" title="🔍 Search Documents">
+                🔍 Search Documents</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Brochures &amp; Presentations">Brochures &amp; Presentations<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Product brochures, case studies, PowerPoint decks, and trade show materials.</p>
+              <a class="search-section-btn" onclick="openAquaSearch('Tradeshow - BANNER STANDS.','Q Marketing')"
+                title="🔍 Search Tradeshow - BANNER STANDS">
+                🔍 Search Tradeshow - BANNER STANDS</a>
+              <a class="search-section-btn" onclick="openAquaSearch('Powerpoint.html','Q Marketing')"
+                title="🔍 Search PowerPoints">
+                🔍 Search PowerPoints</a>
+              <a class="search-section-btn" onclick="openAquaSearch('Case Study','','html')"
+                title="🔍 Search Case Studies">
+                🔍 Search Case Studies</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Branding &amp; Templates">Branding &amp; Templates<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Corporate identity guide, logo files, letterhead, PowerPoint templates, memo templates.</p>
+              <a href="files/Corporate.Identity.Policy.pdf" target="_blank" class="search-section-btn"
+                title="📄 Identity &amp; Style Guide Policy">📄 Identity &amp;
+                Style Guide Policy</a>
+              <a href="files/Aqua.E-Letterhead.docx" target="_blank" class="search-section-btn"
+                title="📄 E-Letterhead 2026">📄
+                E-Letterhead 2026</a>
+              <a href="files/Template_WIDESCREEN.pptx" target="_blank" class="search-section-btn"
+                title="📄 PowerPoint Template">📄 PowerPoint
+                Template</a>
+              <a class="search-section-btn" onclick="openAquaSearch('logo template brand')"
+                title="🔍 Search Branding Files">🔍 Search Branding Files</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Zoom Backgrounds &amp; Logos">Zoom Backgrounds &amp; Logos<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="files/Aqua_Zoom_Background1.png" target="_blank" class="search-section-btn"
+                title="🖼 Zoom Background 1">🖼 Zoom Background
+                1</a>
+              <a href="files/Aqua_Zoom_Background2.png" target="_blank" class="search-section-btn"
+                title="🖼 Zoom Background 2">🖼 Zoom Background
+                2</a>
+            </div>
+          </details>
+          <a class="search-section-btn" onclick="openAquaSearch('sales marketing')"
+            title="🔍 Search All Sales &amp; Marketing">🔍 Search All Sales &amp;
+            Marketing</a>
+        </div>
+      </details>
+
+      <!-- Engineering Resources -->
+      <details class="cat-card" id="engineering-resources">
+        <summary title="Expand/Collapse Engineering Resources">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+              <path d="M4.93 4.93a10 10 0 0 0 0 14.14" />
+            </svg></span>
+          <span class="cat-title">Engineering Resources</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Engineering standards, design tools, calculation resources, and technical references.</p>
+          <details class="sub">
+            <summary title="Expand/Collapse Engineering Standards">Engineering Standards<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Drawing standards, CAD standards, material standards, and controls standards.</p><a
+                class="search-section-btn" onclick="openAquaSearch('Engineering Standards.html')"
+                title="🔍 Search Engineering Standards">🔍 Search
+                Engineering Standards</a>
+              <br><a class="search-section-btn"
+                onclick="openAquaSearch('Aqua Engineering Index - Controls','Engineering Index')"
+                title="🔍 Search Controls Standards">🔍 Search Controls
+                Standards</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Design Tools &amp; Calculation Tools">Design Tools &amp; Calculation
+              Tools<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Sizing calculators, design worksheets, and engineering software resources.</p><a
+                class="search-section-btn" onclick="openAquaSearch('sizing','Engineering Index')"
+                title="🔍 Search Design Tools">🔍 Search Design
+                Tools</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Approved Component Lists">Approved Component Lists<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Approved vendors, components, and materials.</p>
+              <a class="search-section-btn" onclick="openAquaSearch('EP-50 Vendor Documents Options')"
+                title="🔍 Search Vendors">🔍 Search
+                Vendors</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Design Review &amp; Change Process">Design Review &amp; Change Process<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Engineering change process, design review checklists, and Adept resources.</p><a
+                class="search-section-btn" onclick="openAquaSearch('design review engineering change Adept')"
+                title="🔍 Search Design Review">🔍 Search
+                Design Review</a>
+            </div>
+          </details>
+          <div class="note">⚠ The Engineering Index contains 55 pages of curated links. AquaSearch covers everything
+            automatically — including recent files not yet added to the Index.</div>
+          <a class="search-section-btn" onclick="openAquaSearch('','engineering')"
+            title="🔍 Search All Engineering Files">🔍 Search All Engineering Files</a>
+        </div>
+      </details>
+
+      <!-- Project Execution -->
+      <details class="cat-card" id="project-execution">
+        <summary title="Expand/Collapse Project Execution">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+              <line x1="8" y1="8" x2="16" y2="8" />
+              <line x1="8" y1="16" x2="12" y2="16" />
+            </svg></span>
+          <span class="cat-title">Project Execution</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Project lifecycle resources from handoff through closeout — submittals, drawings,
+            procurement, startup.</p>
+          <details class="sub">
+            <summary title="Expand/Collapse Project Kickoff &amp; Handoff">Project Kickoff &amp; Handoff<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Project handoff forms, kickoff checklists, and project management resources.</p><a
+                href="http://www.aqua-aerobic.net:3000/api/file?path=file%3A%2F%2F%2FQ%3A%2FSales%2520%26%2520Marketing%2520Index%2F1.4%2520Product%2520Management%2F1.4.4%2520Master%2520Documents%2FProject%2520Execution%2520Review%2F144015%2520AquaNereda%2520Project%2520Execution%2520Review.pdf"
+                target="_blank" class="search-section-btn" title="🔗 Project Kickoff &amp; Handoff">🔗 Project Kickoff
+                &amp; Handoff</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Submittal &amp; Drawing Review">Submittal &amp; Drawing Review<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Submittal process, drawing review procedures, and approval workflows.</p>
+              <a href="http://www.aqua-aerobic.net:3000/api/file?path=file%3A%2F%2F%2FQ%3A%2FSales%2520%2526%2520Marketing%2520Index%2F1.6%2520Contract%2520Administration%2F1.6.2%2520Procedures%2FOriginals%2F162xxx%2520Order%2520Processing%2520-%2520Submittal%2520Authorization.docx"
+                target="_blank" class="search-section-btn" title="🔗 Submittal Process">🔗 Submittal Process</a>
+              <a class="search-section-btn" onclick="openAquaSearch('Drawing Review')"
+                title="🔍 Search Drawing Review Procedures">🔍 Search Drawing Review
+                Procedures</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Production, Shipment &amp; Startup">Production, Shipment &amp; Startup<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Production release, packing, shipping, and startup procedures.</p>
+              <a class="search-section-btn" onclick="openAquaSearch('Production Release')"
+                title="🔍 Search Production Release">🔍 Search Production
+                Release</a>
+              <a class="search-section-btn" onclick="openAquaSearch('Startup Procedures')"
+                title="🔍 Search Startup Procedures">🔍 Search Startup
+                Procedures</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Closeout &amp; Lessons Learned">Closeout &amp; Lessons Learned<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Project closeout process, post-mortem documentation, and lessons learned.</p>
+              <a class="search-section-btn" onclick="openAquaSearch('Project Closeout')"
+                title="🔍 Search Project Closeout">🔍 Search Project Closeout</a>
+              <a class="search-section-btn" onclick="openAquaSearch('Lessons Learned')"
+                title="🔍 Search Lessons Learned">🔍 Search Lessons Learned</a>
+            </div>
+          </details>
+          <a class="search-section-btn" onclick="openAquaSearch('project execution')"
+            title="🔍 Search All Project Resources">🔍 Search All Project
+            Resources</a>
+        </div>
+      </details>
+
+      <!-- Customer Support -->
+      <details class="cat-card" id="customer-support">
+        <summary title="Expand/Collapse Customer Support">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg></span>
+          <span class="cat-title">Customer Support</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Troubleshooting guides, O&amp;M manuals, field service reports, spare parts, and technical
+            bulletins.</p>
+          <details class="sub">
+            <summary title="Expand/Collapse Troubleshooting &amp; Technical Bulletins">Troubleshooting &amp; Technical
+              Bulletins<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Technical service bulletins, troubleshooting guides, and FAQs.</p>
+              <a class="search-section-btn" onclick="openAquaSearch('bulletin')" title="🔍 Search Bulletins">🔍 Search
+                Bulletins</a>
+              <a class="search-section-btn" onclick="openAquaSearch('troubleshooting')"
+                title="🔍 Search Troubleshooting">🔍 Search Troubleshooting</a>
+              <a class="search-section-btn" onclick="openAquaSearch('FAQ')" title="🔍 Search FAQs">🔍 Search FAQs</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse O&amp;M Manuals &amp; Spare Parts">O&amp;M Manuals &amp; Spare Parts<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Operations &amp; maintenance manuals and spare parts lists.</p>
+              <a class="search-section-btn" onclick="openAquaSearch('O&M manual')" title="🔍 Search O&amp;M Manuals">🔍
+                Search O&amp;M Manuals</a>
+              <a class="search-section-btn" onclick="openAquaSearch('spare parts')" title="🔍 Search Spare Parts">🔍
+                Search Spare Parts</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Field Service &amp; Startup Reports">Field Service &amp; Startup Reports<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Field service reports and startup documentation.</p>
+              <a class="search-section-btn" onclick="openAquaSearch('field service report')"
+                title="🔍 Search Field Reports">🔍 Search Field Reports</a>
+              <a class="search-section-btn" onclick="openAquaSearch('startup')" title="🔍 Search Startup Docs">🔍 Search
+                Startup Docs</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Service Requests">Service Requests<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="https://app.smartsheet.com/b/form/53e3f11e70004a379bc6b313641230fd" target="_blank"
+                class="search-section-btn" title="📋 On-site Support Request">📋 On-site Support Request</a>
+              <a href="https://app.smartsheet.com/b/form/7e90c73fc6b74bf091ec47e291f216c2" target="_blank"
+                class="search-section-btn" title="📋 Customer Support Request">📋 Customer Support Request</a>
+              <a href="https://app.smartsheet.com/b/form/05c9c254f3534276881e8ee502996b0b" target="_blank"
+                class="search-section-btn" title="📋 Service Change Request">📋 Service Change Request</a>
+            </div>
+          </details>
+          <a class="search-section-btn" onclick="openAquaSearch('','I Service Drive')"
+            title="🔍 Search Customer Support Files">🔍 Search Customer Support
+            Files</a>
+        </div>
+      </details>
+
+      <!-- Templates & Forms -->
+      <details class="cat-card" id="templates-forms">
+        <summary title="Expand/Collapse Templates &amp; Forms">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg></span>
+          <span class="cat-title">Templates &amp; Forms</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Standard templates for proposals, memos, meeting minutes, checklists, and more.</p>
+          <details class="sub">
+            <summary title="Expand/Collapse Document Templates">Document Templates<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="files/Aqua.E-Letterhead.docx" target="_blank" class="search-section-btn" title="📄 Letterhead">📄
+                Letterhead</a>
+              <a href="files/Meeting Minutes.docx" target="_blank" class="search-section-btn"
+                title="📄 Meeting Minutes">📄
+                Meeting Minutes</a>
+              <a href="files/Memo Cover.docx" target="_blank" class="search-section-btn" title="📄 Memo">📄
+                Memo</a>
+              <a href="files/Press Release.docx" target="_blank" class="search-section-btn" title="📄 Press Release">📄
+                Press Release</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Report Templates by Product Line">Report Templates by Product Line<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="files/Report Template Aeration_Mixing.docx" target="_blank" class="search-section-btn"
+                title="📄 Aeration &amp; Mixing Report">📄
+                Aeration &amp; Mixing Report</a>
+              <a href="files/Report Template Filtration.docx" target="_blank" class="search-section-btn"
+                title="📄 Filtration Report">📄 Filtration
+                Report</a>
+              <a href="files/Report Template BioProcesses.docx" target="_blank" class="search-section-btn"
+                title="📄 Biological Processes Report">📄 Biological
+                Processes Report</a>
+              <a href="files/Report Template Customer Service.docx" target="_blank" class="search-section-btn"
+                title="📄 Customer Service Report">📄
+                Customer Service Report</a>
+              <a href="files/Report PFAS Solutions.docx" target="_blank" class="search-section-btn"
+                title="📄 PFAS Solutions Report">📄 PFAS Solutions
+                Report</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Engineering &amp; Project Forms">Engineering &amp; Project Forms<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Cost estimate forms, design review checklists, engineering change forms, warranty claim forms.</p><a
+                class="search-section-btn" onclick="openAquaSearch('form checklist template')"
+                title="🔍 Search Forms">🔍 Search Forms</a>
+            </div>
+          </details>
+          <a class="search-section-btn" onclick="openAquaSearch('template form')"
+            title="🔍 Search All Templates in AquaSearch">🔍 Search All Templates in
+            AquaSearch</a>
+        </div>
+      </details>
+
+      <!-- Tools & Systems -->
+      <details class="cat-card" id="tools-systems">
+        <summary title="Expand/Collapse Tools &amp; Systems">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14" />
+            </svg></span>
+          <span class="cat-title">Tools &amp; Systems</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Software, IT resources, and system access guides used across the company.</p>
+          <details class="sub">
+            <summary title="Expand/Collapse Epicor ERP">Epicor ERP<svg class="sub-arrow" width="12" height="12"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>ERP and CRM functions, access guide, common procedures, training links.</p><a
+                class="search-section-btn" onclick="openAquaSearch('Epicor10 Live')"
+                title="🔍 Search Epicor Resources">🔍 Search Epicor
+                Resources</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Cisco WebEx &amp; Zoom">Cisco WebEx &amp; Zoom<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="files/WebEx_Calling_Guide.pdf" target="_blank" class="search-section-btn"
+                title="📄 WebEx Calling Guide">📄 WebEx Calling
+                Guide</a>
+              <a href="https://settings.webex.com/login" target="_blank" class="search-section-btn"
+                title="🔗 WebEx Account / Voicemail Reset">🔗 WebEx Account /
+                Voicemail Reset</a>
+              <a href="https://learn-zoom.us/show-me" target="_blank" class="search-section-btn"
+                title="🔗 Zoom Video Tutorials">🔗 Zoom Video
+                Tutorials</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Bluebeam">Bluebeam<svg class="sub-arrow" width="12" height="12" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="files/Bluebeam Start Guide.pdf" target="_blank" class="search-section-btn"
+                title="📄 Bluebeam Start Guide">📄 Bluebeam Start
+                Guide</a>
+              <a href="https://university.bluebeam.com" target="_blank" class="search-section-btn"
+                title="🔗 Bluebeam University">🔗 Bluebeam
+                University</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse AquaSearch — Company File Search">AquaSearch — Company File Search<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>AquaSearch automatically indexes all network drives daily. Access it directly by clicking the button
+                below.
+              </p><button class="search-section-btn" onclick="openAquaSearch('')" title="🔍 Open AquaSearch">🔍 Open
+                AquaSearch</button>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse IT Help Desk &amp; Requests">IT Help Desk &amp; Requests<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>IT issue tracker, software request process, and security guidelines.</p><a
+                href="IssueTracker/index.html" target="_blank" class="search-section-btn"
+                title="🔗 IT Issue Tracker Dashboard">🔗 IT Issue Tracker
+                Dashboard</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse SendThisFile">SendThisFile<svg class="sub-arrow" width="12" height="12"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body"><a href="http://www.aqua-aerobic.net/sendthisfile/" target="_blank"
+                class="search-section-btn" title="🔗 Send This File from Aqua">🔗 Send This File from Aqua</a></div>
+          </details>
+        </div>
+      </details>
+
+      <!-- Policies & Standards -->
+      <details class="cat-card" id="policies-standards">
+        <summary title="Expand/Collapse Policies &amp; Standards">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg></span>
+          <span class="cat-title">Policies &amp; Standards</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Document control, quality, corporate identity, IT policies, and compliance standards.</p>
+          <details class="sub">
+            <summary title="Expand/Collapse Corporate Identity &amp; Style Guide">Corporate Identity &amp; Style
+              Guide<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="files/Corporate.Identity.Policy.pdf" target="_blank" class="search-section-btn"
+                title="📄 Identity &amp; Style Guide Policy">📄 Identity &amp;
+                Style Guide Policy</a>
+              <a href="files/Employee Memo_Graphics Policy.pdf" target="_blank" class="search-section-btn"
+                title="📄 Graphics Policy Memo">📄 Graphics
+                Policy Memo</a>
+              <a href="http://www.aqua-aerobic.net:3000/api/file?path=file%3A%2F%2F%2FQ%3A%2FMarketing%2FArtwork%2FCorporate%20Logo"
+                target="_blank" class="search-section-btn" title="📁 Approved Corporate Logos">📁 Approved Corporate
+                Logos</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse IT Policies &amp; Security">IT Policies &amp; Security<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="//aqua47/aquaintranet/images/tips.PNG" target="_blank" class="search-section-btn"
+                title="🔒 Security Hints &amp; Tips">🔒 Security
+                Hints &amp; Tips</a>
+              <a href="files/Communication Tool Usage Guidelines.docx" target="_blank" class="search-section-btn"
+                title="📄 Communication Tool Usage Guidelines">📄
+                Communication Tool Usage Guidelines</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Quality &amp; Document Control">Quality &amp; Document Control<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="http://www.aqua-aerobic.net:3000/api/file?path=file%3A%2F%2F%2F%2F%2Fadeptdata%2Fadeptvault1%2FStandards%2FAAS%2520Quality%2520Assurance%2520Manual.pdf"
+                target="_blank" class="search-section-btn" title="🔗 Quality Assurance">🔗 Quality
+                Assurance</a>
+              <a href="https://app.smartsheet.com/b/form/98a3158b9d13485890418d6f3fec2c80" target="_blank"
+                class="search-section-btn" title="🔗 Claim Request">🔗 Claim Request</a>
+            </div>
+          </details>
+          <a class="search-section-btn" onclick="openAquaSearch('policies')" title="🔍 Search All Policies">🔍 Search
+            All Policies</a>
+        </div>
+      </details>
+
+      <!-- Training & Onboarding -->
+      <details class="cat-card" id="training-onboarding">
+        <summary title="Expand/Collapse Training &amp; Onboarding">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+            </svg></span>
+          <span class="cat-title">Training &amp; Onboarding</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Product training, software training, safety, engineering, sales, and recorded sessions.
+          </p>
+          <details class="sub">
+            <summary title="Expand/Collapse Engineering Training (Epicor BAQ)">Engineering Training (Epicor BAQ)<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="IT/BAQ/BAQ.html" target="_blank" class="search-section-btn"
+                title="🎬 BAQ Session 1 — Basic Function">🎬 BAQ Session 1 — Basic Function</a>
+              <a href="IT/BAQ/BAQReport.html" target="_blank" class="search-section-btn"
+                title="🎬 BAQ Report Function">🎬 BAQ Report Function</a>
+              <a href="IT/BAQ/BAQTraining2.html" target="_blank" class="search-section-btn" title="🎬 BAQ Session 2">🎬
+                BAQ Session 2</a>
+              <a href="IT/BAQ/BAQTraining3-4.html" target="_blank" class="search-section-btn"
+                title="🎬 BAQ Sessions 3–4">🎬 BAQ Sessions 3–4</a>
+              <a href="IT/BAQ/BAQTrainingQ&A.html" target="_blank" class="search-section-btn" title="🎬 BAQ Q&amp;A">🎬
+                BAQ Q&amp;A</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Safety Training">Safety Training<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="http://www.aqua-aerobic.net/Safety/index.html" target="_blank" class="search-section-btn"
+                title="🛡 Safety Information Portal">🛡
+                Safety Information Portal</a>
+              <a class="search-section-btn" onclick="openAquaSearch('safety training')"
+                title="🔍 Search Safety Documents">🔍 Search Safety Documents</a>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Engineering Timecard">Engineering Timecard<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <a href="files/Eng Timecard Ref Guide.pdf" target="_blank" class="search-section-btn"
+                title="📄 Timecard Reference Guide">📄 Timecard
+                Reference Guide</a>
+              <a href="files/Eng Time Entry QWIK Guide.pdf" target="_blank" class="search-section-btn"
+                title="📄 Time Entry Quick Guide">📄 Time Entry
+                Quick Guide</a>
+            </div>
+          </details>
+          <a class="search-section-btn"
+            onclick="openAquaSearch('Browse Q:\\Technical Training & Development Folders & Files','Q Technical Training & Dev')"
+            title="🔍 Search All Training Materials">🔍
+            Search All Training
+            Materials</a>
+        </div>
+      </details>
+
+      <!-- Workflows & Procedures -->
+      <details class="cat-card" id="workflows-procedures">
+        <summary title="Expand/Collapse Workflows &amp; Procedures">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg></span>
+          <span class="cat-title">Workflows &amp; Procedures</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Home for company workflows and procedures while a separate task force develops companywide
+            standards.</p>
+          <details class="sub">
+            <summary title="Expand/Collapse Workflow &amp; Procedure Guidance">Workflow &amp; Procedure Guidance<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Guidance for workflow and procedure documentation.</p>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Companywide Workflows">Companywide Workflows<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>High-level workflows that apply across multiple departments.</p>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Department Workflows">Department Workflows<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>High-level workflows owned by specific departments.</p>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Department Procedures">Department Procedures<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Department-specific step-by-step procedures.</p>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Product-Related Procedures">Product-Related Procedures<svg class="sub-arrow"
+                width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Procedures related to specific products or technologies.</p>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Project Execution Procedures">Project Execution Procedures<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Procedures related to project execution.</p>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Customer Support Procedures">Customer Support Procedures<svg
+                class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Procedures related to customer support activities.</p>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Workflow Templates">Workflow Templates<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Templates for creating workflow documents.</p>
+            </div>
+          </details>
+          <details class="sub">
+            <summary title="Expand/Collapse Procedure Templates">Procedure Templates<svg class="sub-arrow" width="12"
+                height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></summary>
+            <div class="sub-body">
+              <p>Templates for creating procedure documents.</p>
+            </div>
+          </details>
+          <div class="note">The separate Workflows &amp; Procedures Task Force should define final templates, naming
+            standards, approval expectations, and review requirements.</div>
+        </div>
+      </details>
+
+      <!-- Archived Information -->
+      <details class="cat-card" id="archived-information">
+        <summary title="Expand/Collapse Archived Information">
+          <span class="cat-icon"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              stroke-width="2">
+              <polyline points="21 8 21 21 3 21 3 8" />
+              <rect x="1" y="3" width="22" height="5" />
+              <line x1="10" y1="12" x2="14" y2="12" />
+            </svg></span>
+          <span class="cat-title">Archived Information</span>
+          <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </summary>
+        <div class="cat-body">
+          <p class="cat-desc">Legacy products, superseded standards, archived documents, and historical project
+            information.</p>
+          <div class="note">⚠ For archived files, AquaSearch is the best way to locate documents that may not have
+            active links — search by keyword, project name, or part number.</div>
+          <a class="search-section-btn" onclick="openAquaSearch('archive')"
+            title="🔍 Search Archived Files in AquaSearch">🔍 Search Archived Files
+            in AquaSearch</a>
+        </div>
+      </details>
+
+    </div><!-- end cat-grid -->
+
+
+    <!-- CONTRACT ADMIN / SERVICE GROUP -->
+    <div class="section-header" style="margin-top:8px;">
+      <h2>Company Resources</h2>
+    </div>
+    <div class="quick-links">
+      <a class="quick-link" href="https://app.smartsheet.com/b/form/c31d0d29eb214b029f288075d7ebd68a" target="_blank"
+        title="Contract Admin Insurance form">
+        <span class="quick-link-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2">
+            <path d="M9 11l3 3L22 4" />
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+          </svg></span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">Contract Admin</span>
+          <span class="quick-link-desc">Insurance form</span>
+        </span>
+      </a>
+      <a class="quick-link" href="https://app.smartsheet.com/b/publish?EQBCT=255ca1005dff4a2cbc03d812e70af818"
+        target="_blank" title="24-Hour Hotline On-call schedule">
+        <span class="quick-link-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg></span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">24-Hour Hotline</span>
+          <span class="quick-link-desc">On-call schedule</span>
+        </span>
+      </a>
+      <a class="quick-link"
+        href="https://www.google.com/maps/d/viewer?mid=1EDXrOFcVYvLKr3Xv8IaUbnH2wbbQmOA&ll=41.574473196630045%2C-94.75861075&z=4"
+        target="_blank" title="Service Tech Map Field tech locations">
+        <span class="quick-link-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg></span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">Service Tech Map</span>
+          <span class="quick-link-desc">Field tech locations</span>
+        </span>
+      </a>
+      <a class="quick-link" href="https://app.smartsheet.com/b/form/353e688094d844229fa0ecde2099319c" target="_blank"
+        title="Customer Training Submit a request">
+        <span class="quick-link-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg></span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">Customer Training</span>
+          <span class="quick-link-desc">Submit a request</span>
+        </span>
+      </a>
+      <a class="quick-link" href="files/Sales Marketing Team Assignments.pdf" target="_blank"
+        title="Sales Team Assignments Territory &amp; contacts">
+        <span class="quick-link-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg></span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">Sales Team Assignments</span>
+          <span class="quick-link-desc">Territory &amp; contacts</span>
+        </span>
+      </a>
+      <a class="quick-link" href="files/Domestic Regional Territory Map.pdf" target="_blank"
+        title="Territory Map Domestic regional map">
+        <span class="quick-link-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2">
+            <polygon points="3 11 22 2 13 21 11 13 3 11" />
+          </svg></span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">Territory Map</span>
+          <span class="quick-link-desc">Domestic regional map</span>
+        </span>
+      </a>
+      <a class="quick-link" href="https://aquagearstore.com/" target="_blank"
+        title="AquaGear Store Company gear &amp; apparel">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 0 1-8 0" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">AquaGear Store</span>
+          <span class="quick-link-desc">Company gear &amp; apparel</span>
+        </span>
+      </a>
+      <a class="quick-link" href="it-helpdesk.html" title="IT Helpdesk Submit a ticket">
+        <span class="quick-link-icon">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="4" />
+            <line x1="4.93" y1="4.93" x2="9.17" y2="9.17" />
+            <line x1="14.83" y1="14.83" x2="19.07" y2="19.07" />
+            <line x1="14.83" y1="9.17" x2="19.07" y2="4.93" />
+            <line x1="4.93" y1="19.07" x2="9.17" y2="14.83" />
+          </svg>
+        </span>
+        <span class="quick-link-text">
+          <span class="quick-link-name">IT Helpdesk</span>
+          <span class="quick-link-desc">Submit a ticket</span>
+        </span>
+      </a>
+    </div>
+  </div><!-- end page-body -->
+  <!-- AQUASEARCH CALLOUT -->
+  <div class="aquasearch-callout-wrap">
+    <div class="aquasearch-callout">
+      <div class="aquasearch-callout-text">
+        <h3>Can't find what you need? Try AquaSearch.</h3>
+        <p>AquaSearch makes finding files effortless. It reads the actual text inside PDFs, Word, and Excel files, so
+          you can find what you need without knowing where it's saved.</p>
+      </div>
+      <button class="aquasearch-btn" onclick="openAquaSearch('')" title="Open AquaSearch">
+        <span class="pulse-dot"></span>
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
+        </svg>
+        Open AquaSearch
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    <!-- VISITOR COUNTER -->
+    <div class="visitor-counter-wrap">
+      <span class="vc-label">Intranet Activity</span>
+      <div class="visitor-counter" id="visitorCounter" title="Live site statistics powered by Firebase">
+        <div class="vc-stat">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          <span id="vcTotalNum" class="vc-num loading">&hellip;</span>
+          <span>total views</span>
+        </div>
+        <div class="vc-divider"></div>
+        <div class="vc-stat">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+          <span id="vcUniqueNum" class="vc-num loading">&hellip;</span>
+          <span>unique visitors</span>
+        </div>
+      </div>
+    </div>
+    <p>Copyright &copy; <span id="yr"></span> Aqua-Aerobic Systems, Inc. &mdash; All Rights Reserved</p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FIREBASE VISITOR COUNTER
+       ─────────────────────────────────────────────────────────────────────
+       SETUP INSTRUCTIONS:
+       1. Go to https://console.firebase.google.com and create a project.
+       2. Add a Web App to the project and copy the firebaseConfig object below.
+       3. In the Firebase console, go to "Build" → "Realtime Database" →
+          "Create database" (start in TEST MODE for easy setup, then add
+          security rules to restrict writes when ready).
+       4. Replace the placeholder values in firebaseConfig below.
+       ═══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Firebase Realtime Database SDK (compat mode, no build step required) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+  <script>
+    // ── FIREBASE CONFIG ──────────────────────────────────────────────────────
+    // Replace ALL placeholder values with your project's actual config.
+    const firebaseConfig = {
+      apiKey: "AIzaSyDAM41qDtOB5zG20Q4O-j4cTLVzqn_F-lE",
+      authDomain: "aquaintranet.firebaseapp.com",
+      projectId: "aquaintranet",
+      storageBucket: "aquaintranet.firebasestorage.app",
+      messagingSenderId: "65603065262",
+      appId: "1:65603065262:web:a41c4cc09aa0c68dbde43f"
+    };
+    // ────────────────────────────────────────────────────────────────────────
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const totalRef = db.ref('visitors/totalViews');
+    const uniqueRef = db.ref('visitors/uniqueVisitors');
+
+    const totalEl = document.getElementById('vcTotalNum');
+    const uniqueEl = document.getElementById('vcUniqueNum');
+
+    function animateTick(el) {
+      el.classList.remove('tick');
+      void el.offsetWidth; // force reflow to restart animation
+      el.classList.add('tick');
+    }
+
+    function formatNum(n) {
+      return Number(n).toLocaleString();
+    }
+
+    // ── TOTAL VIEWS: increment on every page load, then listen for updates ──
+    totalRef.transaction(current => (current || 0) + 1).then(() => {
+      totalRef.on('value', snap => {
+        const val = snap.val() || 0;
+        totalEl.textContent = formatNum(val);
+        totalEl.classList.remove('loading');
+        animateTick(totalEl);
+      });
+    }).catch(() => {
+      // Firebase not yet configured — show placeholder gracefully
+      totalEl.textContent = '—';
+      totalEl.classList.remove('loading');
+    });
+
+    // ── UNIQUE VISITORS: use localStorage to detect first-time visitors ─────
+    const VISITOR_KEY = 'aqua_intranet_visited';
+    const isNewVisitor = !localStorage.getItem(VISITOR_KEY);
+
+    if (isNewVisitor) {
+      localStorage.setItem(VISITOR_KEY, '1');
+      uniqueRef.transaction(current => (current || 0) + 1).then(() => {
+        uniqueRef.on('value', snap => {
+          const val = snap.val() || 0;
+          uniqueEl.textContent = formatNum(val);
+          uniqueEl.classList.remove('loading');
+          animateTick(uniqueEl);
+        });
+      }).catch(() => {
+        uniqueEl.textContent = '—';
+        uniqueEl.classList.remove('loading');
+      });
+    } else {
+      // Returning visitor — just read the current count
+      uniqueRef.on('value', snap => {
+        const val = snap.val() || 0;
+        uniqueEl.textContent = formatNum(val);
+        uniqueEl.classList.remove('loading');
+      });
+    }
+
+    // ── YEAR ─────────────────────────────────────────────────────────────────
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // ── AQUASEARCH ───────────────────────────────────────────────────────────
+    let popupWin = null;
+
+    function openAquaSearch(query, source, ext) {
+      const base = 'http://www.aqua-aerobic.net:3000/';
+      const params = new URLSearchParams();
+      if (query) params.set('q', query);
+      if (source) params.set('source', source);
+      if (ext) params.set('ext', ext);
+      const qs = params.toString();
+      const url = qs ? base + '?' + qs : base;
+      const w = Math.max(1100, Math.floor(window.screen.width * 0.72));
+      const h = Math.max(800, Math.floor(window.screen.height * 0.80));
+      const l = Math.max(0, Math.floor((window.screen.width - w) / 2));
+      const t = Math.max(0, Math.floor((window.screen.height - h) / 2));
+      if (popupWin && !popupWin.closed) {
+        try { popupWin.location.href = url; popupWin.focus(); }
+        catch (e) { popupWin = window.open(url, 'AquaSearch', feat(w, h, l, t)); }
+      } else {
+        popupWin = window.open(url, 'AquaSearch', feat(w, h, l, t));
+      }
+    }
+
+    function feat(w, h, l, t) {
+      return `width=${w},height=${h},top=${t},left=${l},resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,status=no`;
+    }
+
+    // Header search — press Enter to search
+    document.getElementById('headerSearchInput').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && this.value.trim()) {
+        openAquaSearch(this.value.trim());
+        this.value = '';
+      }
+    });
+  </script>
+
+</body>
+
+</html>

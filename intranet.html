@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <title>aqua-aerobic.net</title>
+  <meta name="description" content="aqua-aerobic.net">
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <meta name="author" content="Chuck Konkol" />
+  <link rel='stylesheet' href='css/cssprolayout.css'>
+  <link rel='stylesheet'  href='https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap'>
+  <link rel="stylesheet" href="css/landingpage.css">
+  <link rel="stylesheet" href="css/cardflip.css">
+  <link rel="stylesheet" href="css/clockflapper.css">
+  <script src="https://kit.fontawesome.com/8c7e6c4f72.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --delay: 0;
+      --duration: 800ms;
+      --iterations: 1;
+    }
+
+    /* •·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•· */
+
+
+    .reveal-text,
+    .reveal-text::after {
+      animation-delay: var(--animation-delay, 2s);
+      animation-iteration-count: var(--iterations, 1);
+      animation-duration: var(--duration, 800ms);
+      animation-fill-mode: both;
+      animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+    }
+
+    .reveal-text {
+      --animation-delay: var(--delay, 0);
+      --animation-duration: var(--duration, 800ms);
+      --animation-iterations: var(--iterations, 1);
+      position: center;
+      font-size: 10vw;
+      animation-name: clip-text;
+      color: #23617a;
+      white-space: nowrap;
+      font-weight: 600;
+      cursor: default;
+
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: 999;
+        top: 0;
+        left: 0px;
+        right: 0px;
+        bottom: 0;
+        justify-content: center;
+        background-color: #212c38;
+        background-image: url("images/aqualogo.png");
+        transform: scaleX(0);
+        transform-origin: 0 90%;
+        pointer-events: none;
+        animation-name: text-revealer;
+      }
+
+    }
+
+
+    @keyframes clip-text {
+      from {
+        clip-path: inset(0 100% 0 0);
+      }
+
+      to {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+
+    @keyframes text-revealer {
+
+      0%,
+      50% {
+        transform-origin: 0 70%;
+      }
+
+      60%,
+      100% {
+        transform-origin: 100% 50%;
+      }
+
+
+      60% {
+        transform: scaleX(1);
+      }
+
+      100% {
+        transform: scaleX(0);
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="layout">
+    <main class="content">
+      <div>
+        <a href="index.html"> <img src="images/aqualogo.png" / width="450px">
+        </a>
+
+        <h3 style="font-size: 25px; text-align: center;" <b>Does web browsers support opening .application or .exe links on Intranet pages?
+</b></h3>
+        <div class="w3-container w3-animate-right">
+<i>Aqua examples:</i>
+<br><br>
+&nbsp;&nbsp;&nbsp;- .application links (click-once Microsoft apps): Engineering Index, APD, RP, CSDashboard, Warranty Claims, APD Schedule, etc.</b> 
+<br><br>
+&nbsp;&nbsp;&nbsp;- .exe links: Epicor, Engineering Index</b> 
+<br><br>
+<b>Microsoft Edge (Browser)</b> 
+<br><br>
+1. .application (ClickOnce) links:
+<br><br>
+&nbsp;&nbsp;&nbsp;- No, ClickOnce links are blocked by default for security reasons.
+<br><br>
+2. .exe links:
+<br><br>
+&nbsp;&nbsp;&nbsp;- No, .exe links are blocked by default. Browsers do this for security reasons (to prevent drive-by execution of malware).
+<br><br>
+<b>Google Chrome (Browser)</b> 
+<br><br>
+1. .application (ClickOnce) links:
+<br><br>
+&nbsp;&nbsp;&nbsp;- No, ClickOnce links are blocked by default for security reasons.
+<br><br>
+2. .exe links:
+<br><br>
+&nbsp;&nbsp;&nbsp;- No, .exe links are blocked by default. Browsers do this for security reasons (to prevent drive-by execution of malware).
+<br><br>
+<b>Aqua Examples:</b><br>
+<ul>
+<li><a href="\\aqua26\Neptune\Dashboards\EngIndexSearch\EngineeringIndex.exe">Engineering Index (.exe link)</a></li>
+<br>
+<li><a href="\\aqua26\Neptune\Dashboards\EngIndexSearch\EngineringIndex.application">Engineering Index (.application link)</a></li>
+<br>
+<li><a href="file://aqua26/Neptune/Production64bit/Client%20Installer/APD.application">APD (.application link)</a></li>
+</ul>
+<br>
+<b>Browser errors when attempting to click above links on our Intranet site:</b><br>
+<img src="error.png">
+<br><br>
+<b>Why this is happening?</b>
+<br>
+Allowing a webpage to reach into the local filesystem (or file shares) and run executables would open Aqua for multiple security attacks, so modern browsers disallow these completely.</b><br>
+
+        </div>
+      </div>
+
+      </section>
+
+
+
+      <br>
+      <br>
+
+
+      <footer class="footer">
+        <small style="margin-bottom: 20px; display: inline-block">
+          Copyright &copy; 2025 - All Rights Reserved - Aqua-Aerobic System, Inc
+        </small>
+      </footer>
+
+  </div>
+  </div>
+
+</body>
+<!-- partial -->
+
+<script src="js/propercore.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/clockflapper.js"></script>
+
+<script>
+</script>
+
+</html>
