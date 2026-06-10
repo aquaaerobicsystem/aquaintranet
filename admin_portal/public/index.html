@@ -44,7 +44,7 @@
         </div>
 
         <div id="app-section" class="hidden">
-            <div class="header">
+                <div class="header">
                 <h1>Aqua Intranet Admin</h1>
                 <div>
                     <span id="user-info" style="margin-right: 1rem; font-weight: bold;"></span>
@@ -169,12 +169,18 @@
         }
 
         async function checkSession() {
+            // Use /api/me — always returns HTTP 200 (loggedIn: true/false)
+            // so no red 401 console error appears on page load when not logged in.
             try {
-                const res = await fetchAPI('/api/session');
-                currentUser = res.user;
-                initApp();
+                const data = await (await fetch('/api/me')).json();
+                if (data.loggedIn) {
+                    currentUser = { username: data.username, role: data.role, areas: data.areas };
+                    initApp();
+                }
+                // else: not logged in — login form stays visible, no error thrown
             } catch (err) {}
         }
+
 
         function initApp() {
             document.getElementById('login-section').classList.add('hidden');

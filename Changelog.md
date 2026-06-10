@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.3] - 2026-06-10
+### Added
+- `express-ntlm` package installed (`admin_portal/`) for future Windows domain authentication investigation.
+
+### Changed
+- **`GET /api/me`** now includes `areas` in its response (`{ loggedIn, username, role, areas }`), making it a complete replacement for `/api/session` on the client side.
+- **`checkSession()`** in `admin_portal/public/index.html` switched from `fetchAPI('/api/session')` (which returned HTTP 401 when not logged in, producing a red console error) to a raw `fetch('/api/me')` call (always returns HTTP 200 with `loggedIn: true/false`). Eliminates the spurious 401 console error on every page load.
+
+### Fixed
+- Removed broken NTLM auto-login implementation (`/api/ntlm-login`, `/api/whoami`, `tryAutoLogin()`, NTLM spinner UI) that caused repeated 500 and 401 errors. Root causes: (1) `express-ntlm` requires `debug` to be a function, not a boolean; (2) browser `fetch()` API does not auto-negotiate NTLM — only native browser navigations do, and only when the site is in the OS "Local Intranet" trusted zone via Group Policy. Reverted admin portal login to the reliable manual username/password form with session cookie persistence.
+
 ## [1.3.2] - 2026-06-09
 ### Added
 - **User Guide** (`user_guide.html`) — complete redesign with hero banner, sticky sidebar table of contents, illustrated feature overview cards (Quick Search, Quick Access, Directory, Company Resources, AquaSearch, Testing Tracker), numbered step-by-step instructions for each feature, Beta Testing Tracker section (submit results, report issues, leave comments, edit submissions), Managing the Hub section, Tips & Shortcuts, and a CTA footer with links back to the Hub and Tracker. Fully mobile-responsive with sticky TOC.

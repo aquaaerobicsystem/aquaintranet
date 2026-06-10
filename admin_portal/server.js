@@ -256,9 +256,10 @@ function getTargetFilePath(callback) {
 // Auth API
 const loginAttempts = {};
 
+
 app.get('/api/me', (req, res) => {
     if (req.session && req.session.userId) {
-        res.json({ loggedIn: true, username: req.session.username, role: req.session.role });
+        res.json({ loggedIn: true, username: req.session.username, role: req.session.role, areas: req.session.areas || [] });
     } else {
         res.json({ loggedIn: false });
     }
