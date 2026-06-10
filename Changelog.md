@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.4] - 2026-06-10
+### Changed
+- **`indexdev.html` footer** — moved "User Guide | Testing Tracker | Admin" links to their own line above the copyright notice.
+- **`testing_tracker.html`** — renamed page `<title>` from "Beta Testing Tracker — Employee Hub" to "Employee Hub Issue Tracker".
+- **`testing_tracker.html`** — renamed sticky header `<h1>` and hero `<h2>` from "Beta Testing Tracker" / "Intranet Beta Testing Tracker" to "Employee Hub Issue Tracker".
+- **`testing_tracker.html`** — shortened hero subtitle from "Submit your test results, report issues, and share feedback on the new Employee Hub." to "Report issues, and share feedback on the new Employee Hub."
+- **`testing_tracker.html`** — renamed "Testing Progress" section label to "Issue Progress".
+- **`testing_tracker.html`** — renamed "Testing Requirements Tracker" table heading to "Testing Requirements Tracker (remove after testing)".
+- **`testing_tracker.html`** — renamed "Submit Testing Results" accordion toggle to "Submit Testing Results (remove after testing)".
+
 ## [1.3.3] - 2026-06-10
 ### Added
 - `express-ntlm` package installed (`admin_portal/`) for future Windows domain authentication investigation.
