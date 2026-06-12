@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O&M Manuals Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0ea5e9;
+            --primary-hover: #0284c7;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .header-title {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.01em;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: #f0f9ff;
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            background-color: #e0f2fe;
+            color: var(--primary-hover);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .intro-card {
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.15);
+        }
+
+        .intro-card h1 {
+            margin-top: 0;
+            font-size: 2.25rem;
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .intro-card ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .intro-card li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            opacity: 0.95;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 25px 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+            border-color: #bae6fd;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .card a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .card a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        .icon {
+            font-size: 1.25rem;
+        }
+
+        .footer {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 20px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-info h3 {
+            margin: 0 0 10px 0;
+            color: #0ea5e9;
+            font-size: 1.25rem;
+        }
+
+        .footer-info p {
+            margin: 0 auto;
+            max-width: 600px;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .footer-links {
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a {
+            color: #bae6fd;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer-links .separator {
+            color: #475569;
+            margin: 0 10px;
+        }
+
+        .footer-copyright {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 16px 20px;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .intro-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <img src="http://www.aqua-aerobic.net:3000/aqua-aerobics-logo-1.png" alt="Aqua Aerobic Systems Logo" class="header-logo">
+            <h2 class="header-title">O&M Manuals Portal</h2>
+        </div>
+        <a href="http://www.aqua-aerobic.net:3000/" class="back-link">
+            <span>&larr;</span> Back to Aqua Search
+        </a>
+    </header>
+
+    <div class="container">
+        <div class="intro-card">
+            <h1>Welcome to O&M Manuals</h1>
+            <ul>
+                <li>Provide essential operational and maintenance information for equipment and systems.</li>
+                <li>Include guidelines for installation, operation, troubleshooting, and maintenance procedures.</li>
+                <li>Crucial for ensuring the longevity and efficiency of equipment.</li>
+            </ul>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Overview</h2>
+                <a href="http://www.aqua-aerobic.net:3000/api/file?path=Z%3A%5CAquaSearch%5CRP.html" target="_blank">
+                    <span class="icon">📄</span> O&amp;M Manuals Overview
+                </a>
+            </div>
+
+            <div class="card">
+                <h2>Projects</h2>
+                <a href="http://www.aqua-aerobic.net:3000/api/file?path=Z%3A%5CAquaSearch%5CProjects.html" target="_blank">
+                    <span class="icon">📄</span> O&amp;M Manuals Projects
+                </a>
+            </div>
+
+            <div class="card">
+                <h2>Details</h2>
+                <a href="http://www.aqua-aerobic.net:3000/api/file?path=J%3A%5CAquaSearch%5CRP.html" target="_blank">
+                    <span class="icon">📄</span> O&amp;M Manuals Details
+                </a>
+            </div>
+
+            <div class="card">
+                <h2>Summary</h2>
+                <a href="http://www.aqua-aerobic.net:3000/api/file?path=H%3A%5CAquaSearch%5CWP.html" target="_blank">
+                    <span class="icon">📄</span> O&amp;M Manuals Summary
+                </a>
+            </div>
+
+            <div class="card">
+                <h2>Submittal Data</h2>
+                <a href="http://www.aqua-aerobic.net:3000/api/file?path=Q%3A%5CProjects%5CAquaSearch%5C1066.html" target="_blank">
+                    <span class="icon">📄</span> O&amp;M Manuals Submittal Data
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-copyright">
+                &copy; 2026 Aqua-Aerobic Systems, Inc. &mdash; All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
