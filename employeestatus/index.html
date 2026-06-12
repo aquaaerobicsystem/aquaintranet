@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aqua Employee Status Report</title>
-  <meta name="description" content="View and filter the AquaERP Employee Status report — search by department, name, date range, and employment status." />
+  <meta name="description"
+    content="View and filter the AquaERP Employee Status report — search by department, name, date range, and employment status." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
   <style>
     /* ── Reset & Base ─────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --aqua-blue:   #0b5ea8;
-      --aqua-mid:    #1a7ad6;
-      --aqua-light:  #3fa3f7;
-      --teal:        #0d8aad;
-      --dark:        #0c1a2e;
-      --dark-2:      #112240;
-      --dark-card:   #162c50;
-      --border:      rgba(63,163,247,.18);
-      --text:        #e2ecfb;
-      --text-muted:  #8aaac8;
-      --green:       #22d3a0;
-      --amber:       #f59e0b;
-      --radius:      14px;
-      --shadow:      0 8px 40px rgba(0,0,0,.45);
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --aqua-blue: #0b5ea8;
+      --aqua-mid: #1a7ad6;
+      --aqua-light: #3fa3f7;
+      --teal: #0d8aad;
+      --dark: #0c1a2e;
+      --dark-2: #112240;
+      --dark-card: #162c50;
+      --border: rgba(63, 163, 247, .18);
+      --text: #e2ecfb;
+      --text-muted: #8aaac8;
+      --green: #22d3a0;
+      --amber: #f59e0b;
+      --radius: 14px;
+      --shadow: 0 8px 40px rgba(0, 0, 0, .45);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
@@ -44,8 +55,8 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 70% 50% at 20% 10%, rgba(11,94,168,.35) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 80% 85%, rgba(13,138,173,.22) 0%, transparent 55%);
+        radial-gradient(ellipse 70% 50% at 20% 10%, rgba(11, 94, 168, .35) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 85%, rgba(13, 138, 173, .22) 0%, transparent 55%);
       pointer-events: none;
       z-index: 0;
     }
@@ -54,7 +65,7 @@
     .page-wrap {
       position: relative;
       z-index: 1;
-      max-width: 1080px;
+      max-width: 1350px;
       margin: 0 auto;
       padding: 0 1.5rem 4rem;
     }
@@ -84,7 +95,7 @@
       align-items: center;
       justify-content: center;
       font-size: 1.25rem;
-      box-shadow: 0 0 18px rgba(26,122,214,.5);
+      box-shadow: 0 0 18px rgba(26, 122, 214, .5);
     }
 
     .topbar-name {
@@ -100,7 +111,7 @@
       font-weight: 600;
       padding: .3rem .8rem;
       border-radius: 999px;
-      background: rgba(26,122,214,.2);
+      background: rgba(26, 122, 214, .2);
       border: 1px solid var(--border);
       color: var(--aqua-light);
       letter-spacing: .05em;
@@ -124,7 +135,8 @@
       margin-bottom: 1.2rem;
     }
 
-    .hero-eyebrow::before, .hero-eyebrow::after {
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
       content: '';
       display: block;
       width: 28px;
@@ -168,7 +180,7 @@
       gap: .6rem;
       padding: .55rem 1.1rem;
       border-radius: 999px;
-      background: rgba(255,255,255,.05);
+      background: rgba(255, 255, 255, .05);
       border: 1px solid var(--border);
       font-size: .82rem;
       color: var(--text-muted);
@@ -182,13 +194,25 @@
       border-radius: 50%;
       flex-shrink: 0;
     }
-    .dot-green  { background: var(--green);  box-shadow: 0 0 6px var(--green); }
-    .dot-amber  { background: var(--amber);  box-shadow: 0 0 6px var(--amber); }
-    .dot-blue   { background: var(--aqua-light); box-shadow: 0 0 6px var(--aqua-light); }
+
+    .dot-green {
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+    }
+
+    .dot-amber {
+      background: var(--amber);
+      box-shadow: 0 0 6px var(--amber);
+    }
+
+    .dot-blue {
+      background: var(--aqua-light);
+      box-shadow: 0 0 6px var(--aqua-light);
+    }
 
     /* ── Filter Card ──────────────────────────────────────────── */
     .filter-card {
-      background: rgba(22,44,80,.7);
+      background: rgba(22, 44, 80, .7);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 2rem;
@@ -235,8 +259,8 @@
     .field-group select,
     .field-group input[type="date"],
     .field-group input[type="text"] {
-      background: rgba(11,30,60,.7);
-      border: 1px solid rgba(63,163,247,.2);
+      background: rgba(11, 30, 60, .7);
+      border: 1px solid rgba(63, 163, 247, .2);
       border-radius: 8px;
       color: var(--text);
       font-family: inherit;
@@ -259,10 +283,12 @@
     .field-group select:focus,
     .field-group input:focus {
       border-color: var(--aqua-light);
-      box-shadow: 0 0 0 3px rgba(63,163,247,.15);
+      box-shadow: 0 0 0 3px rgba(63, 163, 247, .15);
     }
 
-    .field-group select option { background: #0c1a2e; }
+    .field-group select option {
+      background: #0c1a2e;
+    }
 
     /* ── Action Row ───────────────────────────────────────────── */
     .action-row {
@@ -289,35 +315,62 @@
       transition: transform .15s, box-shadow .15s, opacity .15s;
     }
 
-    .btn:hover { transform: translateY(-2px); }
-    .btn:active { transform: translateY(0); }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
 
     .btn-primary {
       background: linear-gradient(135deg, var(--aqua-blue), var(--teal));
       color: #fff;
-      box-shadow: 0 4px 20px rgba(11,94,168,.5);
+      box-shadow: 0 4px 20px rgba(11, 94, 168, .5);
     }
 
-    .btn-primary:hover { box-shadow: 0 6px 28px rgba(11,94,168,.7); }
+    .btn-primary:hover {
+      box-shadow: 0 6px 28px rgba(11, 94, 168, .7);
+    }
 
     .btn-ghost {
-      background: rgba(255,255,255,.07);
+      background: rgba(255, 255, 255, .07);
       border: 1px solid var(--border);
       color: var(--text-muted);
     }
 
     .btn-ghost:hover {
-      background: rgba(255,255,255,.12);
+      background: rgba(255, 255, 255, .12);
       color: var(--text);
     }
 
     .btn-success {
       background: linear-gradient(135deg, #0e9d74, #16a085);
       color: #fff;
-      box-shadow: 0 4px 20px rgba(14,157,116,.35);
+      box-shadow: 0 4px 20px rgba(14, 157, 116, .35);
     }
 
-    .btn-success:hover { box-shadow: 0 6px 28px rgba(14,157,116,.5); }
+    .btn-success:hover {
+      box-shadow: 0 6px 28px rgba(14, 157, 116, .5);
+    }
+
+    /* ── Report Container ─────────────────────────────────────── */
+    .report-container {
+      margin-bottom: 3rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      overflow: hidden;
+      height: 1100px;
+      display: none;
+      box-shadow: var(--shadow);
+    }
+
+    .report-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
     /* ── Quick-Link Cards ─────────────────────────────────────── */
     .section-title {
@@ -337,7 +390,7 @@
     }
 
     .quick-card {
-      background: rgba(22,44,80,.55);
+      background: rgba(22, 44, 80, .55);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1.4rem;
@@ -352,10 +405,10 @@
     }
 
     .quick-card:hover {
-      border-color: rgba(63,163,247,.5);
+      border-color: rgba(63, 163, 247, .5);
       transform: translateY(-3px);
-      box-shadow: 0 10px 40px rgba(0,0,0,.3);
-      background: rgba(26,122,214,.15);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, .3);
+      background: rgba(26, 122, 214, .15);
       color: var(--text);
     }
 
@@ -370,10 +423,25 @@
       flex-shrink: 0;
     }
 
-    .icon-green   { background: rgba(34,211,160,.15); border: 1px solid rgba(34,211,160,.25); }
-    .icon-amber   { background: rgba(245,158,11,.15);  border: 1px solid rgba(245,158,11,.25); }
-    .icon-blue    { background: rgba(63,163,247,.15);  border: 1px solid rgba(63,163,247,.25); }
-    .icon-purple  { background: rgba(139,92,246,.15);  border: 1px solid rgba(139,92,246,.25); }
+    .icon-green {
+      background: rgba(34, 211, 160, .15);
+      border: 1px solid rgba(34, 211, 160, .25);
+    }
+
+    .icon-amber {
+      background: rgba(245, 158, 11, .15);
+      border: 1px solid rgba(245, 158, 11, .25);
+    }
+
+    .icon-blue {
+      background: rgba(63, 163, 247, .15);
+      border: 1px solid rgba(63, 163, 247, .25);
+    }
+
+    .icon-purple {
+      background: rgba(139, 92, 246, .15);
+      border: 1px solid rgba(139, 92, 246, .25);
+    }
 
     .quick-card-body h3 {
       font-size: .95rem;
@@ -392,8 +460,8 @@
       display: flex;
       align-items: flex-start;
       gap: 1rem;
-      background: rgba(11,94,168,.18);
-      border: 1px solid rgba(63,163,247,.25);
+      background: rgba(11, 94, 168, .18);
+      border: 1px solid rgba(63, 163, 247, .25);
       border-radius: 10px;
       padding: 1rem 1.25rem;
       font-size: .83rem;
@@ -401,8 +469,15 @@
       line-height: 1.6;
     }
 
-    .info-banner .info-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .05rem; }
-    .info-banner strong { color: var(--text); }
+    .info-banner .info-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: .05rem;
+    }
+
+    .info-banner strong {
+      color: var(--text);
+    }
 
     /* ── Footer ───────────────────────────────────────────────── */
     .footer {
@@ -416,13 +491,25 @@
 
     /* ── Pulse animation ──────────────────────────────────────── */
     @keyframes pulse-dot {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: .3; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .3;
+      }
     }
-    .dot-green { animation: pulse-dot 2s ease-in-out infinite; }
+
+    .dot-green {
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
 
     /* ── Pro Tips ─────────────────────────────────────────────── */
-    .tips-section { margin-bottom: 2rem; }
+    .tips-section {
+      margin-bottom: 2rem;
+    }
 
     .tips-heading {
       font-size: .7rem;
@@ -455,7 +542,7 @@
       align-items: flex-start;
       padding: 1rem 1.1rem;
       border-radius: 10px;
-      background: rgba(255,255,255,.04);
+      background: rgba(255, 255, 255, .04);
       border: 1px solid var(--border);
       position: relative;
       overflow: hidden;
@@ -465,13 +552,15 @@
     .tip-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--aqua-mid), var(--teal));
     }
 
     .tip-card:hover {
-      border-color: rgba(63,163,247,.4);
+      border-color: rgba(63, 163, 247, .4);
       transform: translateY(-2px);
     }
 
@@ -497,287 +586,317 @@
 
     /* ── Responsive ───────────────────────────────────────────── */
     @media (max-width: 540px) {
-      .filter-grid { grid-template-columns: 1fr; }
-      .action-row  { flex-direction: column; }
-      .btn         { width: 100%; justify-content: center; }
+      .filter-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .action-row {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<div class="page-wrap">
+  <div class="page-wrap">
 
-  <!-- Top Bar -->
-  <nav class="topbar" role="navigation" aria-label="Site navigation">
-    <div class="topbar-brand">
-      <img src="newlogo.png" alt="Aqua logo" style="height:64px; width:auto; background:#ffffff; padding:4px 8px; border-radius:8px;" />
-    </div>
-    <div style="display:flex; align-items:center; gap:.75rem;">
-      <a href="https://aqualocator.github.io/" target="_blank" rel="noopener"
-         style="font-size:.72rem; font-weight:600; color:var(--aqua-light); text-decoration:none;
+    <!-- Top Bar -->
+    <nav class="topbar" role="navigation" aria-label="Site navigation">
+      <div class="topbar-brand">
+        <img src="newlogo.png" alt="Aqua logo"
+          style="height:64px; width:auto; background:#ffffff; padding:4px 8px; border-radius:8px;" />
+      </div>
+      <div style="display:flex; align-items:center; gap:.75rem;">
+        <a href="https://aqualocator.github.io/" target="_blank" rel="noopener" style="font-size:.72rem; font-weight:600; color:var(--aqua-light); text-decoration:none;
                 padding:.3rem .8rem; border-radius:999px; border:1px solid var(--border);
                 background:rgba(63,163,247,.08); letter-spacing:.05em;
                 transition:background .2s, border-color .2s;"
-         onmouseover="this.style.background='rgba(63,163,247,.2)';this.style.borderColor='rgba(63,163,247,.5)';"
-         onmouseout="this.style.background='rgba(63,163,247,.08)';this.style.borderColor='var(--border)';"
-         aria-label="Open AquaLocator">
-        🌐 AquaLocator
-      </a>
-      <span class="topbar-badge">⚡ Live Insight Engine</span>
-    </div>
-  </nav>
+          onmouseover="this.style.background='rgba(63,163,247,.2)';this.style.borderColor='rgba(63,163,247,.5)';"
+          onmouseout="this.style.background='rgba(63,163,247,.08)';this.style.borderColor='var(--border)';"
+          aria-label="Open AquaLocator">
+          🌐 AquaLocator
+        </a>
+        <span class="topbar-badge">⚡ Live Insight Engine</span>
+      </div>
+    </nav>
 
-  <!-- Hero -->
-  <header class="hero">
-    <div class="hero-eyebrow">Real-Time Workforce Analytics</div>
-    <h1>Employee Status Report</h1>
-    <p>
-      Filter and view active &amp; inactive employee data across all departments —
-      including hire dates, tenure, and last-day information.
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-eyebrow">Real-Time Workforce Analytics</div>
+      <h1>Employee Status Report</h1>
+      <p>
+        Filter and view active &amp; inactive employee data across all departments —
+        including hire dates, tenure, and last-day information.
+      </p>
+
+      <!-- Status pills -->
+      <div class="stats-row" aria-label="Report indicators">
+        <div class="stat-pill"><span class="dot dot-green"></span>Active Employees</div>
+        <div class="stat-pill"><span class="dot dot-amber"></span>Inactive Employees</div>
+        <div class="stat-pill"><span class="dot dot-blue"></span>All Departments</div>
+      </div>
+    </header>
+
+    <!-- ── Filter Card ── -->
+    <section class="filter-card" aria-label="Report filters">
+      <h2><span class="icon" aria-hidden="true">🔍</span>Report Filters</h2>
+
+      <div class="filter-grid">
+
+        <!-- Status -->
+        <div class="field-group">
+          <label for="filter-status">Status</label>
+          <select id="filter-status" name="Status">
+            <option value="ALL">All Employees</option>
+            <option value="Active" selected>Active Only</option>
+            <option value="InActive">Inactive Only</option>
+          </select>
+        </div>
+
+        <!-- Department — values must exactly match DeptDesc in AcctSys_ActiveInActiveEmps_Report -->
+        <div class="field-group">
+          <label for="filter-dept">Departments</label>
+          <select id="filter-dept" name="Departments">
+            <option value="">— All Departments —</option>
+            <option value="Accounting/Finance">Accounting/Finance</option>
+            <option value="Administration">Administration</option>
+            <option value="Aftermarket Sales">Aftermarket Sales</option>
+            <option value="Applications Eng">Applications Eng</option>
+            <option value="Contract Administration">Contract Administration</option>
+            <option value="Customer Service">Customer Service</option>
+            <option value="Dom Sales-East">Dom Sales-East</option>
+            <option value="Dom Sales-Midwest">Dom Sales-Midwest</option>
+            <option value="Dom Sales-Southeast">Dom Sales-Southeast</option>
+            <option value="Dom Sales-West">Dom Sales-West</option>
+            <option value="Eng-Admin">Eng-Admin</option>
+            <option value="Eng-Electrical">Eng-Electrical</option>
+            <option value="Eng-Estimating">Eng-Estimating</option>
+            <option value="Eng-Mechanical">Eng-Mechanical</option>
+            <option value="Eng-Standards">Eng-Standards</option>
+            <option value="Field Services">Field Services</option>
+            <option value="Human Resources">Human Resources</option>
+            <option value="Industrial Sales">Industrial Sales</option>
+            <option value="Information Services">Information Services</option>
+            <option value="International Sales">International Sales</option>
+            <option value="Manufacturing">Manufacturing</option>
+            <option value="Marketing/PR">Marketing/PR</option>
+            <option value="Pilot Programs">Pilot Programs</option>
+            <option value="Prod Mgmt-Aeration/Mixing">Prod Mgmt-Aeration/Mixing</option>
+            <option value="Prod Mgmt-Bio/Membrane">Prod Mgmt-Bio/Membrane</option>
+            <option value="Prod Mgmt-Disinfection">Prod Mgmt-Disinfection</option>
+            <option value="Prod Mgmt-Filtration">Prod Mgmt-Filtration</option>
+            <option value="Production Control">Production Control</option>
+            <option value="Project Management">Project Management</option>
+            <option value="Research &amp; Development">Research &amp; Development</option>
+            <option value="Sales Administration">Sales Administration</option>
+            <option value="Service School">Service School</option>
+            <option value="zzAftermarket Sales">zzAftermarket Sales</option>
+            <option value="zzAKD Operations">zzAKD Operations</option>
+            <option value="zzContract Admin">zzContract Admin</option>
+            <option value="zzIntl Sales-Asia Pacific">zzIntl Sales-Asia Pacific</option>
+            <option value="zzIntl Sales-Latin America">zzIntl Sales-Latin America</option>
+          </select>
+        </div>
+
+        <!-- From Date -->
+        <div class="field-group">
+          <label for="filter-from">Status Date From</label>
+          <input type="date" id="filter-from" name="FromDate" />
+        </div>
+
+        <!-- To Date -->
+        <div class="field-group">
+          <label for="filter-to">Status Date To</label>
+          <input type="date" id="filter-to" name="ToDate" />
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-row">
+        <button id="btn-open-ssrs" class="btn btn-primary" onclick="openSSRS()">
+          📊 &nbsp;Open Report
+        </button>
+        <button id="btn-reset" class="btn btn-ghost" onclick="resetFilters()">
+          ↺ &nbsp;Reset Filters
+        </button>
+      </div>
+    </section>
+
+    <!-- Status Date footnote (matches SSRS report header) -->
+    <p
+      style="font-size:.76rem; color:var(--text-muted); margin: -.6rem 0 1.8rem; padding-left:.25rem; font-style:italic;">
+      *Status Date = the date the employee's current status took effect (Hire Date if Active, Last Day if Inactive).
     </p>
 
-    <!-- Status pills -->
-    <div class="stats-row" aria-label="Report indicators">
-      <div class="stat-pill"><span class="dot dot-green"></span>Active Employees</div>
-      <div class="stat-pill"><span class="dot dot-amber"></span>Inactive Employees</div>
-      <div class="stat-pill"><span class="dot dot-blue"></span>All Departments</div>
-    </div>
-  </header>
-
-  <!-- ── Filter Card ── -->
-  <section class="filter-card" aria-label="Report filters">
-    <h2><span class="icon" aria-hidden="true">🔍</span>Report Filters</h2>
-
-    <div class="filter-grid">
-
-      <!-- Status -->
-      <div class="field-group">
-        <label for="filter-status">Status</label>
-        <select id="filter-status" name="Status">
-          <option value="ALL">All Employees</option>
-          <option value="Active" selected>Active Only</option>
-          <option value="InActive">Inactive Only</option>
-        </select>
-      </div>
-
-      <!-- Department — values must exactly match DeptDesc in AcctSys_ActiveInActiveEmps_Report -->
-      <div class="field-group">
-        <label for="filter-dept">Departments</label>
-        <select id="filter-dept" name="Departments">
-          <option value="">— All Departments —</option>
-          <option value="Accounting/Finance">Accounting/Finance</option>
-          <option value="Administration">Administration</option>
-          <option value="Aftermarket Sales">Aftermarket Sales</option>
-          <option value="Applications Eng">Applications Eng</option>
-          <option value="Contract Administration">Contract Administration</option>
-          <option value="Customer Service">Customer Service</option>
-          <option value="Dom Sales-East">Dom Sales-East</option>
-          <option value="Dom Sales-Midwest">Dom Sales-Midwest</option>
-          <option value="Dom Sales-Southeast">Dom Sales-Southeast</option>
-          <option value="Dom Sales-West">Dom Sales-West</option>
-          <option value="Eng-Admin">Eng-Admin</option>
-          <option value="Eng-Electrical">Eng-Electrical</option>
-          <option value="Eng-Estimating">Eng-Estimating</option>
-          <option value="Eng-Mechanical">Eng-Mechanical</option>
-          <option value="Eng-Standards">Eng-Standards</option>
-          <option value="Field Services">Field Services</option>
-          <option value="Human Resources">Human Resources</option>
-          <option value="Industrial Sales">Industrial Sales</option>
-          <option value="Information Services">Information Services</option>
-          <option value="International Sales">International Sales</option>
-          <option value="Manufacturing">Manufacturing</option>
-          <option value="Marketing/PR">Marketing/PR</option>
-          <option value="Pilot Programs">Pilot Programs</option>
-          <option value="Prod Mgmt-Aeration/Mixing">Prod Mgmt-Aeration/Mixing</option>
-          <option value="Prod Mgmt-Bio/Membrane">Prod Mgmt-Bio/Membrane</option>
-          <option value="Prod Mgmt-Disinfection">Prod Mgmt-Disinfection</option>
-          <option value="Prod Mgmt-Filtration">Prod Mgmt-Filtration</option>
-          <option value="Production Control">Production Control</option>
-          <option value="Project Management">Project Management</option>
-          <option value="Research &amp; Development">Research &amp; Development</option>
-          <option value="Sales Administration">Sales Administration</option>
-          <option value="Service School">Service School</option>
-          <option value="zzAftermarket Sales">zzAftermarket Sales</option>
-          <option value="zzAKD Operations">zzAKD Operations</option>
-          <option value="zzContract Admin">zzContract Admin</option>
-          <option value="zzIntl Sales-Asia Pacific">zzIntl Sales-Asia Pacific</option>
-          <option value="zzIntl Sales-Latin America">zzIntl Sales-Latin America</option>
-        </select>
-      </div>
-
-      <!-- From Date -->
-      <div class="field-group">
-        <label for="filter-from">Status Date From</label>
-        <input type="date" id="filter-from" name="FromDate" />
-      </div>
-
-      <!-- To Date -->
-      <div class="field-group">
-        <label for="filter-to">Status Date To</label>
-        <input type="date" id="filter-to" name="ToDate" />
-      </div>
-
+    <!-- ── Embedded Report Container ── -->
+    <div id="report-container" class="report-container">
+      <iframe id="report-frame" class="report-frame" src="about:blank" title="Employee Status Report"></iframe>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="action-row">
-      <button id="btn-open-ssrs" class="btn btn-primary" onclick="openSSRS()">
-        📊 &nbsp;Open Report
-      </button>
-      <button id="btn-reset" class="btn btn-ghost" onclick="resetFilters()">
-        ↺ &nbsp;Reset Filters
-      </button>
-    </div>
-  </section>
+    <!-- ── Quick Links ── -->
+    <p class="section-title">Quick Access</p>
+    <div class="quick-links" role="list">
 
-  <!-- Status Date footnote (matches SSRS report header) -->
-  <p style="font-size:.76rem; color:var(--text-muted); margin: -.6rem 0 1.8rem; padding-left:.25rem; font-style:italic;">
-    *Status Date = the date the employee's current status took effect (Hire Date if Active, Last Day if Inactive).
-  </p>
-
-  <!-- ── Quick Links ── -->
-  <p class="section-title">Quick Access</p>
-  <div class="quick-links" role="list">
-
-    <a id="link-active" class="quick-card" role="listitem" href="#" onclick="openPreset('Active'); return false;">
-      <div class="quick-card-icon icon-green" aria-hidden="true">✅</div>
-      <div class="quick-card-body">
-        <h3>Active Employees</h3>
-        <p>View all currently active employees across every department.</p>
-      </div>
-    </a>
-
-    <a id="link-inactive" class="quick-card" role="listitem" href="#" onclick="openPreset('InActive'); return false;">
-      <div class="quick-card-icon icon-amber" aria-hidden="true">📋</div>
-      <div class="quick-card-body">
-        <h3>Inactive Employees</h3>
-        <p>Review employees who are no longer with the company.</p>
-      </div>
-    </a>
-
-    <a id="link-aqualocator" class="quick-card" role="listitem"
-       href="https://aqualocator.github.io/" target="_blank" rel="noopener">
-      <div class="quick-card-icon icon-purple" aria-hidden="true">🌐</div>
-      <div class="quick-card-body">
-        <h3>AquaLocator</h3>
-        <p>An Aqua employee office locator — find where your colleagues are based across all locations.</p>
-      </div>
-    </a>
-
-
-
-  </div>
-
-  <!-- ── Pro Tips ── -->
-  <div class="tips-section" role="note" aria-label="Pro tips">
-    <div class="tips-heading">⚡ Pro Tips</div>
-    <div class="tips-grid">
-
-      <div class="tip-card">
-        <span class="tip-icon" aria-hidden="true">🖱️</span>
-        <div>
-          <h4>Clickable Departments</h4>
-          <p>Department names inside the report are live links — click any one to instantly drill down to that team's roster.</p>
+      <a id="link-active" class="quick-card" role="listitem" href="#" onclick="openPreset('Active'); return false;">
+        <div class="quick-card-icon icon-green" aria-hidden="true">✅</div>
+        <div class="quick-card-body">
+          <h3>Active Employees</h3>
+          <p>View all currently active employees across every department.</p>
         </div>
-      </div>
+      </a>
 
-      <div class="tip-card">
-        <span class="tip-icon" aria-hidden="true">🥧</span>
-        <div>
-          <h4>Interactive Pie Chart</h4>
-          <p>The department chart is fully interactive. Click a slice to filter the entire report to that department in one shot.</p>
+      <a id="link-inactive" class="quick-card" role="listitem" href="#" onclick="openPreset('InActive'); return false;">
+        <div class="quick-card-icon icon-amber" aria-hidden="true">📋</div>
+        <div class="quick-card-body">
+          <h3>Inactive Employees</h3>
+          <p>Review employees who are no longer with the company.</p>
         </div>
-      </div>
+      </a>
 
-      <div class="tip-card">
-        <span class="tip-icon" aria-hidden="true">📅</span>
-        <div>
-          <h4>Status Date Explained</h4>
-          <p>Status Date = the date the employee's current status took effect — Hire Date if Active, Last Day if Inactive.</p>
+      <a id="link-aqualocator" class="quick-card" role="listitem" href="https://aqualocator.github.io/" target="_blank"
+        rel="noopener">
+        <div class="quick-card-icon icon-purple" aria-hidden="true">🌐</div>
+        <div class="quick-card-body">
+          <h3>AquaLocator</h3>
+          <p>An Aqua employee office locator — find where your colleagues are based across all locations.</p>
         </div>
-      </div>
+      </a>
+
+
 
     </div>
-  </div>
 
-</div><!-- /.page-wrap -->
+    <!-- ── Pro Tips ── -->
+    <div class="tips-section" role="note" aria-label="Pro tips">
+      <div class="tips-heading">⚡ Pro Tips</div>
+      <div class="tips-grid">
 
-<!-- Footer -->
-<footer class="footer" style="padding: 1.5rem; margin-top: 1rem;">
-  Copyright &copy; 2026 Aqua-Aerobic Systems, Inc. &mdash; All Rights Reserved &nbsp;|&nbsp; Internal Use Only
-</footer>
+        <div class="tip-card">
+          <span class="tip-icon" aria-hidden="true">🖱️</span>
+          <div>
+            <h4>Clickable Departments</h4>
+            <p>Department names inside the report are live links — click any one to instantly drill down to that team's
+              roster.</p>
+          </div>
+        </div>
 
-<script>
-  // ── Constants ──────────────────────────────────────────────────────────────
-  const BASE_REPORT = 'http://aquaerprep/Reports/report/ITReports/AquaEmployeeStatus';
-  const BASE_SSRS   = 'http://aquaerprep/ReportServer/Pages/ReportViewer.aspx?%2fITReports%2fAquaEmployeeStatus&rs:Command=Render&rc:Parameters=true';
+        <div class="tip-card">
+          <span class="tip-icon" aria-hidden="true">🥧</span>
+          <div>
+            <h4>Interactive Pie Chart</h4>
+            <p>The department chart is fully interactive. Click a slice to filter the entire report to that department
+              in one shot.</p>
+          </div>
+        </div>
 
-  // ── Collect filter values ──────────────────────────────────────────────────
-  function getFilterParams() {
-    return {
-      status: document.getElementById('filter-status').value,
-      dept:   document.getElementById('filter-dept').value,
-      from:   document.getElementById('filter-from').value,
-      to:     document.getElementById('filter-to').value
-    };
-  }
+        <div class="tip-card">
+          <span class="tip-icon" aria-hidden="true">📅</span>
+          <div>
+            <h4>Status Date Explained</h4>
+            <p>Status Date = the date the employee's current status took effect — Hire Date if Active, Last Day if
+              Inactive.</p>
+          </div>
+        </div>
 
-  // ── Build URL for the modern SSRS web portal (/Reports/report/…) ──────────
-  //   This base URL has NO existing query string, so the first separator is '?'
-  function buildModernUrl() {
-    const f = getFilterParams();
-    const parts = [];
-    if (f.status) parts.push('Status='      + encodeURIComponent(f.status));
-    if (f.dept)   parts.push('Departments=' + encodeURIComponent(f.dept));
-    if (f.from)   parts.push('FromDate='    + encodeURIComponent(f.from));
-    if (f.to)     parts.push('ToDate='      + encodeURIComponent(f.to));
-    return BASE_REPORT + (parts.length ? '?' + parts.join('&') : '');
-  }
+      </div>
+    </div>
 
-  // ── Build URL for the classic SSRS ReportViewer ──────────────────────────
-  //   BASE_SSRS already ends with '…&rc:Parameters=true', so append with '&'
-  function buildSSRSUrl() {
-    const f = getFilterParams();
-    const parts = [];
-    if (f.status) parts.push('Status='      + encodeURIComponent(f.status));
-    if (f.dept)   parts.push('Departments=' + encodeURIComponent(f.dept));
-    if (f.from)   parts.push('FromDate='    + encodeURIComponent(f.from));
-    if (f.to)     parts.push('ToDate='      + encodeURIComponent(f.to));
-    return BASE_SSRS + (parts.length ? '&' + parts.join('&') : '');
-  }
+  </div><!-- /.page-wrap -->
 
-  // ── Open the modern Power BI-style report URL ──────────────────────────────
-  function openReport() {
-    window.open(buildModernUrl(), '_blank');
-  }
+  <!-- Footer -->
+  <footer class="footer" style="padding: 1.5rem; margin-top: 1rem;">
+    Copyright &copy; 2026 Aqua-Aerobic Systems, Inc. &mdash; All Rights Reserved &nbsp;|&nbsp; Internal Use Only
+  </footer>
 
-  // ── Open the classic SSRS ReportViewer URL ─────────────────────────────────
-  function openSSRS() {
-    window.open(buildSSRSUrl(), '_blank');
-  }
+  <script>
+    // ── Constants ──────────────────────────────────────────────────────────────
+    const BASE_REPORT = 'http://aquaerprep/Reports/report/ITReports/AquaEmployeeStatus';
+    const BASE_SSRS = 'http://aquaerprep/ReportServer/Pages/ReportViewer.aspx?%2fITReports%2fAquaEmployeeStatus&rs:Command=Render&rc:Parameters=false&rs:Embed=true';
 
-  // ── Reset all filter controls ──────────────────────────────────────────────
-  function resetFilters() {
-    document.getElementById('filter-status').value = 'Active';
-    document.getElementById('filter-dept').value   = '';
-    document.getElementById('filter-from').value   = '';
-    document.getElementById('filter-to').value     = '';
-  }
+    // ── Collect filter values ──────────────────────────────────────────────────
+    function getFilterParams() {
+      return {
+        status: document.getElementById('filter-status').value,
+        dept: document.getElementById('filter-dept').value,
+        from: document.getElementById('filter-from').value,
+        to: document.getElementById('filter-to').value
+      };
+    }
 
-  // ── Quick-link preset ──────────────────────────────────────────────────────
-  function openPreset(statusValue) {
-    document.getElementById('filter-status').value = statusValue;
-    document.getElementById('filter-dept').value   = '';
-    document.getElementById('filter-from').value   = '';
-    document.getElementById('filter-to').value     = '';
-    openReport();
-  }
+    // ── Build URL for the modern SSRS web portal (/Reports/report/…) ──────────
+    //   This base URL has NO existing query string, so the first separator is '?'
+    function buildModernUrl() {
+      const f = getFilterParams();
+      const parts = [];
+      if (f.status) parts.push('Status=' + encodeURIComponent(f.status));
+      if (f.dept) parts.push('Departments=' + encodeURIComponent(f.dept));
+      if (f.from) parts.push('FromDate=' + encodeURIComponent(f.from));
+      if (f.to) parts.push('ToDate=' + encodeURIComponent(f.to));
+      return BASE_REPORT + (parts.length ? '?' + parts.join('&') : '');
+    }
 
-  // ── Set today's date as default "To" date ─────────────────────────────────
-  (function setDefaultDates() {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('filter-to').value = today;
-  })();
-</script>
+    // ── Build URL for the classic SSRS ReportViewer ──────────────────────────
+    //   BASE_SSRS already ends with '…&rc:Parameters=true', so append with '&'
+    function buildSSRSUrl() {
+      const f = getFilterParams();
+      const parts = [];
+      if (f.status) parts.push('Status=' + encodeURIComponent(f.status));
+      if (f.dept) parts.push('Departments=' + encodeURIComponent(f.dept));
+      if (f.from) parts.push('FromDate=' + encodeURIComponent(f.from));
+      if (f.to) parts.push('ToDate=' + encodeURIComponent(f.to));
+      return BASE_SSRS + (parts.length ? '&' + parts.join('&') : '');
+    }
+
+    // ── Open the modern Power BI-style report URL ──────────────────────────────
+    function openReport() {
+      window.open(buildModernUrl(), '_blank');
+    }
+
+    // ── Embed the classic SSRS ReportViewer URL ────────────────────────────────
+    function openSSRS() {
+      const container = document.getElementById('report-container');
+      const iframe = document.getElementById('report-frame');
+      iframe.src = buildSSRSUrl();
+      container.style.display = 'block';
+
+      // Smooth scroll to the report container
+      setTimeout(() => {
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+
+    // ── Reset all filter controls ──────────────────────────────────────────────
+    function resetFilters() {
+      document.getElementById('filter-status').value = 'Active';
+      document.getElementById('filter-dept').value = '';
+      document.getElementById('filter-from').value = '';
+      document.getElementById('filter-to').value = '';
+      document.getElementById('report-container').style.display = 'none';
+      document.getElementById('report-frame').src = 'about:blank';
+    }
+
+    // ── Quick-link preset ──────────────────────────────────────────────────────
+    function openPreset(statusValue) {
+      document.getElementById('filter-status').value = statusValue;
+      document.getElementById('filter-dept').value = '';
+      document.getElementById('filter-from').value = '';
+      document.getElementById('filter-to').value = '';
+      openSSRS();
+    }
+
+    // ── Set today's date as default "To" date ─────────────────────────────────
+    (function setDefaultDates() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('filter-to').value = today;
+    })();
+  </script>
 </body>
+
 </html>

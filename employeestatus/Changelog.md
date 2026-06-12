@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2026-06-12
+
+### Added
+- Embedded `iframe` directly on the web page to display the SSRS report instead of opening a new tab.
+
+### Changed
+- Increased `.page-wrap` max-width to `1350px` and iframe height to `1250px` to accommodate a better report view.
+- Hid duplicate SSRS parameter bar from the embedded report by appending `rc:Parameters=false` to the SSRS URL.
+- Updated `openSSRS()` and `openPreset()` JavaScript functions to route the SSRS URL into the `iframe` and smoothly scroll into view.
+
 ## [1.0.0] - 2026-06-11
 
 ### Added
