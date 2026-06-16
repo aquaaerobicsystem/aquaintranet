@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.6] - 2026-06-16
+### Added
+- **`indexdev.html`** — Added "Ask ACE" (Corporate knowledge base) link to the Quick Links section.
+
 ## [1.3.5] - 2026-06-16
 ### Changed
 - **`indexdev.html`** — Added an accordion script to ensure only one details element is open at a time within its group, improving the collapse/expand flow.
