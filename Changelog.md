@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.5] - 2026-06-16
+### Changed
+- **`indexdev.html`** — Added an accordion script to ensure only one details element is open at a time within its group, improving the collapse/expand flow.
+
+
 ## [1.3.4] - 2026-06-10
 ### Changed
 - **`indexdev.html` footer** — moved "User Guide | Testing Tracker | Admin" links to their own line above the copyright notice.
