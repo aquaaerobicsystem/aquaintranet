@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.7] - 2026-06-18
+### Changed
+- **`indexdev.html`** — Increased "Employee Hub" header (`h1`) font size from 17px → 20px (desktop), 14px → 16px (≤960px), and 13px → 15px (≤768px) for better readability.
+- **`indexdev.html`** — HTML formatting cleanup: collapsed multi-line attributes onto single lines throughout the file for consistency.
+
+### Added
+- **`indexdev.html`** — Added "Ask AVA" (Instant HR Answers) quick link to the Company Resources section.
+
 ## [1.3.6] - 2026-06-16
 ### Added
 - **`indexdev.html`** — Added "Ask ACE" (Corporate knowledge base) link to the Quick Links section.
