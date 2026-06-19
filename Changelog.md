@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.1] - 2026-06-19
+### Changed
+- **`testing_tracker.html`** — "← Return to Employee Hub" moved to the top header (right-aligned); removed the header title/subtitle text.
+- **`testing_tracker.html`** — "Need to delete something?" contact note moved to the bottom of the page.
+- **`testing_tracker.html`** — Testing Requirements Tracker, Reported Issues & Feedback Log, and General Comments & Discussion are now collapsible and collapsed by default.
+- **`testing_tracker.html`** — "Issue Progress" section renamed to "Dashboard".
+- **`testing_tracker.html`** — "Testing Requirements Tracker" renamed to "Testing Tracker".
+- **`testing_tracker.html`** — "Submit Your Feedback" renamed to "Submit Testing Results & Issues".
+- **`testing_tracker.html`** — Dashboard panels now show count badges (blue) with status breakdowns: Pending/Completed for Testing Tracker (amber/green), Open/Resolved for Reported Issues (amber/green), and total count for Comments.
+
 ## [1.6.0] - 2026-06-19
 ### Added
 - **`IT/it-request.html`** — New IT Project Request Form page based on the original Word document (Aqua_IT_Project_Request_Form.docx). Sections: Your Info, Project Details, Final Checks, and Attachments.

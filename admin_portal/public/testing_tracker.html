@@ -262,6 +262,19 @@
       padding: 2px 8px;
       border-radius: 20px;
     }
+    summary .badge {
+      background: var(--aqua-blue);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-left: 4px;
+    }
+    summary .badge.open { background: #f59e0b; }
+    summary .badge.resolved { background: #10b981; }
+    summary .badge.pending { background: #f59e0b; }
+    summary .badge.completed { background: #10b981; }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -413,10 +426,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a href="http://www.aqua-aerobic.net/indexdev.html" title="Back to Home"><img class="brand-logo" src="http://www.aqua-aerobic.net/images/newlogo.png" alt="Aqua-Aerobic Systems, Inc." onerror="this.src='http://www.aqua-aerobic.net:3000/logo.jpg'"></a>
-      <div class="header-text" style="text-align:right;">
-        <h1>Employee Hub Issue Tracker</h1>
-        <p class="sub">Monitor User Feedback & Testing Progress</p>
-      </div>
+      <a href="http://www.aqua-aerobic.net/indexdev.html" class="btn" style="margin-left:auto; font-size:13px; padding:8px 20px;">← Return to Employee Hub</a>
     </div>
   </header>
 
@@ -431,7 +441,7 @@
       🔐 <strong>Admin Mode</strong> — You are logged in as admin. Edit any entry directly without a code.
     </div>
 
-    <p class="section-label">Submit Your Feedback</p>
+    <p class="section-label">Submit Testing Results & Issues</p>
     <details class="panel">
       <summary>✅ Submit Testing Results (remove after testing)</summary>
       <div class="panel-body">
@@ -505,10 +515,13 @@
       </div>
     </details>
 
-    <p class="section-label">Issue Progress</p>
+    <p class="section-label">Dashboard</p>
+    <details class="panel">
+      <summary>Testing Tracker (remove after testing) <span class="badge" id="summaryUserCount"></span> <span class="badge pending" id="summaryPendingCount"></span> <span class="badge completed" id="summaryCompletedCount"></span></summary>
+      <div class="panel-body">
     <div class="table-card">
       <div class="table-header">
-        <h3>Testing Requirements Tracker (remove after testing)</h3>
+        <h3>Testing Tracker</h3>
         <span class="badge" id="userCountBadge">loading...</span>
       </div>
     <table id="usersTable">
@@ -530,10 +543,15 @@
     </table>
 
     </div>
+      </div>
+    </details>
 
-    <div class="table-card" style="margin-top:20px;">
+    <details class="panel" style="margin-top:20px;">
+      <summary>Reported Issues &amp; Feedback Log <span class="badge" id="summaryIssueCount"></span> <span class="badge open" id="summaryOpenCount"></span> <span class="badge resolved" id="summaryResolvedCount"></span></summary>
+      <div class="panel-body">
+    <div class="table-card">
       <div class="table-header">
-        <h3>Reported Issues &amp; Feedback Log</h3>
+        <h3>Issues &amp; Feedback</h3>
         <span class="badge" id="issueCountBadge">loading...</span>
       </div>
     <table id="issuesTable">
@@ -555,21 +573,12 @@
     </table>
 
     </div>
+      </div>
+    </details>
 
-    <div style="text-align:center; margin-top:40px;">
-      <a href="http://www.aqua-aerobic.net/indexdev.html" class="btn">← Return to Employee Hub</a>
-    </div>
-
-    <div class="contact-note" style="margin-top:20px;">
-      <strong>Need to delete something?</strong><br>
-      Contact <a href="mailto:ckonkol@aqua-aerobic.com">ckonkol@aqua-aerobic.com</a>
-      or <a href="mailto:cshields@aqua-aerobic.com">cshields@aqua-aerobic.com</a>
-    </div>
-
-    <div class="section-divider"></div>
-    <p class="section-label">Discussion</p>
-    <h3 style="font-family:'DM Serif Display',serif; font-size:20px; color:var(--aqua-dark); border:none; padding:0; margin:0 0 6px;">💬 General Comments &amp; Discussion</h3>
-    <p style="font-size:14px; color:var(--gray-500); margin-bottom:20px;">Have a thought that doesn't fit in the forms above? Leave a general comment or reply to someone else's feedback.</p>
+    <details class="panel" style="margin-top:20px;">
+      <summary>💬 General Comments &amp; Discussion <span class="badge" id="summaryCommentCount"></span></summary>
+      <div class="panel-body">
 
     <details class="panel" style="margin-bottom:24px;">
       <summary>✏️ Submit a General Comment</summary>
@@ -595,6 +604,15 @@
     </details>
 
     <div id="commentsBoard"><p style="color:var(--gray-400); font-size:14px;">Loading comments...</p></div>
+
+      </div>
+    </details>
+
+    <div class="contact-note" style="margin-top:32px;">
+      <strong>Need to delete something?</strong><br>
+      Contact <a href="mailto:ckonkol@aqua-aerobic.com">ckonkol@aqua-aerobic.com</a>
+      or <a href="mailto:cshields@aqua-aerobic.com">cshields@aqua-aerobic.com</a>
+    </div>
   </div>
 
   <!-- EDIT MODAL -->
@@ -852,6 +870,14 @@
 
         const ub = document.getElementById('userCountBadge');
         if (ub) ub.textContent = data.users.length + ' participant' + (data.users.length !== 1 ? 's' : '');
+        const sub = document.getElementById('summaryUserCount');
+        if (sub) sub.textContent = data.users.length;
+        const pendingCount = data.users.filter(u => u.status === 'Pending').length;
+        const completedCount = data.users.filter(u => u.status === 'Completed').length;
+        const spb = document.getElementById('summaryPendingCount');
+        if (spb) spb.textContent = pendingCount + ' Pending';
+        const scb2 = document.getElementById('summaryCompletedCount');
+        if (scb2) scb2.textContent = completedCount + ' Completed';
 
         document.getElementById('issuesBody').innerHTML = data.issues.length ? data.issues.map(i => {
           const attachHtml = (i.attachments && i.attachments.length)
@@ -880,6 +906,14 @@
 
         const ib = document.getElementById('issueCountBadge');
         if (ib) ib.textContent = data.issues.length + ' issue' + (data.issues.length !== 1 ? 's' : '');
+        const sib = document.getElementById('summaryIssueCount');
+        if (sib) sib.textContent = data.issues.length;
+        const openCount = data.issues.filter(i => i.status === 'Open').length;
+        const resolvedCount = data.issues.filter(i => i.status === 'Resolved').length;
+        const sob = document.getElementById('summaryOpenCount');
+        if (sob) sob.textContent = openCount + ' Open';
+        const srb = document.getElementById('summaryResolvedCount');
+        if (srb) srb.textContent = resolvedCount + ' Resolved';
 
       } catch(e) { console.error(e); }
     }
@@ -967,6 +1001,8 @@
         const res = await fetch('/api/tracker/comments');
         const comments = await res.json();
         const board = document.getElementById('commentsBoard');
+        const scb = document.getElementById('summaryCommentCount');
+        if (scb) scb.textContent = comments.length;
         if (!comments.length) {
           board.innerHTML = '<p style="color:var(--gray-400); font-size:14px; text-align:center; padding:20px 0;">No comments yet. Be the first to leave feedback!</p>';
           return;
