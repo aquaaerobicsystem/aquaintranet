@@ -845,83 +845,284 @@
       text-overflow: ellipsis;
     }
 
-    /* ── AQUASEARCH CALLOUT ───────────────────────────────────────────────── */
-    .aquasearch-callout-wrap {
+    /* ── AI TOOLS CALLOUT (collapsible) ─────────────────────────────────── */
+    .ai-tools-wrap {
       max-width: 1360px;
       margin: 0 auto;
       padding: 0 32px 36px;
     }
 
-    .aquasearch-callout {
-      background: linear-gradient(135deg, var(--aqua-dark) 0%, var(--aqua-blue) 60%, #0088cc 100%);
+    .ai-tools-details {
       border-radius: var(--radius);
-      padding: 28px 36px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, #001a2e 0%, var(--aqua-dark) 40%, #003d6b 100%);
+      position: relative;
+    }
+
+    /* Animated grid background */
+    .ai-tools-details::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 180, 216, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 180, 216, 0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse at 60% 50%, black 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 60% 50%, black 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Glow orbs */
+    .ai-tools-details::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 180, 216, 0.12) 0%, transparent 70%);
+      top: -100px;
+      right: -50px;
+      pointer-events: none;
+    }
+
+    .ai-tools-details > summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 20px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-      box-shadow: var(--shadow-lg);
+      gap: 16px;
       position: relative;
-      overflow: hidden;
+      z-index: 2;
+      user-select: none;
+      transition: padding var(--transition);
     }
 
-    /* Subtle decorative circles on the callout */
-    .aquasearch-callout::before {
-      content: '';
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.04);
-      top: -80px;
-      right: -40px;
+    .ai-tools-details > summary::-webkit-details-marker { display: none; }
+
+    .ai-tools-summary-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    .aquasearch-callout::after {
-      content: '';
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.03);
-      bottom: -40px;
-      left: 20%;
-    }
-
-    .aquasearch-callout-text {
-      position: relative;
-      z-index: 1;
-    }
-
-    .aquasearch-callout-text h3 {
+    .ai-tools-summary-left h3 {
       font-family: 'DM Serif Display', serif;
-      font-size: 19px;
+      font-size: 18px;
       color: var(--white);
-      margin-bottom: 6px;
       letter-spacing: -0.01em;
-    }
-
-    .aquasearch-callout-text p {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 13.5px;
-      line-height: 1.55;
-      max-width: 600px;
       margin: 0;
     }
 
-    .aquasearch-callout .aquasearch-btn {
-      background: var(--white);
-      color: var(--aqua-dark);
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-      flex-shrink: 0;
-      position: relative;
-      z-index: 1;
+    .ai-tools-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--accent-light);
+      padding: 6px 16px;
+      border: 1px solid rgba(103, 214, 237, 0.3);
+      border-radius: 50px;
+      background: rgba(0, 180, 216, 0.1);
+      transition: all var(--transition-fast);
+      white-space: nowrap;
     }
 
-    .aquasearch-callout .aquasearch-btn:hover {
-      background: var(--aqua-xlight);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.20);
+    .ai-tools-details > summary:hover .ai-tools-explore {
+      background: rgba(0, 180, 216, 0.2);
+      border-color: rgba(103, 214, 237, 0.5);
+      color: #fff;
+      box-shadow: 0 0 16px rgba(0, 180, 216, 0.2);
+    }
+
+    .ai-tools-explore svg {
+      transition: transform var(--transition);
+    }
+
+    .ai-tools-details[open] .ai-tools-explore svg {
+      transform: rotate(90deg);
+    }
+
+    .ai-tools-body {
+      padding: 0 32px 28px;
+      position: relative;
+      z-index: 2;
+      animation: aiToolsReveal 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes aiToolsReveal {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tool cards grid */
+    .ai-tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .ai-tool-card {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 22px 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-spring), border-color var(--transition), box-shadow var(--transition), background var(--transition);
+      animation: aiCardEntrance 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    }
+
+    .ai-tool-card:nth-child(1) { animation-delay: 0.05s; }
+    .ai-tool-card:nth-child(2) { animation-delay: 0.12s; }
+    .ai-tool-card:nth-child(3) { animation-delay: 0.19s; }
+
+    @keyframes aiCardEntrance {
+      from { opacity: 0; transform: translateY(16px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .ai-tool-card:hover {
+      background: rgba(255, 255, 255, 0.10);
+      border-color: rgba(0, 180, 216, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 180, 216, 0.15), 0 0 0 1px rgba(0, 180, 216, 0.1);
+    }
+
+    /* Hover glow line at top of card */
+    .ai-tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-light), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .ai-tool-card:hover::before {
+      opacity: 1;
+    }
+
+    .ai-tool-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ai-tool-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .ai-tool-icon.search-icon-bg {
+      background: linear-gradient(135deg, #0088cc, var(--accent));
+    }
+
+    .ai-tool-icon.ava-icon-bg {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+    }
+
+    .ai-tool-icon.ace-icon-bg {
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    }
+
+    .ai-tool-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.01em;
+    }
+
+    .ai-tool-tag {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 2px 8px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .ai-tool-desc {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.65);
+      flex: 1;
+    }
+
+    .ai-tool-launch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      align-self: flex-start;
+    }
+
+    .ai-tool-launch:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .ai-tool-launch:active {
+      transform: translateY(0);
+    }
+
+    .ai-tool-launch svg {
+      opacity: 0.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .ai-tool-grid {
+        grid-template-columns: 1fr;
+      }
+      .ai-tools-details > summary {
+        padding: 16px 20px;
+      }
+      .ai-tools-body {
+        padding: 0 20px 22px;
+      }
+      .ai-tools-summary-left h3 {
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .ai-tool-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     /* ── FOOTER ───────────────────────────────────────────────────────────── */
@@ -1106,8 +1307,8 @@
     @media print {
       .site-header,
       .search-hero,
-      .aquasearch-callout-wrap,
-      .aquasearch-btn,
+      .ai-tools-wrap,
+      .ai-tool-launch,
       .search-section-btn,
       .chip,
       .pulse-dot,
@@ -1688,7 +1889,7 @@
             <summary title="Expand/Collapse Purchasing">Purchasing<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></summary>
             <div class="sub-body">
               <p>Purchasing resources, contacts, procedures, and supplier-related information.</p>
-              <a onclick="openAquaSearch('name:Terms &amp; Conditions - ALL','Q Contract Admin')" class="search-section-btn" title="🔍 Search Purchasing Files">🔍 Search
+              <a onclick="openAquaSearch('Browse Q:\\Purchasing Folders &amp; Files','Q Purchasing')" class="search-section-btn" title="🔍 Search Purchasing Files">🔍 Search
                 Purchasing Files</a>
             </div>
           </details>
@@ -1696,7 +1897,7 @@
             <summary title="Expand/Collapse Quality">Quality<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></summary>
             <div class="sub-body">
               <p>Quality resources, standards, contacts, and quality-related procedures.</p>
-              <a onclick="openAquaSearch('Quality Assurance Manual','Adept')" class="search-section-btn" title="🔍 Search Quality Files">🔍 Search
+              <a onclick="openAquaSearch('Browse Q:\\Quality Folders &amp; Files','Q Quality')" class="search-section-btn" title="🔍 Search Quality Files">🔍 Search
                 Quality Files</a>
             </div>
           </details>
@@ -1838,7 +2039,7 @@
               <a href="http://www.aqua-aerobic.net/files/Corporate.Identity.Policy.pdf" target="_blank" class="search-section-btn" title="📄 Identity &amp; Style Guide Policy">📄 Identity &amp;
                 Style Guide Policy</a><a href="http://www.aqua-aerobic.net/files/Aqua.E-Letterhead.docx" target="_blank" class="search-section-btn" title="📄 E-Letterhead 2026">📄
                 E-Letterhead 2026</a><a href="http://www.aqua-aerobic.net/files/Template_WIDESCREEN.pptx" target="_blank" class="search-section-btn" title="📄 PowerPoint Template">📄 PowerPoint
-                Template</a><a onclick="openAquaSearch('logo template brand')" class="search-section-btn" title="🔍 Search Branding Files">🔍 Search Branding Files</a>
+                Template</a><a onclick="openAquaSearch('LOGOS','J Sales Drive')" class="search-section-btn" title="🔍 Search Branding Files">🔍 Search Branding Files</a>
             </div>
           </details>
           <details class="sub">
@@ -1846,7 +2047,7 @@
             <div class="sub-body">
               
               <a href="http://www.aqua-aerobic.net/files/Aqua_Zoom_Background1.png" target="_blank" class="search-section-btn" title="🖼 Zoom Background 1">🖼 Zoom Background
-                1</a><a href="http://www.aqua-aerobic.net/iles/Aqua_Zoom_Background2.png" target="_blank" class="search-section-btn" title="🖼 Zoom Background 2">🖼 Zoom Background
+                1</a><a href="http://www.aqua-aerobic.net/files/Aqua_Zoom_Background2.png" target="_blank" class="search-section-btn" title="🖼 Zoom Background 2">🖼 Zoom Background
                 2</a>
             </div>
           </details>
@@ -1854,7 +2055,7 @@
             <summary title="Expand/Collapse General Links">General Links<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></summary>
             <div class="sub-body">
               
-              <a onclick="openAquaSearch('sales marketing')" class="search-section-btn" title="🔍 Search All Sales &amp; Marketing">🔍 Search All Sales &amp;
+              <a onclick="openAquaSearch('','J Sales Drive')" class="search-section-btn" title="🔍 Search All Sales &amp; Marketing">🔍 Search All Sales &amp;
                 Marketing</a>
             </div>
           </details>
@@ -2087,7 +2288,7 @@
             <summary title="Expand/Collapse General Links">General Links<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></summary>
             <div class="sub-body">
               
-              <a onclick="openAquaSearch('template form')" class="search-section-btn" title="🔍 Search All Templates in AquaSearch">🔍 Search All Templates in
+              <a onclick="openAquaSearch('templates','')" class="search-section-btn" title="🔍 Search All Templates in AquaSearch">🔍 Search All Templates in
                 AquaSearch</a>
             </div>
           </details>
@@ -2135,16 +2336,15 @@
           <details class="sub">
             <summary title="Expand/Collapse AquaSearch — Company File Search">AquaSearch — Company File Search<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></summary>
             <div class="sub-body">
-              <p>AquaSearch automatically indexes all network drives daily. Access it directly by clicking the button
-                below.</p>
-              
+              <p>Search across Aqua's popular network drives, Engineering Index &amp; Intranet pages!</p>
+              <a href="http://www.aqua-aerobic.net:3000/" target="_blank" class="search-section-btn" title="AquaSearch — Company File Search">AquaSearch — Company File Search</a>
             </div>
           </details>
           <details class="sub">
             <summary title="Expand/Collapse IT Help Desk &amp; Requests">IT Help Desk &amp; Requests<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></summary>
             <div class="sub-body">
               <p>IT issue tracker, software request process, and security guidelines.</p>
-              
+              <a href="http://www.aqua-aerobic.net/it-helpdesk.html" target="_blank" class="search-section-btn" title="Email IT HelpDesk">Email IT HelpDesk</a>
             </div>
           </details>
           <details class="sub">
@@ -2266,8 +2466,7 @@
           <svg class="cat-arrow" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </summary>
         <div class="cat-body">
-          <p class="cat-desc">Home for company workflows and procedures while a separate task force develops companywide
-            standards.</p>
+          <p class="cat-desc">Workflows and procedures (coming soon!)</p>
           
           <details class="sub">
             <summary title="Expand/Collapse Workflow &amp; Procedure Guidance">Workflow &amp; Procedure Guidance<svg class="sub-arrow" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></summary>
@@ -2470,23 +2669,74 @@
         </span>
       </a></div>
   </div><!-- end page-body -->
-  <!-- AQUASEARCH CALLOUT -->
-  <div class="aquasearch-callout-wrap">
-    <div class="aquasearch-callout">
-      <div class="aquasearch-callout-text">
-        <h3>Can't find what you need? Try AquaSearch.</h3>
-        <p>AquaSearch makes finding files effortless. It reads the actual text inside PDFs, Word, and Excel files, so
-          you can find what you need without knowing where it's saved.</p>
+  <!-- AI TOOLS CALLOUT (collapsible) -->
+  <div class="ai-tools-wrap">
+    <details class="ai-tools-details">
+      <summary>
+        <div class="ai-tools-summary-left">
+          <h3>Can't find what you need? We've got three tools to help.</h3>
+        </div>
+        <span class="ai-tools-explore">
+          Explore
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </span>
+      </summary>
+      <div class="ai-tools-body">
+        <div class="ai-tool-grid">
+          <!-- AquaSearch -->
+          <div class="ai-tool-card">
+            <div class="ai-tool-card-header">
+              <div class="ai-tool-icon search-icon-bg">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+              </div>
+              <div>
+                <div class="ai-tool-name">AquaSearch</div>
+                <span class="ai-tool-tag">File Search</span>
+              </div>
+            </div>
+            <p class="ai-tool-desc">Search the actual text inside PDFs, Word, and Excel files across all company drives. Find what you need without knowing where it's saved.</p>
+            <button class="ai-tool-launch" onclick="openAquaSearch('')" title="Open AquaSearch">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+              Open AquaSearch
+            </button>
+          </div>
+          <!-- AVA -->
+          <div class="ai-tool-card">
+            <div class="ai-tool-card-header">
+              <div class="ai-tool-icon ava-icon-bg">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              </div>
+              <div>
+                <div class="ai-tool-name">AVA</div>
+                <span class="ai-tool-tag">HR Assistant</span>
+              </div>
+            </div>
+            <p class="ai-tool-desc">Your AI HR assistant. Get instant answers to questions about benefits, policies, PTO, onboarding, and more — available 24/7.</p>
+            <button class="ai-tool-launch" onclick="window.open('http://www.aqua-aerobic.net:3000/hrchat/', '_blank')" title="Open AVA">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              Ask AVA
+            </button>
+          </div>
+          <!-- ACE -->
+          <div class="ai-tool-card">
+            <div class="ai-tool-card-header">
+              <div class="ai-tool-icon ace-icon-bg">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line><path d="M9 13c1.5 1 4.5 1 6 0"></path></svg>
+              </div>
+              <div>
+                <div class="ai-tool-name">ACE</div>
+                <span class="ai-tool-tag">Knowledge Base</span>
+              </div>
+            </div>
+            <p class="ai-tool-desc">Your corporate knowledge assistant. Ask questions about company processes, products, engineering specs, and institutional knowledge.</p>
+            <button class="ai-tool-launch" onclick="window.open('http://www.aqua-aerobic.net:3000/ace/', '_blank')" title="Open ACE">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              Ask ACE
+            </button>
+          </div>
+        </div>
       </div>
-      <button class="aquasearch-btn" onclick="openAquaSearch('')" title="Open AquaSearch">
-        <span class="pulse-dot"></span>
-        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.35-4.35"></path>
-        </svg>
-        Open AquaSearch
-      </button>
-    </div>
+    </details>
   </div>
 
   <footer>

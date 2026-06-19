@@ -1,0 +1,6 @@
+CD C:\aquaintranet\admin_portal
+pm2 start ecosystem.config.js
+pm2 reload aqua-admin-portal --update-env
+
+pm2 ls
+pm2 save

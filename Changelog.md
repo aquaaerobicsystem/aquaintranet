@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-06-19
+### Added
+- **AI Tools callout** — replaced the single-purpose AquaSearch callout with a collapsible "AI Tools" panel featuring three tool cards (AquaSearch, AVA, ACE) in a premium glassmorphism grid. Includes animated grid background, glow orbs, staggered card entrance animations, hover glow line, and responsive layout (collapses to single-column on mobile).
+- **AquaSearch action link** — added a direct "AquaSearch — Company File Search" button inside the Company Resources → AquaSearch sub-section.
+- **IT HelpDesk action link** — added "Email IT HelpDesk" button inside the Company Resources → IT Help Desk & Requests sub-section.
+- **PM2 restart reference** (`admin_portal/restartPM2.txt`) — quick-reference commands for restarting the admin portal PM2 process.
+
+### Changed
+- **`indexdev.html`** — "Search All Templates" button now calls `openAquaSearch('templates','')` instead of `openAquaSearch('template form')` for correct search behavior.
+- **`indexdev.html`** — AquaSearch sub-section description shortened to "Search across Aqua's popular network drives, Engineering Index & Intranet pages!"
+- **`indexdev.html`** — Workflows & Procedures category description shortened to "Workflows and procedures (coming soon!)"
+- **`admin_portal/server.js`** — Directory parser jQuery selector changed from `.parent().next('.cat-grid')` to `.parent().nextAll('.cat-grid').first()` in both GET and POST `/api/areas/:name/json` routes, fixing a bug where the parser could select the wrong `.cat-grid` container when non-grid siblings sat between the heading and the grid.
+
 ## [1.4.0] - 2026-06-19
 ### Added
 - **Scroll progress bar** — gradient indicator fixed at the top of the viewport showing page scroll position.

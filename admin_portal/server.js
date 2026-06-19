@@ -448,7 +448,7 @@ app.get('/api/areas/:name/json', requireAuth, (req, res) => {
                 });
             });
         } else {
-            const container = $(`h2:contains("Directory")`).parent().next('.cat-grid');
+            const container = $(`h2:contains("Directory")`).parent().nextAll('.cat-grid').first();
             container.find('.cat-card').each((i, card) => {
                 const cat = {
                     id: $(card).attr('id') || `cat-${i}`,
@@ -556,7 +556,7 @@ app.post('/api/areas/:name/json', requireAuth, (req, res) => {
         </button>`);
             });
         } else {
-            const container = $(`h2:contains("Directory")`).parent().next('.cat-grid');
+            const container = $(`h2:contains("Directory")`).parent().nextAll('.cat-grid').first();
             container.empty();
             items.forEach(cat => {
                 const svg = cat.iconSvg || '<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
