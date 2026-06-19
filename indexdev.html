@@ -947,6 +947,11 @@
       transform: rotate(90deg);
     }
 
+    .ai-tools-label-open  { display: none; }
+    .ai-tools-label-closed { display: inline; }
+    .ai-tools-details[open] .ai-tools-label-open  { display: inline; }
+    .ai-tools-details[open] .ai-tools-label-closed { display: none; }
+
     .ai-tools-body {
       padding: 0 32px 28px;
       position: relative;
@@ -2658,7 +2663,7 @@
           </svg></span>
         <span class="quick-link-text">
           <span class="quick-link-name">Ask ACE</span>
-          <span class="quick-link-desc">Corporate knowledge base</span>
+          <span class="quick-link-desc">AI Company Knowledge Base</span>
         </span>
       </a>
       <a class="quick-link" href="http://www.aqua-aerobic.net:3000/hrchat/" target="_blank" title="Instant HR Answers">
@@ -2677,7 +2682,7 @@
           <h3>Can't find what you need? We've got three tools to help.</h3>
         </div>
         <span class="ai-tools-explore">
-          Explore
+          <span class="ai-tools-label-closed">Explore</span><span class="ai-tools-label-open">Close</span>
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </span>
       </summary>
@@ -2725,10 +2730,10 @@
               </div>
               <div>
                 <div class="ai-tool-name">ACE</div>
-                <span class="ai-tool-tag">Knowledge Base</span>
+                <span class="ai-tool-tag">AI Knowledge Base</span>
               </div>
             </div>
-            <p class="ai-tool-desc">Your corporate knowledge assistant. Ask questions about company processes, products, engineering specs, and institutional knowledge.</p>
+            <p class="ai-tool-desc">Your AI company knowledge base. Ask questions about company processes, products, engineering specs, and institutional knowledge.</p>
             <button class="ai-tool-launch" onclick="window.open('http://www.aqua-aerobic.net:3000/ace/', '_blank')" title="Open ACE">
               <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
               Ask ACE

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-06-19
+### Changed
+- **`indexdev.html`** — ACE quick-link subtitle changed from "Corporate knowledge base" to "AI Company Knowledge Base".
+- **`indexdev.html`** — ACE AI-Tools card tag changed from "Knowledge Base" to "AI Knowledge Base"; description updated to "Your AI company knowledge base."
+- **`indexdev.html`** — AI Tools callout "Explore" button now toggles to "Close" when the panel is open (CSS-only, no JS) so users know they can click again to collapse.
+
 ## [1.5.0] - 2026-06-19
 ### Added
 - **AI Tools callout** — replaced the single-purpose AquaSearch callout with a collapsible "AI Tools" panel featuring three tool cards (AquaSearch, AVA, ACE) in a premium glassmorphism grid. Includes animated grid background, glow orbs, staggered card entrance animations, hover glow line, and responsive layout (collapses to single-column on mobile).
