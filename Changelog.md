@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-06-19
+### Added
+- **Scroll progress bar** — gradient indicator fixed at the top of the viewport showing page scroll position.
+- **Glass-morphism header** — frosted glass effect with `backdrop-filter: blur(16px)` and enhanced shadow on scroll via `.scrolled` class.
+- **Directory filter** — live type-to-filter input that hides non-matching category cards with a visible result count.
+- **Expand/Collapse All button** — toggle in the Directory section header to bulk open or close all cards; syncs state when individual cards are manually toggled.
+- **Back to Top button** — floating button appears after scrolling 400px, smooth-scrolls to top on click.
+- **Staggered card entrance animations** — directory cards fade-in-up with cascading `animation-delay` on page load.
+- **Accordion body animation** — `fadeSlideDown` keyframe on card content reveal for smoother open transitions.
+- **Subtle body texture** — radial gradient overlays for visual depth without distraction.
+- **Decorative callout elements** — AquaSearch callout now has floating decorative circles for premium feel.
+- **Footer accent bar** — centered gradient divider above footer content.
+- `indexdev2.html` dev copy created for iterative testing.
+
+### Changed
+- **CSS design system overhaul** — expanded variables: added `--accent-light`, `--gray-300`, `--gray-500`, `--radius-sm`, `--shadow-md`, `--transition-fast`, `--transition`, `--transition-spring` custom properties.
+- **Border radius** increased from 10px → 12px globally for softer card edges.
+- **Shadow system** refined to 4 tiers (`sm`, default, `md`, `lg`) with subtler values.
+- **All transitions** switched from fixed durations to CSS variable-driven cubic-bezier easing.
+- **Header** — upgraded from solid white to translucent glass with `backdrop-filter` and scroll-aware shadow.
+- **Quick link cards** — enhanced hover with icon scale+rotate, gradient overlay, name color transition, and deeper lift.
+- **Category cards** — added hover lift effect, larger icon (34→38px), and spring-curve icon scale on summary hover.
+- **Chips** — increased padding, added shadow on hover, and SVG opacity transition.
+- **Search input** — focus now highlights the search icon in blue and fades placeholder color.
+- **Section headers** — font size 20→22px, added `letter-spacing: -0.01em`.
+- **Directory section header** — moved `<span class="section-count">` outside `<h2>` to fix HTML nesting.
+- **AquaSearch callout** — wider gradient stops, more padding, positioned content with `z-index`.
+- **Search section buttons** — added `translateY(-1px)` hover lift and active press state.
+- **Footer** — added gradient background and decorative accent bar.
+- **Print styles** — added exclusions for new UI elements (back-to-top, scroll progress, filter, toggle button); ensured card animations are disabled in print.
+- **Responsive** — added directory filter and back-to-top button responsive rules for mobile.
+
+### Fixed
+- **`indexdev.html`** — fixed broken URL `fhttp://www.aqua-aerobic.net/iles/...` → `http://www.aqua-aerobic.net/files/...` (Time Entry Quick Guide link).
+- **`indexdev.html`** — added missing `target="_blank"` on Time Entry Quick Guide link.
+- **`indexdev.html`** — removed redundant inline `onkeydown` handler with `&amp;&amp;` entity encoding on header search input (JS listener at bottom of file already handles this).
+- **Expand/Collapse All** — added `_bulkToggle` flag so the accordion auto-close listener doesn't fight bulk toggle operations.
+
+
+
 ## [1.3.7] - 2026-06-18
 ### Changed
 - **`indexdev.html`** — Increased "Employee Hub" header (`h1`) font size from 17px → 20px (desktop), 14px → 16px (≤960px), and 13px → 15px (≤768px) for better readability.
