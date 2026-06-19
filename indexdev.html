@@ -178,7 +178,7 @@
 
     .header-search input {
       width: 100%;
-      padding: 10px 16px 10px 42px;
+      padding: 10px 38px 10px 42px;
       border: 1.5px solid var(--gray-200);
       border-radius: 50px;
       font-family: 'DM Sans', sans-serif;
@@ -217,6 +217,34 @@
     .header-search input:focus ~ .search-icon,
     .header-search:focus-within .search-icon {
       color: var(--aqua-blue);
+    }
+
+    .header-search-clear {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      border: none;
+      border-radius: 50%;
+      background: var(--gray-200);
+      color: var(--gray-500);
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .header-search-clear:hover {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    .header-search.has-value .header-search-clear {
+      display: flex;
     }
 
     .aquasearch-btn {
@@ -433,7 +461,7 @@
 
     .directory-filter input {
       width: 100%;
-      padding: 10px 16px 10px 40px;
+      padding: 10px 38px 10px 40px;
       border: 1.5px solid var(--gray-200);
       border-radius: 50px;
       font-family: 'DM Sans', sans-serif;
@@ -460,6 +488,34 @@
       transform: translateY(-50%);
       color: var(--gray-400);
       pointer-events: none;
+    }
+
+    .directory-filter-clear {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      border: none;
+      border-radius: 50%;
+      background: var(--gray-200);
+      color: var(--gray-500);
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .directory-filter-clear:hover {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    .directory-filter.has-value .directory-filter-clear {
+      display: flex;
     }
 
     .filter-count {
@@ -1488,6 +1544,9 @@
           <path d="m21 21-4.35-4.35"></path>
         </svg>
         <input type="text" placeholder="Search all company files… (Enter)" id="headerSearchInput">
+        <button class="header-search-clear" id="headerSearchClear" title="Clear search" aria-label="Clear search">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+        </button>
       </div>
     </div>
   </header>
@@ -1697,6 +1756,9 @@
       <div class="directory-filter">
         <svg class="directory-filter-icon" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
         <input type="text" placeholder="Filter categories…" id="directoryFilterInput">
+        <button class="directory-filter-clear" id="directoryFilterClear" title="Clear filter" aria-label="Clear filter">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+        </button>
       </div>
       <span class="filter-count" id="filterCount">Showing all 14</span>
     </div>
@@ -2900,12 +2962,23 @@
       return `width=${w},height=${h},top=${t},left=${l},resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,status=no`;
     }
 
-    // Header search — press Enter to search
-    document.getElementById('headerSearchInput').addEventListener('keydown', function (e) {
+    const headerSearchInput = document.getElementById('headerSearchInput');
+    headerSearchInput.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && this.value.trim()) {
         openAquaSearch(this.value.trim());
         this.value = '';
+        this.closest('.header-search').classList.remove('has-value');
       }
+    });
+
+    headerSearchInput.addEventListener('input', function () {
+      this.closest('.header-search').classList.toggle('has-value', this.value.length > 0);
+    });
+
+    document.getElementById('headerSearchClear').addEventListener('click', function () {
+      headerSearchInput.value = '';
+      headerSearchInput.closest('.header-search').classList.remove('has-value');
+      headerSearchInput.focus();
     });
 
     // ── ACCORDION FLOW IMPROVEMENT ──────────────────────────────────────────
@@ -3000,6 +3073,9 @@
       const query = this.value.trim().toLowerCase();
       let visible = 0;
 
+      // Toggle clear button
+      filterInput.closest('.directory-filter').classList.toggle('has-value', this.value.length > 0);
+
       allCards.forEach(card => {
         const text = card.textContent.toLowerCase();
         if (!query || text.includes(query)) {
@@ -3017,6 +3093,13 @@
         filterCountEl.textContent = 'Showing all ' + totalCards;
         filterCountEl.classList.remove('has-filter');
       }
+    });
+
+    // Clear button
+    document.getElementById('directoryFilterClear').addEventListener('click', function() {
+      filterInput.value = '';
+      filterInput.dispatchEvent(new Event('input'));
+      filterInput.focus();
     });
 
     // ── EXPAND / COLLAPSE ALL ───────────────────────────────────────────
