@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-06-19
+### Added
+- **`IT/it-request.html`** — New IT Project Request Form page based on the original Word document (Aqua_IT_Project_Request_Form.docx). Sections: Your Info, Project Details, Final Checks, and Attachments.
+- **`IT/it-request.html`** — File upload zone (drag-and-drop + click) supporting Word, PowerPoint, PDF, and images (20 MB/file, up to 10 files). Color-coded file badges, size display, and remove buttons.
+- **`IT/it-request.html`** — Department dropdown populated with all 32 company departments.
+- **`IT/it-request.html`** — Email fields (Your Email, Manager's Email) with `@aqua-aerobic.com` suffix built into the input so users only type their user ID.
+- **`admin_portal/server.js`** — `POST /api/it-request` endpoint: accepts form data + file attachments, sends formatted email to IT Help Desk via nodemailer (aqua22 relay, port 25).
+- **`admin_portal/server.js`** — Confirmation email sent to requestor (CC'd to manager) with a copy of what was submitted plus any file attachments.
+- **`admin_portal/server.js`** — Separate multer config for IT request uploads (includes `.ppt/.pptx` support).
+- **`admin_portal/package.json`** — Added `nodemailer` dependency.
+
 ## [1.5.2] - 2026-06-19
 ### Added
 - **`indexdev.html`** — Clear (✕) button on the Directory "Filter categories" input. Appears when text is entered; turns red on hover; clears the input, resets the filter, and re-focuses.

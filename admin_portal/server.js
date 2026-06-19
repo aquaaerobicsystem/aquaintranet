@@ -8,6 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 const multer = require('multer');
+const nodemailer = require('nodemailer');
 
 // ── Multer setup for issue attachments ────────────────────────────────────────
 const uploadsDir = path.join(__dirname, 'public', 'uploads');
@@ -27,6 +28,28 @@ const upload = multer({
         const allowed = /\.(pdf|docx|doc|png|jpg|jpeg|gif|webp|bmp)$/i;
         if (allowed.test(path.extname(file.originalname))) cb(null, true);
         else cb(new Error('Only PDF, DOCX, DOC, and image files are allowed'));
+    }
+});
+// ──────────────────────────────────────────────────────────────────────────────
+
+// ── Multer setup for IT request attachments ──────────────────────────────────
+const itUploadsDir = path.join(__dirname, 'public', 'it_uploads');
+if (!fs.existsSync(itUploadsDir)) fs.mkdirSync(itUploadsDir, { recursive: true });
+
+const itStorage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, itUploadsDir),
+    filename: (req, file, cb) => {
+        const safe = file.originalname.replace(/[^a-zA-Z0-9._-]/g, '_');
+        cb(null, Date.now() + '_' + safe);
+    }
+});
+const itUpload = multer({
+    storage: itStorage,
+    limits: { fileSize: 20 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        const allowed = /\.(pdf|docx|doc|pptx|ppt|png|jpg|jpeg|gif|webp|bmp)$/i;
+        if (allowed.test(path.extname(file.originalname))) cb(null, true);
+        else cb(new Error('Only PDF, Word, PowerPoint, and image files are allowed'));
     }
 });
 // ──────────────────────────────────────────────────────────────────────────────
@@ -604,6 +627,136 @@ app.post('/api/areas/:name/json', requireAuth, (req, res) => {
         res.json({ message: 'Area updated successfully' });
     });
 });
+
+// ── IT PROJECT REQUEST (email with attachments) ─────────────────────────────
+const itMailTransporter = nodemailer.createTransport({
+    host: 'aqua22.aqua-aerobic.net',
+    port: 25,
+    secure: false,
+    tls: { rejectUnauthorized: false }
+});
+
+app.post('/api/it-request', itUpload.array('files', 10), async (req, res) => {
+    try {
+        const {
+            name, department, manager, email, managerApproval,
+            projectTitle, projectAbout, projectProblem,
+            benefits, downsides, testers,
+            finalApproval, finalValue, finalImpact
+        } = req.body;
+
+        // Validate required fields
+        if (!name || !department || !manager || !email || !projectTitle || !projectAbout || !projectProblem) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
+
+        const body = [
+            '══════════════════════════════════════════════',
+            '  IT PROJECT REQUEST',
+            '══════════════════════════════════════════════',
+            '',
+            '── Section 1: Your Info ──────────────────────',
+            `Name:              ${name}`,
+            `Email:             ${email}`,
+            `Department:        ${department}`,
+            `Manager's Email:   ${manager}`,
+            `Manager Approval:  ${managerApproval || 'Not specified'}`,
+            '',
+            '── Section 2: Project Details ────────────────',
+            `Project Title:     ${projectTitle}`,
+            '',
+            `What's the project about?`,
+            projectAbout,
+            '',
+            `What problem does this solve?`,
+            projectProblem,
+            '',
+            `Who will benefit?  ${benefits || 'Not specified'}`,
+            '',
+            `Possible downsides for other departments:`,
+            downsides || 'None',
+            '',
+            `Key people who will test and give feedback:`,
+            testers || 'Not specified',
+            '',
+            '── Section 3: Final Checks ───────────────────',
+            `Manager Approval Confirmed:       ${finalApproval || 'Not answered'}`,
+            `Adds Value Across Aqua:           ${finalValue || 'Not answered'}`,
+            `No Negative Impact on Other Areas: ${finalImpact || 'Not answered'}`,
+            '',
+            '──────────────────────────────────────────────',
+            'Submitted from Aqua Intranet IT Request Form',
+            `Date: ${new Date().toLocaleString()}`,
+        ].join('\n');
+
+        // Build attachments list from uploaded files
+        const attachments = (req.files || []).map(f => ({
+            filename: f.originalname,
+            path: f.path
+        }));
+
+        await itMailTransporter.sendMail({
+            from: '"Aqua Intranet" <ITHelpDesk@aqua-aerobic.com>',
+            to: 'ckonkol@aqua-aerobic.com',
+            subject: `IT Project Request: ${projectTitle}`,
+            text: body,
+            attachments: attachments
+        });
+
+        // Clean up uploaded files after confirmation email is sent
+        const cleanup = () => (req.files || []).forEach(f => fs.unlink(f.path, () => {}));
+
+        res.json({ success: true, message: 'Request submitted successfully' });
+
+        // Send confirmation email to the requestor (fire-and-forget)
+        const confirmBody = [
+            `Hi ${name},`,
+            '',
+            'Thank you for submitting your IT Project Request! We\'ve received it and our team will review it promptly.',
+            '',
+            'Here\'s a copy of what you submitted:',
+            '',
+            '──────────────────────────────────────────────',
+            `Project Title:     ${projectTitle}`,
+            '',
+            `What's the project about?`,
+            projectAbout,
+            '',
+            `What problem does this solve?`,
+            projectProblem,
+            '',
+            `Who will benefit?  ${benefits || 'Not specified'}`,
+            '',
+            `Possible downsides for other departments:`,
+            downsides || 'None',
+            '',
+            `Key people who will test and give feedback:`,
+            testers || 'Not specified',
+            '',
+            `Manager's Email:   ${manager}`,
+            `Manager Approval:  ${managerApproval || 'Not specified'}`,
+            '──────────────────────────────────────────────',
+            '',
+            'If you have any questions or need to update your request, reply to this email or contact the IT Help Desk.',
+            '',
+            'Best regards,',
+            'Aqua-Aerobic IT Team',
+        ].join('\n');
+
+        itMailTransporter.sendMail({
+            from: '"Aqua IT Help Desk" <ITHelpDesk@aqua-aerobic.com>',
+            to: email,
+            cc: manager,
+            subject: `Received: IT Project Request — ${projectTitle}`,
+            text: confirmBody,
+            attachments: attachments
+        }).then(cleanup).catch(err => { cleanup(); console.error('Confirmation email error:', err); });
+    } catch (err) {
+        console.error('IT Request email error:', err);
+        res.status(500).json({ error: 'Failed to send request. Please try again.' });
+    }
+});
+// ─────────────────────────────────────────────────────────────────────────────
 
 app.listen(PORT, () => {
     console.log(`Admin portal running on http://localhost:${PORT}`);
