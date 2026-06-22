@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.3] - 2026-06-22
+### Changed
+- **`testing_tracker.html`** — Rewrote the three testing checklist items under "Submit Testing Results" with specific, actionable instructions referencing real Employee Hub features: Quick Access links (ADP, Outlook, Visitor Management), Directory categories (Company Information, Departments, Benefits & Policies), header search bar with AquaSearch, Quick Search chips (Eng Index, O&M Manuals, Orders Over 100k), Directory filter input, Expand All / Collapse All button, AI Tools panel (AquaSearch / AVA / ACE), and back-to-top button.
+
 ## [1.6.2] - 2026-06-22
 ### Changed
 - **`testing_tracker.html`** — General Comments & Discussion threads are now individually collapsible. Each discussion shows author name, date, comment preview (truncated to 80 chars), and reply count badge in the collapsed summary.
