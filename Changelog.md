@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.7] - 2026-06-22
+### Added
+- **`admin_portal/server.js`** — `created_at` and `updated_at` timestamp columns on `tracker_users` and `tracker_issues` tables (with `ALTER TABLE` migrations for existing databases).
+- **`testing_tracker.html`** — "Date Added" and "Date Edited" columns in both the Testing Tracker and Reported Issues & Feedback Log tables. "Date Edited" shows `—` if the entry has not been modified since creation.
+- **`testing_tracker.html`** — `.date-cell` CSS class for consistent small, muted timestamp styling.
+
+### Changed
+- **`admin_portal/server.js`** — `GET /api/tracker` now returns both `tracker_users` and `tracker_issues` sorted by `created_at DESC, id DESC` (newest entries first).
+- **`admin_portal/server.js`** — All create operations set both `created_at` and `updated_at`; all update operations (user edit, issue edit, admin edits) refresh `updated_at`.
+
+### Fixed
+- **`testing_tracker.html`** — `SyntaxError: Invalid or unexpected token` when clicking Edit on entries whose notes contain apostrophes (e.g., "aren't"). Root cause: `JSON.stringify(u)` output was placed inside a single-quoted `onclick='...'` attribute, and raw `'` characters broke the HTML attribute boundary. Fixed by escaping single quotes to `&#39;` in both `openEditUser` and `openEditIssue` onclick handlers.
+
 ## [1.6.6] - 2026-06-22
 ### Changed
 - **`testing_tracker.html`** — Renamed "Test Now (takes 5 minutes!)" panel to "Please Test (takes just 5 minutes)".

@@ -72,13 +72,18 @@ const db = new sqlite3.Database(dbFile);
 db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT, role TEXT, areas TEXT)`);
     db.run(`CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)`);
-    db.run(`CREATE TABLE IF NOT EXISTS tracker_users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, links_tested TEXT, search_tested TEXT, layout_reviewed TEXT, status TEXT, notes TEXT, admin_note TEXT DEFAULT '')`);
-    db.run(`CREATE TABLE IF NOT EXISTS tracker_issues (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, reported_by TEXT, category TEXT, description TEXT, status TEXT, admin_note TEXT DEFAULT '')`);
+    db.run(`CREATE TABLE IF NOT EXISTS tracker_users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, links_tested TEXT, search_tested TEXT, layout_reviewed TEXT, status TEXT, notes TEXT, admin_note TEXT DEFAULT '', created_at TEXT DEFAULT '', updated_at TEXT DEFAULT '')`);
+    db.run(`CREATE TABLE IF NOT EXISTS tracker_issues (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, reported_by TEXT, category TEXT, description TEXT, status TEXT, admin_note TEXT DEFAULT '', created_at TEXT DEFAULT '', updated_at TEXT DEFAULT '')`);
     db.run(`CREATE TABLE IF NOT EXISTS tracker_attachments (id INTEGER PRIMARY KEY AUTOINCREMENT, issue_id INTEGER, filename TEXT, originalname TEXT, uploaded_at TEXT)`);
     db.run(`CREATE TABLE IF NOT EXISTS tracker_comments (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER DEFAULT NULL, name TEXT, comment TEXT, date TEXT)`);
     // Add admin_note columns to existing tables if they don't exist
     db.run(`ALTER TABLE tracker_users ADD COLUMN admin_note TEXT DEFAULT ''`, () => {});
     db.run(`ALTER TABLE tracker_issues ADD COLUMN admin_note TEXT DEFAULT ''`, () => {});
+    // Add created_at / updated_at columns to existing tables if they don't exist
+    db.run(`ALTER TABLE tracker_users ADD COLUMN created_at TEXT DEFAULT ''`, () => {});
+    db.run(`ALTER TABLE tracker_users ADD COLUMN updated_at TEXT DEFAULT ''`, () => {});
+    db.run(`ALTER TABLE tracker_issues ADD COLUMN created_at TEXT DEFAULT ''`, () => {});
+    db.run(`ALTER TABLE tracker_issues ADD COLUMN updated_at TEXT DEFAULT ''`, () => {});
     db.get(`SELECT id FROM users WHERE username = 'admin'`, (err, row) => {
         if (!row) {
             const hash = bcrypt.hashSync('admin123', 8);
@@ -132,8 +137,8 @@ app.delete('/api/tracker/comment/:id', requireAdmin, (req, res) => {
 });
 // -----------------------------------------------------------------------------
 app.get('/api/tracker', (req, res) => {
-    db.all(`SELECT * FROM tracker_users`, [], (err, users) => {
-        db.all(`SELECT * FROM tracker_issues`, [], (err2, issues) => {
+    db.all(`SELECT * FROM tracker_users ORDER BY created_at DESC, id DESC`, [], (err, users) => {
+        db.all(`SELECT * FROM tracker_issues ORDER BY created_at DESC, id DESC`, [], (err2, issues) => {
             db.all(`SELECT * FROM tracker_attachments`, [], (err3, attachments) => {
                 const issuesWithAttachments = (issues || []).map(issue => ({
                     ...issue,
@@ -155,13 +160,14 @@ app.post('/api/tracker/user', (req, res) => {
     const s = search_tested ? '✅ Completed' : '❌ Pending';
     const r = layout_reviewed ? '✅ Completed' : '❌ Pending';
 
+    const now = new Date().toLocaleString();
     db.get(`SELECT id FROM tracker_users WHERE name = ?`, [name], (err, row) => {
         if (row) {
-            db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=? WHERE name=?`,
-                [l, s, r, status, notes || '', name], () => res.json({ success: true }));
+            db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=?, updated_at=? WHERE name=?`,
+                [l, s, r, status, notes || '', now, name], () => res.json({ success: true }));
         } else {
-            db.run(`INSERT INTO tracker_users (name, links_tested, search_tested, layout_reviewed, status, notes) VALUES (?, ?, ?, ?, ?, ?)`, 
-                [name, l, s, r, status, notes || ''], () => res.json({ success: true }));
+            db.run(`INSERT INTO tracker_users (name, links_tested, search_tested, layout_reviewed, status, notes, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, 
+                [name, l, s, r, status, notes || '', now, now], () => res.json({ success: true }));
         }
     });
 });
@@ -171,9 +177,10 @@ app.post('/api/tracker/issue', (req, res) => {
     if (code !== '1969') return res.status(403).json({ error: 'Invalid code' });
     if (!reported_by || !description) return res.status(400).json({ error: 'Name and description required' });
     
+    const now = new Date().toLocaleString();
     const date = new Date().toLocaleDateString();
-    db.run(`INSERT INTO tracker_issues (date, reported_by, category, description, status) VALUES (?, ?, ?, ?, ?)`, 
-      [date, reported_by, category || 'General', description, 'Open'], function(err) {
+    db.run(`INSERT INTO tracker_issues (date, reported_by, category, description, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`, 
+      [date, reported_by, category || 'General', description, 'Open', now, now], function(err) {
         res.json({ success: true, id: this.lastID });
     });
 });
@@ -189,8 +196,9 @@ app.put('/api/tracker/user/:id', (req, res) => {
     const l = links_tested ? '✅ Completed' : '❌ Pending';
     const s = search_tested ? '✅ Completed' : '❌ Pending';
     const r = layout_reviewed ? '✅ Completed' : '❌ Pending';
-    db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=? WHERE id=?`,
-        [l, s, r, status, notes || '', req.params.id], () => res.json({ success: true }));
+    const now = new Date().toLocaleString();
+    db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=?, updated_at=? WHERE id=?`,
+        [l, s, r, status, notes || '', now, req.params.id], () => res.json({ success: true }));
 });
 
 app.delete('/api/tracker/user/:id', (req, res) => {
@@ -202,8 +210,9 @@ app.delete('/api/tracker/user/:id', (req, res) => {
 app.put('/api/tracker/issue/:id', (req, res) => {
     const { code, category, description, status } = req.body;
     if (code !== '1969') return res.status(403).json({ error: 'Invalid code' });
-    db.run(`UPDATE tracker_issues SET category=?, description=?, status=? WHERE id=?`,
-        [category, description, status || 'Open', req.params.id], () => res.json({ success: true }));
+    const now = new Date().toLocaleString();
+    db.run(`UPDATE tracker_issues SET category=?, description=?, status=?, updated_at=? WHERE id=?`,
+        [category, description, status || 'Open', now, req.params.id], () => res.json({ success: true }));
 });
 
 app.delete('/api/tracker/issue/:id', (req, res) => {
@@ -245,23 +254,25 @@ app.put('/api/admin/tracker/user/:id', requireAdmin, (req, res) => {
     const s = search_tested !== undefined ? (search_tested ? '✅ Completed' : '❌ Pending') : null;
     const r = layout_reviewed !== undefined ? (layout_reviewed ? '✅ Completed' : '❌ Pending') : null;
     const computedStatus = (links_tested && search_tested && layout_reviewed) ? 'Completed' : (status || 'Pending');
+    const now = new Date().toLocaleString();
     db.get(`SELECT * FROM tracker_users WHERE id = ?`, [req.params.id], (err, row) => {
         if (!row) return res.status(404).json({ error: 'Not found' });
-        db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=?, admin_note=? WHERE id=?`,
+        db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=?, admin_note=?, updated_at=? WHERE id=?`,
             [l || row.links_tested, s || row.search_tested, r || row.layout_reviewed,
              computedStatus, notes !== undefined ? notes : row.notes,
-             admin_note !== undefined ? admin_note : (row.admin_note || ''), req.params.id],
+             admin_note !== undefined ? admin_note : (row.admin_note || ''), now, req.params.id],
             () => res.json({ success: true }));
     });
 });
 
 app.put('/api/admin/tracker/issue/:id', requireAdmin, (req, res) => {
     const { category, description, status, admin_note } = req.body;
+    const now = new Date().toLocaleString();
     db.get(`SELECT * FROM tracker_issues WHERE id = ?`, [req.params.id], (err, row) => {
         if (!row) return res.status(404).json({ error: 'Not found' });
-        db.run(`UPDATE tracker_issues SET category=?, description=?, status=?, admin_note=? WHERE id=?`,
+        db.run(`UPDATE tracker_issues SET category=?, description=?, status=?, admin_note=?, updated_at=? WHERE id=?`,
             [category || row.category, description || row.description,
-             status || row.status, admin_note !== undefined ? admin_note : (row.admin_note || ''), req.params.id],
+             status || row.status, admin_note !== undefined ? admin_note : (row.admin_note || ''), now, req.params.id],
             () => res.json({ success: true }));
     });
 });

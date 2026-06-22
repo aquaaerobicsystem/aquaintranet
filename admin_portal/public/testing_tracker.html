@@ -507,6 +507,10 @@
     .contact-note a { color: var(--aqua-blue); text-decoration: none; font-weight: 500; }
     .contact-note a:hover { text-decoration: underline; }
 
+    /* ── DATE CELLS ── */
+    .date-cell { font-size: 12px; color: var(--gray-500); white-space: nowrap; }
+    .date-cell .date-label { display: block; font-size: 10px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.04em; }
+
     /* ── FOOTER ── */
     footer {
       background: var(--white);
@@ -625,6 +629,8 @@
       <thead>
         <tr>
           <th>User / Department</th>
+          <th>Date Added</th>
+          <th>Date Edited</th>
           <th>File Links Tested</th>
           <th>Search Tested</th>
           <th>Layout Reviewed</th>
@@ -635,7 +641,7 @@
         </tr>
       </thead>
       <tbody id="usersBody">
-        <tr><td colspan="8">Loading...</td></tr>
+        <tr><td colspan="10">Loading...</td></tr>
       </tbody>
     </table>
 
@@ -659,13 +665,15 @@
           <th>Category</th>
           <th>Issue Description</th>
           <th>Status</th>
+          <th>Date Added</th>
+          <th>Date Edited</th>
           <th>Attachments</th>
           <th>Admin Note</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody id="issuesBody">
-        <tr><td colspan="8">Loading...</td></tr>
+        <tr><td colspan="10">Loading...</td></tr>
       </tbody>
     </table>
 
@@ -957,6 +965,8 @@
         document.getElementById('usersBody').innerHTML = data.users.length ? data.users.map(u => `
           <tr>
             <td><strong>${u.name}</strong></td>
+            <td class="date-cell">${u.created_at || '—'}</td>
+            <td class="date-cell">${u.updated_at && u.updated_at !== u.created_at ? u.updated_at : '—'}</td>
             <td>${u.links_tested}</td>
             <td>${u.search_tested}</td>
             <td>${u.layout_reviewed}</td>
@@ -964,11 +974,11 @@
             <td>${u.notes||''}</td>
             <td>${u.admin_note ? `<span class="admin-note-cell">${u.admin_note}</span>` : '<span style="color:var(--gray-400);font-size:12px;">—</span>'}</td>
             <td class="actions">
-              <button class="action-btn" onclick='openEditUser(${JSON.stringify(u)})'>✏️ Edit</button>
+              <button class="action-btn" onclick='openEditUser(${JSON.stringify(u).replace(/'/g, "&#39;")})'>✏️ Edit</button>
               ${isAdmin ? `<button class="action-btn" style="color:#c0392b;" onclick="deleteUser(${u.id})">🗑️ Delete</button>` : ''}
             </td>
           </tr>
-        `).join('') : '<tr><td colspan="8">No testing results submitted yet.</td></tr>';
+        `).join('') : '<tr><td colspan="10">No testing results submitted yet.</td></tr>';
 
         const ub = document.getElementById('userCountBadge');
         if (ub) ub.textContent = data.users.length + ' participant' + (data.users.length !== 1 ? 's' : '');
@@ -997,14 +1007,16 @@
             <td>${i.category}</td>
             <td>${i.description}</td>
             <td><span class="status-badge ${i.status==='Resolved'?'status-completed':'status-issue'}">${i.status}</span></td>
+            <td class="date-cell">${i.created_at || '—'}</td>
+            <td class="date-cell">${i.updated_at && i.updated_at !== i.created_at ? i.updated_at : '—'}</td>
             <td>${attachHtml}</td>
             <td>${i.admin_note ? `<span class="admin-note-cell">${i.admin_note}</span>` : '<span style="color:var(--gray-400);font-size:12px;">—</span>'}</td>
             <td class="actions">
-              <button class="action-btn" onclick='openEditIssue(${JSON.stringify(i)})'>✏️ Edit</button>
+              <button class="action-btn" onclick='openEditIssue(${JSON.stringify(i).replace(/'/g, "&#39;")})'>✏️ Edit</button>
               ${isAdmin ? `<button class="action-btn" style="color:#c0392b;" onclick="deleteIssue(${i.id})">🗑️ Delete</button>` : ''}
             </td>
           </tr>`;
-        }).join('') : '<tr><td colspan="8">No issues reported yet.</td></tr>';
+        }).join('') : '<tr><td colspan="10">No issues reported yet.</td></tr>';
 
         const ib = document.getElementById('issueCountBadge');
         if (ib) ib.textContent = data.issues.length + ' issue' + (data.issues.length !== 1 ? 's' : '');
