@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.5] - 2026-06-22
+### Changed
+- **`testing_tracker.html`** — Renamed "Please Test" panel to "Test Now (takes 5 minutes!)".
+- **`testing_tracker.html`** — Truncated the three testing checklist descriptions to concise one-liners for easier scanning.
+
 ## [1.6.4] - 2026-06-22
 ### Changed
 - **`testing_tracker.html`** — Renamed "Submit Testing Results (remove after testing)" panel to "Please Test".
