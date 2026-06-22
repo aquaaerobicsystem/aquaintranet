@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.2] - 2026-06-22
+### Changed
+- **`testing_tracker.html`** — General Comments & Discussion threads are now individually collapsible. Each discussion shows author name, date, comment preview (truncated to 80 chars), and reply count badge in the collapsed summary.
+- **`testing_tracker.html`** — Added "▼ Expand All" and "▲ Collapse All" buttons above the comments board for quick bulk navigation of discussion threads.
+- **`testing_tracker.html`** — Added CSS styles for collapsible discussion items: `▸` arrow indicator that rotates on expand, hover lift effects, text-overflow ellipsis preview, and reply count pill badges.
+
 ## [1.6.1] - 2026-06-19
 ### Changed
 - **`testing_tracker.html`** — "← Return to Employee Hub" moved to the top header (right-aligned); removed the header title/subtitle text.
