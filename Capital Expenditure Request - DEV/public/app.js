@@ -75,6 +75,7 @@ function navigate(hashStr) {
 
   // Load page data
   switch (page) {
+    case 'home':       loadHome();       break;
     case 'dashboard':  loadDashboard();  break;
     case 'requestor':  loadRequestor();  break;
     case 'department': loadDepartment(targetId); break;
@@ -474,6 +475,23 @@ function approvalBlock(type, status, approver, date, sig, comments) {
 }
 
 // ══════════════════════════════════════════════════════════════
+// HOME PAGE
+// ══════════════════════════════════════════════════════════════
+async function loadHome() {
+  try {
+    const stats = await apiFetch('/api/stats');
+    document.getElementById('hp-total').textContent = stats.total || 0;
+    const pending = (stats.pendingDept || 0) + (stats.pendingFin || 0) + (stats.pendingPres || 0);
+    document.getElementById('hp-pending').textContent = pending;
+    document.getElementById('hp-approved').textContent = stats.approved || 0;
+    document.getElementById('hp-denied').textContent = stats.denied || 0;
+  } catch (e) {
+    // Stats are best-effort on Home; fail silently
+    console.log('Could not load home stats:', e.message);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
 // DASHBOARD PAGE
 // ══════════════════════════════════════════════════════════════
 async function loadDashboard() {
@@ -506,6 +524,21 @@ function updateStats() {
   document.getElementById('stat-denied').textContent = counts.denied;
 }
 
+function searchFilter(rows, searchId) {
+  const el = document.getElementById(searchId);
+  if (!el) return rows;
+  const q = el.value.trim().toLowerCase();
+  if (!q) return rows;
+  return rows.filter(r =>
+    String(r.Id).includes(q) ||
+    (r.RequestedBy || '').toLowerCase().includes(q) ||
+    (r.Vendor || '').toLowerCase().includes(q) ||
+    (r.Description || '').toLowerCase().includes(q) ||
+    (r.Status || '').toLowerCase().includes(q) ||
+    String(r.EstimatedCost || '').includes(q)
+  );
+}
+
 function renderDashboardTable() {
   const tbody = document.getElementById('home-tbody');
   if (!allRequests.length) {
@@ -513,7 +546,13 @@ function renderDashboardTable() {
     document.getElementById('home-pagination').innerHTML = '';
     return;
   }
-  const pageRows = paginateRows(allRequests, 'home');
+  const filtered = searchFilter(allRequests, 'search-home');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted" style="padding:2rem">No matching requests.</td></tr>';
+    document.getElementById('home-pagination').innerHTML = '';
+    return;
+  }
+  const pageRows = paginateRows(filtered, 'home');
   tbody.innerHTML = pageRows.map(r => `
     <tr>
       <td class="font-semibold text-accent">#${r.Id}</td>
@@ -528,7 +567,7 @@ function renderDashboardTable() {
         <div class="flex gap-1">
           <button class="btn btn-ghost btn-sm" onclick="viewRequestDetail(${r.Id})">👁 View</button>
           ${r.Status === 'Approved' ? `<button class="btn btn-teal btn-sm" onclick="openPrintModal(${r.Id})">🖨 Print</button>` : ''}
-          <button class="btn btn-danger btn-sm" onclick="openDeleteModal(${r.Id})">🗑 Delete</button>
+          <button class="btn btn-danger btn-sm" onclick="openDeleteModal(${r.Id})">🗑 Remove</button>
         </div>
       </td>
     </tr>
@@ -536,7 +575,12 @@ function renderDashboardTable() {
   renderPagination('home-pagination', 'home', renderDashboardTable);
 }
 
-document.getElementById('btn-refresh-home').addEventListener('click', loadDashboard);
+document.getElementById('btn-refresh-home').addEventListener('click', async () => {
+  const s = document.getElementById('search-home'); if (s) s.value = '';
+  paginationState.home.page = 1;
+  await loadDashboard();
+  toast('Dashboard refreshed.', 'info');
+});
 
 // ══════════════════════════════════════════════════════════════
 // REQUESTOR PAGE
@@ -610,7 +654,13 @@ function renderReqListTable() {
     document.getElementById('req-pagination').innerHTML = '';
     return;
   }
-  const pageRows = paginateRows(allRequests, 'req');
+  const filtered = searchFilter(allRequests, 'search-req');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">No matching requests.</td></tr>';
+    document.getElementById('req-pagination').innerHTML = '';
+    return;
+  }
+  const pageRows = paginateRows(filtered, 'req');
   tbody.innerHTML = pageRows.map(r => `
     <tr>
       <td class="font-semibold text-accent">#${r.Id}</td>
@@ -626,7 +676,7 @@ function renderReqListTable() {
             ? `<button class="btn btn-ghost btn-sm" onclick="editRequest(${r.Id})">✏ Edit</button>` 
             : `<button class="btn btn-ghost btn-sm" onclick="viewReqDetail(${r.Id})">👁 View</button>`}
           ${r.Status === 'Approved' ? `<button class="btn btn-teal btn-sm" onclick="openPrintModal(${r.Id})">🖨 Print</button>` : ''}
-          <button class="btn btn-danger btn-sm" onclick="openDeleteModal(${r.Id})">🗑 Delete</button>
+          <button class="btn btn-danger btn-sm" onclick="openDeleteModal(${r.Id})">🗑 Remove</button>
         </div>
       </td>
     </tr>
@@ -843,13 +893,14 @@ async function loadDepartment(targetId) {
 
 function renderDeptTable() {
   const reqs = allRequests.filter(r => r.Status === 'Pending Department' || r.DeptStatus);
+  const filtered = searchFilter(reqs, 'search-dept');
   const tbody = document.getElementById('dept-tbody');
-  if (!reqs.length) {
+  if (!filtered.length) {
     tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">No requests pending department approval.</td></tr>';
     document.getElementById('dept-pagination').innerHTML = '';
     return;
   }
-  const pageRows = paginateRows(reqs, 'dept');
+  const pageRows = paginateRows(filtered, 'dept');
   tbody.innerHTML = pageRows.map(r => `
     <tr>
       <td class="font-semibold text-accent">#${r.Id}</td>
@@ -882,7 +933,12 @@ function viewDeptDetail(id) {
   currentDenyType = 'Department';
 }
 
-document.getElementById('btn-refresh-dept').addEventListener('click', loadDepartment);
+document.getElementById('btn-refresh-dept').addEventListener('click', async () => {
+  const s = document.getElementById('search-dept'); if (s) s.value = '';
+  paginationState.dept.page = 1;
+  await loadDepartment();
+  toast('Department refreshed.', 'info');
+});
 document.getElementById('btn-close-dept-detail').addEventListener('click', () => {
   document.getElementById('dept-detail-card').classList.add('hidden');
 });
@@ -915,13 +971,14 @@ async function loadFinancial(targetId) {
 
 function renderFinTable() {
   const reqs = allRequests.filter(r => r.Status === 'Pending Financial' || r.FinStatus);
+  const filtered = searchFilter(reqs, 'search-fin');
   const tbody = document.getElementById('fin-tbody');
-  if (!reqs.length) {
+  if (!filtered.length) {
     tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">No requests pending financial approval.</td></tr>';
     document.getElementById('fin-pagination').innerHTML = '';
     return;
   }
-  const pageRows = paginateRows(reqs, 'fin');
+  const pageRows = paginateRows(filtered, 'fin');
   tbody.innerHTML = pageRows.map(r => `
     <tr>
       <td class="font-semibold text-accent">#${r.Id}</td>
@@ -971,7 +1028,12 @@ function viewFinDetail(id) {
   document.getElementById('fin-tooling').checked = !!r.Tooling;
 }
 
-document.getElementById('btn-refresh-fin').addEventListener('click', loadFinancial);
+document.getElementById('btn-refresh-fin').addEventListener('click', async () => {
+  const s = document.getElementById('search-fin'); if (s) s.value = '';
+  paginationState.fin.page = 1;
+  await loadFinancial();
+  toast('Financial refreshed.', 'info');
+});
 document.getElementById('btn-close-fin-detail').addEventListener('click', () => {
   document.getElementById('fin-detail-card').classList.add('hidden');
   document.getElementById('fin-acc-card').style.display = 'none';
@@ -1042,13 +1104,14 @@ async function loadPresidential(targetId) {
 
 function renderPresTable() {
   const reqs = allRequests.filter(r => r.Status === 'Pending Presidential' || r.PresStatus);
+  const filtered = searchFilter(reqs, 'search-pres');
   const tbody = document.getElementById('pres-tbody');
-  if (!reqs.length) {
+  if (!filtered.length) {
     tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">No requests pending presidential approval.</td></tr>';
     document.getElementById('pres-pagination').innerHTML = '';
     return;
   }
-  const pageRows = paginateRows(reqs, 'pres');
+  const pageRows = paginateRows(filtered, 'pres');
   tbody.innerHTML = pageRows.map(r => `
     <tr>
       <td class="font-semibold text-accent">#${r.Id}</td>
@@ -1081,7 +1144,12 @@ function viewPresDetail(id) {
   currentDenyType = 'Presidential';
 }
 
-document.getElementById('btn-refresh-pres').addEventListener('click', loadPresidential);
+document.getElementById('btn-refresh-pres').addEventListener('click', async () => {
+  const s = document.getElementById('search-pres'); if (s) s.value = '';
+  paginationState.pres.page = 1;
+  await loadPresidential();
+  toast('Presidential refreshed.', 'info');
+});
 document.getElementById('btn-close-pres-detail').addEventListener('click', () => {
   document.getElementById('pres-detail-card').classList.add('hidden');
 });
@@ -1422,7 +1490,15 @@ async function loadAdminLogs() {
   }
 }
 
-document.getElementById('btn-refresh-logs')?.addEventListener('click', loadAdminLogs);
+document.getElementById('btn-refresh-logs')?.addEventListener('click', async () => {
+  showLoading();
+  try {
+    await loadAdminLogs();
+    toast('Logs refreshed.', 'info');
+  } finally {
+    hideLoading();
+  }
+});
 
 document.getElementById('admin-settings-form')?.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -1455,6 +1531,64 @@ document.getElementById('admin-settings-form')?.addEventListener('submit', async
     hideLoading();
   }
 });
+
+// ── Removed Requests (Soft-Deleted) ──
+let allRemovedRequests = [];
+
+async function loadRemovedRequests() {
+  const tbody = document.getElementById('removed-tbody');
+  tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">Loading...</td></tr>';
+  try {
+    allRemovedRequests = await apiFetch('/api/requests-removed');
+    renderRemovedTable();
+  } catch (e) {
+    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger" style="padding:2rem">Failed to load removed requests.</td></tr>';
+  }
+}
+
+function renderRemovedTable() {
+  const tbody = document.getElementById('removed-tbody');
+  const filtered = searchFilter(allRemovedRequests, 'search-removed');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">No removed requests.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = filtered.map(r => {
+    const prevStatus = r.Status.replace(/^X/, '');
+    return `
+      <tr>
+        <td class="font-semibold text-accent">#${r.Id}</td>
+        <td>${fmtDate(r.UpdatedAt)}</td>
+        <td>${fmt(r.RequestedBy)}</td>
+        <td>${fmt(r.Vendor)}</td>
+        <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmt(r.Description)}</td>
+        <td>${fmtCurrency(r.EstimatedCost)}</td>
+        <td>${statusBadge(prevStatus)}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" onclick="restoreRequest(${r.Id})">♻ Restore</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function filterRemovedRequests() {
+  renderRemovedTable();
+}
+
+async function restoreRequest(id) {
+  if (!confirm(`Are you sure you want to restore Request #${id}?`)) return;
+  showLoading();
+  try {
+    const result = await apiFetch(`/api/requests/${id}/restore`, { method: 'POST' });
+    toast(`Request #${id} restored to "${result.restoredStatus}".`, 'success');
+    await loadRemovedRequests();
+  } catch (e) {
+    toast('Error restoring request: ' + e.message, 'error');
+  } finally {
+    hideLoading();
+  }
+}
 
 // ══════════════════════════════════════════════════════════════
 // AUTHENTICATION

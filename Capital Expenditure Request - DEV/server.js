@@ -284,6 +284,28 @@ async function sendEmail(to, subject, html, hostUrl) {
 // ROUTES: Requests
 // ─────────────────────────────────────────────
 
+// GET public summary stats (no auth required)
+app.get('/api/stats', async (req, res) => {
+  try {
+    const p = await getPool();
+    const result = await p.request().query(`
+      SELECT
+        COUNT(*) AS total,
+        SUM(CASE WHEN Status = 'Pending Department' THEN 1 ELSE 0 END) AS pendingDept,
+        SUM(CASE WHEN Status = 'Pending Financial' THEN 1 ELSE 0 END) AS pendingFin,
+        SUM(CASE WHEN Status = 'Pending Presidential' THEN 1 ELSE 0 END) AS pendingPres,
+        SUM(CASE WHEN Status = 'Approved' THEN 1 ELSE 0 END) AS approved,
+        SUM(CASE WHEN Status = 'Denied' THEN 1 ELSE 0 END) AS denied
+      FROM ExRequest_Requests
+      WHERE Status NOT LIKE 'X%'
+    `);
+    res.json(result.recordset[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET all requests (with approval status joined)
 app.get('/api/requests', async (req, res) => {
   try {
@@ -313,6 +335,7 @@ app.get('/api/requests', async (req, res) => {
       LEFT JOIN ExRequest_Approvals fin   ON fin.RequestId   = r.Id AND fin.ApprovalType   = 'Financial'
       LEFT JOIN ExRequest_Approvals pres  ON pres.RequestId  = r.Id AND pres.ApprovalType  = 'Presidential'
       LEFT JOIN ExRequest_Accounting acc  ON acc.RequestId   = r.Id
+      WHERE r.Status NOT LIKE 'X%'
       ORDER BY r.CreatedAt DESC
     `);
     res.json(result.recordset);
@@ -353,7 +376,7 @@ app.get('/api/requests/:id', async (req, res) => {
         LEFT JOIN ExRequest_Approvals fin   ON fin.RequestId   = r.Id AND fin.ApprovalType   = 'Financial'
         LEFT JOIN ExRequest_Approvals pres  ON pres.RequestId  = r.Id AND pres.ApprovalType  = 'Presidential'
         LEFT JOIN ExRequest_Accounting acc  ON acc.RequestId   = r.Id
-        WHERE r.Id = @id
+        WHERE r.Id = @id AND r.Status NOT LIKE 'X%'
       `);
     if (result.recordset.length === 0) return res.status(404).json({ error: 'Not found' });
     res.json(result.recordset[0]);
@@ -478,15 +501,55 @@ app.delete('/api/requests/:id', async (req, res) => {
       return res.status(403).json({ error: 'Full Name does not match the requestor.' });
     }
 
-    // Delete child records first to avoid foreign key constraints
-    await p.request().input('rid', sql.Int, req.params.id).query('DELETE FROM ExRequest_Accounting WHERE RequestId = @rid');
-    await p.request().input('rid', sql.Int, req.params.id).query('DELETE FROM ExRequest_Approvals WHERE RequestId = @rid');
+    // Soft delete: prepend 'X' to current Status
+    await p.request()
+      .input('rid', sql.Int, req.params.id)
+      .query(`UPDATE ExRequest_Requests SET Status = 'X' + Status, UpdatedAt = GETDATE() WHERE Id = @rid`);
     
-    // Delete main record
-    await p.request().input('rid', sql.Int, req.params.id).query('DELETE FROM ExRequest_Requests WHERE Id = @rid');
-    
-    await logActivity('Request Deleted', `Request #${req.params.id} was deleted by ${fullName}.`);
-    res.json({ message: 'Request deleted successfully.' });
+    await logActivity('Request Removed', `Request #${req.params.id} was soft-deleted by ${fullName}.`);
+    res.json({ message: 'Request removed successfully.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET removed (soft-deleted) requests
+app.get('/api/requests-removed', async (req, res) => {
+  try {
+    const p = await getPool();
+    const result = await p.request().query(`
+      SELECT Id, Vendor, Description, EstimatedCost, RequestedBy, Status, CreatedAt, UpdatedAt
+      FROM ExRequest_Requests
+      WHERE Status LIKE 'X%'
+      ORDER BY UpdatedAt DESC
+    `);
+    res.json(result.recordset);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST restore a soft-deleted request
+app.post('/api/requests/:id/restore', async (req, res) => {
+  try {
+    const p = await getPool();
+    const check = await p.request()
+      .input('id', sql.Int, req.params.id)
+      .query(`SELECT Status FROM ExRequest_Requests WHERE Id = @id`);
+    if (check.recordset.length === 0) return res.status(404).json({ error: 'Not found' });
+    const currentStatus = check.recordset[0].Status;
+    if (!currentStatus.startsWith('X')) {
+      return res.status(400).json({ error: 'Request is not in a removed state.' });
+    }
+    const restoredStatus = currentStatus.substring(1);
+    await p.request()
+      .input('id', sql.Int, req.params.id)
+      .input('status', sql.NVarChar(50), restoredStatus)
+      .query(`UPDATE ExRequest_Requests SET Status = @status, UpdatedAt = GETDATE() WHERE Id = @id`);
+    await logActivity('Request Restored', `Request #${req.params.id} was restored to status "${restoredStatus}".`);
+    res.json({ message: 'Request restored successfully.', restoredStatus });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });

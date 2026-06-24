@@ -22,7 +22,6 @@
   <ul class="nav-links" id="nav-links">
     <li><a href="#" class="nav-item active" data-page="home"><span>🏠</span><span>Home</span></a></li>
     <li><a href="#" class="nav-item" data-page="dashboard"><span>📊</span><span>Dashboard</span></a></li>
-    <li><a href="#" class="nav-item" data-page="requestor"><span>📝</span><span>Request</span></a></li>
     <li><a href="#" class="nav-item" data-page="department"><span>🏢</span><span>Department</span></a></li>
     <li><a href="#" class="nav-item" data-page="financial"><span>💰</span><span>Financial</span></a></li>
     <li><a href="#" class="nav-item" data-page="presidential"><span>👑</span><span>Presidential</span></a></li>
@@ -45,14 +44,33 @@
 
   <!-- ── NEW HOME PAGE ──────────────────────────────────────── -->
   <div class="page-view active" id="page-home">
-    <div style="text-align: center; padding: 6rem 2rem;">
-      <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Capital Expenditure Request</h1>
-      <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 3rem;">
+    <div style="text-align: center; padding: 3rem 2rem 1.5rem;">
+      <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Capital Expenditure Request</h1>
+      <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem;">
         Manage and track procurement requests through the full approval workflow.
       </p>
-      <button class="btn btn-primary" style="font-size: 1.25rem; padding: 1rem 2rem; border-radius: var(--radius-lg);" onclick="window.location.hash='#new-request'">
-        + Create New Request
+      <button class="btn-hero" onclick="window.location.hash='#new-request'">
+        <span class="btn-hero-icon">📄</span> Create New Request
       </button>
+    </div>
+
+    <div class="stats-grid" id="home-stats-public" style="max-width: 900px; margin: 0 auto; padding: 0 2rem;">
+      <div class="stat-card">
+        <div class="stat-value" id="hp-total">–</div>
+        <div class="stat-label">Total Requests</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-value" id="hp-pending">–</div>
+        <div class="stat-label">In Progress</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-value" id="hp-approved">–</div>
+        <div class="stat-label">Approved</div>
+      </div>
+      <div class="stat-card danger">
+        <div class="stat-value" id="hp-denied">–</div>
+        <div class="stat-label">Denied</div>
+      </div>
     </div>
   </div>
 
@@ -94,9 +112,10 @@
     <div class="card">
       <div class="card-header">
         <h3>🗂️ All Requests</h3>
-        <div class="flex gap-1">
+        <div class="flex gap-1" style="align-items:center">
+          <input type="text" class="form-control" id="search-home" placeholder="🔍 Search..." style="width:180px;padding:0.35rem 0.6rem;font-size:0.8rem" oninput="paginationState.home.page=1;renderDashboardTable()">
           <button class="btn btn-ghost btn-sm" id="btn-refresh-home">↻ Refresh</button>
-          <button class="btn btn-primary btn-sm" onclick="navigate('requestor')">+ New Request</button>
+          <button class="btn btn-primary btn-sm" onclick="window.location.hash='#new-request'">+ Create New Request</button>
         </div>
       </div>
       <div class="table-wrap">
@@ -139,7 +158,10 @@
     <div class="card mb-3" id="req-list-card">
       <div class="card-header">
         <h3>Requests</h3>
-        <button class="btn btn-primary btn-sm" id="btn-new-request">+ New Request</button>
+        <div class="flex gap-1" style="align-items:center">
+          <input type="text" class="form-control" id="search-req" placeholder="🔍 Search..." style="width:180px;padding:0.35rem 0.6rem;font-size:0.8rem" oninput="paginationState.req.page=1;renderReqListTable()">
+          <button class="btn btn-primary btn-sm" id="btn-new-request">+ New Request</button>
+        </div>
       </div>
       <div class="table-wrap">
         <table>
@@ -280,7 +302,10 @@
     <div class="card mb-3" id="dept-table-card">
       <div class="card-header">
         <h3>Requests Pending Department Approval</h3>
-        <button class="btn btn-ghost btn-sm" id="btn-refresh-dept">↻ Refresh</button>
+        <div class="flex gap-1" style="align-items:center">
+          <input type="text" class="form-control" id="search-dept" placeholder="🔍 Search..." style="width:180px;padding:0.35rem 0.6rem;font-size:0.8rem" oninput="paginationState.dept.page=1;renderDeptTable()">
+          <button class="btn btn-ghost btn-sm" id="btn-refresh-dept">↻ Refresh</button>
+        </div>
       </div>
       <div class="table-wrap">
         <table>
@@ -320,7 +345,10 @@
     <div class="card mb-3" id="fin-table-card">
       <div class="card-header">
         <h3>Requests Pending Financial Approval</h3>
-        <button class="btn btn-ghost btn-sm" id="btn-refresh-fin">↻ Refresh</button>
+        <div class="flex gap-1" style="align-items:center">
+          <input type="text" class="form-control" id="search-fin" placeholder="🔍 Search..." style="width:180px;padding:0.35rem 0.6rem;font-size:0.8rem" oninput="paginationState.fin.page=1;renderFinTable()">
+          <button class="btn btn-ghost btn-sm" id="btn-refresh-fin">↻ Refresh</button>
+        </div>
       </div>
       <div class="table-wrap">
         <table>
@@ -433,7 +461,10 @@
     <div class="card mb-3" id="pres-table-card">
       <div class="card-header">
         <h3>Requests Pending Presidential Approval</h3>
-        <button class="btn btn-ghost btn-sm" id="btn-refresh-pres">↻ Refresh</button>
+        <div class="flex gap-1" style="align-items:center">
+          <input type="text" class="form-control" id="search-pres" placeholder="🔍 Search..." style="width:180px;padding:0.35rem 0.6rem;font-size:0.8rem" oninput="paginationState.pres.page=1;renderPresTable()">
+          <button class="btn btn-ghost btn-sm" id="btn-refresh-pres">↻ Refresh</button>
+        </div>
       </div>
       <div class="table-wrap">
         <table>
@@ -490,6 +521,32 @@
             <tr><td colspan="3" class="text-center text-muted" style="padding:2rem">Loading logs...</td></tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Removed Requests -->
+    <div class="card mb-3">
+      <div class="card-header" style="cursor: pointer;" onclick="const b = document.getElementById('removed-requests-body'); b.classList.toggle('hidden'); this.querySelector('.toggle-icon').textContent = b.classList.contains('hidden') ? '▼' : '▲'; if (!b.classList.contains('hidden')) loadRemovedRequests();">
+        <h3>🗑️ Removed Requests</h3>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div id="removed-requests-body" class="hidden" style="padding: 0;">
+        <div style="padding: 0.75rem 1rem 0; display:flex; justify-content:flex-end;">
+          <input type="text" class="form-control" id="search-removed" placeholder="🔍 Search removed..." style="width:200px;padding:0.35rem 0.6rem;font-size:0.8rem" oninput="filterRemovedRequests()">
+        </div>
+        <div class="table-wrap" style="max-height: 500px; overflow-y: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>Date Removed</th><th>Req By</th><th>Vendor</th>
+                <th>Description</th><th>Est. Cost</th><th>Previous Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="removed-tbody">
+              <tr><td colspan="8" class="text-center text-muted" style="padding:2rem">Click to load removed requests...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -646,7 +703,7 @@
             </div>
             <div class="howto-action-card" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.25);">
               <h5 style="color:#4ade80;">🔐 Accounting Only</h5>
-              <p>Full access to Dashboard, Financial, Admin, and the ability to <strong>delete requests</strong>. Requires Aqua UserID &amp; passcode.</p>
+              <p>Full access to Dashboard, Financial, Admin, and the ability to <strong>remove and restore requests</strong>. Requires Aqua UserID &amp; passcode.</p>
             </div>
           </div>
         </div>
@@ -707,7 +764,7 @@
             <div class="howto-step-number">1</div>
             <div class="howto-step-body">
               <h4>Visit the App</h4>
-              <p>Open your browser and go to <a href="http://www.aqua-aerobic.net:5030/" style="color:var(--accent-light);font-weight:600;">http://www.aqua-aerobic.net:5030/</a> — no login is required. Click the <strong>"+ Create New Request"</strong> button on the Home page.</p>
+              <p>Open your browser and go to <a href="http://www.aqua-aerobic.net:5030/" style="color:var(--accent-light);font-weight:600;">http://www.aqua-aerobic.net:5030/</a> — no login is required. The Home page shows a summary of all request counts and a prominent <strong>"Create New Request"</strong> button. Click it to open the submission form.</p>
             </div>
           </div>
           <div class="howto-step">
@@ -944,34 +1001,41 @@
             <div class="howto-step-number">1</div>
             <div class="howto-step-body">
               <h4>Activity Logs</h4>
-              <p>The Admin page shows a log of all system actions — submissions, approvals, denials, and deletions with timestamps. Use the <strong>"↻ Refresh"</strong> button to update the log.</p>
+              <p>The Admin page shows a log of all system actions — submissions, approvals, denials, and removals with timestamps. Use the <strong>"↻ Refresh"</strong> button to update the log.</p>
             </div>
           </div>
           <div class="howto-step">
             <div class="howto-step-number">2</div>
+            <div class="howto-step-body">
+              <h4>Removed Requests</h4>
+              <p>Click the <strong>"🗑️ Removed Requests"</strong> header to expand the section. This shows all soft-deleted requests with their original status. Click <strong>"♻ Restore"</strong> to bring a request back to its previous status.</p>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">3</div>
             <div class="howto-step-body">
               <h4>Email &amp; System Settings</h4>
               <p>Click the <strong>"Email &amp; System Settings"</strong> header to expand the settings panel. Here you can configure:</p>
               <ul class="howto-list">
                 <li><strong>Accounting Email</strong> — Where financial approval notifications are sent</li>
                 <li><strong>Presidential Email</strong> — Where CEO approval notifications are sent (for requests > $25K)</li>
-                <li><strong>App Passcode</strong> — The authentication code used for Accounting login and request deletion</li>
+                <li><strong>App Passcode</strong> — The authentication code used for Accounting login and removing requests</li>
                 <li><strong>SMTP Configuration</strong> — Host, port, credentials, and TLS settings for outgoing email</li>
               </ul>
             </div>
           </div>
           <div class="howto-step">
-            <div class="howto-step-number">3</div>
+            <div class="howto-step-number">4</div>
             <div class="howto-step-body">
-              <h4>Deleting Requests</h4>
-              <p>To delete a request, click the <strong>"🗑 Delete"</strong> button in the Actions column. You'll need to provide:</p>
+              <h4>Removing & Restoring Requests</h4>
+              <p>To remove a request, click the <strong>"🗑 Remove"</strong> button in the Actions column. You'll need to provide:</p>
               <ul class="howto-list">
-                <li>Your <strong>full name</strong> (must match the requestor name)</li>
+                <li>The <strong>requestor's full name</strong> (must match the original requestor)</li>
                 <li>The <strong>system passcode</strong></li>
               </ul>
-              <div class="howto-warning">
-                <span>⚠️</span>
-                <span>Deletion is permanent and cannot be undone. Only the original requestor can delete their own request.</span>
+              <div class="howto-tip">
+                <span>💡</span>
+                <span>Removed requests are <strong>not permanently deleted</strong>. They can be restored from the <strong>Admin page → Removed Requests</strong> section. Click <strong>"♻ Restore"</strong> to bring a request back to its previous status.</span>
               </div>
             </div>
           </div>
@@ -992,7 +1056,7 @@
               <span class="howto-faq-chevron">▼</span>
             </button>
             <div class="howto-faq-answer">
-              <p>Yes, but <strong>only</strong> while the request is in <strong>"Pending Department"</strong> status. Once your department manager has reviewed it, the request is locked and can no longer be edited. You'll see an "✏ Edit" button on the Request page for eligible requests.</p>
+              <p>Yes, but <strong>only</strong> while the request is in <strong>"Pending Department"</strong> status. Once your department manager has reviewed it, the request is locked and can no longer be edited. You'll see an "✏ Edit" button in the Dashboard for eligible requests.</p>
             </div>
           </div>
           <div class="howto-faq-item">
@@ -1054,16 +1118,16 @@
               <span class="howto-faq-chevron">▼</span>
             </button>
             <div class="howto-faq-answer">
-              <p>The Dashboard provides an overview of all requests with summary statistics: total requests, pending department, pending financial, pending presidential, approved, and denied counts. It also shows a complete table of all requests with quick actions (View, Print, Delete). <strong>Only the Accounting department</strong> has access to the Dashboard.</p>
+              <p>The Dashboard provides an overview of all requests with summary statistics: total requests, pending department, pending financial, pending presidential, approved, and denied counts. It includes a <strong>search bar</strong> to filter requests, a <strong>"+ Create New Request"</strong> button, and a complete table with quick actions (View, Print, Remove). <strong>Only the Accounting department</strong> has access to the Dashboard. The public <strong>Home page</strong> also shows summary stat cards (Total, In Progress, Approved, Denied) without requiring login.</p>
             </div>
           </div>
           <div class="howto-faq-item">
             <button class="howto-faq-question" onclick="this.parentElement.classList.toggle('open')">
-              <span>Who can delete a request?</span>
+              <span>Who can remove a request, and can it be restored?</span>
               <span class="howto-faq-chevron">▼</span>
             </button>
             <div class="howto-faq-answer">
-              <p><strong>Only the Accounting department</strong> can delete requests. Deletion requires entering a full name and the system passcode. This action is permanent and cannot be undone. Other users (requestors, managers, president) do not have delete access.</p>
+              <p><strong>Only the Accounting department</strong> can remove requests. Removal requires entering the requestor's full name and the system passcode. Removed requests are <strong>not permanently deleted</strong> — they can be restored at any time from the <strong>Admin page → Removed Requests</strong> section. Other users (requestors, managers, president) do not have remove access.</p>
             </div>
           </div>
         </div>
@@ -1146,12 +1210,12 @@
 <div class="modal-overlay" id="delete-modal">
   <div class="modal">
     <div class="modal-header">
-      <h3>Delete Request</h3>
+      <h3>Remove Request</h3>
       <button class="modal-close" onclick="closeModal('delete-modal')">✕</button>
     </div>
     <div class="alert alert-error mb-2">
       <span>⚠️</span>
-      <span>This will permanently delete the request. This action cannot be undone.</span>
+      <span>This will remove the request. To restore request visit the Admin page.</span>
     </div>
     <div class="form-group">
       <label class="form-label" for="delete-fullname">Requestor Full Name <span class="required">*</span></label>
@@ -1163,7 +1227,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('delete-modal')">Cancel</button>
-      <button class="btn btn-danger" onclick="confirmDelete()">Confirm Deletion</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">Confirm Removal</button>
     </div>
   </div>
 </div>
@@ -1192,7 +1256,7 @@
     </div>
     <div class="alert alert-info mb-2">
       <span>ℹ️</span>
-      <span>You must enter your UserID and passcode to view this page.</span>
+      <span>This area is restricted to the <strong>Accounting department</strong> only. Please enter your Aqua UserID and system passcode to continue.</span>
     </div>
     <div class="form-group">
       <label class="form-label" for="auth-name">UserID</label>

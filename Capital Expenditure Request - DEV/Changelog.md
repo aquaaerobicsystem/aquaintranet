@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-06-24
+### Added
+- **`public/index.html`** — Added 🔍 search input to all 5 data grid card headers (Dashboard, Requestor, Department, Financial, Presidential) for live text filtering across ID, Requested By, Vendor, Description, Status, and Est. Cost.
+- **`public/index.html`** — Added 🔍 search input to Admin → Removed Requests section.
+- **`public/app.js`** — Added `searchFilter()` helper function for reusable client-side text filtering across all grids.
+- **`public/app.js`** — Added `filterRemovedRequests()` and `renderRemovedTable()` for search support on removed requests.
+- **`public/index.html`** — Redesigned Home page with summary stat cards (Total Requests, In Progress, Approved, Denied) fetched from a lightweight public API.
+- **`public/index.html`** — Added premium hero CTA button on Home page with gradient background, glow animation, and hover effects.
+- **`public/style.css`** — Added `.btn-hero` styles with gradient, pill shape, `heroGlow` keyframe animation, and hover/active transitions.
+- **`server.js`** — Added `GET /api/stats` public endpoint returning aggregate request counts by status without exposing request data.
+- **`public/app.js`** — Added `loadHome()` function and wired into navigation switch to load stats on Home page visit.
+- **`public/app.js`** — All 5 refresh buttons now show a toast notification on successful refresh (e.g., "Dashboard refreshed.").
+
+### Changed
+- **`public/index.html`** — Removed 📝 Request nav tab from navigation bar (redundant with Dashboard).
+- **`public/index.html`** — Dashboard "New Request" button renamed to "Create New Request" and now opens the submission form directly (same behavior as Home page CTA).
+- **`public/index.html`** — Authentication modal info text updated to explain that only the Accounting department has access to restricted areas.
+- **`public/app.js`** — All refresh button handlers now clear search input and reset pagination before reloading data.
+- **`public/app.js`** — Admin logs refresh button now shows loading spinner and toast feedback.
+
+### Fixed
+- **`public/app.js`** — Fixed Department, Financial, and Presidential refresh buttons showing blank page. Root cause: click `Event` object was passed as `targetId` parameter (truthy), causing the table to hide and attempt loading an invalid detail view. Fixed by wrapping handlers in arrow functions.
+- **`public/index.html`** — Fixed search pagination bug: `oninput` handlers were resetting page to 0 (pagination is 1-indexed), causing `paginateRows` to return empty arrays. Changed to `page=1`.
+
+### Documentation
+- **`public/index.html`** — Updated How To page:
+  - Submit Step 1: Updated to mention Home page summary stats and "Create New Request" button.
+  - Admin section: Renumbered steps (1–4), added new step for "Removed Requests" section.
+  - Admin section: Changed "deletions" to "removals", "request deletion" to "removing requests".
+  - FAQ: Updated "Can I edit?" to reference Dashboard instead of removed Request page.
+  - FAQ: Updated "What does the Dashboard show?" with search bar, Create New Request button, and public Home page stats.
+
 ## [1.2.0] - 2026-06-24
 ### Added
 - **`public/index.html`** — Added "Date" column to all 5 data grids (Dashboard, Requestor, Department, Financial, Presidential) showing `CreatedAt` when created and `UpdatedAt` when updated, with hover tooltip displaying full timestamp.
