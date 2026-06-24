@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase / Quote Request Form</title>
+
+    <link rel="stylesheet" href="css/animated.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f6f8;
+            margin: 0;
+            padding: 8px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 4px 0 6px 0;
+            font-size: 20px;
+        }
+
+        h2 {
+            background: #003366;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 5px;
+            margin: 8px 0 6px 0;
+            font-size: 14px;
+        }
+
+        .header-logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .header-logo img {
+            max-width: 280px;
+            height: auto;
+            display: inline-block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        /* Two-column layout for Vendor Details */
+        .grid.two-rows {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .full {
+            grid-column: 1/-1;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6px;
+        }
+
+        .details-table th {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: left;
+            width: 40%;
+        }
+
+        .details-table td {
+            padding: 6px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+            width: 60%;
+        }
+
+        .details-table label {
+            display: none;
+        }
+
+        .details-table input,
+        .details-table textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            box-sizing: border-box;
+            transition: box-shadow 180ms ease, border-color 180ms ease;
+            margin: 0;
+        }
+
+        .details-table textarea {
+            min-height: 50px;
+            resize: vertical;
+        }
+
+        .details-table input:focus,
+        .details-table textarea:focus {
+            outline: none;
+            border-color: #0b7dda;
+            box-shadow: 0 6px 18px rgba(11, 125, 218, 0.12);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 2px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: box-shadow 180ms ease, transform 120ms ease, border-color 180ms ease;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 50px;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0b7dda;
+            box-shadow: 0 6px 18px rgba(11, 125, 218, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .signature {
+            height: 70px;
+            border: 2px dashed #666;
+            border-radius: 4px;
+            background: white;
+            cursor: crosshair;
+            transition: box-shadow 180ms ease, transform 180ms ease;
+            margin: 3px 0;
+        }
+
+        .signature:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .signature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6px;
+        }
+
+        .signature-table th {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .signature-table td {
+            padding: 6px;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        .signature-table canvas {
+            display: block;
+            width: 100%;
+            height: 50px;
+            border: 2px dashed #666;
+            border-radius: 4px;
+            background: white;
+            cursor: crosshair;
+            margin-bottom: 3px;
+            transition: box-shadow 180ms ease;
+        }
+
+        .signature-table canvas:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .signature-table canvas.signed {
+            border-color: #28a745;
+            box-shadow: 0 0 12px rgba(40, 167, 69, 0.3), inset 0 0 8px rgba(40, 167, 69, 0.05);
+            animation: signedPulse 600ms ease 1;
+        }
+
+        .signature-table input[type="text"],
+        .signature-table input[type="date"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            box-sizing: border-box;
+            transition: box-shadow 180ms ease, border-color 180ms ease;
+        }
+
+        .signature-table input[type="text"]:focus,
+        .signature-table input[type="date"]:focus {
+            outline: none;
+            border-color: #0b7dda;
+            box-shadow: 0 6px 18px rgba(11, 125, 218, 0.12);
+        }
+
+        .accounting-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        .accounting-table th,
+        .accounting-table td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .accounting-table th {
+            background: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .accounting-table input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        button {
+            padding: 6px 12px;
+            margin: 2px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            opacity: 0.98;
+        }
+
+        .save {
+            background: #0b7dda;
+            color: white;
+        }
+
+        .approve {
+            background: #28a745;
+            color: white;
+        }
+
+        .print {
+            background: #444;
+            color: white;
+        }
+
+        .container {
+            animation: slideUp 320ms ease both;
+        }
+
+        /* Animate.css helpers (logo + buttons + modal content) */
+        .logo-anim {
+            animation: fadeInDown .75s ease both;
+        }
+
+        button.pulse-on-enable {
+            animation: none;
+        }
+
+        .form-modal-content.animated {
+            animation-duration: 250ms;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(8px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .signature.signed {
+            border-color: #28a745;
+            box-shadow: 0 0 12px rgba(40, 167, 69, 0.3), inset 0 0 8px rgba(40, 167, 69, 0.05);
+            animation: signedPulse 600ms ease 1;
+        }
+
+        @keyframes signedPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.5), inset 0 0 8px rgba(40, 167, 69, 0.05);
+            }
+
+            70% {
+                box-shadow: 0 0 12px 6px rgba(40, 167, 69, 0), inset 0 0 8px rgba(40, 167, 69, 0.05);
+            }
+
+            100% {
+                box-shadow: 0 0 12px rgba(40, 167, 69, 0.3), inset 0 0 8px rgba(40, 167, 69, 0.05);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid.two-rows {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: 1;
+            }
+
+            .container {
+                padding: 8px;
+            }
+
+            button {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+
+            h1 {
+                font-size: 16px;
+            }
+
+            h2 {
+                font-size: 12px;
+                padding: 4px 6px;
+                margin: 4px 0 3px 0;
+            }
+        }
+
+        @media print {
+
+            #presRow,
+            #presRowSig {
+                display: table-row !important;
+            }
+
+            input::placeholder,
+            textarea::placeholder {
+                color: transparent !important;
+            }
+
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                display: none !important;
+                -webkit-appearance: none !important;
+                opacity: 0 !important;
+            }
+
+            select {
+                -webkit-appearance: none !important;
+                appearance: none !important;
+                background-image: none !important;
+            }
+
+            input,
+            textarea {
+                border: none !important;
+            }
+
+            html,
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .container {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 0.15in !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+
+            button {
+                display: none !important;
+            }
+
+            @page {
+                size: letter;
+                margin: 0.2in;
+            }
+
+            .container {
+                max-height: none !important;
+                overflow: visible !important;
+                break-inside: auto !important;
+                page-break-inside: auto !important;
+            }
+        }
+
+        /* SUBMIT1 MODAL */
+        #submit1Modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        #submit1Modal.open {
+            display: block;
+        }
+
+        #submit1Modal .form-modal-content {
+            width: 80%;
+            max-width: 1100px;
+        }
+
+        #submit1Modal iframe {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            background: #fff;
+            display: block;
+        }
+
+        #closeSubmit1Modal {
+            position: absolute;
+            right: 16px;
+            top: 6px;
+            font-size: 38px;
+            color: #aaa;
+            cursor: pointer;
+            line-height: 1;
+            user-select: none;
+            z-index: 2;
+        }
+
+        #closeSubmit1Modal:hover {
+            color: #666;
+        }
+
+        .submit1-link {
+            display: inline-block;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header-logo">
+            <img src="images/aqualogo.png" alt="Aqua Company Logo">
+        </div>
+        <h1>CAPITAL EXPENDITURE REQUEST</h1>
+
+        <h2>Vendor Details</h2>
+        <table class="details-table">
+            <tr>
+                <th>B Number:</th>
+                <td><input id="bNumber" class="required mandatory" placeholder="Enter B number" type="text" /></td>
+            </tr>
+            <tr>
+                <th>Vendor Name:</th>
+                <td><input id="vendor" class="required mandatory" placeholder="Enter vendor name" type="text"></td>
+            </tr>
+            <tr>
+                <th>Description:</th>
+                <td><input id="description" placeholder="Enter description" type="text"></td>
+            </tr>
+            <tr>
+                <th>Estimated Start Date:</th>
+                <td><input id="startDate" placeholder="Enter estimated start date" type="date"></td>
+            </tr>
+            <tr>
+                <th>Estimated Cost:</th>
+                <td><input id="cost" placeholder="Enter estimated cost" type="number"></td>
+            </tr>
+            <tr>
+                <th>Request By:</th>
+                <td><input id="requestBy" placeholder="Enter requestor name" type="text"></td>
+            </tr>
+            <tr>
+                <th>Comments:</th>
+                <td><textarea id="comments" placeholder="Enter comments"></textarea></td>
+            </tr>
+        </table>
+
+        <h2>Approvals</h2>
+
+        <table class="signature-table">
+            <tr>
+                <th>Requested By Signature (required)</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="requestSig" class="signature"></canvas>
+                    <input id="requestorName" type="text" placeholder="Enter requestor name" />
+                </td>
+                <td style="text-align: center; width: 30%;">
+                    <input type="date" id="requestDate" />
+                </td>
+            </tr>
+            <tr>
+                <th>Department Approval</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="deptSig" class="signature"></canvas>
+                </td>
+                <td style="text-align: center;">
+                    <input type="date" id="deptDate" />
+                </td>
+            </tr>
+            <tr>
+                <th>Financial Approval</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="finSig" class="signature"></canvas>
+                </td>
+                <td style="text-align: center;">
+                    <input type="date" id="finDate" />
+                </td>
+            </tr>
+            <tr id="presRow" style="display: none;">
+                <th>Presidential Approval</th>
+                <th>Date</th>
+            </tr>
+            <tr id="presRowSig" style="display: none;">
+                <td>
+                    <canvas id="presSig" class="signature"></canvas>
+                </td>
+                <td style="text-align: center;">
+                    <input type="date" id="presDate" />
+                </td>
+            </tr>
+        </table>
+
+        <div id="accountingSection">
+            <h2>Accounting Department Only</h2>
+            <table class="accounting-table" style="text-align: center;">
+                <tr style="text-align: center;">
+                    <th>Class:</th>
+                    <td style="text-align: center;">
+                        <input style="outline: none; text-align: center; border:none;" type="Text"
+                            placeholder="Enter class code" />
+                    </td>
+                    <th>UseTax (Y/N) :</th>
+                    <td>
+                        <select style="outline: none; border:none;">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Property type:</th>
+                    <td>
+                        <input style="outline: none; text-align: center; border:none;" type="text"
+                            placeholder="Enter Property type">
+                    </td>
+                    <th>Equipment Exempt (Y/N) :</th>
+                    <td>
+                        <select style="outline: none; border:none;">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Fixed Asset Account:</th>
+                    <td>
+                        <input placeholder="Enter Fixed Asset Account" class="required mandatory"
+                            style="outline: none; text-align: center; border:none;" type="text" />
+                    </td>
+                    <th>Tooling Exempt (Y/N) :</th>
+                    <td>
+                        <select style="outline: none; border:none;">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Accumulated Depreciation Account:</th>
+                    <td>
+                        <input placeholder="Enter Accumulated Depreciation Account" class="required mandatory"
+                            style="outline: none; border:none;" type="text" />
+                    </td>
+                    <th>Depreciation Expense Account:</th>
+                    <td>
+                        <input placeholder="Enter Depreciation Expense Account" style="outline: none; border:none;"
+                            type="text" />
+                    </td>
+                </tr>
+            </table>
+            <h2>Purchasing</h2>
+            <p>Please reference B# and G/L account # 1860.01 on the Purchase Order</p>
+
+            <div class="buttons">
+                <button id="btnRequest" class="save" onclick="requestApprove()">Request</button>
+                <button id="btnDeptApprove" class="approve" onclick="departmentApprove()" disabled>Department
+                    Approval</button>
+                <button id="btnPresApprove" class="approve" onclick="presidentialApprove()" disabled>Presidential
+                    Approval</button>
+                <button id="btnFinApprove" class="approve" onclick="financialApprove()" disabled>Financial
+                    Approval</button>
+                <button id="btnFinished" class="print" onclick="finished()" disabled>Finished</button>
+                <button class="print" onclick="printForm()">Print</button>
+            </div>
+
+            <!-- Submit1 trigger -->
+            <a href="#" id="openSubmit1Modal" class="submit1-link" aria-haspopup="dialog" aria-controls="submit1Modal">
+                <img src=" images/submit1.gif" alt="Submit Request" style="width:10%; height:auto;" />
+            </a>
+
+        </div>
+
+        <!-- FORM MODAL -->
+        <div id="formModal" role="dialog" aria-modal="true" aria-hidden="true" class="form-modal-overlay">
+            <div class="form-modal-content">
+                <div class="form-modal-close" id="closeFormModal" aria-label="Close">&times;</div>
+                <iframe id="formModalFrame" src="" title="Form"></iframe>
+            </div>
+        </div>
+
+        <!-- SUBMIT1 MODAL -->
+        <div id="submit1Modal" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="form-modal-content">
+                <div id="closeSubmit1Modal" aria-label="Close">&times;</div>
+                <iframe id="submit1ModalFrame" src="" title="Submit Request"></iframe>
+            </div>
+        </div>
+
+        <style>
+            .form-modal-overlay {
+                display: none;
+                position: fixed;
+                z-index: 9999;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 40px 20px;
+                box-sizing: border-box;
+            }
+
+            .form-modal-overlay.open {
+                display: block;
+            }
+
+            .form-modal-content {
+                position: relative;
+                width: 80%;
+                max-width: 1100px;
+                margin: 0 auto;
+                background: #fff;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .form-modal-content iframe {
+                width: 100%;
+                height: 80vh;
+                border: none;
+                background: #fff;
+                display: block;
+            }
+
+            .form-modal-close {
+                position: absolute;
+                right: 16px;
+                top: 6px;
+                font-size: 38px;
+                color: #aaa;
+                cursor: pointer;
+                line-height: 1;
+                user-select: none;
+                z-index: 2;
+            }
+
+            .form-modal-close:hover {
+                color: #666;
+            }
+
+            @media (max-width:768px) {
+                .form-modal-content {
+                    width: 100%;
+                }
+
+                .form-modal-content iframe {
+                    height: 85vh;
+                }
+            }
+        </style>
+
+        <script>
+            // Animate logo on load
+            (function () {
+                var logo = document.querySelector('.header-logo');
+                if (logo) logo.classList.add('logo-anim');
+            })();
+
+            (function () {
+                const modal = document.getElementById('formModal');
+                const frame = document.getElementById('formModalFrame');
+                function openModal() {
+                    if (!modal || !frame) return;
+                    frame.src = 'Form.html';
+                    modal.classList.add('open');
+                    modal.setAttribute('aria-hidden', 'false');
+                }
+                function closeModal() {
+                    if (!modal) return;
+                    modal.classList.remove('open');
+                    modal.setAttribute('aria-hidden', 'true');
+                }
+
+                const openLink = document.getElementById('openFormModal');
+                if (openLink) {
+                    openLink.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        openModal();
+                    });
+                }
+
+                const closeBtn = document.getElementById('closeFormModal');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeModal);
+                }
+
+                if (modal) {
+                    modal.addEventListener('click', function (e) {
+                        if (e.target === modal) closeModal();
+                    });
+                }
+
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && modal && modal.classList.contains('open')) closeModal();
+                });
+            })();
+
+            (function () {
+                const modal = document.getElementById('submit1Modal');
+                const frame = document.getElementById('submit1ModalFrame');
+                const openLink = document.getElementById('openSubmit1Modal');
+                const closeBtn = document.getElementById('closeSubmit1Modal');
+
+                function openModal() {
+                    if (!modal || !frame) return;
+                    frame.src = 'submit1.html';
+                    modal.classList.add('open');
+                    modal.setAttribute('aria-hidden', 'false');
+                }
+
+                function closeModal() {
+                    if (!modal) return;
+                    modal.classList.remove('open');
+                    modal.setAttribute('aria-hidden', 'true');
+                    if (frame) frame.src = '';
+                }
+
+                if (openLink) {
+                    openLink.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        openModal();
+                    });
+                }
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeModal);
+                }
+
+                if (modal) {
+                    modal.addEventListener('click', function (e) {
+                        if (e.target === modal) closeModal();
+                    });
+                }
+
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && modal && modal.classList.contains('open')) closeModal();
+                });
+            })();
+
+            const requestCanvas = document.getElementById("requestSig");
+            const deptCanvas = document.getElementById("deptSig");
+            const finCanvas = document.getElementById("finSig");
+            const presCanvas = document.getElementById("presSig");
+
+            function ensureCanvasSizePreserveSignatures(canvas) {
+                let prevData = null;
+                try {
+                    if (canvas && canvas.toDataURL) {
+                        const tempBlank = document.createElement('canvas');
+                        tempBlank.width = canvas.width;
+                        tempBlank.height = canvas.height;
+                        prevData = canvas.toDataURL() !== tempBlank.toDataURL() ? canvas.toDataURL() : null;
+                    }
+                } catch (e) {
+                    prevData = null;
+                }
+
+                const targetWidth = Math.max(1, canvas.offsetWidth);
+                const targetHeight = Math.max(1, canvas.offsetHeight);
+
+                if (canvas && (canvas.width !== targetWidth || canvas.height !== targetHeight)) {
+                    try {
+                        const sigData = prevData;
+                        canvas.width = targetWidth;
+                        canvas.height = targetHeight;
+
+                        const ctx = canvas.getContext("2d");
+                        ctx.lineWidth = 2;
+
+                        if (sigData) {
+                            const img = new Image();
+                            img.onload = () => {
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                                syncSignedClass(canvas);
+                            };
+                            img.src = sigData;
+                        }
+                        syncSignedClass(canvas);
+                        return;
+                    } catch (e) {
+                        // fall through
+                    }
+                }
+
+                const ctx = canvas.getContext("2d");
+                ctx.lineWidth = 2;
+                ctx.lineCap = "round";
+
+                if (prevData) {
+                    const img = new Image();
+                    img.onload = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        canvas.classList.add('signed');
+                    };
+                    img.src = prevData;
+                } else {
+                    if (hasSig(canvas)) canvas.classList.add('signed');
+                    else canvas.classList.remove('signed');
+                }
+            }
+
+            function setup(canvas) {
+                ensureCanvasSizePreserveSignatures(canvas);
+
+                const ctx = canvas.getContext("2d");
+                let draw = false;
+
+                canvas.onmousedown = e => {
+                    draw = true;
+                    ctx.beginPath();
+                    ctx.moveTo(e.offsetX, e.offsetY);
+                    if (!canvas.classList.contains('signed')) {
+                        canvas.classList.add('signed');
+                    }
+                };
+                canvas.onmousemove = e => { if (draw) { ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke(); } };
+                window.onmouseup = () => draw = false;
+
+                canvas.ontouchstart = e => {
+                    draw = true;
+                    let r = canvas.getBoundingClientRect();
+                    let t = e.touches[0];
+                    ctx.beginPath();
+                    ctx.moveTo(t.clientX - r.left, t.clientY - r.top);
+                    if (!canvas.classList.contains('signed')) {
+                        canvas.classList.add('signed');
+                    }
+                };
+
+                canvas.ontouchmove = e => {
+                    if (!draw) return;
+                    let r = canvas.getBoundingClientRect();
+                    let t = e.touches[0];
+                    ctx.lineTo(t.clientX - r.left, t.clientY - r.top);
+                    ctx.stroke();
+                };
+                canvas.ontouchend = () => draw = false;
+            }
+
+            setup(requestCanvas);
+            setup(deptCanvas);
+            setup(finCanvas);
+            setup(presCanvas);
+
+            function updatePresidentialVisibility() {
+                const cost = parseFloat(document.getElementById("cost").value || 0);
+                const showPres = cost > 25000;
+
+                const presRow = document.getElementById("presRow");
+                const presRowSig = document.getElementById("presRowSig");
+
+                presRow.style.display = showPres ? "table-row" : "none";
+                presRowSig.style.display = showPres ? "table-row" : "none";
+
+                if (showPres) {
+                    ensureCanvasSizePreserveSignatures(presCanvas);
+                }
+            }
+
+            document.getElementById("cost").addEventListener("input", updatePresidentialVisibility);
+            updatePresidentialVisibility();
+
+            function hasSig(c) {
+                let b = document.createElement("canvas");
+                b.width = c.width; b.height = c.height;
+                return c.toDataURL() !== b.toDataURL();
+            }
+
+            function syncSignedClass(c) {
+                if (!c) return;
+                if (hasSig(c)) c.classList.add('signed');
+                else c.classList.remove('signed');
+            }
+
+            function setDate(id) {
+                document.getElementById(id).valueAsDate = new Date();
+            }
+
+            function getRequiredValue(id) {
+                const el = document.getElementById(id);
+                return (el && (el.value ?? "")).toString().trim();
+            }
+
+            function validateMandatory() {
+                const vendorName = getRequiredValue("vendor");
+                const startDate = getRequiredValue("startDate");
+                const costRaw = getRequiredValue("cost");
+                const cost = costRaw === "" ? NaN : parseFloat(costRaw);
+                const requestBy = getRequiredValue("requestBy");
+
+                if (!vendorName) return "Vendor Name is required.";
+                if (!startDate) return "Estimated Start Date is required.";
+                if (Number.isNaN(cost)) return "Estimated Cost is required.";
+                if (!requestBy) return "Request By is required.";
+                return null;
+            }
+
+            function requestApprove() {
+                const mandatoryError = validateMandatory();
+                try {
+                    const btn = document.getElementById('btnDeptApprove');
+                    if (btn) { btn.classList.remove('pulse-on-enable'); void btn.offsetWidth; btn.classList.add('pulse-on-enable'); btn.classList.add('bounce'); }
+                } catch (e) { }
+
+                if (mandatoryError) {
+                    alert("Validation Error: " + mandatoryError);
+                    return;
+                }
+                if (!hasSig(requestCanvas)) {
+                    alert("Validation Error: Requested By Signature is required before Request is submitted.");
+                    return;
+                }
+
+                setDate("requestDate");
+                document.getElementById("btnDeptApprove").disabled = false;
+                alert("Request submitted successfully. Department Approval is now available.");
+            }
+
+            function departmentApprove() {
+                if (document.getElementById("btnDeptApprove").disabled !== false) {
+                    alert("Department Approval is locked until the Request step is completed.");
+                    return;
+                }
+
+                if (!hasSig(requestCanvas)) {
+                    alert("Validation Error: Requested By Signature must be completed before Department Approval.");
+                    return;
+                }
+                if (!hasSig(deptCanvas)) {
+                    alert("Validation Error: Department Approval signature is required.");
+                    return;
+                }
+
+                setDate("requestDate");
+                setDate("deptDate");
+
+                const cost = parseFloat(document.getElementById("cost").value || 0);
+                if (cost > 25000) {
+                    if (!hasSig(presCanvas)) {
+                        alert("Validation Error: Presidential Approval signature is required for expenses over $25,000.");
+                        return;
+                    }
+                    setDate("presDate");
+                }
+
+                const showPres = cost > 25000;
+                const btnPres = document.getElementById("btnPresApprove");
+                if (btnPres) btnPres.disabled = !showPres;
+
+                if (showPres) {
+                    alert("Department Approval completed. Presidential Approval is now available.");
+                } else {
+                    document.getElementById("btnFinApprove").disabled = false;
+                    alert("Department Approval completed. Financial Approval is now available.");
+                }
+            }
+
+            function financialApprove() {
+                if (document.getElementById("btnFinApprove").disabled !== false) {
+                    alert("Financial Approval is locked until Department Approval is completed.");
+                    return;
+                }
+
+                if (!hasSig(requestCanvas) || !hasSig(deptCanvas)) {
+                    alert("Validation Error: Prior approvals must be completed before Financial Approval.");
+                    return;
+                }
+                if (!hasSig(finCanvas)) {
+                    alert("Validation Error: Financial Approval signature is required.");
+                    return;
+                }
+
+                setDate("requestDate");
+                setDate("deptDate");
+                setDate("finDate");
+
+                document.getElementById("btnFinished").disabled = false;
+                alert("Financial Approval completed. Finished is now available.");
+            }
+
+            function presidentialApprove() {
+                if (document.getElementById("btnPresApprove")?.disabled !== false) {
+                    alert("Presidential Approval is locked until Department Approval is completed.");
+                    return;
+                }
+
+                if (!hasSig(requestCanvas) || !hasSig(deptCanvas)) {
+                    alert("Validation Error: Prior approvals must be completed before Presidential Approval.");
+                    return;
+                }
+
+                if (!hasSig(presCanvas)) {
+                    alert("Validation Error: Presidential Approval signature is required for expenses over $25,000.");
+                    return;
+                }
+
+                setDate("requestDate");
+                setDate("deptDate");
+                setDate("presDate");
+
+                document.getElementById("btnFinApprove").disabled = false;
+                alert("Presidential Approval completed. Financial Approval is now available.");
+            }
+
+            function finished() {
+                if (document.getElementById("btnFinished").disabled) {
+                    alert("Finished is locked until all approvals are completed.");
+                    return;
+                }
+                alert("All mandatory approvals are completed successfully!");
+            }
+
+            function submitRequest() { requestApprove(); }
+            function departmentApproval() { departmentApprove(); }
+            function syncAccountingVisibilityForPrint() {
+                const bNumEl = document.getElementById('bNumber');
+                const bNum = (bNumEl && (bNumEl.value ?? '').toString().trim()) || '';
+                const accounting = document.getElementById('accountingSection');
+                if (!accounting) return;
+                accounting.style.display = bNum ? '' : 'none';
+            }
+
+            function printForm() {
+                syncAccountingVisibilityForPrint();
+                window.print();
+            }
+
+            window.addEventListener('beforeprint', syncAccountingVisibilityForPrint);
+
+        </script>
+</body>
+
+</html>

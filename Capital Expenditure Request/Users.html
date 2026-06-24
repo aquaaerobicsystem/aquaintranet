@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Aqua-aerobic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+
+  <!--Page Icon-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <link rel="stylesheet" href="css/w3.css">
+  <link rel="stylesheet" href="css/style1.css">
+  <link rel="stylesheet" href="css/button.css">
+  <link rel="stylesheet" href="css/clockflapper.css">
+
+  <link rel="stylesheet" href="css/animated.css">
+
+  <!--Bootstrap 3.4.1-->
+  <link rel="stylesheet" href="css/bootstrap-3.4.1/dist/css/bootstrap.min.css">
+  <script src="css/bootstrap-3.4.1/dist/js/bootstrap.min.js"></script>
+
+  <style>
+    :root {
+      --sidebar-width: 400px;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    #mainContent {
+      margin-left: var(--sidebar-width) !important;
+      height: calc(100vh - 10px);
+      overflow: hidden;
+    }
+
+    #ssrsFrame {
+      width: 100%;
+      height: calc(100vh - 260px);
+      border: none;
+      display: block;
+    }
+
+    @media (max-width: 992px) {
+      :root {
+        --sidebar-width: 280px;
+      }
+
+      #mainContent {
+        margin-left: var(--sidebar-width) !important;
+      }
+
+      #ssrsFrame {
+        height: calc(100vh - 240px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --sidebar-width: 0px;
+      }
+
+      #mainContent {
+        margin-left: 0px !important;
+      }
+
+      #ssrsFrame {
+        height: calc(100vh - 220px);
+      }
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      padding-left: 50px;
+      /* Hidden by default */
+      position: fixed;
+      z-index: 1;
+      /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      /* Background color */
+    }
+
+    /* Modal content styles */
+    .modal-content {
+      position: relative;
+      background-color: white;
+      padding: 40px;
+      width: 70%;
+      margin: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      max-height: 80%;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    /* Close button styles */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 30px;
+      color: #aaa;
+      cursor: pointer;
+    }
+
+    /* Image container */
+    .modal-image-container {
+      width: 60%;
+      height: 400px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Image inside the container */
+    .modal-image {
+      width: 100%;
+      padding: 40px;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s ease-in-out;
+      /* Smooth transition for image sliding */
+    }
+
+    /* Navigation buttons */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 30px;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      transform: translateY(-50%);
+    }
+
+    #prevBtn {
+      left: 10px;
+    }
+
+    #nextBtn {
+      right: 10px;
+    }
+
+    /* Modal details */
+    .modal-details {
+      width: 35%;
+      opacity: 0;
+      transform: translateX(100%);
+      /* Starts off the screen on the right */
+      animation: slideInRight 1s forwards;
+      /* Animate from right to left */
+    }
+
+    /* Title and description styles */
+    .modal-details h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .modal-details p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .modal-details a {
+      font-size: 16px;
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .modal-details a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes slideInRight {
+      0% {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
+
+<body class="w3-bar-block background" style="padding-left: 30px; ">
+
+
+  </div>
+  <!-- Sidebar/menu -->
+  <nav class="w3-sidebar w3-collapse w3-padding w3-white w3-animate-left"
+    style="z-index:3;width:400px;font-size: large;" id="mySidebar"><br>
+
+    <div>
+
+      <a href="index copy.html"><img src="images/aqualogo.png" style="width:100%;"></a><br>
+      <h4><b>Welcome Back!</b></h4>
+
+    </div>
+    <div class="w3-bar-block">
+
+      <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding  "><i class="fa-solid fa-user"></i></i>
+        Users</a>
+
+      <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding  "><i
+          class="fa-regular fa-building-user"></i>
+        Departments</a>
+
+      <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding  "><i
+          class="fa-solid fa-file-invoice-dollar"></i>
+        Acconting</a>
+
+    </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <div>
+      <div class="clock" style="font-size: smaller;text-align: center;">
+        <div class="flip">
+          <div class="digital front" data-number="0"></div>
+          <div class="digital back" data-number="1"></div>
+        </div>
+        <div class="flip">
+          <div class="digital front" data-number="0"></div>
+          <div class="digital back" data-number="1"></div>
+        </div>
+        <em class="divider">:</em>
+        <div class="flip">
+          <div class="digital front" data-number="0"></div>
+          <div class="digital back" data-number="1"></div>
+        </div>
+        <div class="flip">
+          <div class="digital front" data-number="0"></div>
+          <div class="digital back" data-number="1"></div>
+        </div>
+        <em class="divider">:</em>
+        <div class="flip">
+          <div class="digital front" data-number="0"></div>
+          <div class="digital back" data-number="1"></div>
+        </div>
+
+        <div class="flip">
+          <div class="digital front" data-number="0"></div>
+          <div class="digital back" data-number="1"></div>
+        </div>
+
+      </div>
+      <br>
+    </div>
+    <hr>
+
+    <div class="container1" style="text-align: center;padding-left: 20px;">
+
+
+      <h1 style=" text-align: center;font-weight: bold; padding-left: 40px; "> Contact</h1>
+      <br>
+
+      <p>Niki Barber</p> <br>
+      Accounting Manager <br>
+      Email: nbarber@aqua-aerobic.com <br>
+      Ph: 815-639-4502 <br>
+      Ext. 4502
+
+    </div>
+
+    <div class=" m" style="padding-left: 20px;">
+      <p>&copy; 2026 Aqua-Aerobic Systems, Inc. All rights reserved.</p>
+    </div>
+
+  </nav>
+
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main" id="mainContent" style="margin-top: 10px;">
+
+    <!-- Header -->
+
+    <div id="top"></div>
+    <header> <br>
+
+      <div class="w3-container">
+
+        <h1 style="text-align: center;">
+          <br>
+          <b><em>"Capital Expidenture Request"</em></b>
+
+          <br>
+        </h1>
+
+
+        <a href="Form.html" class="reportLink" data-report-url="Form.html">
+          <img style="width:10%; height:10%;" src=" images/print.png" alt="Submit Request"
+            style="width:100%; height:auto;">
+        </a>
+
+
+        <a href="submit2.html" class="reportLink" data-report-url="submit2.html">
+          <img style="width:10%; height:10%;" src=" images/submit1.gif" alt="Submit Request"
+            style="width:100%; height:auto;">
+        </a>
+
+
+        <a href="update.html" class="reportLink" data-report-url="update.html">
+          <img style="width:10%; height:10%;" src=" images/Update.gif" alt="Submit Request"
+            style="width:100%; height:auto;">
+        </a>
+
+    </header>
+
+    <!-- Images of Me -->
+
+
+    <hr>
+
+
+    <h1>User Request</h1>
+
+    <iframe id="ssrsFrame"
+      src="http://aquaerprep/ReportServer?/carmenreports/Stephanie/capitalexpenditure/userHomePage1&rs:Command=Render&rc:Toolbar=false"
+      title="Stephanie Operation Report"></iframe>
+
+    <hr>
+
+
+
+    <!-- FORM MODAL (loads Form.html) -->
+    <div id="formModal" role="dialog" aria-modal="true" aria-hidden="true"
+      style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100%;height:50%;background-color:rgba(0,0,0,0.5);padding:40px 20px;box-sizing:border-box;">
+      <div
+        style="position:relative;width:100%;max-width:1300px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;">
+        <div id="closeFormModal" aria-label="Close"
+          style="position:absolute;right:16px;top:6px;font-size:38px;color:#aaa;cursor:pointer;line-height:1;user-select:none;z-index:2;">
+          &times;</div>
+        <iframe id="formModalFrame" src="" title="Form"
+          style="width:100%;height:calc(100vh - 160px);border:none;background:#fff;display:block;"></iframe>
+      </div>
+    </div>
+
+    <!-- REPORT MODAL (loads report URL in iframe) -->
+    <div id="reportModal" role="dialog" aria-modal="true" aria-hidden="true"
+      style="display:none;position:fixed;z-index:10000;left:0;top:0;width:100%;height:50%;background-color:rgba(0,0,0,0.5);padding:40px 20px;box-sizing:border-box;">
+      <div
+        style="position:relative;width:100%;max-width:1300px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;">
+        <div id="closeReportModal" aria-label="Close"
+          style="position:absolute;right:16px;top:6px;font-size:38px;color:#aaa;cursor:pointer;line-height:1;user-select:none;z-index:2;">
+          &times;</div>
+        <iframe id="reportModalFrame" src="" title="Report"
+          style="width:100%;height:calc(100vh - 160px);border:none;background:#fff;display:block;"></iframe>
+      </div>
+    </div>
+
+
+    <script>
+      (function () {
+        const modal = document.getElementById('formModal');
+        const frame = document.getElementById('formModalFrame');
+        const openLink = document.getElementById('openFormModal');
+        const closeBtn = document.getElementById('closeFormModal');
+
+        function openModal() {
+          if (!modal || !frame) return;
+          frame.src = 'Form.html';
+          modal.style.display = 'block';
+          modal.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeModal() {
+          if (!modal) return;
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden', 'true');
+        }
+
+        if (openLink) {
+          openLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            openModal();
+          });
+        }
+
+        if (closeBtn) {
+          closeBtn.addEventListener('click', closeModal);
+        }
+
+        if (modal) {
+          modal.addEventListener('click', function (e) {
+            if (e.target === modal) closeModal();
+          });
+        }
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal && modal.style.display === 'block') closeModal();
+        });
+      })();
+
+      (function () {
+        const modal = document.getElementById('reportModal');
+        const frame = document.getElementById('reportModalFrame');
+        const closeBtn = document.getElementById('closeReportModal');
+        const openLinks = document.querySelectorAll('a.reportLink[data-report-url]');
+
+        function openReportModal(url) {
+          if (!modal || !frame) return;
+          frame.src = url;
+          modal.style.display = 'block';
+          modal.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeReportModal() {
+          if (!modal || !frame) return;
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden', 'true');
+          frame.src = '';
+        }
+
+        openLinks.forEach(function (link) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            openReportModal(link.getAttribute('data-report-url'));
+          });
+        });
+
+        if (closeBtn) closeBtn.addEventListener('click', closeReportModal);
+
+        if (modal) {
+          modal.addEventListener('click', function (e) {
+            if (e.target === modal) closeReportModal();
+          });
+        }
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal && modal.style.display === 'block') closeReportModal();
+        });
+      })();
+    </script>
+
+
+    <hr>
+
+
+
+    <script>
+      function searchBody() {
+        let input = document.getElementById('search').value.toLowerCase();
+        let items = document.getElementsByTagName('div');
+
+        for (let i = 0; i < items.length; i++) {
+          let itemText = items[i].textContent.toLowerCase();
+          if (itemText.includes(input)) {
+            items[i].style.display = "block";
+          } else {
+            items[i].style.display = "none";
+          }
+        }
+      }
+    </script>
+
+
+    <!-- for Print PDF-->
+    <script src="js/jspdf.umd.min.js"></script>
+    <!-- for toggle animination -->
+    <script src="js/jquery.min.js"></script>
+    <!-- General Script -->
+    <script src="js/script.js"></script>
+    <script src="js/clockflapper.js"></script>
+    <!--<script src="js/particles.js"></script>-->
+
+
+</html>

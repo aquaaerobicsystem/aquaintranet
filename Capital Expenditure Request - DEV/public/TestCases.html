@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CapEx Test Cases — Interactive Checklist</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-alt: #273549;
+      --border: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6;
+      --pass: #22c55e;
+      --pass-bg: rgba(34, 197, 94, 0.1);
+      --fail: #ef4444;
+      --fail-bg: rgba(239, 68, 68, 0.1);
+      --skip: #f59e0b;
+      --skip-bg: rgba(245, 158, 11, 0.1);
+      --radius: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ─── Header ─── */
+    .app-header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .header-top h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .header-top h1 span { color: var(--accent); }
+
+    .header-meta {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .header-meta strong { color: var(--text); }
+
+    .inline-input {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 0.78rem;
+      padding: 0.2rem 0.4rem;
+      font-family: inherit;
+    }
+
+    .inline-input:focus { outline: none; border-color: var(--accent); }
+
+    /* ─── Save Status ─── */
+    .save-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      transition: all 0.3s;
+    }
+
+    .save-indicator.saving { color: var(--skip); border-color: var(--skip); }
+    .save-indicator.saved { color: var(--pass); border-color: var(--pass); }
+    .save-indicator.error { color: var(--fail); border-color: var(--fail); }
+
+    /* ─── Progress Bar ─── */
+    .progress-strip {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .progress-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .progress-stat .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .dot-total { background: var(--accent); }
+    .dot-pass { background: var(--pass); }
+    .dot-fail { background: var(--fail); }
+    .dot-skip { background: var(--skip); }
+    .dot-remaining { background: var(--text-muted); }
+
+    .progress-bar-wrap {
+      margin-top: 0.5rem;
+      height: 6px;
+      background: var(--surface);
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .progress-bar-wrap .bar-pass { background: var(--pass); transition: width 0.4s ease; }
+    .progress-bar-wrap .bar-fail { background: var(--fail); transition: width 0.4s ease; }
+    .progress-bar-wrap .bar-skip { background: var(--skip); transition: width 0.4s ease; }
+
+    /* ─── Controls ─── */
+    .controls {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn:hover { background: var(--surface-alt); border-color: var(--accent); }
+    .btn-danger { border-color: var(--fail); color: var(--fail); }
+    .btn-danger:hover { background: var(--fail-bg); }
+    .btn-save { border-color: var(--pass); color: var(--pass); }
+    .btn-save:hover { background: var(--pass-bg); }
+
+    /* ─── Slot Selector ─── */
+    .slot-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-left: auto;
+    }
+
+    .slot-selector label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .slot-select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 0.75rem;
+      padding: 0.3rem 0.5rem;
+      font-family: inherit;
+    }
+
+    .slot-select:focus { outline: none; border-color: var(--accent); }
+
+    /* ─── Main ─── */
+    .main-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    /* ─── Access Model ─── */
+    .access-model {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .role-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.85rem;
+      transition: border-color 0.2s;
+    }
+
+    .role-card:hover { border-color: var(--accent); }
+    .role-card h4 { font-size: 0.82rem; color: var(--accent); margin-bottom: 0.2rem; }
+    .role-card .method { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+    .role-card .caps { font-size: 0.75rem; color: var(--text); }
+
+    /* ─── Test Group ─── */
+    .test-group {
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.65rem 1rem;
+      background: var(--surface-alt);
+      cursor: pointer;
+      user-select: none;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .group-header:hover { background: #2d4055; }
+
+    .group-header h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .badge-pass { background: var(--pass-bg); color: var(--pass); border: 1px solid var(--pass); }
+    .badge-fail { background: var(--fail-bg); color: var(--fail); border: 1px solid var(--fail); }
+    .badge-pending { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+
+    .group-toggle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      transition: transform 0.3s;
+    }
+
+    .group-header.collapsed .group-toggle { transform: rotate(-90deg); }
+    .group-body.hidden { display: none; }
+
+    /* ─── Sub Test ─── */
+    .sub-test { border-bottom: 1px solid var(--border); }
+    .sub-test:last-child { border-bottom: none; }
+
+    .sub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      background: rgba(59, 130, 246, 0.03);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .sub-header:hover { background: rgba(59, 130, 246, 0.06); }
+
+    .sub-header h3 {
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .sub-body.hidden { display: none; }
+
+    /* ─── Step Table ─── */
+    .step-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    .step-table th {
+      background: var(--surface-alt);
+      padding: 0.45rem 0.65rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step-table td {
+      padding: 0.45rem 0.65rem;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+      vertical-align: top;
+    }
+
+    .step-table tr:last-child td { border-bottom: none; }
+    .step-table tr:hover td { background: rgba(59, 130, 246, 0.03); }
+    .step-table tr.row-pass td { background: var(--pass-bg); }
+    .step-table tr.row-fail td { background: var(--fail-bg); }
+    .step-table tr.row-skip td { background: var(--skip-bg); }
+
+    .step-num {
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .col-action { min-width: 280px; }
+    .col-expected { min-width: 220px; }
+    .col-result { min-width: 100px; text-align: center; }
+
+    /* ─── Result Buttons ─── */
+    .result-btns { display: flex; gap: 4px; justify-content: center; }
+
+    .result-btn {
+      width: 28px;
+      height: 24px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .result-btn:hover { transform: scale(1.1); }
+    .result-btn.active-pass { background: var(--pass); color: #fff; border-color: var(--pass); }
+    .result-btn.active-fail { background: var(--fail); color: #fff; border-color: var(--fail); }
+    .result-btn.active-skip { background: var(--skip); color: #fff; border-color: var(--skip); }
+
+    /* ─── Notes ─── */
+    .col-notes { min-width: 140px; }
+
+    .note-input {
+      width: 100%;
+      padding: 0.25rem 0.4rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.75rem;
+      font-family: inherit;
+      resize: none;
+      min-height: 24px;
+    }
+
+    .note-input:focus { outline: none; border-color: var(--accent); }
+
+    /* ─── Sign-Off ─── */
+    .signoff-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .signoff-section h2 { font-size: 1rem; margin-bottom: 0.75rem; color: var(--accent); }
+
+    .signoff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .signoff-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem;
+    }
+
+    .signoff-card label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .signoff-input {
+      width: 100%;
+      padding: 0.35rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-family: inherit;
+      margin-bottom: 0.4rem;
+    }
+
+    .signoff-input:focus { outline: none; border-color: var(--accent); }
+
+    /* ─── Print ─── */
+    @media print {
+      :root { --bg: #fff; --surface: #fff; --surface-alt: #f8f9fa; --border: #dee2e6; --text: #000; --text-muted: #666; }
+      body { background: #fff; color: #000; font-size: 9pt; }
+      .app-header { position: static; background: #fff; border: none; padding: 0.5rem 0; }
+      .controls, .progress-bar-wrap, .progress-strip, .save-indicator, .slot-selector { display: none !important; }
+      .main-content { padding: 0; max-width: 100%; }
+      .group-body.hidden, .sub-body.hidden { display: block !important; }
+      .test-group { page-break-inside: avoid; break-inside: avoid; border: 1px solid #ccc; margin-bottom: 0.5rem; }
+      .result-btn.active-pass { background: #d4edda !important; color: #155724 !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .result-btn.active-fail { background: #f8d7da !important; color: #721c24 !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .step-table tr.row-pass td { background: #d4edda !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .step-table tr.row-fail td { background: #f8d7da !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+
+    @media (max-width: 768px) {
+      .app-header { padding: 0.75rem; }
+      .header-top h1 { font-size: 1.1rem; }
+      .main-content { padding: 0.75rem; }
+      .step-table { font-size: 0.72rem; }
+      .col-action, .col-expected { min-width: 140px; }
+      .slot-selector { margin-left: 0; }
+    }
+    /* Read-only mode when no tester name entered */
+    .readonly-mode { opacity: 0.6; pointer-events: none; }
+    .readonly-mode::before {
+      content: '⚠ Enter your Tester Name above to begin testing';
+      display: block;
+      text-align: center;
+      padding: 1rem;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      border-radius: 8px;
+      color: #fbbf24;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      pointer-events: none;
+    }
+    .btn:disabled, .result-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* ─── Toast ─── */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .toast-msg {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--skip);
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      transform: translateX(120%);
+      transition: transform 0.3s ease;
+      max-width: 380px;
+    }
+
+    .toast-msg.show { transform: translateX(0); }
+    .toast-msg.toast-error { border-left-color: var(--fail); }
+    .toast-msg.toast-success { border-left-color: var(--pass); }
+    .toast-msg.toast-warning { border-left-color: var(--skip); }
+  </style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-top">
+    <h1>🧪 <span>CapEx</span> Test Cases</h1>
+    <div class="header-meta">
+      <span><strong>App:</strong> Capital Expenditure Request</span>
+      <span><strong>URL:</strong> http://www.aqua-aerobic.net:5030/</span>
+      <span><strong>Version:</strong> 1.1.0</span>
+      <span><strong>Date:</strong> <input type="date" id="test-date" class="inline-input" style="width:135px"></span>
+      <span class="save-indicator" id="save-status">💾 Ready</span>
+    </div>
+  </div>
+  <div class="progress-strip" id="progress-strip"></div>
+  <div class="progress-bar-wrap" id="progress-bar"></div>
+  <div class="controls">
+    <button class="btn" onclick="expandAll()">📂 Expand All</button>
+    <button class="btn" onclick="collapseAll()">📁 Collapse All</button>
+    <button class="btn btn-save" onclick="saveToServer()">💾 Save to Server</button>
+    <button class="btn" onclick="loadFromServer()">📥 Load from Server</button>
+    <button class="btn" onclick="window.print()">🖨️ Print</button>
+    <button class="btn" onclick="exportJSON()">⬇ Export JSON</button>
+    <button class="btn" onclick="document.getElementById('import-file').click()">⬆ Import JSON</button>
+    <input type="file" id="import-file" accept=".json" style="display:none" onchange="importJSON(event)">
+    <button class="btn btn-danger" onclick="resetAll()">🗑 Reset All</button>
+    <div class="slot-selector">
+      <label>Tester Name:</label>
+      <input type="text" id="slot-name" class="inline-input" value="" style="width:120px" placeholder="Enter your name" oninput="checkTesterName()">
+    </div>
+  </div>
+</header>
+
+<div class="toast-container" id="toast-container"></div>
+
+<main class="main-content">
+  <div class="access-model">
+    <div class="role-card">
+      <h4>👤 All Employees</h4>
+      <div class="method">Access: Visit app URL directly</div>
+      <div class="caps">Create new requests (no login)</div>
+    </div>
+    <div class="role-card">
+      <h4>👔 Department Managers</h4>
+      <div class="method">Access: Email link only</div>
+      <div class="caps">Approve/Deny assigned requests</div>
+    </div>
+    <div class="role-card">
+      <h4>🏛️ President / CEO</h4>
+      <div class="method">Access: Email link only</div>
+      <div class="caps">Approve/Deny requests &gt; $25,000</div>
+    </div>
+    <div class="role-card">
+      <h4>🔐 Accounting</h4>
+      <div class="method">Access: Login with UserID + passcode</div>
+      <div class="caps">Full access: Dashboard, Financial, Admin, Delete</div>
+    </div>
+  </div>
+
+  <div id="test-groups-container"></div>
+
+  <div class="signoff-section">
+    <h2>✍️ Sign-Off</h2>
+    <div class="signoff-grid">
+      <div class="signoff-card">
+        <label>Tester</label>
+        <input type="text" class="signoff-input" id="signoff-tester-name" placeholder="Full Name" oninput="autoSave()">
+        <input type="date" class="signoff-input" id="signoff-tester-date" oninput="autoSave()">
+        <select class="signoff-input" id="signoff-tester-result" onchange="autoSave()">
+          <option value="">— Result —</option>
+          <option value="Pass">✅ Pass</option>
+          <option value="Fail">❌ Fail</option>
+          <option value="Conditional">⚠️ Conditional</option>
+        </select>
+      </div>
+      <div class="signoff-card">
+        <label>Developer</label>
+        <input type="text" class="signoff-input" id="signoff-dev-name" placeholder="Full Name" oninput="autoSave()">
+        <input type="date" class="signoff-input" id="signoff-dev-date" oninput="autoSave()">
+        <select class="signoff-input" id="signoff-dev-result" onchange="autoSave()">
+          <option value="">— Result —</option>
+          <option value="Pass">✅ Pass</option>
+          <option value="Fail">❌ Fail</option>
+          <option value="Conditional">⚠️ Conditional</option>
+        </select>
+      </div>
+      <div class="signoff-card">
+        <label>Project Manager</label>
+        <input type="text" class="signoff-input" id="signoff-pm-name" placeholder="Full Name" oninput="autoSave()">
+        <input type="date" class="signoff-input" id="signoff-pm-date" oninput="autoSave()">
+        <select class="signoff-input" id="signoff-pm-result" onchange="autoSave()">
+          <option value="">— Result —</option>
+          <option value="Pass">✅ Pass</option>
+          <option value="Fail">❌ Fail</option>
+          <option value="Conditional">⚠️ Conditional</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+'use strict';
+
+// ═══════════════════════════════════════════════
+// TEST DATA — all test cases
+// ═══════════════════════════════════════════════
+var TEST_DATA = [
+  {
+    id: 'TC-00', title: 'Test Setup',
+    subs: [
+      { id: 'TC-00.1', title: 'Configure Test Environment', steps: [
+        { action: 'Change "Tester Name" field (top-right toolbar) from "default" to "{Your First Name}"', expected: 'Field updates with your first name' },
+        { action: 'If returning to complete testing: enter your Tester Name "{First Name}" and click "📥 Load from Server"', expected: 'Previous test results are restored' },
+        { action: 'Click "Admin" in the navigation bar', expected: 'Authentication modal appears' },
+        { action: 'Enter your Aqua UserID and passcode', expected: 'Admin page loads' },
+        { action: 'Click "Email & System Settings" header to expand the panel', expected: 'Settings panel expands' },
+        { action: 'Change "Accounting Email" to your email address', expected: 'Field accepts your email address' },
+        { action: 'Change "Presidential Email" to your email address', expected: 'Field accepts your email address' },
+        { action: 'Click "💾 Save Settings"', expected: 'Success toast: "Settings saved successfully"' },
+        { action: 'Refresh the page, return to Admin, and expand settings', expected: 'Accounting and Presidential emails show your email address' },
+      ]},
+    ]
+  },
+  {
+    id: 'TC-01', title: 'Home Page & Navigation',
+    subs: [
+      { id: 'TC-01.1', title: 'Home Page Loads', steps: [
+        { action: 'Open http://www.aqua-aerobic.net:5030/ in a browser', expected: 'Home page loads with "Capital Expenditure Request" heading' },
+        { action: 'Verify the "+ Create New Request" button is visible', expected: 'Button is displayed and clickable' },
+        { action: 'Click "+ Create New Request"', expected: 'Request form loads without requiring login' },
+        { action: 'Verify the nav bar shows: Home, Dashboard, Request, Department, Financial, Presidential, Admin, How To', expected: 'All 8 nav links visible on one line' },
+      ]},
+      { id: 'TC-01.2', title: 'Logo Click Navigation', steps: [
+        { action: 'Navigate to any protected page (e.g., Dashboard, Financial, Admin)', expected: 'Authentication prompt appears (Home and How To do not require auth)' },
+        { action: 'Click the Aqua-Aerobic logo in the nav bar', expected: 'Returns to Home without full page reload' },
+      ]},
+      { id: 'TC-01.3', title: 'How To Page (No Auth Required)', steps: [
+        { action: 'Click "How To" in the navigation bar', expected: 'How To page loads without authentication' },
+        { action: 'Verify Quick Navigation grid is visible and sticky', expected: '8 quick nav cards; they stick below nav bar when scrolling' },
+        { action: 'Click each Quick Navigation card', expected: 'Page smooth-scrolls to the correct section' },
+        { action: 'Verify "Who Can Do What" section shows 3 role cards', expected: 'All Employees, Managers & President, Accounting Only cards visible' },
+        { action: 'Click FAQ questions', expected: 'Accordion opens/closes with smooth animation' },
+      ]},
+    ]
+  },
+  {
+    id: 'TC-02', title: 'Request Cycle 1 — $5,000 Full Approval (No Attachment)',
+    subs: [
+      { id: 'TC-02.1', title: 'Create Request ($5,000)', steps: [
+        { action: 'Click "+" Create New Request" on Home page', expected: 'Request form loads without requiring login' },
+        { action: 'Fill in Vendor: "Test Vendor Inc."', expected: 'Field accepts input' },
+        { action: 'Fill in Estimated Start Date: select a future date', expected: 'Date picker works' },
+        { action: 'Fill in Description: "Testing capital expenditure system"', expected: 'Text area accepts input' },
+        { action: 'Fill in Estimated Cost: "5000"', expected: 'Field accepts numeric input; no Presidential warning shown' },
+        { action: 'Fill in Your Full Name: "{Your Full Name}"', expected: 'Field accepts input' },
+        { action: 'Fill in Your Email (Aqua User ID): "{your aqua ID}"', expected: 'Field shows @aqua-aerobic.com suffix' },
+        { action: 'Fill in Department Manager Name: "{Your Manager\'s Full Name}"', expected: 'Field accepts input' },
+        { action: 'Fill in Department Manager Email: "{your aqua ID}"', expected: 'Field shows @aqua-aerobic.com suffix' },
+        { action: 'Do NOT attach any files', expected: 'No files in attachment list' },
+        { action: 'Click "✍️ Generate Signature"', expected: 'Digital signature is rendered from your name' },
+        { action: 'Click "Submit Request"', expected: 'Success toast: "Request submitted successfully!"' },
+      ]},
+      { id: 'TC-02.2', title: 'Department Approval via Email', steps: [
+        { action: 'Check the Department Manager email inbox', expected: 'Email received with request details and a clickable link' },
+        { action: 'Click the link in the email', expected: 'App opens directly to the request details (no login required)' },
+        { action: 'Review the request details (vendor, cost, description, signature)', expected: 'All submitted data is displayed correctly' },
+        { action: 'Click "✓ Approve Request"', expected: 'Approval modal opens' },
+        { action: 'Enter approver name and click "✍️ Generate Signature"', expected: 'Signature is rendered' },
+        { action: 'Verify the date field is pre-populated with today\'s date', expected: 'Today\'s date is shown' },
+        { action: 'Click "Confirm"', expected: 'Success toast; status changes to "Pending Financial"' },
+      ]},
+      { id: 'TC-02.3', title: 'Financial Approval via Email', steps: [
+        { action: 'Check the Accounting email inbox', expected: 'Email received with request details and a clickable link' },
+        { action: 'Click the link in the email', expected: 'App opens directly to the Financial review page' },
+        { action: 'Review the request details and prior department approval', expected: 'All data and department signature displayed' },
+        { action: 'Click "✓ Approve Financial"', expected: 'Approval modal opens' },
+        { action: 'Enter approver name and click "✍️ Generate Signature"', expected: 'Signature is rendered' },
+        { action: 'Click "Confirm"', expected: 'Success toast; status changes to "Approved" (cost ≤ $25K, no Presidential needed)' },
+      ]},
+      { id: 'TC-02.4', title: 'Requestor Receives Approval Email', steps: [
+        { action: 'Check the Requestor email inbox', expected: 'Email received confirming the request has been fully approved' },
+        { action: 'Verify email contains request details (ID, vendor, cost)', expected: 'Request information is present in the email' },
+      ]},
+      { id: 'TC-02.5', title: 'Print & Save as PDF', steps: [
+        { action: 'Log in to Dashboard as Accounting', expected: 'Dashboard loads with the approved request visible' },
+        { action: 'Click "🖨 Print" on the approved request', expected: 'Print preview modal opens with formatted form' },
+        { action: 'Verify Page 1: Request Information (vendor, cost, dates, description)', expected: 'All request data displayed correctly' },
+        { action: 'Verify Page 1: Approval Signatures (Department + Financial)', expected: 'Both signatures shown; no Presidential row (cost ≤ $25K)' },
+        { action: 'Click "🖨️ Print" in the modal footer', expected: 'Browser print dialog opens' },
+        { action: 'Select "Save as PDF" and save', expected: 'PDF saved with all data, signatures, and footer' },
+      ]},
+    ]
+  },
+  {
+    id: 'TC-03', title: 'Request Cycle 2 — $30,000 Full Approval (With Attachment + Presidential)',
+    subs: [
+      { id: 'TC-03.1', title: 'Create Request ($30,000 with Attachments)', steps: [
+        { action: 'Click "+ Create New Request" on Home page', expected: 'Request form loads' },
+        { action: 'Fill in Vendor: "Premium Equipment Co."', expected: 'Field accepts input' },
+        { action: 'Fill in Estimated Start Date: select a future date', expected: 'Date picker works' },
+        { action: 'Fill in Description: "Testing $30K request with presidential approval"', expected: 'Text area accepts input' },
+        { action: 'Fill in Estimated Cost: "30000"', expected: 'Warning hint: "Requires Presidential Approval (cost exceeds $25,000)"' },
+        { action: 'Fill in Your Full Name: "{Your Full Name}"', expected: 'Field accepts input' },
+        { action: 'Fill in Your Email (Aqua User ID): "{your aqua ID}"', expected: 'Field shows @aqua-aerobic.com suffix' },
+        { action: 'Fill in Department Manager Name: "{Your Manager\'s Full Name}"', expected: 'Field accepts input' },
+        { action: 'Fill in Department Manager Email: "{your aqua ID}"', expected: 'Field shows @aqua-aerobic.com suffix' },
+        { action: 'Drag a PDF file onto the upload area', expected: 'File appears in attachment list with name and size' },
+        { action: 'Upload a .pdf file', expected: 'Accepted' },
+        { action: 'Upload a .docx file', expected: 'Accepted' },
+        { action: 'Upload a .xlsx file', expected: 'Accepted' },
+        { action: 'Upload a .exe file', expected: 'Rejected: "File type not allowed"' },
+        { action: 'Upload a .jpg file', expected: 'Rejected: "File type not allowed"' },
+        { action: 'Upload a .zip file', expected: 'Rejected: "File type not allowed"' },
+        { action: 'Click "✍️ Generate Signature"', expected: 'Digital signature is rendered' },
+        { action: 'Click "Submit Request"', expected: 'Success toast: "Request submitted successfully!"' },
+      ]},
+      { id: 'TC-03.2', title: 'Department Approval via Email', steps: [
+        { action: 'Check the Department Manager email inbox', expected: 'Email received with request details and a clickable link' },
+        { action: 'Click the link in the email', expected: 'App opens directly to the request details' },
+        { action: 'Verify attached document is listed in the request details', expected: 'Attachment section shows the uploaded file' },
+        { action: 'Click "✓ Approve Request"', expected: 'Approval modal opens' },
+        { action: 'Enter approver name, generate signature, and click "Confirm"', expected: 'Success toast; status changes to "Pending Financial"' },
+      ]},
+      { id: 'TC-03.3', title: 'Financial Approval via Email', steps: [
+        { action: 'Check the Accounting email inbox', expected: 'Email received with request details and a clickable link' },
+        { action: 'Click the link in the email', expected: 'App opens directly to the Financial review page' },
+        { action: 'Click "✓ Approve Financial"', expected: 'Approval modal opens' },
+        { action: 'Enter approver name, generate signature, and click "Confirm"', expected: 'Success toast; status changes to "Pending Presidential" (cost > $25K)' },
+      ]},
+      { id: 'TC-03.4', title: 'Presidential Approval via Email', steps: [
+        { action: 'Check the Presidential email inbox', expected: 'Email received with request details and a clickable link' },
+        { action: 'Click the link in the email', expected: 'App opens directly to the Presidential review page' },
+        { action: 'Review all details including Department and Financial approvals', expected: 'All prior approval signatures displayed' },
+        { action: 'Click "✓ Presidential Approval"', expected: 'Approval modal opens' },
+        { action: 'Enter approver name, generate signature, and click "Confirm"', expected: 'Success toast; status changes to "Approved"' },
+      ]},
+      { id: 'TC-03.5', title: 'Requestor Receives Approval Email', steps: [
+        { action: 'Check the Requestor email inbox', expected: 'Email received confirming the request has been fully approved' },
+        { action: 'Verify email contains request details (ID, vendor, cost)', expected: 'Request information is present in the email' },
+      ]},
+      { id: 'TC-03.6', title: 'Print & Save as PDF', steps: [
+        { action: 'Log in to Dashboard as Accounting', expected: 'Dashboard loads with the approved $30K request visible' },
+        { action: 'Click "🖨 Print" on the approved request', expected: 'Print preview modal opens' },
+        { action: 'Verify Page 1: Approval Signatures include Presidential row', expected: 'Department, Financial, and Presidential signatures all shown' },
+        { action: 'Click "🖨️ Print" in the modal footer', expected: 'Browser print dialog opens' },
+        { action: 'Select "Save as PDF" and save', expected: 'PDF saved with all data, signatures, and footer' },
+      ]},
+    ]
+  },
+  {
+    id: 'TC-04', title: 'Request Cycle 3 — Accounting (Financial) Denial',
+    subs: [
+      { id: 'TC-04.1', title: 'Create Request', steps: [
+        { action: 'Click "+ Create New Request" on Home page', expected: 'Request form loads' },
+        { action: 'Fill in all required fields with Estimated Cost: "5000"', expected: 'Form is filled out' },
+        { action: 'Generate signature and click "Submit Request"', expected: 'Success toast: "Request submitted successfully!"' },
+      ]},
+      { id: 'TC-04.2', title: 'Department Approval via Email', steps: [
+        { action: 'Check the Department Manager email inbox', expected: 'Email received with clickable link' },
+        { action: 'Click the link, review, and approve the request', expected: 'Status changes to "Pending Financial"' },
+      ]},
+      { id: 'TC-04.3', title: 'Financial Denial via Email', steps: [
+        { action: 'Check the Accounting email inbox', expected: 'Email received with clickable link' },
+        { action: 'Click the link in the email', expected: 'App opens directly to the Financial review page' },
+        { action: 'Click "✗ Deny"', expected: 'Deny modal opens' },
+        { action: 'Enter your name and leave reason blank', expected: 'Error: reason is mandatory' },
+        { action: 'Enter denial reason: "Insufficient budget allocation"', expected: 'Field accepts input' },
+        { action: 'Click "Confirm Denial"', expected: 'Success toast; status changes to "Denied"' },
+      ]},
+      { id: 'TC-04.4', title: 'Requestor Receives Denial Email', steps: [
+        { action: 'Check the Requestor email inbox', expected: 'Email received confirming the request was denied' },
+        { action: 'Verify email contains the denial reason: "Insufficient budget allocation"', expected: 'Denial reason is present in the email' },
+      ]},
+    ]
+  },
+  {
+    id: 'TC-05', title: 'Request Cycle 4 — Department Manager Denial',
+    subs: [
+      { id: 'TC-05.1', title: 'Create Request', steps: [
+        { action: 'Click "+ Create New Request" on Home page', expected: 'Request form loads' },
+        { action: 'Fill in all required fields with Estimated Cost: "5000"', expected: 'Form is filled out' },
+        { action: 'Generate signature and click "Submit Request"', expected: 'Success toast: "Request submitted successfully!"' },
+      ]},
+      { id: 'TC-05.2', title: 'Department Denial via Email', steps: [
+        { action: 'Check the Department Manager email inbox', expected: 'Email received with clickable link' },
+        { action: 'Click the link in the email', expected: 'App opens directly to the request details' },
+        { action: 'Click "✗ Deny Request"', expected: 'Deny modal opens' },
+        { action: 'Enter your name and denial reason: "Not approved for this quarter"', expected: 'Fields accept input' },
+        { action: 'Click "Confirm Denial"', expected: 'Success toast; status changes to "Denied"' },
+      ]},
+      { id: 'TC-05.3', title: 'Requestor Receives Denial Email', steps: [
+        { action: 'Check the Requestor email inbox', expected: 'Email received confirming the request was denied' },
+        { action: 'Verify email contains the denial reason: "Not approved for this quarter"', expected: 'Denial reason is present in the email' },
+      ]},
+    ]
+  },
+  {
+    id: 'TC-06', title: 'Form Validation & Editing',
+    subs: [
+      { id: 'TC-06.1', title: 'Validation Errors', steps: [
+        { action: 'Click "+ Create New Request" on the Home page', expected: 'Request form loads' },
+        { action: 'Leave all fields blank and click Submit', expected: 'Error toast: "Required fields must be provided"' },
+        { action: 'Fill all fields but skip the signature', expected: 'Error toast: "Signature is required"' },
+        { action: 'Try uploading a .exe file', expected: 'Error: "File type not allowed"' },
+        { action: 'Try uploading a file > 10MB', expected: 'Error: file too large' },
+      ]},
+      { id: 'TC-06.2', title: 'Edit While Pending Department', steps: [
+        { action: 'Submit a new request', expected: 'Request is in "Pending Department" status' },
+        { action: 'Navigate to the Request page', expected: 'Request appears with an "✏ Edit" button' },
+        { action: 'Click "✏ Edit"', expected: 'Form loads with previously entered data pre-filled' },
+        { action: 'Change the Vendor to "Updated Vendor"', expected: 'Field updates' },
+        { action: 'Click "Submit Request"', expected: 'Success toast: "Request updated successfully!"' },
+        { action: 'Verify the updated Vendor name appears in the list', expected: 'Shows "Updated Vendor"' },
+        { action: 'Click "🗑 Delete" on the updated request, enter Requestor Full Name and System Passcode', expected: 'Request is permanently deleted and removed from the list' },
+      ]},
+    ]
+  },
+  {
+    id: 'TC-07', title: 'Dashboard (Accounting Only)',
+    subs: [
+      { id: 'TC-07.1', title: 'Access Dashboard', steps: [
+        { action: 'Click "Dashboard" in the nav bar', expected: 'Authentication modal appears' },
+        { action: 'Log in with Aqua UserID and passcode', expected: 'Dashboard loads' },
+        { action: 'Verify statistics strip shows counts', expected: 'Total, Pending Dept, Pending Financial, Pending Presidential, Approved, Denied' },
+        { action: 'Verify all requests appear in the table', expected: 'Table shows all requests with status badges' },
+      ]},
+      { id: 'TC-07.2', title: 'View & Download Attachments', steps: [
+        { action: 'Open a request that has file attachments', expected: 'Attachments section shows uploaded files' },
+        { action: 'Click on a file name to download', expected: 'Browser downloads the file' },
+        { action: 'Verify file opens correctly', expected: 'Downloaded file matches the original' },
+      ]},
+      { id: 'TC-07.3', title: 'Dashboard Actions', steps: [
+        { action: 'Click "👁 View" on any request', expected: 'Request details are displayed' },
+        { action: 'Click "🖨 Print" on an approved request', expected: 'Print preview modal opens' },
+        { action: 'Click "🗑 Delete" on a request', expected: 'Delete confirmation modal opens' },
+      ]},
+    ]
+  },
+  {
+    id: 'TC-08', title: 'Admin Settings (Accounting Only)',
+    subs: [
+      { id: 'TC-08.1', title: 'Access Admin Page', steps: [
+        { action: 'Click "Admin" in the nav bar', expected: 'Authentication modal appears' },
+        { action: 'Log in with Aqua UserID and passcode', expected: 'Admin page loads' },
+      ]},
+      { id: 'TC-08.2', title: 'Activity Logs', steps: [
+        { action: 'Verify activity log table shows recent entries', expected: 'Logs display with Date & Time, Action, Details columns' },
+        { action: 'Verify timestamps show correct local time (not UTC)', expected: 'Times match current timezone (CDT)' },
+        { action: 'Click "↻ Refresh" button', expected: 'Logs table refreshes with latest data' },
+        { action: 'Perform an action then refresh logs', expected: 'New log entry appears at top' },
+      ]},
+      { id: 'TC-08.3', title: 'Email & System Settings', steps: [
+        { action: 'Click "Email & System Settings" header', expected: 'Settings panel expands (toggle)' },
+        { action: 'Update Accounting Email', expected: 'Field accepts new email' },
+        { action: 'Update Presidential Email', expected: 'Field accepts new email' },
+        { action: 'Update App Passcode', expected: 'Field accepts new passcode' },
+        { action: 'Update SMTP settings (Host, Port, User, Pass, TLS)', expected: 'Fields accept input' },
+        { action: 'Click "💾 Save Settings"', expected: 'Success toast: "Settings saved"' },
+        { action: 'Refresh the page and return to Admin', expected: 'Saved values persist' },
+      ]},
+    ]
+  },
+  {
+    id: 'TC-09', title: 'Delete Request (Accounting Only)',
+    subs: [
+      { id: 'TC-09.1', title: 'Successful Deletion', steps: [
+        { action: 'Log in to Dashboard as Accounting', expected: 'Dashboard loads' },
+        { action: 'Click "🗑 Delete" on a request', expected: 'Delete modal opens' },
+        { action: 'Enter Full Name matching the requestor name', expected: 'Field accepts input' },
+        { action: 'Enter the correct system passcode', expected: 'Field accepts input' },
+        { action: 'Click "Confirm Deletion"', expected: 'Success toast; request removed from list' },
+        { action: 'Verify activity log records the deletion', expected: 'Log entry: "Request Deleted" with details' },
+      ]},
+      { id: 'TC-09.2', title: 'Deletion Validation', steps: [
+        { action: 'Click "🗑 Delete" on a request', expected: 'Delete modal opens' },
+        { action: 'Enter wrong Full Name', expected: 'Error: "Full Name does not match the requestor"' },
+        { action: 'Enter wrong passcode', expected: 'Error: "Invalid deletion code"' },
+      ]},
+    ]
+  },
+  {
+    id: 'TC-10', title: 'Authentication & Access Control',
+    subs: [
+      { id: 'TC-10.1', title: 'Protected Pages Require Login', steps: [
+        { action: 'Click "Dashboard" without being logged in', expected: 'Auth modal appears' },
+        { action: 'Click "Financial" without being logged in', expected: 'Auth modal appears' },
+        { action: 'Click "Admin" without being logged in', expected: 'Auth modal appears' },
+      ]},
+      { id: 'TC-10.2', title: 'Unprotected Pages', steps: [
+        { action: 'Click "Home"', expected: 'Loads without auth' },
+        { action: 'Click "Request"', expected: 'Loads without auth' },
+        { action: 'Click "How To"', expected: 'Loads without auth' },
+      ]},
+    ]
+  },
+];
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+var STORAGE_KEY = 'capex-test-results';
+var state = {};
+var saveTimeout = null;
+var API_BASE = window.location.origin || '';
+
+function getSlotName() {
+  return (document.getElementById('slot-name').value || 'default').trim();
+}
+
+function getStepKey(subId, stepIdx) { return subId + '__' + stepIdx; }
+
+function checkTesterName() {
+  var name = document.getElementById('slot-name').value.trim();
+  var isLocked = !name;
+  var main = document.querySelector('.main-content');
+  if (isLocked) {
+    main.classList.add('readonly-mode');
+    // Reset all test results, counts, and completion
+    state = {};
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    render();
+    showToast('⚠️ Please enter your Tester Name to begin testing.', 'warning');
+  } else {
+    main.classList.remove('readonly-mode');
+  }
+  // Disable/enable all interactive test elements
+  var btns = main.querySelectorAll('.result-btn');
+  for (var i = 0; i < btns.length; i++) btns[i].disabled = isLocked;
+  var notes = main.querySelectorAll('.note-input');
+  for (var i = 0; i < notes.length; i++) notes[i].disabled = isLocked;
+  var signoffs = main.querySelectorAll('.signoff-input');
+  for (var i = 0; i < signoffs.length; i++) signoffs[i].disabled = isLocked;
+  // Disable toolbar action buttons (Save, Load, Export, Import, Reset)
+  var toolBtns = document.querySelectorAll('.toolbar .btn');
+  for (var i = 0; i < toolBtns.length; i++) toolBtns[i].disabled = isLocked;
+}
+
+function showToast(message, type) {
+  type = type || 'warning';
+  var container = document.getElementById('toast-container');
+  if (!container) return;
+  var el = document.createElement('div');
+  el.className = 'toast-msg toast-' + type;
+  el.textContent = message;
+  container.appendChild(el);
+  requestAnimationFrame(function() { el.classList.add('show'); });
+  setTimeout(function() {
+    el.classList.remove('show');
+    setTimeout(function() { el.remove(); }, 300);
+  }, 4000);
+}
+
+function collectSignoff() {
+  return {
+    tester: { name: document.getElementById('signoff-tester-name').value, date: document.getElementById('signoff-tester-date').value, result: document.getElementById('signoff-tester-result').value },
+    dev: { name: document.getElementById('signoff-dev-name').value, date: document.getElementById('signoff-dev-date').value, result: document.getElementById('signoff-dev-result').value },
+    pm: { name: document.getElementById('signoff-pm-name').value, date: document.getElementById('signoff-pm-date').value, result: document.getElementById('signoff-pm-result').value },
+  };
+}
+
+function applySignoff(s) {
+  if (!s) return;
+  if (s.tester) { document.getElementById('signoff-tester-name').value = s.tester.name || ''; document.getElementById('signoff-tester-date').value = s.tester.date || ''; document.getElementById('signoff-tester-result').value = s.tester.result || ''; }
+  if (s.dev) { document.getElementById('signoff-dev-name').value = s.dev.name || ''; document.getElementById('signoff-dev-date').value = s.dev.date || ''; document.getElementById('signoff-dev-result').value = s.dev.result || ''; }
+  if (s.pm) { document.getElementById('signoff-pm-name').value = s.pm.name || ''; document.getElementById('signoff-pm-date').value = s.pm.date || ''; document.getElementById('signoff-pm-result').value = s.pm.result || ''; }
+}
+
+// ═══════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════
+function esc(str) {
+  var d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function render() {
+  var container = document.getElementById('test-groups-container');
+  var html = '';
+  for (var g = 0; g < TEST_DATA.length; g++) {
+    var group = TEST_DATA[g];
+    var gs = getGroupStats(group);
+    var badgeClass = gs.fail > 0 ? 'badge-fail' : gs.pass === gs.total ? 'badge-pass' : 'badge-pending';
+    var badgeText = gs.fail > 0 ? gs.fail + ' Failed' : gs.pass + '/' + gs.total;
+
+    html += '<div class="test-group"><div class="group-header" onclick="toggleGroup(\'' + group.id + '\')"><h2>' + group.id + ': ' + esc(group.title) + ' <span class="badge ' + badgeClass + '" id="badge-' + group.id + '">' + badgeText + '</span></h2><span class="group-toggle">\u25BC</span></div><div class="group-body" id="body-' + group.id + '">';
+
+    for (var s = 0; s < group.subs.length; s++) {
+      var sub = group.subs[s];
+      html += '<div class="sub-test"><div class="sub-header" onclick="toggleSub(\'' + sub.id + '\')"><h3>' + sub.id + ' \u2014 ' + esc(sub.title) + '</h3><span class="group-toggle" id="toggle-' + sub.id + '">\u25BC</span></div><div class="sub-body" id="sub-body-' + sub.id + '">';
+      html += '<table class="step-table"><thead><tr><th style="width:40px">Step</th><th class="col-action">Action</th><th class="col-expected">Expected Result</th><th class="col-result">Result</th><th class="col-notes">Notes</th></tr></thead><tbody>';
+
+      for (var i = 0; i < sub.steps.length; i++) {
+        var step = sub.steps[i];
+        var key = getStepKey(sub.id, i);
+        var result = (state[key] && state[key].result) || '';
+        var note = (state[key] && state[key].note) || '';
+        var rowClass = result === 'pass' ? 'row-pass' : result === 'fail' ? 'row-fail' : result === 'skip' ? 'row-skip' : '';
+
+        html += '<tr class="' + rowClass + '" id="row-' + key + '">';
+        html += '<td class="step-num">' + (i + 1) + '</td>';
+        html += '<td class="col-action">' + esc(step.action) + '</td>';
+        html += '<td class="col-expected">' + esc(step.expected) + '</td>';
+        html += '<td class="col-result"><div class="result-btns">';
+        html += '<button class="result-btn ' + (result === 'pass' ? 'active-pass' : '') + '" onclick="setResult(\'' + key + '\',\'pass\')" title="Pass">\u2713</button>';
+        html += '<button class="result-btn ' + (result === 'fail' ? 'active-fail' : '') + '" onclick="setResult(\'' + key + '\',\'fail\')" title="Fail">\u2717</button>';
+        html += '<button class="result-btn ' + (result === 'skip' ? 'active-skip' : '') + '" onclick="setResult(\'' + key + '\',\'skip\')" title="Skip">\u2014</button>';
+        html += '</div></td>';
+        html += '<td class="col-notes"><textarea class="note-input" rows="1" placeholder="Notes..." oninput="setNote(\'' + key + '\',this.value)">' + esc(note) + '</textarea></td>';
+        html += '</tr>';
+      }
+      html += '</tbody></table></div></div>';
+    }
+    html += '</div></div>';
+  }
+  container.innerHTML = html;
+
+  var dateInput = document.getElementById('test-date');
+  dateInput.value = state.__testDate || new Date().toISOString().split('T')[0];
+  dateInput.onchange = function() { state.__testDate = dateInput.value; autoSave(); };
+
+  applySignoff(state.__signoff);
+  updateProgress();
+}
+
+// ═══════════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════════
+function setResult(key, result) {
+  if (!document.getElementById('slot-name').value.trim()) return;
+  if (!state[key]) state[key] = {};
+  state[key].result = state[key].result === result ? '' : result;
+
+  var row = document.getElementById('row-' + key);
+  row.className = state[key].result === 'pass' ? 'row-pass' : state[key].result === 'fail' ? 'row-fail' : state[key].result === 'skip' ? 'row-skip' : '';
+  var btns = row.querySelectorAll('.result-btn');
+  btns[0].className = 'result-btn ' + (state[key].result === 'pass' ? 'active-pass' : '');
+  btns[1].className = 'result-btn ' + (state[key].result === 'fail' ? 'active-fail' : '');
+  btns[2].className = 'result-btn ' + (state[key].result === 'skip' ? 'active-skip' : '');
+
+  updateGroupBadge(key);
+  autoSave();
+}
+
+function setNote(key, note) {
+  if (!document.getElementById('slot-name').value.trim()) return;
+  if (!state[key]) state[key] = {};
+  state[key].note = note;
+  autoSave();
+}
+
+function autoSave() {
+  state.__signoff = collectSignoff();
+  state.__testDate = document.getElementById('test-date').value;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  updateProgress();
+
+  // Debounced server save
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(function() { saveToServer(true); }, 2000);
+}
+
+function updateGroupBadge(key) {
+  var subId = key.split('__')[0];
+  var group = null;
+  for (var g = 0; g < TEST_DATA.length; g++) {
+    for (var s = 0; s < TEST_DATA[g].subs.length; s++) {
+      if (TEST_DATA[g].subs[s].id === subId) { group = TEST_DATA[g]; break; }
+    }
+    if (group) break;
+  }
+  if (!group) return;
+  var stats = getGroupStats(group);
+  var badge = document.getElementById('badge-' + group.id);
+  badge.className = 'badge ' + (stats.fail > 0 ? 'badge-fail' : stats.pass === stats.total ? 'badge-pass' : 'badge-pending');
+  badge.textContent = stats.fail > 0 ? stats.fail + ' Failed' : stats.pass + '/' + stats.total;
+}
+
+function getGroupStats(group) {
+  var total = 0, pass = 0, fail = 0, skip = 0;
+  for (var s = 0; s < group.subs.length; s++) {
+    for (var i = 0; i < group.subs[s].steps.length; i++) {
+      total++;
+      var r = state[getStepKey(group.subs[s].id, i)];
+      if (r && r.result === 'pass') pass++;
+      else if (r && r.result === 'fail') fail++;
+      else if (r && r.result === 'skip') skip++;
+    }
+  }
+  return { total: total, pass: pass, fail: fail, skip: skip };
+}
+
+function updateProgress() {
+  var total = 0, pass = 0, fail = 0, skip = 0;
+  for (var g = 0; g < TEST_DATA.length; g++) {
+    var s = getGroupStats(TEST_DATA[g]);
+    total += s.total; pass += s.pass; fail += s.fail; skip += s.skip;
+  }
+  var remaining = total - pass - fail - skip;
+  var pct = total ? ((pass + fail + skip) / total * 100).toFixed(0) : 0;
+
+  document.getElementById('progress-strip').innerHTML =
+    '<span class="progress-stat"><span class="dot dot-total"></span> Total: ' + total + '</span>' +
+    '<span class="progress-stat"><span class="dot dot-pass"></span> Pass: ' + pass + '</span>' +
+    '<span class="progress-stat"><span class="dot dot-fail"></span> Fail: ' + fail + '</span>' +
+    '<span class="progress-stat"><span class="dot dot-skip"></span> Skip: ' + skip + '</span>' +
+    '<span class="progress-stat"><span class="dot dot-remaining"></span> Remaining: ' + remaining + '</span>' +
+    '<span class="progress-stat" style="margin-left:auto;font-size:0.9rem;">' + pct + '% Complete</span>';
+
+  document.getElementById('progress-bar').innerHTML =
+    '<div class="bar-pass" style="width:' + (total ? pass/total*100 : 0) + '%"></div>' +
+    '<div class="bar-fail" style="width:' + (total ? fail/total*100 : 0) + '%"></div>' +
+    '<div class="bar-skip" style="width:' + (total ? skip/total*100 : 0) + '%"></div>';
+}
+
+// ═══════════════════════════════════════════════
+// TOGGLE
+// ═══════════════════════════════════════════════
+function toggleGroup(id) {
+  var body = document.getElementById('body-' + id);
+  var header = body.previousElementSibling;
+  body.classList.toggle('hidden');
+  header.classList.toggle('collapsed');
+}
+
+function toggleSub(id) {
+  var body = document.getElementById('sub-body-' + id);
+  var toggle = document.getElementById('toggle-' + id);
+  body.classList.toggle('hidden');
+  toggle.style.transform = body.classList.contains('hidden') ? 'rotate(-90deg)' : '';
+}
+
+function expandAll() {
+  var bodies = document.querySelectorAll('.group-body, .sub-body');
+  for (var i = 0; i < bodies.length; i++) bodies[i].classList.remove('hidden');
+  var headers = document.querySelectorAll('.group-header');
+  for (var i = 0; i < headers.length; i++) headers[i].classList.remove('collapsed');
+  var toggles = document.querySelectorAll('.group-toggle');
+  for (var i = 0; i < toggles.length; i++) toggles[i].style.transform = '';
+}
+
+function collapseAll() {
+  var bodies = document.querySelectorAll('.group-body, .sub-body');
+  for (var i = 0; i < bodies.length; i++) bodies[i].classList.add('hidden');
+  var headers = document.querySelectorAll('.group-header');
+  for (var i = 0; i < headers.length; i++) headers[i].classList.add('collapsed');
+}
+
+// ═══════════════════════════════════════════════
+// SERVER SAVE / LOAD
+// ═══════════════════════════════════════════════
+function showSaveStatus(cls, text) {
+  var el = document.getElementById('save-status');
+  el.className = 'save-indicator ' + cls;
+  el.textContent = text;
+}
+
+function saveToServer(silent) {
+  var slot = getSlotName();
+  state.__signoff = collectSignoff();
+  state.__testDate = document.getElementById('test-date').value;
+
+  showSaveStatus('saving', '\u23F3 Saving...');
+
+  fetch(API_BASE + '/api/test-results/' + encodeURIComponent(slot), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(state)
+  })
+  .then(function(res) { return res.json(); })
+  .then(function() {
+    showSaveStatus('saved', '\u2713 Saved');
+    if (!silent) alert('Test results saved to server (slot: "' + slot + '")');
+  })
+  .catch(function(err) {
+    showSaveStatus('error', '\u2717 Save failed');
+    if (!silent) alert('Failed to save to server: ' + err.message + '\nResults are saved locally in browser.');
+  });
+}
+
+function loadFromServer() {
+  var slot = getSlotName();
+  showSaveStatus('saving', '\u23F3 Loading...');
+
+  fetch(API_BASE + '/api/test-results/' + encodeURIComponent(slot), { cache: 'no-store' })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data && Object.keys(data).length > 0) {
+      state = data;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      render();
+      showSaveStatus('saved', '\u2713 Loaded');
+      alert('Loaded results from server (slot: "' + slot + '")');
+    } else {
+      showSaveStatus('', '\uD83D\uDCBE No data found');
+      alert('No saved results found for slot: "' + slot + '"');
+    }
+  })
+  .catch(function(err) {
+    showSaveStatus('error', '\u2717 Load failed');
+    alert('Failed to load from server: ' + err.message);
+  });
+}
+
+// ═══════════════════════════════════════════════
+// IMPORT / EXPORT / RESET
+// ═══════════════════════════════════════════════
+function exportJSON() {
+  state.__signoff = collectSignoff();
+  var blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'capex-test-results-' + new Date().toISOString().split('T')[0] + '.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function importJSON(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      state = JSON.parse(e.target.result);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      render();
+    } catch(err) { alert('Invalid JSON file.'); }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function resetAll() {
+  if (!confirm('This will clear ALL test results, notes, and sign-off data. Are you sure?')) return;
+  state = {};
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  render();
+  showSaveStatus('', '\uD83D\uDCBE Ready');
+}
+
+// ═══════════════════════════════════════════════
+// INIT — Load from localStorage first, then try server
+// ═══════════════════════════════════════════════
+try {
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) state = JSON.parse(saved);
+} catch(e) {}
+
+render();
+checkTesterName();
+
+// Try loading from server on first visit if localStorage is empty
+if (Object.keys(state).length === 0) {
+  var initSlot = getSlotName();
+  if (initSlot && initSlot !== 'default') {
+    fetch(API_BASE + '/api/test-results/' + encodeURIComponent(initSlot), { cache: 'no-store' })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data && Object.keys(data).length > 0) {
+        state = data;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        render();
+        checkTesterName();
+        showSaveStatus('saved', '\u2713 Loaded from server');
+      }
+    })
+    .catch(function() {});
+  }
+}
+</script>
+
+</body>
+</html>

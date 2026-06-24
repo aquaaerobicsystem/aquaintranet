@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSRS Report Viewer</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f6f9;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .header {
+            background: #0078d4;
+            color: white;
+            padding: 15px 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid {
+            display: grid;
+            /* Exactly 2 columns on desktop */
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        /* Collapse to 1 column on smaller screens */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            margin-top: 20px;
+            background: #0078d4;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: #005fa3;
+        }
+
+        .report-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        iframe {
+            width: 100%;
+            flex: 1;
+            height: 100%;
+            min-height: 0;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <img src="images/aqualogo.png" alt="Logo" class="header-logo">
+        Capital Expidenture Update Request Details
+    </div>
+
+    <style>
+        .header-logo {
+            height: 28px;
+            width: auto;
+            vertical-align: middle;
+            margin-right: 12px;
+        }
+    </style>
+
+
+    <div class="container">
+
+        <div class="form-container">
+            <div class="grid">
+
+                <div class="form-group">
+                    <label for="ReqID">Request ID</label>
+                    <input type="text" id="ReqID">
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" id="description">
+                </div>
+
+                <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="cost">cost</label>
+                    <input type="number" id="cost">
+                </div>
+
+                <div class="form-group">
+                    <label for="requestBy">Request By</label>
+                    <input type="text" id="requestBy">
+                </div>
+
+                <div class="form-group">
+                    <label for="comments">Comments</label>
+                    <textarea id="comments"></textarea>
+                </div>
+
+            </div>
+
+            <button class="btn" onclick="viewReport()">
+                Update Request
+            </button>
+        </div>
+
+        <div class="report-container">
+            <iframe id="reportFrame"></iframe>
+        </div>
+
+    </div>
+
+    <script>
+
+        function viewReport() {
+
+            // SSRS base URL + Render command (matches Form.html pattern)
+            // Using ReportServer endpoint to avoid X-Frame-Options blocking
+            const baseReportUrl =
+                "http://aquaerprep/ReportServer?/carmenreports/Stephanie/capitalexpenditure/UpdateRequest&rs:Command=Render&rc:Toolbar=false";
+
+            const ReqID = document.getElementById("ReqID").value;
+            const name = document.getElementById("name").value;
+            const description = document.getElementById("description").value;
+            const startDate = document.getElementById("startDate").value;
+            const cost = document.getElementById("cost").value;
+            const requestBy = document.getElementById("requestBy").value;
+            const comments = document.getElementById("comments").value;
+
+            // Append parameters to the baseReportUrl
+            const reportUrl =
+                baseReportUrl +
+                "&ReqID=" + encodeURIComponent(ReqID) +
+                "&name=" + encodeURIComponent(name) +
+                "&Description=" + encodeURIComponent(description) +
+                "&StartDate=" + encodeURIComponent(startDate) +
+                "&cost=" + encodeURIComponent(cost) +
+                "&RequestBy=" + encodeURIComponent(requestBy) +
+                "&Comments=" + encodeURIComponent(comments)
+
+
+            document.getElementById("reportFrame").src = reportUrl;
+        }
+
+
+    </script>
+
+</body>
+
+</html>

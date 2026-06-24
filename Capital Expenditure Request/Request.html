@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Procurement Request Form</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        padding: 20px;
+    }
+
+    .form-container {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .header {
+        background: #0b3a66;
+        color: white;
+        padding: 12px 20px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        vertical-align: top;
+    }
+
+    td:first-child {
+        width: 30%;
+        font-weight: bold;
+        background: #fafafa;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    textarea {
+        resize: vertical;
+        height: 70px;
+    }
+
+    .error {
+        color: red;
+        font-size: 12px;
+        margin-top: 4px;
+        display: none;
+    }
+
+    .btn-container {
+        padding: 15px;
+        text-align: right;
+    }
+
+    button {
+        background: #0b3a66;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    button:hover {
+        background: #062743;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="form-container">
+    <div class="header">Vendor Details</div>
+
+    <form id="procForm">
+        <table>
+            <tr>
+                <td>B Number</td>
+                <td>
+                    <input type="text" id="bNumber" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>Vendor Name *</td>
+                <td>
+                    <input type="text" id="vendorName" required />
+                    <div class="error" id="vendorErr">Vendor name is required</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Description *</td>
+                <td>
+                    <input type="text" id="description" required />
+                    <div class="error" id="descErr">Description is required</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Estimated Start Date *</td>
+                <td>
+                    <input type="date" id="startDate" required />
+                    <div class="error" id="dateErr">Start date is required</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Estimated Cost *</td>
+                <td>
+                    <input type="number" id="cost" required />
+                    <div class="error" id="costErr">Valid cost is required</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Request By *</td>
+                <td>
+                    <input type="text" id="requestBy" required />
+                    <div class="error" id="reqErr">Requestor name is required</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Comments</td>
+                <td>
+                    <textarea id="comments"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Requested By (Signature) *</td>
+                <td>
+                    <input type="text" id="signature" placeholder="Type full name as signature" required />
+                    <div class="error" id="sigErr">Signature is mandatory</div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="btn-container">
+            <button type="submit">Submit Request</button>
+        </div>
+    </form>
+</div>
+
+<script>
+document.getElementById("procForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let valid = true;
+
+    function showError(id, condition) {
+        const el = document.getElementById(id);
+        if (condition) {
+            el.style.display = "block";
+            valid = false;
+        } else {
+            el.style.display = "none";
+        }
+    }
+
+    showError("vendorErr", !document.getElementById("vendorName").value.trim());
+    showError("descErr", !document.getElementById("description").value.trim());
+    showError("dateErr", !document.getElementById("startDate").value);
+    showError("costErr", !document.getElementById("cost").value || document.getElementById("cost").value <= 0);
+    showError("reqErr", !document.getElementById("requestBy").value.trim());
+    showError("sigErr", !document.getElementById("signature").value.trim());
+
+    if (valid) {
+        alert("Procurement Request Submitted Successfully!");
+        document.getElementById("procForm").reset();
+    }
+});
+</script>
+
+</body>
+</html>

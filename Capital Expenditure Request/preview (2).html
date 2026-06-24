@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SSRS Report Viewer</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+
+        header {
+
+            background: #1565C0;
+            color: white;
+            padding: 18px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+
+        }
+
+        /* Parameter Panel */
+
+        .parameter-panel {
+
+            background: white;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: end;
+            border-bottom: 1px solid #ddd;
+
+        }
+
+        .group {
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .group label {
+
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .group input {
+
+            width: 180px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .load {
+
+            background: #1565C0;
+            color: white;
+        }
+
+        .load:hover {
+
+            background: #0d47a1;
+        }
+
+        .reset {
+
+            background: #999;
+            color: white;
+        }
+
+        .reset:hover {
+
+            background: #666;
+        }
+
+        #loading {
+
+            display: none;
+            text-align: center;
+            padding: 8px;
+            background: #FFF3CD;
+            color: #856404;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* iframe */
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        iframe {
+            flex: 1;
+            width: 100%;
+            border: none;
+            min-height: 0;
+            background: white;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        SSRS Report Viewer
+
+    </header>
+
+    <div class="parameter-panel">
+
+        <div class="group">
+            <label>Request ID</label>
+            <input type="text" id="reqID">
+        </div>
+
+
+        <button class="load" onclick="loadReport()">
+            View Report
+        </button>
+
+        <button class="reset" onclick="resetForm()">
+            Reset
+        </button>
+
+    </div>
+
+    <div id="loading">
+        Loading Report...
+    </div>
+
+    <iframe id="reportFrame"></iframe>
+
+    <script>
+
+        //==============================================
+        // SSRS SETTINGS
+        //==============================================
+
+        // Example:
+        // http://localhost/ReportServer
+
+        const REPORT_SERVER =
+            "http://aquaerprep/Reports/report";
+
+        // Example:
+        // /Sales/MonthlySales
+
+        const REPORT_PATH =
+            "/carmenreports/Stephanie/CapitalExpenditure/Form1";
+
+        //==============================================
+
+        function loadReport() {
+
+            document.getElementById("loading").style.display = "block";
+
+            let reqID = document.getElementById("reqID").value;
+
+            let url =
+                REPORT_SERVER +
+                "?" +
+                encodeURIComponent(REPORT_PATH);
+
+            if (customer != "")
+                url += "&Customer=" + encodeURIComponent(customer);
+
+            if (start != "")
+                url += "&StartDate=" + encodeURIComponent(start);
+
+            if (end != "")
+                url += "&EndDate=" + encodeURIComponent(end);
+
+            if (region != "")
+                url += "&Region=" + encodeURIComponent(region);
+
+            // SSRS Options
+
+            url += "&rs:Command=Render";
+            url += "&rc:Toolbar=true";
+            url += "&rc:Parameters=true";
+            url += "&rc:Zoom=Page Width";
+
+            let frame = document.getElementById("reportFrame");
+
+            frame.onload = function () {
+
+                document.getElementById("loading").style.display = "none";
+
+            };
+
+            frame.src = url;
+
+        }
+
+        function resetForm() {
+
+            document.getElementById("customer").value = "";
+            document.getElementById("startDate").value = "";
+            document.getElementById("endDate").value = "";
+            document.getElementById("region").value = "";
+
+        }
+
+        window.onload = function () {
+
+            loadReport();
+
+        };
+
+    </script>
+
+</body>
+
+</html>

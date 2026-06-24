@@ -111,7 +111,7 @@
 
     /* ── LAYOUT ── */
     .page-body {
-      max-width: 1200px;
+      max-width: 1500px;
       margin: 0 auto;
       padding: 36px 24px 60px;
       width: 100%;
@@ -236,7 +236,7 @@
       border-radius: var(--radius);
       border: 1px solid var(--gray-200);
       box-shadow: var(--shadow-sm);
-      overflow: hidden;
+      overflow-x: auto;
       margin-bottom: 8px;
     }
     .table-header {
@@ -315,7 +315,7 @@
     .status-issue    { background: #fee2e2; color: #991b1b; }
 
     /* ── ACTIONS ── */
-    .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+    .actions { display: flex; gap: 6px; flex-wrap: nowrap; min-width: 120px; }
     .action-btn {
       background: var(--white);
       border: 1px solid var(--gray-200);
@@ -769,6 +769,8 @@
       document.getElementById('modalTitle').textContent = 'Edit Testing Results — ' + u.name;
       document.getElementById('modalBody').innerHTML = `
         ${codeField()}
+        ${isAdmin ? `<label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;color:var(--aqua-dark);">🔐 Date Added</label>
+        <input id="mCreatedAt" type="text" value="${u.created_at||''}" placeholder="e.g. 6/22/2026, 12:00:00 PM" style="width:100%;padding:8px;border:2px solid var(--aqua-mid);border-radius:4px;margin-bottom:12px;">` : ''}
         <label style="display:block;margin-bottom:6px;"><input type="checkbox" id="mLinks" ${u.links_tested.includes('✅')?'checked':''}> <strong>File Links</strong> tested</label>
         <label style="display:block;margin-bottom:6px;"><input type="checkbox" id="mSearch" ${u.search_tested.includes('✅')?'checked':''}> <strong>Search</strong> tested</label>
         <label style="display:block;margin-bottom:12px;"><input type="checkbox" id="mLayout" ${u.layout_reviewed.includes('✅')?'checked':''}> <strong>Layout & Structure</strong> reviewed</label>
@@ -879,7 +881,8 @@
             search_tested: document.getElementById('mSearch').checked,
             layout_reviewed: document.getElementById('mLayout').checked,
             notes: document.getElementById('mNotes').value,
-            admin_note: isAdmin ? document.getElementById('mAdminNote').value : undefined
+            admin_note: isAdmin ? document.getElementById('mAdminNote').value : undefined,
+            created_at: isAdmin && document.getElementById('mCreatedAt') ? document.getElementById('mCreatedAt').value : undefined
           })
         });
       } else {

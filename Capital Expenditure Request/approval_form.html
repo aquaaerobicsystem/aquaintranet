@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase / Quote Request Form</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f6f8;
+            margin: 0;
+            padding: 8px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 4px 0 6px 0;
+            font-size: 20px;
+        }
+
+        h2 {
+            background: #003366;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 5px;
+            margin: 8px 0 6px 0;
+            font-size: 14px;
+        }
+
+        .header-logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .header-logo img {
+            max-width: 280px;
+            height: auto;
+            display: inline-block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        /* Two-column layout for Vendor Details */
+        .grid.two-rows {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .full {
+            grid-column: 1/-1;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6px;
+        }
+
+        .details-table th {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: left;
+            width: 40%;
+        }
+
+        .details-table td {
+            padding: 6px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+            width: 60%;
+        }
+
+        .details-table label {
+            display: none;
+        }
+
+        .details-table input,
+        .details-table textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            box-sizing: border-box;
+            transition: box-shadow 180ms ease, border-color 180ms ease;
+            margin: 0;
+        }
+
+        .details-table textarea {
+            min-height: 50px;
+            resize: vertical;
+        }
+
+        .details-table input:focus,
+        .details-table textarea:focus {
+            outline: none;
+            border-color: #0b7dda;
+            box-shadow: 0 6px 18px rgba(11, 125, 218, 0.12);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 2px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: box-shadow 180ms ease, transform 120ms ease, border-color 180ms ease;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 50px;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0b7dda;
+            box-shadow: 0 6px 18px rgba(11, 125, 218, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .signature {
+            height: 70px;
+            border: 2px dashed #666;
+            border-radius: 4px;
+            background: white;
+            cursor: crosshair;
+            transition: box-shadow 180ms ease, transform 120ms ease;
+            margin: 3px 0;
+        }
+
+        .signature:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .signature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6px;
+        }
+
+        .signature-table th {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .signature-table td {
+            padding: 6px;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        .signature-table canvas {
+            display: block;
+            width: 100%;
+            height: 50px;
+            border: 2px dashed #666;
+            border-radius: 4px;
+            background: white;
+            cursor: crosshair;
+            margin-bottom: 3px;
+            transition: box-shadow 180ms ease;
+        }
+
+        .signature-table canvas:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .signature-table canvas.signed {
+            border-color: #28a745;
+            box-shadow: 0 0 12px rgba(40, 167, 69, 0.3), inset 0 0 8px rgba(40, 167, 69, 0.05);
+            animation: signedPulse 600ms ease 1;
+        }
+
+        .signature-table input[type="text"],
+        .signature-table input[type="date"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            box-sizing: border-box;
+            transition: box-shadow 180ms ease, border-color 180ms ease;
+        }
+
+        .signature-table input[type="text"]:focus,
+        .signature-table input[type="date"]:focus {
+            outline: none;
+            border-color: #0b7dda;
+            box-shadow: 0 6px 18px rgba(11, 125, 218, 0.12);
+        }
+
+        .accounting-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        .accounting-table th,
+        .accounting-table td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .accounting-table th {
+            background: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .accounting-table input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        button {
+            padding: 6px 12px;
+            margin: 2px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            opacity: 0.98;
+        }
+
+        .save {
+            background: #0b7dda;
+            color: white;
+        }
+
+        .approve {
+            background: #28a745;
+            color: white;
+        }
+
+        .print {
+            background: #444;
+            color: white;
+        }
+
+        /* container load animation */
+        .container {
+            animation: slideUp 320ms ease both;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(8px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* presidential signature reveal */
+        .pres-section {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 300ms ease, opacity 300ms ease, transform 300ms ease;
+        }
+
+        .pres-section.show {
+            max-height: 200px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Canvas signed effect */
+        .signature.signed {
+            border-color: #28a745;
+            box-shadow: 0 0 12px rgba(40, 167, 69, 0.3), inset 0 0 8px rgba(40, 167, 69, 0.05);
+            animation: signedPulse 600ms ease 1;
+        }
+
+        @keyframes signedPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.5), inset 0 0 8px rgba(40, 167, 69, 0.05);
+            }
+
+            70% {
+                box-shadow: 0 0 12px 6px rgba(40, 167, 69, 0), inset 0 0 8px rgba(40, 167, 69, 0.05);
+            }
+
+            100% {
+                box-shadow: 0 0 12px rgba(40, 167, 69, 0.3), inset 0 0 8px rgba(40, 167, 69, 0.05);
+            }
+        }
+
+        /* Responsive: 1 column on small screens */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid.two-rows {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: 1;
+            }
+
+            .container {
+                padding: 8px;
+            }
+
+            button {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+
+            h1 {
+                font-size: 16px;
+            }
+
+            h2 {
+                font-size: 12px;
+                padding: 4px 6px;
+                margin: 4px 0 3px 0;
+            }
+        }
+
+        @media print {
+
+            /* Force Presidential approval visibility during print */
+            #presRow,
+            #presRowSig {
+                display: table-row !important;
+            }
+
+            /* Remove placeholders during print when inputs are empty */
+            input::placeholder,
+            textarea::placeholder {
+                color: transparent !important;
+            }
+
+            /* Hide native calendar picker icon on date inputs (print) */
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                display: none !important;
+                -webkit-appearance: none !important;
+                opacity: 0 !important;
+            }
+
+            /* Hide native select dropdown arrow on print */
+            select {
+                -webkit-appearance: none !important;
+                appearance: none !important;
+                background-image: none !important;
+            }
+
+            /* Text border normalization for print */
+            input,
+            textarea {
+                border: none !important;
+            }
+
+            /* Print: keep everything on a single page (best-effort) */
+
+            html,
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* Compact layout for one-page printing (avoid transform scaling; it can cause truncation/rounding issues) */
+            .container {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 0.12in !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+
+            h1 {
+                font-size: 16px !important;
+                margin: 2px 0 4px 0 !important;
+            }
+
+            h2 {
+                font-size: 12px !important;
+                margin: 4px 0 3px 0 !important;
+                padding: 4px 6px !important;
+            }
+
+            .details-table th,
+            .details-table td {
+                padding: 4px 6px !important;
+                font-size: 11px !important;
+            }
+
+            .signature-table th,
+            .signature-table td {
+                padding: 4px 6px !important;
+                font-size: 11px !important;
+            }
+
+            .accounting-table th,
+            .accounting-table td {
+                padding: 4px 6px !important;
+                font-size: 11px !important;
+            }
+
+            input,
+            textarea {
+                font-size: 11px !important;
+                padding: 3px 4px !important;
+            }
+
+            /* Keep signature canvases tight on print */
+            .signature-table canvas {
+                height: 42px !important;
+                margin-bottom: 2px !important;
+            }
+
+
+            /* Hide UI controls */
+            button {
+                display: none !important;
+            }
+
+
+
+            /* Single-page friendliness */
+            html,
+            body {
+                background: white !important;
+            }
+
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .container {
+                box-shadow: none !important;
+                padding: 0.15in !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+
+            /* Attempt to prevent breaking across pages */
+            .container,
+            h1,
+            h2,
+            table,
+            tr,
+            td,
+            th {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            /* Enforce printing on one page (best-effort scaling) */
+            @page {
+                size: letter;
+                margin: 0.2in;
+            }
+
+            /* Don’t use scaling tricks; let the browser paginate naturally. */
+
+            /* Remove clipping that can truncate content on print. */
+            .container {
+                max-height: none !important;
+                overflow: visible !important;
+                break-inside: auto !important;
+                page-break-inside: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header-logo">
+            <img src="images/aqualogo.png" alt="Aqua Company Logo">
+        </div>
+        <h1>CAPITAL EXPENDITURE REQUEST</h1>
+
+        <h2>Vendor Details</h2>
+        <table class="details-table">
+            <tr>
+                <th>B Number:</th>
+                <td><input class="required mandatory" placeholder="Enter B number" type="text" /></td>
+            </tr>
+            <tr>
+                <th>Vendor Name:</th>
+                <td><input id="vendor" class="required mandatory" placeholder="Enter vendor name" type="text"></td>
+            </tr>
+            <tr>
+                <th>Description:</th>
+                <td><input id="description" placeholder="Enter description" type="text"></td>
+            </tr>
+            <tr>
+                <th>Estimated Start Date:</th>
+                <td><input id="startDate" placeholder="Enter estimated start date" type="date"></td>
+            </tr>
+            <tr>
+                <th>Estimated Cost:</th>
+                <td><input id="cost" placeholder="Enter estimated cost" type="number"></td>
+            </tr>
+            <tr>
+                <th>Request By:</th>
+                <td><input id="requestBy" placeholder="Enter requestor name" type="text"></td>
+            </tr>
+            <tr>
+                <th>Comments:</th>
+                <td><textarea id="comments" placeholder="Enter comments"></textarea></td>
+            </tr>
+        </table>
+
+        <h2>Approvals</h2>
+
+        <table class="signature-table">
+            <tr>
+                <th>Requested By Signature (required)</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="requestSig" class="signature"></canvas>
+                    <input id="requestorName" type="text" placeholder="Enter requestor name" />
+                </td>
+                <td style="text-align: center; width: 30%;">
+                    <input type="date" id="requestDate" />
+                </td>
+
+            </tr>
+            <tr>
+                <th>Department Approval</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="deptSig" class="signature"></canvas>
+                </td>
+                <td style="text-align: center;">
+                    <input type="date" id="deptDate" />
+                </td>
+            </tr>
+            <tr>
+                <th>Financial Approval</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="finSig" class="signature"></canvas>
+                </td>
+                <td style="text-align: center;">
+                    <input type="date" id="finDate" />
+                </td>
+            </tr>
+            <tr id="presRow" style="display: none;">
+                <th>Presidential Approval</th>
+                <th>Date</th>
+            </tr>
+            <tr id="presRowSig" style="display: none;">
+                <td>
+                    <canvas id="presSig" class="signature"></canvas>
+                </td>
+                <td style="text-align: center;">
+                    <input type="date" id="presDate" />
+                </td>
+            </tr>
+        </table>
+
+        <h2>Accounting Department Only</h2>
+        <table class="accounting-table" style="text-align: center;">
+            <tr style="text-align: center;">
+                <th>
+                    Class:
+                </th>
+                <td style="text-align: center;">
+                    <input style=" outline: none; text-align: center; border:none;" type="Text"
+                        placeholder="Enter class code" />
+                </td>
+                <th>
+                    UseTax (Y/N) :
+                </th>
+                <td>
+                    <select style="outline: none;   border:none;">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Property type:
+                </th>
+                <td>
+                    <input style=" outline: none; text-align: center; border:none;" type="text"
+                        placeholder="Enter Property type">
+
+                </td>
+                <th>
+                    Equipment Exempt (Y/N) :
+                </th>
+                <td>
+                    <select style="outline: none;   border:none;">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </td>
+
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Fixed Asset Account:
+                </th>
+                <td>
+                    <input placeholder="Enter Fixed Asset Account" class="required mandatory"
+                        style=" outline: none; text-align: center; border:none;" type="text" />
+                </td>
+                <th>
+                    Tooling Exempt (Y/N) :
+                </th>
+                <td>
+                    <select style="outline: none;   border:none;">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Accumulated Depreciation Account:
+                </th>
+                <td>
+                    <input placeholder="Enter Accumulated Depreciation Account" class="required mandatory"
+                        style="outline: none; border:none;" type="text" />
+                </td>
+                <th>
+                    Depreciation Expense Account:
+                </th>
+                <td>
+                    <input placeholder="Enter Depreciation Expense Account" style="outline: none; border:none;"
+                        type="text" />
+
+                </td>
+            </tr>
+        </table>
+        <h2>Purchasing</h2>
+        <p>Please reference B# and G/L account # 1860.01 on the Purchase Order</p>
+        <div class="buttons">
+            <button id="btnRequest" class="save" onclick="requestApprove()">Request</button>
+            <button id="btnDeptApprove" class="approve" onclick="departmentApprove()" disabled>Department
+                Approval</button>
+            <button id="btnFinApprove" class="approve" onclick="financialApprove()" disabled>Financial Approval</button>
+            <button id="btnFinished" class="print" onclick="finished()" disabled>Finished</button>
+            <button class="print" onclick="printForm()">Print</button>
+        </div>
+
+        <script>
+            // Report parameters toolbar
+            function applyReportParams() {
+                const reqId = (document.getElementById('paramReqId')?.value ?? '').trim();
+                const showToolbar = (document.getElementById('paramToolbar')?.value ?? 'false') === 'true';
+
+                // Build SSRS URL
+                // Notes:
+                // - Keep the report path stable
+                // - Toggle toolbar using rc:Toolbar=true/false
+                // - Plug request id using &reqID=...
+                const base = 'http://aquaerprep/ReportServer?/carmenreports/Stephanie/capitalexpenditure/userHomePage';
+                const safeReqId = reqId === '' ? '0' : encodeURIComponent(reqId);
+                const toolbarParam = showToolbar ? 'true' : 'false';
+
+                const newSrc = `${base}&reqID=${safeReqId}&rs:Command=Render&rc:Toolbar=${toolbarParam}`;
+                const frame = document.getElementById('ssrsFrame');
+                if (frame) frame.src = newSrc;
+            }
+
+            // Initialize toolbar default params in the input UI (matches iframe defaults)
+            (function initReportToolbar() {
+                const frame = document.getElementById('ssrsFrame');
+                const toolbarSelect = document.getElementById('paramToolbar');
+                const reqIdInput = document.getElementById('paramReqId');
+
+                if (toolbarSelect) toolbarSelect.value = 'false';
+                if (reqIdInput) reqIdInput.value = '0';
+
+                // If iframe already has parameters, try to parse reqID/Toolbar.
+                try {
+                    if (frame?.getAttribute('src')) {
+                        const src = frame.getAttribute('src');
+                        const reqMatch = src.match(/\&reqID=([^&]+)/);
+                        const tbMatch = src.match(/rc:Toolbar=([^&]+)/);
+                        if (reqIdInput && reqMatch?.[1]) reqIdInput.value = decodeURIComponent(reqMatch[1]);
+                        if (toolbarSelect && tbMatch?.[1]) toolbarSelect.value = (tbMatch[1] === 'true') ? 'true' : 'false';
+                    }
+                } catch (e) {
+                    // ignore
+                }
+            })();
+
+
+
+            const requestCanvas = document.getElementById("requestSig");
+            const deptCanvas = document.getElementById("deptSig");
+            const finCanvas = document.getElementById("finSig");
+            const presCanvas = document.getElementById("presSig");
+
+            function ensureCanvasSizePreserveSignatures(canvas) {
+                // Preserve existing drawing when canvas size changes (width/height reset clears bitmap).
+                // Note: avoid calling hasSig() here because it is declared later.
+                let prevData = null;
+                try {
+                    if (canvas && canvas.toDataURL) {
+                        const tempBlank = document.createElement('canvas');
+                        tempBlank.width = canvas.width;
+                        tempBlank.height = canvas.height;
+                        prevData = canvas.toDataURL() !== tempBlank.toDataURL() ? canvas.toDataURL() : null;
+                    }
+                } catch (e) {
+                    prevData = null;
+                }
+
+
+                const targetWidth = Math.max(1, canvas.offsetWidth);
+                const targetHeight = Math.max(1, canvas.offsetHeight);
+
+                // Only resize when needed.
+                // Capture a signature image BEFORE resizing (resizing clears the bitmap).
+                if (canvas && (canvas.width !== targetWidth || canvas.height !== targetHeight)) {
+                    try {
+                        const sigData = prevData;
+                        canvas.width = targetWidth;
+                        canvas.height = targetHeight;
+
+                        const ctx = canvas.getContext("2d");
+                        ctx.lineWidth = 2;
+
+                        if (sigData) {
+                            const img = new Image();
+                            img.onload = () => {
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                                syncSignedClass(canvas);
+                            };
+                            img.src = sigData;
+                        }
+                        // Even if there is no sig, ensure class matches current bitmap.
+                        syncSignedClass(canvas);
+                        return;
+
+                    } catch (e) {
+                        // Fall through to normal init below.
+                    }
+                }
+
+                const ctx = canvas.getContext("2d");
+                ctx.lineWidth = 2;
+                ctx.lineCap = "round";
+
+                if (prevData) {
+                    const img = new Image();
+                    img.onload = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        canvas.classList.add('signed');
+                    };
+                    img.src = prevData;
+                } else {
+                    // Keep existing class state aligned with current bitmap.
+                    if (hasSig(canvas)) canvas.classList.add('signed');
+                    else canvas.classList.remove('signed');
+                }
+            }
+
+            function setup(canvas) {
+                ensureCanvasSizePreserveSignatures(canvas);
+
+                const ctx = canvas.getContext("2d");
+                let draw = false;
+
+                canvas.onmousedown = e => {
+                    draw = true;
+                    ctx.beginPath();
+                    ctx.moveTo(e.offsetX, e.offsetY);
+                    if (!canvas.classList.contains('signed')) {
+                        canvas.classList.add('signed');
+                    }
+                };
+                canvas.onmousemove = e => { if (draw) { ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke(); } };
+                window.onmouseup = () => draw = false;
+
+                canvas.ontouchstart = e => {
+                    draw = true;
+                    let r = canvas.getBoundingClientRect();
+                    let t = e.touches[0];
+                    ctx.beginPath();
+                    ctx.moveTo(t.clientX - r.left, t.clientY - r.top);
+                    if (!canvas.classList.contains('signed')) {
+                        canvas.classList.add('signed');
+                    }
+                };
+
+                canvas.ontouchmove = e => {
+                    if (!draw) return;
+                    let r = canvas.getBoundingClientRect();
+                    let t = e.touches[0];
+                    ctx.lineTo(t.clientX - r.left, t.clientY - r.top);
+                    ctx.stroke();
+                };
+                canvas.ontouchend = () => draw = false;
+            }
+
+            setup(requestCanvas);
+            setup(deptCanvas);
+            setup(finCanvas);
+            setup(presCanvas);
+
+            function updatePresidentialVisibility() {
+                const cost = parseFloat(document.getElementById("cost").value || 0);
+                const showPres = cost > 25000;
+
+                const presRow = document.getElementById("presRow");
+                const presRowSig = document.getElementById("presRowSig");
+
+                presRow.style.display = showPres ? "table-row" : "none";
+                presRowSig.style.display = showPres ? "table-row" : "none";
+
+                if (showPres) {
+                    // Make sure the canvas bitmap matches the visible size without clearing the existing signature.
+                    ensureCanvasSizePreserveSignatures(presCanvas);
+                }
+            }
+
+            // Show/hide Presidential Approval based on cost
+            document.getElementById("cost").addEventListener("input", updatePresidentialVisibility);
+            // Initialize visibility on load
+            updatePresidentialVisibility();
+
+            function clearCanvas(c) {
+                c.getContext("2d").clearRect(0, 0, c.width, c.height);
+                c.classList.remove('signed');
+            }
+
+            function hasSig(c) {
+                let b = document.createElement("canvas");
+                b.width = c.width; b.height = c.height;
+                return c.toDataURL() !== b.toDataURL();
+            }
+
+            // Re-validate signed class after any restore/resize.
+            function syncSignedClass(c) {
+                if (!c) return;
+                if (hasSig(c)) c.classList.add('signed');
+                else c.classList.remove('signed');
+            }
+
+            function setDate(id) {
+                document.getElementById(id).valueAsDate = new Date();
+            }
+
+            function getRequiredValue(id) {
+                const el = document.getElementById(id);
+                return (el && (el.value ?? "").toString().trim()) || "";
+            }
+
+            function validateMandatory() {
+                const vendorName = getRequiredValue("vendor");
+                const startDate = getRequiredValue("startDate");
+                const costRaw = getRequiredValue("cost");
+                const cost = costRaw === "" ? NaN : parseFloat(costRaw);
+                const requestBy = getRequiredValue("requestBy");
+
+                if (!vendorName) return "Vendor Name is required.";
+                if (!startDate) return "Estimated Start Date is required.";
+                if (Number.isNaN(cost)) return "Estimated Cost is required.";
+                if (!requestBy) return "Request By is required.";
+                return null;
+            }
+
+            function requestApprove() {
+                const mandatoryError = validateMandatory();
+                if (mandatoryError) {
+                    alert("Validation Error: " + mandatoryError);
+                    return;
+                }
+                if (!hasSig(requestCanvas)) {
+                    alert("Validation Error: Requested By Signature is required before Request is submitted.");
+                    return;
+                }
+
+                setDate("requestDate");
+                // Gate next step
+                document.getElementById("btnDeptApprove").disabled = false;
+                alert("Request submitted successfully. Department Approval is now available.");
+            }
+
+            function departmentApprove() {
+                // Department Approval requires:
+                // - Request signature (request step completed)
+                // - Department signature moved into the Department Approval modal/process
+
+                if (document.getElementById("btnDeptApprove").disabled === false) {
+                    // ok
+                } else {
+                    alert("Department Approval is locked until the Request step is completed.");
+                    return;
+                }
+
+                if (!hasSig(requestCanvas)) {
+                    alert("Validation Error: Requested By Signature must be completed before Department Approval.");
+                    return;
+                }
+
+                // Signature is now required ONLY at the Department Administration stage.
+                // Ensure the department approver signature canvas is completed.
+                if (!hasSig(deptCanvas)) {
+                    alert("Validation Error: Department Administration Approver Signature is required.");
+                    return;
+                }
+
+                // Persist dates
+                setDate("requestDate");
+                setDate("deptDate");
+
+                const cost = parseFloat(document.getElementById("cost").value || 0);
+                if (cost > 25000) {
+                    if (!hasSig(presCanvas)) {
+                        alert("Validation Error: Presidential Approval signature is required for expenses over $25,000.");
+                        return;
+                    }
+                    setDate("presDate");
+                }
+
+                document.getElementById("btnFinApprove").disabled = false;
+                alert("Department Administration Approval completed. Financial Approval is now available.");
+            }
+
+            function financialApprove() {
+                if (document.getElementById("btnFinApprove").disabled === false) {
+                    // ok
+                } else {
+                    alert("Financial Approval is locked until Department Approval is completed.");
+                    return;
+                }
+
+                if (!hasSig(requestCanvas) || !hasSig(deptCanvas)) {
+                    alert("Validation Error: Prior approvals must be completed before Financial Approval.");
+                    return;
+                }
+                if (!hasSig(finCanvas)) {
+                    alert("Validation Error: Financial Approval signature is required.");
+                    return;
+                }
+
+                setDate("requestDate");
+                setDate("deptDate");
+                setDate("finDate");
+
+                document.getElementById("btnFinished").disabled = false;
+                alert("Financial Approval completed. Finished is now available.");
+            }
+
+            function finished() {
+                if (document.getElementById("btnFinished").disabled) {
+                    alert("Finished is locked until all approvals are completed.");
+                    return;
+                }
+                alert("All mandatory approvals are completed successfully!");
+            }
+
+            // Backward-compatible wrappers (avoid breaking any older inline handlers)
+            function submitRequest() {
+                requestApprove();
+            }
+
+            function departmentApproval() {
+                departmentApprove();
+            }
+
+            function formatDateForPrint(dateValue) {
+                // dateValue expected: yyyy-mm-dd from <input type="date">
+                if (!dateValue) return "";
+                const d = new Date(dateValue);
+                if (Number.isNaN(d.getTime())) return String(dateValue);
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const dd = String(d.getDate()).padStart(2, '0');
+                const yyyy = d.getFullYear();
+                return `${mm}/${dd}/${yyyy}`;
+            }
+
+            function syncDateDisplaysForPrint() {
+                const ids = ['requestDate', 'deptDate', 'finDate', 'presDate'];
+                for (const id of ids) {
+                    const input = document.getElementById(id);
+                    const display = document.getElementById(id + '-print');
+                    if (!input || !display) continue;
+                    display.textContent = formatDateForPrint((input.value ?? '').toString());
+                }
+            }
+
+            // Ensure there are always matching print <span> elements.
+            (function initPrintDateSpans() {
+                const ids = ['requestDate', 'deptDate', 'finDate', 'presDate'];
+                for (const id of ids) {
+                    const input = document.getElementById(id);
+                    if (!input) continue;
+                    if (document.getElementById(id + '-print')) continue;
+
+                    const span = document.createElement('span');
+                    span.id = id + '-print';
+                    span.style.display = 'none';
+                    span.style.whiteSpace = 'nowrap';
+                    span.style.fontSize = '12px';
+
+                    // Insert span right after the input (covers print where date input may render oddly)
+                    input.insertAdjacentElement('afterend', span);
+                }
+            })();
+
+            function printForm() {
+                syncDateDisplaysForPrint();
+                window.print();
+            }
+
+
+
+            // Update print-only date text right before the browser prints.
+            window.addEventListener('beforeprint', syncDateDisplaysForPrint);
+
+        </script>
+</body>
+
+</html>

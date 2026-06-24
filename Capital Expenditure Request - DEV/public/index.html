@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=1.1.0">
 </head>
 <body>
 
@@ -27,6 +27,7 @@
     <li><a href="#" class="nav-item" data-page="financial"><span>💰</span><span>Financial</span></a></li>
     <li><a href="#" class="nav-item" data-page="presidential"><span>👑</span><span>Presidential</span></a></li>
     <li><a href="#" class="nav-item" data-page="admin"><span>⚙️</span><span>Admin</span></a></li>
+    <li><a href="#" class="nav-item" data-page="howto"><span>❓</span><span>How To</span></a></li>
   </ul>
 </nav>
 
@@ -103,7 +104,8 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Requested By</th>
+              <th>Date</th>
+              <th>Req By</th>
               <th>Vendor</th>
               <th>Description</th>
               <th>Est. Cost</th>
@@ -113,10 +115,11 @@
             </tr>
           </thead>
           <tbody id="home-tbody">
-            <tr><td colspan="8" class="text-center text-muted" style="padding:2rem">Loading...</td></tr>
+            <tr><td colspan="9" class="text-center text-muted" style="padding:2rem">Loading...</td></tr>
           </tbody>
         </table>
       </div>
+      <div class="pagination-controls" id="home-pagination"></div>
     </div>
   </div>
 
@@ -142,15 +145,16 @@
         <table>
           <thead>
             <tr>
-              <th>#</th><th>Vendor</th><th>Description</th><th>Est. Cost</th>
+              <th>#</th><th>Date</th><th>Vendor</th><th>Description</th><th>Est. Cost</th>
               <th>Start Date</th><th>Status</th><th>Actions</th>
             </tr>
           </thead>
           <tbody id="req-list-tbody">
-            <tr><td colspan="7" class="text-center text-muted" style="padding:2rem">Loading...</td></tr>
+            <tr><td colspan="8" class="text-center text-muted" style="padding:2rem">Loading...</td></tr>
           </tbody>
         </table>
       </div>
+      <div class="pagination-controls" id="req-pagination"></div>
     </div>
 
     <!-- Request Form -->
@@ -162,7 +166,7 @@
 
       <div id="req-form-alert"></div>
 
-      <form id="req-form">
+      <form id="req-form" novalidate>
         <input type="hidden" id="req-id" value="">
 
         <div class="form-row cols-2">
@@ -190,7 +194,7 @@
         <div class="form-row cols-2">
           <div class="form-group">
             <label class="form-label" for="req-name">Requested By (Full Name) <span class="required">*</span></label>
-            <input type="text" class="form-control" id="req-name" placeholder="Your full name" required>
+            <input type="text" class="form-control" id="req-name" placeholder="enter your full name | example: John Tester" required>
           </div>
           <div class="form-group">
             <label class="form-label" for="req-email">Requestor Email <span class="required">*</span></label>
@@ -209,7 +213,7 @@
           <div class="form-group">
             <label class="form-label" for="req-dept-manager-email">Dept Manager Email <span class="required">*</span></label>
             <div class="input-group">
-              <input type="text" class="form-control" id="req-dept-manager-email" placeholder="e.g. manager_id" required>
+              <input type="text" class="form-control" id="req-dept-manager-email" placeholder="enter aqua userid | example: ckonkol" required>
               <span class="input-group-addon">@aqua-aerobic.com</span>
             </div>
           </div>
@@ -282,8 +286,8 @@
         <table>
           <thead>
             <tr>
-              <th>#</th><th>Requested By</th><th>Vendor</th><th>Description</th>
-              <th>Est. Cost</th><th>Date</th><th>Status</th><th>Actions</th>
+              <th>#</th><th>Date</th><th>Req By</th><th>Vendor</th><th>Description</th>
+              <th>Est. Cost</th><th>Status</th><th>Actions</th>
             </tr>
           </thead>
           <tbody id="dept-tbody">
@@ -291,6 +295,7 @@
           </tbody>
         </table>
       </div>
+      <div class="pagination-controls" id="dept-pagination"></div>
     </div>
     <!-- Detail View -->
     <div class="card hidden" id="dept-detail-card">
@@ -321,8 +326,8 @@
         <table>
           <thead>
             <tr>
-              <th>#</th><th>Requested By</th><th>Vendor</th><th>Description</th>
-              <th>Est. Cost</th><th>Dept. Approved</th><th>Status</th><th>Actions</th>
+              <th>#</th><th>Date</th><th>Req By</th><th>Vendor</th><th>Description</th>
+              <th>Est. Cost</th><th>Status</th><th>Actions</th>
             </tr>
           </thead>
           <tbody id="fin-tbody">
@@ -330,6 +335,7 @@
           </tbody>
         </table>
       </div>
+      <div class="pagination-controls" id="fin-pagination"></div>
     </div>
     <!-- Accounting Details (always shown here for reference) -->
     <div class="card mb-3" id="fin-acc-card" style="display:none">
@@ -433,8 +439,8 @@
         <table>
           <thead>
             <tr>
-              <th>#</th><th>Requested By</th><th>Vendor</th><th>Description</th>
-              <th>Est. Cost</th><th>Fin. Approved</th><th>Status</th><th>Actions</th>
+              <th>#</th><th>Date</th><th>Req By</th><th>Vendor</th><th>Description</th>
+              <th>Est. Cost</th><th>Status</th><th>Actions</th>
             </tr>
           </thead>
           <tbody id="pres-tbody">
@@ -442,6 +448,7 @@
           </tbody>
         </table>
       </div>
+      <div class="pagination-controls" id="pres-pagination"></div>
     </div>
     <!-- Detail View -->
     <div class="card hidden" id="pres-detail-card">
@@ -513,7 +520,7 @@
           </div>
         </div>
 
-        <h4 style="margin: 1.5rem 0 0.5rem 0; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">SMTP Configuration</h4>
+        <h4 style="margin: 1.5rem 0 0.5rem 0; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">SMTP Configuration (FOR IT ONLY)</h4>
         <div class="form-row cols-2">
           <div class="form-group">
             <label class="form-label" for="admin-smtp-host">SMTP Host</label>
@@ -550,10 +557,522 @@
           </div>
         </div>
 
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label class="form-label" for="admin-from-email-name">From Email Address Name</label>
+            <input type="text" class="form-control" id="admin-from-email-name" placeholder="Aqua-Aerobic Systems Accounting">
+            <div class="form-hint mt-1">Display name shown in the "From" field of outgoing emails.</div>
+          </div>
+        </div>
+
         <div class="flex justify-end mt-2">
           <button type="submit" class="btn btn-primary" id="btn-save-settings">💾 Save Settings</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ── HOW TO PAGE ───────────────────────────────────────── -->
+  <div class="page-view" id="page-howto">
+    <div class="page-header">
+      <h1>❓ How To Use This App</h1>
+      <p>A step-by-step guide for submitting and managing Capital Expenditure Requests.</p>
+    </div>
+
+    <!-- Quick Nav -->
+    <div class="howto-quicknav-sticky">
+    <div class="howto-quicknav card mb-3">
+      <div class="card-header">
+        <h3>📑 Quick Navigation</h3>
+      </div>
+      <div class="howto-quicknav-grid">
+        <a href="#" class="howto-quicknav-item" onclick="scrollToHowto('howto-overview'); return false;">
+          <span class="howto-quicknav-icon">🗺️</span>
+          <span class="howto-quicknav-label">Overview</span>
+        </a>
+        <a href="#" class="howto-quicknav-item" onclick="scrollToHowto('howto-submit'); return false;">
+          <span class="howto-quicknav-icon">📝</span>
+          <span class="howto-quicknav-label">Submit a Request</span>
+        </a>
+        <a href="#" class="howto-quicknav-item" onclick="scrollToHowto('howto-dept'); return false;">
+          <span class="howto-quicknav-icon">🏢</span>
+          <span class="howto-quicknav-label">Department Approval</span>
+        </a>
+        <a href="#" class="howto-quicknav-item" onclick="scrollToHowto('howto-fin'); return false;">
+          <span class="howto-quicknav-icon">💰</span>
+          <span class="howto-quicknav-label">Financial Approval</span>
+        </a>
+        <a href="#" class="howto-quicknav-item" onclick="scrollToHowto('howto-pres'); return false;">
+          <span class="howto-quicknav-icon">👑</span>
+          <span class="howto-quicknav-label">Presidential Approval</span>
+        </a>
+        <a href="#" class="howto-quicknav-item" onclick="scrollToHowto('howto-print'); return false;">
+          <span class="howto-quicknav-icon">🖨️</span>
+          <span class="howto-quicknav-label">Print Form</span>
+        </a>
+        <a href="#" class="howto-quicknav-item" onclick="scrollToHowto('howto-admin'); return false;">
+          <span class="howto-quicknav-icon">⚙️</span>
+          <span class="howto-quicknav-label">Admin Settings</span>
+        </a>
+        <a href="#" class="howto-quicknav-item" onclick="scrollToHowto('howto-faq'); return false;">
+          <span class="howto-quicknav-icon">💬</span>
+          <span class="howto-quicknav-label">FAQ</span>
+        </a>
+      </div>
+    </div>
+    </div>
+
+    <!-- Overview -->
+    <div class="howto-section" id="howto-overview">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>🗺️ Workflow Overview</h3>
+        </div>
+        <p class="mb-2" style="color:var(--text-secondary); font-size: 0.95rem;">
+          Every capital expenditure request follows a structured approval pipeline. Here's the complete flow from start to finish:
+        </p>
+
+        <!-- Access Roles Summary -->
+        <div style="margin-bottom:1.5rem;">
+          <h4 class="mb-1" style="color:var(--text-primary);">Who Can Do What</h4>
+          <div class="howto-dual-action" style="grid-template-columns:1fr 1fr 1fr;">
+            <div class="howto-action-card" style="background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.25);">
+              <h5 style="color:#93c5fd;">📝 All Employees</h5>
+              <p>Visit <a href="http://www.aqua-aerobic.net:5030/" style="color:var(--accent-light);font-weight:600;">aqua-aerobic.net:5030</a> to create a new expenditure request. No login required.</p>
+            </div>
+            <div class="howto-action-card" style="background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.25);">
+              <h5 style="color:#fbbf24;">📧 Managers &amp; President</h5>
+              <p>Approve or deny requests <strong>exclusively via the email link</strong> sent when a request reaches your approval stage.</p>
+            </div>
+            <div class="howto-action-card" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.25);">
+              <h5 style="color:#4ade80;">🔐 Accounting Only</h5>
+              <p>Full access to Dashboard, Financial, Admin, and the ability to <strong>delete requests</strong>. Requires Aqua UserID &amp; passcode.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="howto-flow">
+          <div class="howto-flow-step">
+            <div class="howto-flow-num">1</div>
+            <div class="howto-flow-content">
+              <div class="howto-flow-title">📝 Requestor Submits</div>
+              <div class="howto-flow-desc">Any employee visits <strong>aqua-aerobic.net:5030</strong> and fills out the procurement form with vendor, cost, description, and their digital signature.</div>
+            </div>
+          </div>
+          <div class="howto-flow-connector"></div>
+          <div class="howto-flow-step">
+            <div class="howto-flow-num">2</div>
+            <div class="howto-flow-content">
+              <div class="howto-flow-title">🏢 Department Review</div>
+              <div class="howto-flow-desc">The department manager receives an email with a direct link and approves or denies the request with their signature.</div>
+            </div>
+          </div>
+          <div class="howto-flow-connector"></div>
+          <div class="howto-flow-step">
+            <div class="howto-flow-num">3</div>
+            <div class="howto-flow-content">
+              <div class="howto-flow-title">💰 Financial Review (Accounting)</div>
+              <div class="howto-flow-desc">Accounting logs in with their UserID &amp; passcode, verifies fund availability, enters accounting details, and approves.</div>
+            </div>
+          </div>
+          <div class="howto-flow-connector"></div>
+          <div class="howto-flow-step howto-flow-step--conditional">
+            <div class="howto-flow-num">4</div>
+            <div class="howto-flow-content">
+              <div class="howto-flow-title">👑 Presidential Review</div>
+              <div class="howto-flow-desc">Only required when the estimated cost exceeds <strong>$25,000</strong>. The president receives an email link for final sign-off.</div>
+              <span class="badge badge-warning" style="margin-top:0.5rem;">Conditional — Over $25K Only</span>
+            </div>
+          </div>
+          <div class="howto-flow-connector"></div>
+          <div class="howto-flow-step howto-flow-step--final">
+            <div class="howto-flow-num">✓</div>
+            <div class="howto-flow-content">
+              <div class="howto-flow-title">✅ Approved!</div>
+              <div class="howto-flow-desc">Request is fully approved. A printable form with all signatures is available.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit a Request -->
+    <div class="howto-section" id="howto-submit">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>📝 How to Submit a Request</h3>
+        </div>
+        <div class="howto-steps">
+          <div class="howto-step">
+            <div class="howto-step-number">1</div>
+            <div class="howto-step-body">
+              <h4>Visit the App</h4>
+              <p>Open your browser and go to <a href="http://www.aqua-aerobic.net:5030/" style="color:var(--accent-light);font-weight:600;">http://www.aqua-aerobic.net:5030/</a> — no login is required. Click the <strong>"+ Create New Request"</strong> button on the Home page.</p>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">2</div>
+            <div class="howto-step-body">
+              <h4>Fill Out the Form</h4>
+              <p>Complete all required fields (marked with <span style="color:var(--danger);">*</span>):</p>
+              <ul class="howto-list">
+                <li><strong>Vendor</strong> — The supplier or vendor name</li>
+                <li><strong>Estimated Start Date</strong> — When you expect the work to begin</li>
+                <li><strong>Description</strong> — Detailed description of the expenditure</li>
+                <li><strong>Estimated Cost</strong> — Total estimated cost in USD</li>
+                <li><strong>Your Full Name</strong> — Your legal name for the signature</li>
+                <li><strong>Your Email</strong> — Enter your Aqua user ID (the system appends @aqua-aerobic.com)</li>
+                <li><strong>Department Manager</strong> — Name and email of your department manager</li>
+              </ul>
+              <div class="howto-tip">
+                <span>💡</span>
+                <span>If the estimated cost exceeds <strong>$25,000</strong>, the request will automatically require Presidential approval after Financial approval.</span>
+              </div>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">3</div>
+            <div class="howto-step-body">
+              <h4>Attach Supporting Documents</h4>
+              <p>Upload any relevant quotes, invoices, or supporting documents. Accepted formats: <strong>PDF, Word, Excel</strong>. Maximum <strong>10MB</strong> per file. You can drag and drop files or click to browse.</p>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">4</div>
+            <div class="howto-step-body">
+              <h4>Generate Your Signature</h4>
+              <p>Enter your full name in the "Requested By" field, then click <strong>"✍️ Generate Signature"</strong>. A digital signature will be created from your name. This signature is <strong>mandatory</strong> for submission.</p>
+              <div class="howto-warning">
+                <span>⚠️</span>
+                <span>You cannot submit a request without a signature. Make sure to enter your full name first, then generate the signature.</span>
+              </div>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">5</div>
+            <div class="howto-step-body">
+              <h4>Submit</h4>
+              <p>Click <strong>"Submit Request"</strong>. Your request will be saved and an email notification will be sent to your department manager for review. The status will show as <span class="badge badge-pending">⏳ Pending Dept.</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Department Approval -->
+    <div class="howto-section" id="howto-dept">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>🏢 Department Approval</h3>
+          <span class="badge badge-info">For Department Managers</span>
+        </div>
+        <div class="howto-steps">
+          <div class="howto-step">
+            <div class="howto-step-number">1</div>
+            <div class="howto-step-body">
+              <h4>Open the Email Notification</h4>
+              <p>When a request is submitted, you will receive an <strong>email notification</strong> with the request details and a direct link to review it.</p>
+              <div class="howto-tip">
+                <span>📧</span>
+                <span>The email contains a unique link for each request (e.g. <code style="background:var(--bg-input);padding:2px 6px;border-radius:4px;font-size:0.8rem;">#department?id=123</code>). This is the <strong>only way</strong> to access a specific request for review.</span>
+              </div>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">2</div>
+            <div class="howto-step-body">
+              <h4>Click the Link to Review</h4>
+              <p>Click the <strong>direct link</strong> in the email. This will open the app and take you straight to the request details for that specific Request ID — including vendor, cost, description, requestor info, attached documents, and the requestor's signature.</p>
+              <div class="howto-warning">
+                <span>⚠️</span>
+                <span>You must use the link from the email to review a request. The link contains the Request ID and will load the correct request automatically.</span>
+              </div>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">3</div>
+            <div class="howto-step-body">
+              <h4>Approve or Deny</h4>
+              <div class="howto-dual-action">
+                <div class="howto-action-card howto-action-approve">
+                  <h5>✓ To Approve</h5>
+                  <p>Click the green <strong>"✓ Approve Request"</strong> button. Enter your name, generate your digital signature, confirm the date, and add any optional comments. Then click <strong>"Confirm"</strong>.</p>
+                </div>
+                <div class="howto-action-card howto-action-deny">
+                  <h5>✗ To Deny</h5>
+                  <p>Click the red <strong>"✗ Deny Request"</strong> button. Enter your name and provide a <strong>mandatory reason</strong> for denial. This action cannot be undone.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Financial Approval -->
+    <div class="howto-section" id="howto-fin">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>💰 Financial Approval</h3>
+          <span class="badge badge-financial">Accounting Department Only</span>
+        </div>
+        <div class="howto-tip mb-2" style="margin-top:0;">
+          <span>🔐</span>
+          <span>This section applies to the <strong>Accounting department only</strong>. Accounting staff have global access to the app using their Aqua UserID and passcode.</span>
+        </div>
+        <div class="howto-steps">
+          <div class="howto-step">
+            <div class="howto-step-number">1</div>
+            <div class="howto-step-body">
+              <h4>Log In &amp; Open the Financial Page</h4>
+              <p>Click <strong>"Financial"</strong> in the navigation bar and log in with your <strong>Aqua UserID and passcode</strong>. Only Accounting staff have access to this page. Requests that have passed department approval will appear here.</p>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">2</div>
+            <div class="howto-step-body">
+              <h4>Enter Accounting Details</h4>
+              <p>When you review a request, an <strong>Accounting Details</strong> form will appear. Fill in the relevant fields:</p>
+              <ul class="howto-list">
+                <li><strong>B Number</strong> — Internal budget number</li>
+                <li><strong>Fixed Asset Account</strong> — GL account for fixed assets</li>
+                <li><strong>Property Type</strong> — Classification of the asset</li>
+                <li><strong>Fiscal Year</strong> — e.g., FY2026</li>
+                <li><strong>Entered By</strong> — Your name</li>
+                <li><strong>Class</strong> — Asset class</li>
+                <li><strong>Accum. Depreciation Account</strong> — Accumulated depreciation GL account</li>
+                <li><strong>Depreciation Expense Account</strong> — Expense GL account</li>
+                <li><strong>UseTax / Equipment Exempt / Tooling</strong> — Toggle checkboxes as applicable</li>
+              </ul>
+              <p>Click <strong>"💾 Save Accounting Details"</strong> to save before approving.</p>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">3</div>
+            <div class="howto-step-body">
+              <h4>Approve or Deny</h4>
+              <p>Same process as Department approval — enter your name, generate your signature, and confirm. Upon approval:</p>
+              <ul class="howto-list">
+                <li>If cost ≤ $25,000 → Request is <strong>fully approved</strong></li>
+                <li>If cost > $25,000 → Request moves to <strong>Presidential Approval</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Presidential Approval -->
+    <div class="howto-section" id="howto-pres">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>👑 Presidential Approval</h3>
+          <span class="badge badge-pres">For Executive/CEO</span>
+        </div>
+        <div class="howto-steps">
+          <div class="howto-step">
+            <div class="howto-step-number">1</div>
+            <div class="howto-step-body">
+              <h4>When Is This Required?</h4>
+              <p>Presidential approval is <strong>only required</strong> for requests with an estimated cost exceeding <strong>$25,000</strong>. After financial approval, an email notification is sent to the presidential/CEO email address.</p>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">2</div>
+            <div class="howto-step-body">
+              <h4>Open the Email Notification</h4>
+              <p>You will receive an <strong>email notification</strong> containing the request details and a direct link to review it.</p>
+              <div class="howto-tip">
+                <span>📧</span>
+                <span>The email contains a unique link for the request (e.g. <code style="background:var(--bg-input);padding:2px 6px;border-radius:4px;font-size:0.8rem;">#presidential?id=456</code>). This is the <strong>only way</strong> to access a specific request for presidential review.</span>
+              </div>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">3</div>
+            <div class="howto-step-body">
+              <h4>Click the Link & Review</h4>
+              <p>Click the <strong>direct link</strong> in the email. The app will open directly to the request, showing all details including prior department and financial approvals. Then approve or deny using the same signature workflow as other approval stages.</p>
+              <div class="howto-warning">
+                <span>⚠️</span>
+                <span>You must use the link from the email to review a request. The link contains the Request ID and will load the correct request automatically.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Printing -->
+    <div class="howto-section" id="howto-print">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>🖨️ Printing a Request Form</h3>
+        </div>
+        <div class="howto-steps">
+          <div class="howto-step">
+            <div class="howto-step-number">1</div>
+            <div class="howto-step-body">
+              <h4>When Can I Print?</h4>
+              <p>The <strong>"🖨 Print"</strong> button becomes available once a request has been <strong>fully approved</strong>. You'll find it in the Actions column on the Dashboard or Request page.</p>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">2</div>
+            <div class="howto-step-body">
+              <h4>Print the Form</h4>
+              <p>Click <strong>"🖨 Print"</strong> to open a print preview modal with a formatted report including all request details, signatures, and accounting information. Click <strong>"🖨️ Print"</strong> in the modal footer to send to your printer or save as PDF.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Settings -->
+    <div class="howto-section" id="howto-admin">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>⚙️ Admin Settings</h3>
+          <span class="badge badge-financial">Accounting Department Only</span>
+        </div>
+        <div class="howto-tip mb-2" style="margin-top:0;">
+          <span>🔐</span>
+          <span>The Admin page is restricted to the <strong>Accounting department</strong>. You must log in with your Aqua UserID and passcode to access it.</span>
+        </div>
+        <div class="howto-steps">
+          <div class="howto-step">
+            <div class="howto-step-number">1</div>
+            <div class="howto-step-body">
+              <h4>Activity Logs</h4>
+              <p>The Admin page shows a log of all system actions — submissions, approvals, denials, and deletions with timestamps. Use the <strong>"↻ Refresh"</strong> button to update the log.</p>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">2</div>
+            <div class="howto-step-body">
+              <h4>Email &amp; System Settings</h4>
+              <p>Click the <strong>"Email &amp; System Settings"</strong> header to expand the settings panel. Here you can configure:</p>
+              <ul class="howto-list">
+                <li><strong>Accounting Email</strong> — Where financial approval notifications are sent</li>
+                <li><strong>Presidential Email</strong> — Where CEO approval notifications are sent (for requests > $25K)</li>
+                <li><strong>App Passcode</strong> — The authentication code used for Accounting login and request deletion</li>
+                <li><strong>SMTP Configuration</strong> — Host, port, credentials, and TLS settings for outgoing email</li>
+              </ul>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">3</div>
+            <div class="howto-step-body">
+              <h4>Deleting Requests</h4>
+              <p>To delete a request, click the <strong>"🗑 Delete"</strong> button in the Actions column. You'll need to provide:</p>
+              <ul class="howto-list">
+                <li>Your <strong>full name</strong> (must match the requestor name)</li>
+                <li>The <strong>system passcode</strong></li>
+              </ul>
+              <div class="howto-warning">
+                <span>⚠️</span>
+                <span>Deletion is permanent and cannot be undone. Only the original requestor can delete their own request.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="howto-section" id="howto-faq">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>💬 Frequently Asked Questions</h3>
+        </div>
+        <div class="howto-faq-list">
+          <div class="howto-faq-item">
+            <button class="howto-faq-question" onclick="this.parentElement.classList.toggle('open')">
+              <span>Can I edit a request after submitting it?</span>
+              <span class="howto-faq-chevron">▼</span>
+            </button>
+            <div class="howto-faq-answer">
+              <p>Yes, but <strong>only</strong> while the request is in <strong>"Pending Department"</strong> status. Once your department manager has reviewed it, the request is locked and can no longer be edited. You'll see an "✏ Edit" button on the Request page for eligible requests.</p>
+            </div>
+          </div>
+          <div class="howto-faq-item">
+            <button class="howto-faq-question" onclick="this.parentElement.classList.toggle('open')">
+              <span>What happens when a request is denied?</span>
+              <span class="howto-faq-chevron">▼</span>
+            </button>
+            <div class="howto-faq-answer">
+              <p>When a request is denied at any stage (Department, Financial, or Presidential), it is marked as <span class="badge badge-denied">✗ Denied</span> and the denial reason is recorded. The requestor will receive an email notification. Denied requests cannot be resubmitted — you must create a new request.</p>
+            </div>
+          </div>
+          <div class="howto-faq-item">
+            <button class="howto-faq-question" onclick="this.parentElement.classList.toggle('open')">
+              <span>What file types can I upload?</span>
+              <span class="howto-faq-chevron">▼</span>
+            </button>
+            <div class="howto-faq-answer">
+              <p>You can upload the following file types: <strong>PDF</strong> (.pdf), <strong>Word</strong> (.doc, .docx), and <strong>Excel</strong> (.xls, .xlsx). Each file must be under <strong>10MB</strong>. There is no limit on the number of files you can attach.</p>
+            </div>
+          </div>
+          <div class="howto-faq-item">
+            <button class="howto-faq-question" onclick="this.parentElement.classList.toggle('open')">
+              <span>Who needs to log in?</span>
+              <span class="howto-faq-chevron">▼</span>
+            </button>
+            <div class="howto-faq-answer">
+              <p>Only the <strong>Accounting department</strong> needs to log in. They use their <strong>Aqua UserID</strong> and the system <strong>passcode</strong> to access the Dashboard, Financial page, Admin page, and deletion features. Authentication lasts for <strong>1 hour</strong> before re-authentication is required.</p>
+              <p style="margin-top:0.5rem;">All other users — requestors, department managers, and the president — do <strong>not</strong> need to log in. Requestors visit the app URL to submit requests, and approvers use the direct link from their email notification.</p>
+            </div>
+          </div>
+          <div class="howto-faq-item">
+            <button class="howto-faq-question" onclick="this.parentElement.classList.toggle('open')">
+              <span>How do digital signatures work?</span>
+              <span class="howto-faq-chevron">▼</span>
+            </button>
+            <div class="howto-faq-answer">
+              <p>Signatures are generated from your typed name using a cursive font. Enter your full name in the appropriate field, then click <strong>"✍️ Generate Signature"</strong>. The signature is rendered on a canvas and saved as a PNG image that appears on the printed form. You can click <strong>"Clear"</strong> to regenerate if needed.</p>
+            </div>
+          </div>
+          <div class="howto-faq-item">
+            <button class="howto-faq-question" onclick="this.parentElement.classList.toggle('open')">
+              <span>Do I receive email notifications?</span>
+              <span class="howto-faq-chevron">▼</span>
+            </button>
+            <div class="howto-faq-answer">
+              <p>Yes! The system sends email notifications at each stage:</p>
+              <ul class="howto-list">
+                <li><strong>On submission</strong> — Email sent to the department manager</li>
+                <li><strong>On department approval</strong> — Email sent to the accounting/finance email</li>
+                <li><strong>On financial approval (> $25K)</strong> — Email sent to the presidential/CEO email</li>
+                <li><strong>On final approval</strong> — Email sent back to the original requestor</li>
+                <li><strong>On denial</strong> — Email sent to the original requestor with the denial reason</li>
+              </ul>
+            </div>
+          </div>
+          <div class="howto-faq-item">
+            <button class="howto-faq-question" onclick="this.parentElement.classList.toggle('open')">
+              <span>What does the Dashboard show?</span>
+              <span class="howto-faq-chevron">▼</span>
+            </button>
+            <div class="howto-faq-answer">
+              <p>The Dashboard provides an overview of all requests with summary statistics: total requests, pending department, pending financial, pending presidential, approved, and denied counts. It also shows a complete table of all requests with quick actions (View, Print, Delete). <strong>Only the Accounting department</strong> has access to the Dashboard.</p>
+            </div>
+          </div>
+          <div class="howto-faq-item">
+            <button class="howto-faq-question" onclick="this.parentElement.classList.toggle('open')">
+              <span>Who can delete a request?</span>
+              <span class="howto-faq-chevron">▼</span>
+            </button>
+            <div class="howto-faq-answer">
+              <p><strong>Only the Accounting department</strong> can delete requests. Deletion requires entering a full name and the system passcode. This action is permanent and cannot be undone. Other users (requestors, managers, president) do not have delete access.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div style="text-align: center; padding: 2rem 0;">
+      <button class="btn btn-ghost" onclick="document.getElementById('page-howto').scrollIntoView({behavior:'smooth'})">↑ Back to Top</button>
     </div>
   </div>
 
@@ -635,8 +1154,8 @@
       <span>This will permanently delete the request. This action cannot be undone.</span>
     </div>
     <div class="form-group">
-      <label class="form-label" for="delete-fullname">Your Full Name <span class="required">*</span></label>
-      <input type="text" class="form-control" id="delete-fullname" placeholder="Must match requestor name">
+      <label class="form-label" for="delete-fullname">Requestor Full Name <span class="required">*</span></label>
+      <input type="text" class="form-control" id="delete-fullname" placeholder="Enter the requestor's full name">
     </div>
     <div class="form-group">
       <label class="form-label" for="delete-code">System Passcode <span class="required">*</span></label>
@@ -694,6 +1213,6 @@
   <span>Copyright © 2026 Aqua-Aerobic Systems, Inc. — All Rights Reserved</span>
 </footer>
 
-<script src="app.js"></script>
+<script src="app.js?v=1.1.0"></script>
 </body>
 </html>

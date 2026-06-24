@@ -20,6 +20,16 @@ let reqFormMode = 'new'; // 'new' | 'edit'
 let isAuthenticated = false;
 let authTargetPage = null;
 
+// Pagination state
+const ROWS_PER_PAGE = 25;
+let paginationState = {
+  home: { page: 1, total: 0 },
+  req: { page: 1, total: 0 },
+  dept: { page: 1, total: 0 },
+  fin: { page: 1, total: 0 },
+  pres: { page: 1, total: 0 },
+};
+
 // ══════════════════════════════════════════════════════════════
 // NAVIGATION
 // ══════════════════════════════════════════════════════════════
@@ -40,7 +50,7 @@ function navigate(hashStr) {
     }
   }
 
-  if (page !== 'home' && !targetId && !isAuthenticated) {
+  if (page !== 'home' && page !== 'howto' && page !== 'requestor' && !targetId && !isAuthenticated) {
     authTargetPage = hashStr;
     document.getElementById('auth-name').value = '';
     document.getElementById('auth-code').value = '';
@@ -71,7 +81,13 @@ function navigate(hashStr) {
     case 'financial':  loadFinancial(targetId);  break;
     case 'presidential': loadPresidential(targetId); break;
     case 'admin':      loadAdmin();      break;
+    case 'howto':      break; // static page, no data to load
   }
+}
+
+function scrollToHowto(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 document.querySelectorAll('.nav-links a').forEach(link => {
@@ -85,9 +101,13 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 // API HELPERS
 // ══════════════════════════════════════════════════════════════
 async function apiFetch(endpoint, options = {}) {
+  const method = (options.method || 'GET').toUpperCase();
+  const headers = { ...options.headers };
+  if (method !== 'GET') headers['Content-Type'] = 'application/json';
   const res = await fetch(API + endpoint, {
-    headers: { 'Content-Type': 'application/json' },
+    cache: 'no-store',
     ...options,
+    headers,
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || 'Request failed');
@@ -264,6 +284,43 @@ function fmtCurrency(val) {
 function fmtDate(val) {
   if (!val) return '–';
   return new Date(val).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function fmtSmartDate(r) {
+  if (r.UpdatedAt && r.UpdatedAt !== r.CreatedAt) {
+    return `<span title="Updated: ${new Date(String(r.UpdatedAt).replace(/Z$/i, '')).toLocaleString()}">${fmtDate(r.UpdatedAt)}</span>`;
+  }
+  return `<span title="Created: ${new Date(String(r.CreatedAt).replace(/Z$/i, '')).toLocaleString()}">${fmtDate(r.CreatedAt)}</span>`;
+}
+
+function paginateRows(rows, stateKey) {
+  const state = paginationState[stateKey];
+  state.total = Math.ceil(rows.length / ROWS_PER_PAGE);
+  if (state.page > state.total) state.page = state.total || 1;
+  const start = (state.page - 1) * ROWS_PER_PAGE;
+  return rows.slice(start, start + ROWS_PER_PAGE);
+}
+
+function renderPagination(containerId, stateKey, renderFn) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const state = paginationState[stateKey];
+  if (state.total <= 1) { container.innerHTML = ''; return; }
+
+  let html = '<div class="pagination">';
+  html += `<button class="btn btn-ghost btn-sm" ${state.page <= 1 ? 'disabled' : ''} onclick="paginateTo('${stateKey}', ${state.page - 1}, '${renderFn.name}')">← Prev</button>`;
+  html += `<span class="pagination-info">Page ${state.page} of ${state.total}</span>`;
+  html += `<button class="btn btn-ghost btn-sm" ${state.page >= state.total ? 'disabled' : ''} onclick="paginateTo('${stateKey}', ${state.page + 1}, '${renderFn.name}')">Next →</button>`;
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function paginateTo(stateKey, page, renderFnName) {
+  paginationState[stateKey].page = page;
+  const fnMap = {
+    renderDashboardTable, renderReqListTable, renderDeptTable, renderFinTable, renderPresTable
+  };
+  if (fnMap[renderFnName]) fnMap[renderFnName]();
 }
 
 function statusBadge(status) {
@@ -452,12 +509,15 @@ function updateStats() {
 function renderDashboardTable() {
   const tbody = document.getElementById('home-tbody');
   if (!allRequests.length) {
-    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">No requests found. <a href="#" onclick="navigate(\'requestor\')">Create one!</a></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted" style="padding:2rem">No requests found. <a href="#" onclick="navigate(\'requestor\')">Create one!</a></td></tr>';
+    document.getElementById('home-pagination').innerHTML = '';
     return;
   }
-  tbody.innerHTML = allRequests.map(r => `
+  const pageRows = paginateRows(allRequests, 'home');
+  tbody.innerHTML = pageRows.map(r => `
     <tr>
       <td class="font-semibold text-accent">#${r.Id}</td>
+      <td>${fmtSmartDate(r)}</td>
       <td>${fmt(r.RequestedBy)}</td>
       <td>${fmt(r.Vendor)}</td>
       <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmt(r.Description)}</td>
@@ -473,6 +533,7 @@ function renderDashboardTable() {
       </td>
     </tr>
   `).join('');
+  renderPagination('home-pagination', 'home', renderDashboardTable);
 }
 
 document.getElementById('btn-refresh-home').addEventListener('click', loadDashboard);
@@ -534,35 +595,43 @@ async function loadReqList() {
   showLoading();
   try {
     await loadAllRequests();
-    const tbody = document.getElementById('req-list-tbody');
-    if (!allRequests.length) {
-      tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted" style="padding:2rem">No requests yet. Click "+ New Request" to get started.</td></tr>';
-      return;
-    }
-    tbody.innerHTML = allRequests.map(r => `
-      <tr>
-        <td class="font-semibold text-accent">#${r.Id}</td>
-        <td>${fmt(r.Vendor)}</td>
-        <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmt(r.Description)}</td>
-        <td>${fmtCurrency(r.EstimatedCost)}</td>
-        <td>${fmtDate(r.StartDate)}</td>
-        <td>${statusBadge(r.Status)}</td>
-        <td>
-          <div class="flex gap-1">
-            ${r.Status === 'Pending Department' 
-              ? `<button class="btn btn-ghost btn-sm" onclick="editRequest(${r.Id})">✏ Edit</button>` 
-              : `<button class="btn btn-ghost btn-sm" onclick="viewReqDetail(${r.Id})">👁 View</button>`}
-            ${r.Status === 'Approved' ? `<button class="btn btn-teal btn-sm" onclick="openPrintModal(${r.Id})">🖨 Print</button>` : ''}
-            <button class="btn btn-danger btn-sm" onclick="openDeleteModal(${r.Id})">🗑 Delete</button>
-          </div>
-        </td>
-      </tr>
-    `).join('');
+    renderReqListTable();
   } catch (e) {
     toast('Error loading requests: ' + e.message, 'error');
   } finally {
     hideLoading();
   }
+}
+
+function renderReqListTable() {
+  const tbody = document.getElementById('req-list-tbody');
+  if (!allRequests.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">No requests yet. Click "+ New Request" to get started.</td></tr>';
+    document.getElementById('req-pagination').innerHTML = '';
+    return;
+  }
+  const pageRows = paginateRows(allRequests, 'req');
+  tbody.innerHTML = pageRows.map(r => `
+    <tr>
+      <td class="font-semibold text-accent">#${r.Id}</td>
+      <td>${fmtSmartDate(r)}</td>
+      <td>${fmt(r.Vendor)}</td>
+      <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmt(r.Description)}</td>
+      <td>${fmtCurrency(r.EstimatedCost)}</td>
+      <td>${fmtDate(r.StartDate)}</td>
+      <td>${statusBadge(r.Status)}</td>
+      <td>
+        <div class="flex gap-1">
+          ${r.Status === 'Pending Department' 
+            ? `<button class="btn btn-ghost btn-sm" onclick="editRequest(${r.Id})">✏ Edit</button>` 
+            : `<button class="btn btn-ghost btn-sm" onclick="viewReqDetail(${r.Id})">👁 View</button>`}
+          ${r.Status === 'Approved' ? `<button class="btn btn-teal btn-sm" onclick="openPrintModal(${r.Id})">🖨 Print</button>` : ''}
+          <button class="btn btn-danger btn-sm" onclick="openDeleteModal(${r.Id})">🗑 Delete</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+  renderPagination('req-pagination', 'req', renderReqListTable);
 }
 
 function editRequest(id) {
@@ -675,8 +744,28 @@ document.getElementById('req-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   clearAlert('req-form-alert');
 
+  // Validate required fields
+  const requiredFields = [
+    { id: 'req-vendor', label: 'Vendor' },
+    { id: 'req-start-date', label: 'Estimated Start Date' },
+    { id: 'req-description', label: 'Description' },
+    { id: 'req-cost', label: 'Estimated Cost' },
+    { id: 'req-name', label: 'Full Name' },
+    { id: 'req-email', label: 'Requestor Email' },
+    { id: 'req-dept-manager', label: 'Department Manager Name' },
+    { id: 'req-dept-manager-email', label: 'Dept Manager Email' },
+  ];
+  const missing = requiredFields.filter(f => !document.getElementById(f.id).value.trim());
+  if (missing.length) {
+    const msg = 'Required fields must be provided: ' + missing.map(f => f.label).join(', ');
+    showAlert('req-form-alert', msg, 'error');
+    toast('Required fields must be provided.', 'error');
+    return;
+  }
+
   if (!reqSigPad || reqSigPad.isEmpty()) {
     showAlert('req-form-alert', 'Signature is required. Please sign the form before submitting.', 'error');
+    toast('Signature is required.', 'error');
     return;
   }
 
@@ -757,22 +846,25 @@ function renderDeptTable() {
   const tbody = document.getElementById('dept-tbody');
   if (!reqs.length) {
     tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">No requests pending department approval.</td></tr>';
+    document.getElementById('dept-pagination').innerHTML = '';
     return;
   }
-  tbody.innerHTML = reqs.map(r => `
+  const pageRows = paginateRows(reqs, 'dept');
+  tbody.innerHTML = pageRows.map(r => `
     <tr>
       <td class="font-semibold text-accent">#${r.Id}</td>
+      <td>${fmtSmartDate(r)}</td>
       <td>${fmt(r.RequestedBy)}</td>
       <td>${fmt(r.Vendor)}</td>
       <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmt(r.Description)}</td>
       <td>${fmtCurrency(r.EstimatedCost)}</td>
-      <td>${fmtDate(r.CreatedAt)}</td>
       <td>${statusBadge(r.Status)}</td>
       <td>
         <button class="btn btn-primary btn-sm" onclick="viewDeptDetail(${r.Id})">Review</button>
       </td>
     </tr>
   `).join('');
+  renderPagination('dept-pagination', 'dept', renderDeptTable);
 }
 
 function viewDeptDetail(id) {
@@ -826,22 +918,25 @@ function renderFinTable() {
   const tbody = document.getElementById('fin-tbody');
   if (!reqs.length) {
     tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">No requests pending financial approval.</td></tr>';
+    document.getElementById('fin-pagination').innerHTML = '';
     return;
   }
-  tbody.innerHTML = reqs.map(r => `
+  const pageRows = paginateRows(reqs, 'fin');
+  tbody.innerHTML = pageRows.map(r => `
     <tr>
       <td class="font-semibold text-accent">#${r.Id}</td>
+      <td>${fmtSmartDate(r)}</td>
       <td>${fmt(r.RequestedBy)}</td>
       <td>${fmt(r.Vendor)}</td>
       <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmt(r.Description)}</td>
       <td>${fmtCurrency(r.EstimatedCost)}</td>
-      <td>${r.DeptApprovalDate ? fmtDate(r.DeptApprovalDate) : '–'}</td>
       <td>${statusBadge(r.Status)}</td>
       <td>
         <button class="btn btn-primary btn-sm" onclick="viewFinDetail(${r.Id})">Review</button>
       </td>
     </tr>
   `).join('');
+  renderPagination('fin-pagination', 'fin', renderFinTable);
 }
 
 function viewFinDetail(id) {
@@ -881,7 +976,15 @@ document.getElementById('btn-close-fin-detail').addEventListener('click', () => 
   document.getElementById('fin-detail-card').classList.add('hidden');
   document.getElementById('fin-acc-card').style.display = 'none';
 });
-document.getElementById('btn-fin-approve').addEventListener('click', () => openApprovalModal('Financial', 'Approve'));
+document.getElementById('btn-fin-approve').addEventListener('click', () => {
+  // Verify accounting details have been saved before allowing approval
+  const r = allRequests.find(x => x.Id === currentApprovalRequestId);
+  if (r && !r.EnteredBy) {
+    toast('Please save Accounting Details before approving.', 'error');
+    return;
+  }
+  openApprovalModal('Financial', 'Approve');
+});
 document.getElementById('btn-fin-deny').addEventListener('click', openDenyModal);
 
 // Accounting form submit
@@ -942,22 +1045,25 @@ function renderPresTable() {
   const tbody = document.getElementById('pres-tbody');
   if (!reqs.length) {
     tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:2rem">No requests pending presidential approval.</td></tr>';
+    document.getElementById('pres-pagination').innerHTML = '';
     return;
   }
-  tbody.innerHTML = reqs.map(r => `
+  const pageRows = paginateRows(reqs, 'pres');
+  tbody.innerHTML = pageRows.map(r => `
     <tr>
       <td class="font-semibold text-accent">#${r.Id}</td>
+      <td>${fmtSmartDate(r)}</td>
       <td>${fmt(r.RequestedBy)}</td>
       <td>${fmt(r.Vendor)}</td>
       <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${fmt(r.Description)}</td>
       <td class="text-warning font-bold">${fmtCurrency(r.EstimatedCost)}</td>
-      <td>${r.FinApprovalDate ? fmtDate(r.FinApprovalDate) : '–'}</td>
       <td>${statusBadge(r.Status)}</td>
       <td>
         <button class="btn btn-purple btn-sm" onclick="viewPresDetail(${r.Id})">Review</button>
       </td>
     </tr>
   `).join('');
+  renderPagination('pres-pagination', 'pres', renderPresTable);
 }
 
 function viewPresDetail(id) {
@@ -1153,11 +1259,11 @@ function openPrintModal(id) {
       <img src="/images/newlogo.png" alt="Aqua-Aerobic Systems" style="max-height:36px;">
     </div>
     <h2>CAPITAL EXPENDITURE REQUEST FORM</h2>`;
-  const makePrintFooter = (pageNum, totalPages) => `
+  const makePrintFooter = (pageNum, totalPages, showPageNum = true) => `
     <div class="print-footer">
       <div style="border-top:1px solid #ccc;padding-top:0.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.7rem;color:#888;">
         <span>Copyright &copy; ${printYear} Aqua-Aerobic Systems, Inc. — All Rights Reserved</span>
-        <span>Page ${pageNum} of ${totalPages}</span>
+        ${showPageNum ? `<span>Page ${pageNum} of ${totalPages}</span>` : ''}
       </div>
     </div>`;
 
@@ -1222,7 +1328,7 @@ function openPrintModal(id) {
             </tr>` : ''}
           </table>
         </div>
-        ${makePrintFooter(1, totalPages)}
+        ${makePrintFooter(1, totalPages, false)}
       </div>
 
       ${hasAccounting ? `
@@ -1284,6 +1390,7 @@ async function loadAdmin() {
     document.getElementById('admin-smtp-pass').value = settings.smtpPass || '';
     document.getElementById('admin-smtp-secure').value = settings.smtpSecure || 'false';
     document.getElementById('admin-from-email').value = settings.fromEmail || '';
+    document.getElementById('admin-from-email-name').value = settings.fromEmailName || '';
     document.getElementById('admin-app-passcode').value = settings.appPasscode || '1969';
     
     // Load logs
@@ -1305,7 +1412,7 @@ async function loadAdminLogs() {
     }
     tbody.innerHTML = logs.map(l => `
       <tr>
-        <td style="white-space:nowrap" class="text-xs text-muted">${new Date(l.CreatedAt).toLocaleString()}</td>
+        <td style="white-space:nowrap" class="text-xs text-muted">${new Date(String(l.CreatedAt).replace(/Z$/i, '')).toLocaleString()}</td>
         <td class="font-semibold">${fmt(l.Action)}</td>
         <td style="font-size: 0.9rem">${fmt(l.Details)}</td>
       </tr>
@@ -1328,6 +1435,7 @@ document.getElementById('admin-settings-form')?.addEventListener('submit', async
     smtpPass: document.getElementById('admin-smtp-pass').value,
     smtpSecure: document.getElementById('admin-smtp-secure').value,
     fromEmail: document.getElementById('admin-from-email').value.trim(),
+    fromEmailName: document.getElementById('admin-from-email-name').value.trim(),
     appPasscode: document.getElementById('admin-app-passcode').value.trim() || '1969',
   };
 

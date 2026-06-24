@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Form</title>
+    <link rel="icon" href="data:,">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        /* Header */
+        .header {
+            paddingrgb(15, 15, 15)x 18px;
+        }
+
+        .path {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            align-items: center;
+        }
+
+        .toolbar button {
+            background: #515355;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .toolbar button:hover {
+            background: #084298;
+        }
+
+        .toolbar input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 180px;
+        }
+
+        /* Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        /* Left panel */
+        .panel {
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Viewer */
+        .viewer {
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            border-radius: 6px;
+            min-height: 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        .container {
+            min-height: calc(100vh - 0px);
+        }
+
+        iframe {
+            width: 100%;
+            flex: 1;
+            height: 100%;
+            min-height: 0;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h3>Capital Expenditure - Request Form</h3>
+
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+
+        <button onclick="loadReport()">Run Report</button>
+        <button onclick="refreshReport()">Refresh</button>
+        <button onclick="exportPDF()">PDF</button>
+        <button onclick="exportExcel()">Excel</button>
+
+
+
+    </div>
+
+
+    <!-- MAIN -->
+    <div class="container">
+
+        <!-- PARAMETERS -->
+        <div class="panel">
+            <h3>Parameters</h3>
+
+            <label>ReqID</label>
+            <input style="
+            width:80%;
+             
+            padding:10px;
+            border-radius:5px; 
+            " type="text" id="reqId" placeholder="Enter ReqID">
+
+            <button onclick="loadReport()" style="
+            width:100%;
+            background:#198754;
+            color:white;
+            border:none;
+            padding:10px;
+            border-radius:5px;
+            cursor:pointer;">
+                Load Report
+            </button>
+        </div>
+
+        <!-- REPORT VIEW -->
+        <div class="viewer">
+            <iframe id="reportFrame"></iframe>
+        </div>
+
+    </div>
+
+    <script>
+
+        /* ===== SSRS BASE URL ===== */
+        /* Using /ReportServer endpoint instead of /Reports/report/ to avoid X-Frame-Options blocking */
+        const baseReportUrl =
+            "http://aquaerprep/ReportServer?/carmenreports/Stephanie/CapitalExpenditure/Form1&rs:Command=Render&rc:Toolbar=false";
+
+        /* ===== AUTO LOAD FROM URL ===== */
+        window.onload = function () {
+            const params = new URLSearchParams(window.location.search);
+            const reqId = params.get("reqId");
+
+            if (reqId) {
+                document.getElementById("reqId").value = reqId;
+                loadReport();
+            }
+        };
+
+        /* ===== LOAD REPORT WITH PARAMETER ===== */
+        function loadReport() {
+
+            let reqId = document.getElementById("reqId").value;
+
+            if (!reqId) {
+                alert("ReqID is required");
+                return;
+            }
+
+            // SSRS parameter name is: reqID (case-sensitive)
+            let url =
+                baseReportUrl +
+                "&reqID=" + encodeURIComponent(reqId);
+
+            document.getElementById("reportFrame").src = url;
+        }
+
+        /* ===== REFRESH REPORT ===== */
+        function refreshReport() {
+            let frame = document.getElementById("reportFrame");
+            if (frame.src) {
+                frame.src = frame.src;
+            }
+        }
+
+        /* ===== EXPORT PDF ===== */
+        function exportPDF() {
+
+            let reqId = document.getElementById("reqId").value;
+
+            let url =
+                baseReportUrl
+                    .replace("rs:Command=Render", "rs:Format=PDF")
+                + "&reqID=" + encodeURIComponent(reqId);
+
+            window.open(url, "_blank");
+        }
+
+        /* ===== EXPORT EXCEL ===== */
+        function exportExcel() {
+
+            let reqId = document.getElementById("reqId").value;
+
+            let url =
+                baseReportUrl
+                    .replace("rs:Command=Render", "rs:Format=EXCEL")
+                + "&reqID=" + encodeURIComponent(reqId);
+
+            window.open(url, "_blank");
+        }
+
+        /* ===== QUICK SEARCH ===== */
+        function setReqFromSearch() {
+            document.getElementById("reqId").value =
+                document.getElementById("quickSearch").value;
+
+            loadReport();
+        }
+
+        /* ===== ENTER KEY SUPPORT ===== */
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                loadReport();
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

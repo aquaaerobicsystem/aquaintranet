@@ -249,7 +249,7 @@ app.delete('/api/tracker/attachment/:id', (req, res) => {
 
 // Admin-only tracker edits (session-based, no code needed)
 app.put('/api/admin/tracker/user/:id', requireAdmin, (req, res) => {
-    const { links_tested, search_tested, layout_reviewed, notes, admin_note, status } = req.body;
+    const { links_tested, search_tested, layout_reviewed, notes, admin_note, status, created_at } = req.body;
     const l = links_tested !== undefined ? (links_tested ? '✅ Completed' : '❌ Pending') : null;
     const s = search_tested !== undefined ? (search_tested ? '✅ Completed' : '❌ Pending') : null;
     const r = layout_reviewed !== undefined ? (layout_reviewed ? '✅ Completed' : '❌ Pending') : null;
@@ -257,10 +257,11 @@ app.put('/api/admin/tracker/user/:id', requireAdmin, (req, res) => {
     const now = new Date().toLocaleString();
     db.get(`SELECT * FROM tracker_users WHERE id = ?`, [req.params.id], (err, row) => {
         if (!row) return res.status(404).json({ error: 'Not found' });
-        db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=?, admin_note=?, updated_at=? WHERE id=?`,
+        db.run(`UPDATE tracker_users SET links_tested=?, search_tested=?, layout_reviewed=?, status=?, notes=?, admin_note=?, updated_at=?, created_at=? WHERE id=?`,
             [l || row.links_tested, s || row.search_tested, r || row.layout_reviewed,
              computedStatus, notes !== undefined ? notes : row.notes,
-             admin_note !== undefined ? admin_note : (row.admin_note || ''), now, req.params.id],
+             admin_note !== undefined ? admin_note : (row.admin_note || ''), now,
+             created_at !== undefined ? created_at : (row.created_at || ''), req.params.id],
             () => res.json({ success: true }));
     });
 });

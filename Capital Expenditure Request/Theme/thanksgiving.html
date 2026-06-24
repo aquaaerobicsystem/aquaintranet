@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Aqua-aerobic</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+
+  <!--Page Icon-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <link rel="stylesheet" href="../css/w3.css">
+  <link rel="stylesheet" href="../css/style1.css">
+  <link rel="stylesheet" href="../css/clockflapper.css">
+
+  <!--Bootstrap 3.4.1-->
+  <link rel="stylesheet" href="../css/bootstrap-3.4.1/dist/css/bootstrap.min.css">
+  <script src="../css/bootstrap-3.4.1/dist/js/bootstrap.min.js"></script>
+
+  <style>
+    /* customizable snowflake styling */
+
+    .spider {
+      position: absolute;
+      top: 0;
+      animation: animateSpider 15s ease-in-out infinite;
+    }
+
+    @keyframes animateSpider {
+
+      0%,
+      100% {
+        transform: translateY(-500px);
+      }
+
+      50% {
+        transform: translateY(0px);
+      }
+    }
+
+    .pumpkin01 {
+      top: 100px;
+      right: 200px;
+      animation: animatePumpkin 8s ease-in-out infinite;
+    }
+
+    .pumpkin02 {
+      bottom: 20px;
+      left: 50px;
+      scale: 0.5;
+      animation: animatePumpkin 4s ease-in-out infinite;
+    }
+
+    @keyframes animatePumpkin {
+
+      0%,
+      100% {
+        transform: translateY(-50px);
+      }
+
+      50% {
+        transform: translateY(50px);
+      }
+    }
+
+    .spiderWeb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: screen;
+    }
+
+
+    .snowflake {
+      font-size: 1em;
+      font-family: Arial;
+      text-shadow: 0 0 1px #000;
+    }
+
+    @-webkit-keyframes snowflakes-fall {
+      0% {
+        top: -10%
+      }
+
+      100% {
+        top: 100%
+      }
+    }
+
+    @-webkit-keyframes snowflakes-shake {
+      0% {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px)
+      }
+
+      50% {
+        -webkit-transform: translateX(80px);
+        transform: translateX(80px)
+      }
+
+      100% {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px)
+      }
+    }
+
+    @keyframes snowflakes-fall {
+      0% {
+        top: -10%
+      }
+
+      100% {
+        top: 100%
+      }
+    }
+
+    @keyframes snowflakes-shake {
+      0% {
+        transform: translateX(0px)
+      }
+
+      50% {
+        transform: translateX(80px)
+      }
+
+      100% {
+        transform: translateX(0px)
+      }
+    }
+
+    .snowflake {
+      position: fixed;
+      top: -10%;
+      z-index: 9999;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      cursor: default;
+      -webkit-animation-name: snowflakes-fall, snowflakes-shake;
+      -webkit-animation-duration: 10s, 3s;
+      -webkit-animation-timing-function: linear, ease-in-out;
+      -webkit-animation-iteration-count: infinite, infinite;
+      -webkit-animation-play-state: running, running;
+      animation-name: snowflakes-fall, snowflakes-shake;
+      animation-duration: 10s, 3s;
+      animation-timing-function: linear, ease-in-out;
+      animation-iteration-count: infinite, infinite;
+      animation-play-state: running, running
+    }
+
+    .snowflake:nth-of-type(0) {
+      left: 1%;
+      -webkit-animation-delay: 0s, 0s;
+      animation-delay: 0s, 0s
+    }
+
+    .snowflake:nth-of-type(1) {
+      left: 10%;
+      -webkit-animation-delay: 1s, 1s;
+      animation-delay: 1s, 1s
+    }
+
+    .snowflake:nth-of-type(2) {
+      left: 20%;
+      -webkit-animation-delay: 6s, .5s;
+      animation-delay: 6s, .5s
+    }
+
+    .snowflake:nth-of-type(3) {
+      left: 30%;
+      -webkit-animation-delay: 4s, 2s;
+      animation-delay: 4s, 2s
+    }
+
+    .snowflake:nth-of-type(4) {
+      left: 40%;
+      -webkit-animation-delay: 2s, 2s;
+      animation-delay: 2s, 2s
+    }
+
+    .snowflake:nth-of-type(5) {
+      left: 50%;
+      -webkit-animation-delay: 8s, 3s;
+      animation-delay: 8s, 3s
+    }
+
+    .snowflake:nth-of-type(6) {
+      left: 60%;
+      -webkit-animation-delay: 6s, 2s;
+      animation-delay: 6s, 2s
+    }
+
+    .snowflake:nth-of-type(7) {
+      left: 70%;
+      -webkit-animation-delay: 2.5s, 1s;
+      animation-delay: 2.5s, 1s
+    }
+
+    .snowflake:nth-of-type(8) {
+      left: 80%;
+      -webkit-animation-delay: 1s, 0s;
+      animation-delay: 1s, 0s
+    }
+
+    .snowflake:nth-of-type(9) {
+      left: 90%;
+      -webkit-animation-delay: 3s, 1.5s;
+      animation-delay: 3s, 1.5s
+    }
+  </style>
+
+<body class="w3-bar-block background" style="padding-left: 50px; ">
+
+
+  <div class="snowflakes" aria-hidden="true">
+
+    <div class="snowflake">
+      <img style="height: 120px;border-radius: 50%;" src="../images/thanksgiving-6.gif">
+    </div>
+    <div class="snowflake">
+      <img style="height: 120px;border-radius: 50%;" src="../images/thanksgiving-6.gif">
+    </div>
+    <div class="snowflake">
+      <img style="height: 120px;border-radius: 50%;" src="../images/thanksgiving-6.gif">
+    </div>
+    <div class="snowflake">
+      <img style="height: 30px;border-radius: 50%;" src="../images/logo.png">
+    </div>
+    <div class="snowflake">
+      <img style="height: 30px;border-radius: 50%;" src="../images/thanksgiving-6.gif">
+    </div>
+    <div class="snowflake">
+      <img style="height: 30px;border-radius: 50%;" src="../images/logo.png">
+    </div>
+    <div class="snowflake">
+      <img style="height: 30px;border-radius: 50%;" src="../images/logo.png">
+    </div>
+    <div class="snowflake">
+      <img style="height: 120px;border-radius: 50%;" src="../images/thanksgiving-6.gif">
+    </div>
+    <div class="snowflake">
+      <img style="height: 30px;border-radius: 50%;" src="../images/logo.png">
+    </div>
+    <div class="snowflake">
+      <img style="height: 30px;border-radius: 50%;" src="../images/thanksgiving-6.gif">
+    </div>
+  </div>
+  <!-- Sidebar/menu -->
+  <nav class="w3-sidebar w3-collapse w3-padding w3-white w3-animate-left"
+    style="z-index:3;width:400px;font-size: large;" id="mySidebar"><br>
+
+    <div>
+      <a href="../index.html">
+        <img src="../images/aqualogo.png" style="width:100%;"></a><br>
+      <h4><b>Welcome Back!</b></h4>
+
+    </div>
+    <div class="w3-bar-block">
+
+      <a href="other/linkz.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding  " target="_blank"><i
+          class="fa fa-th-large fa-fw w3-margin-right"></i>Helpful links</a>
+
+      <a href="event.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding  " target="_blank"><i
+          class="fa fa-th-large fa-fw w3-margin-right"></i>Events</a>
+
+      <div class="container1">
+
+        <div>
+          <div class="item">
+            <div class="toggleButton">
+              <i class="fa-regular fa-address-book"></i><span class="buttonText">Responders/Contacts</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="contentBox">
+              <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i
+                  class="fa fa-th-large fa-fw w3-margin-right" target="_blank"></i>Fire</a>
+
+              <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal" target="_blank">
+                <i class="fa fa-th-large fa-fw w3-margin-right"></i>Injured</a>
+
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="toggleButton">
+              <img src="../images/epicor.jpg" style="height: 20px;"> <span class="buttonText">About Epicor</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="contentBox">
+              <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal" target="_blank"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>Task/Contact </a>
+
+              <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal" target="_blank"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>Technical Issues</a>
+
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="toggleButton">
+              <i class="fa-brands fa-wpforms"></i> <span class="buttonText">Forms</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="contentBox">
+              <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal" target="_blank"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>HR Checklist</a>
+
+              <a href="other/onboardingList.html" onclick="w3_close()"
+                class="w3-bar-item w3-button w3-padding w3-text-teal" target="_blank"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>Onboarding checklist</a>
+
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="toggleButton">
+              <i class="fa-solid fa-gamepad"></i> <span class="buttonText">Entertainment</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="contentBox">
+              <a href="entertainment/puzzle.html" onclick="w3_close()"
+                class="w3-bar-item w3-button w3-padding w3-text-teal" target="_blank"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>Number Puzzle</a>
+
+              <a href="entertainment/tetris.html" onclick="w3_close()"
+                class="w3-bar-item w3-button w3-padding w3-text-teal"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>Tetris</a>
+
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="toggleButton">
+              <i class="fa-solid fa-question"></i></i><span class="buttonText">Questions</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="contentBox">
+              <a href="other/FAQ.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"
+                target="_blank"><i class="fa fa-th-large fa-fw w3-margin-right"></i>FAQ</a>
+
+              <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal" target="_blank"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>Other</a>
+
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="toggleButton">
+              <i class="fa-solid fa-question"></i></i><span class="buttonText">Theme Page</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="contentBox">
+              <a href="halloween.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>Halloween</a>
+
+              <a href="winter.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>Winter</a>
+
+              <a href="thanksgiving.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>Thanks Giving</a>
+              <a href="christmas.html" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i
+                  class="fa fa-th-large fa-fw w3-margin-right"></i>christmas</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <div>
+        <div class="clock" style="font-size: smaller;text-align: center;">
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <em class="divider">:</em>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+          <em class="divider">:</em>
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+
+          <div class="flip">
+            <div class="digital front" data-number="0"></div>
+            <div class="digital back" data-number="1"></div>
+          </div>
+
+        </div>
+        <br>
+      </div>
+      <hr>
+
+      <div class="contact" style="text-align: center;padding-left: 20px;">
+
+
+        <h1 style=" text-align: center;font-weight: bold; padding-left: 40px; "> Contact Us</h1>
+        <br>
+        <p>Phone: 1-800-940-5008</p>
+
+        <p>Email: solutions@aqua-aerobic.com</p>
+        <p>Address: Aqua-Aerobic Systems, Inc. <br>
+          6306 North Alpine Road <br>
+          Loves Park, IL 61111 USA</p>
+
+      </div>
+
+      <div class=" m" style="padding-left: 20px;">
+        <p>&copy; 2024 Aqua-Aerobic Systems, Inc. All rights reserved.</p>
+      </div>
+
+  </nav>
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main " style="margin-left:500px;margin-top: 10px;">
+
+    <a href="#top"> <button id="myBtn" title="Go to top"> <img style="height: 50px;"
+          src="../images/Button-Arrow-Up-icon.png"> </button></a>
+
+    <!-- Header -->
+
+    <div id="top"></div>
+    <header id="portfolio">
+
+      <div class="w3-container">
+
+        <!--<DIV><img src="../images/aqualogo.png"></DIV>-->
+      </div>
+    </header>
+
+    <br>
+    <br>
+
+    <!-- Images of Me -->
+
+    <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+      <h4><b></b></h4>
+      <h3 class="company"> </h3>
+
+      <div id="myDiv" class="w3-container w3-padding-large" style="margin-bottom:32px">
+        <h1><b>Get Know about</b></h1>
+
+        <br>
+
+        <div class="container">
+
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+
+              <div class="item active">
+                <a href="https://aqua-aerobic.com/">
+                  <h1>
+                    <img src="../images/Aqua_Logo_1line_Color_300dpi.jpg">
+                    <div class="overlay">
+                      <div class="text">
+                        <h3 style="font-family:Arial, Helvetica, sans-serif; font-size: 25px;">Since 1969,
+                          Aqua-Aerobic
+                          Systems, Inc. has led the water and wastewater treatment industry by providing advanced
+                          solutions in aeration and mixing, biological processes, cloth media filtration, membranes,
+                          disinfection and process control.
+                          <br>
+                          <br>
+
+                          click to learn more
+                        </h3>
+                      </div>
+                    </div>
+                  </h1>
+                </a>
+              </div>
+
+              <div class="item">
+                <a href="http://www.aqua-aerobic.net/" target="_blank">
+                  <h1>
+                    <img src="../images/intranet.jpg">
+                    <div class="overlay">
+                      <div class="text">
+                        <h3 style="font-family:Arial, Helvetica, sans-serif; font-size: 25px;">
+                          Intranet is the Network information to link of all departments Services.
+
+                          <br>
+                          <br>
+
+                          click to learn more
+                        </h3>
+                      </div>
+                    </div>
+                  </h1>
+                </a>
+              </div>
+
+              <div class="item">
+                <a href="departments/index.html" target="_blank">
+                  <h1><img src="../images/departments.jpg">
+                    <div class="overlay">
+                      <div class="text">
+                        <h3 style="font-family:Arial, Helvetica, sans-serif; font-size: 30px;">
+                          Click to learn more about other Departments .... </h3>
+                      </div>
+                    </div>
+                  </h1>
+                </a>
+              </div>
+
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <hr>
+
+
+      <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+        <h4><b></b></h4>
+        <h3 class="company"> </h3>
+
+        <div id="myDiv" class="w3-container w3-padding-large" style="margin-bottom:32px">
+          <h2><b>Watch Video about</b></h2>
+
+          <br>
+          <br>
+
+          <div class="container">
+
+            <div id="myCarousel1" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel1" data-slide-to="1"></li>
+                <li data-target="#myCarousel1" data-slide-to="2"></li>
+              </ol>
+
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+
+                <div class="item active">
+                  <a href="videos/littleRock.html">
+                    <h1>
+                      <img src="../images/littleRock.png">
+                      <div class="overlay">
+                        <div class="text">
+                          <h3 style="font-family:Arial, Helvetica, sans-serif; font-size: 25px;">
+                            <br>
+                            <br>
+
+                            click to watch
+                          </h3>
+                        </div>
+                      </div>
+                    </h1>
+                  </a>
+                </div>
+
+                <div class="item">
+                  <a href="videos/overview.html" target="_blank">
+                    <h1>
+                      <img src="../images/overview.png">
+                      <div class="overlay">
+                        <div class="text">
+                          <h3 style="font-family:Arial, Helvetica, sans-serif; font-size: 25px;">
+                            click to watch...
+                          </h3>
+                        </div>
+                      </div>
+                    </h1>
+                  </a>
+                </div>
+
+                <div class="item">
+                  <a href="videos/aquanereda.html" target="_blank">
+                    <h1><img src="../images/AquaNereda.jpg">
+                      <div class="overlay">
+                        <div class="text">
+                          <h3 style="font-family:Arial, Helvetica, sans-serif; font-size: 30px;">
+                            Click to watch Video .... </h3>
+                        </div>
+                      </div>
+                    </h1>
+                  </a>
+                </div>
+
+              </div>
+
+              <!-- Left and right controls -->
+              <a class="left carousel-control" href="#myCarousel1" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#myCarousel1" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!--
+
+          <div class="myDiv1">
+            <h2>Watch video about</h2>
+            <a href="other/aquanereda.html" target="_blank"><img src="../images/AquaNereda.jpg" width="500px"
+                height="120px">
+            </a>
+            <br>
+            <br>
+            <a href="other/lovespark.html" target="_blank"><img src="../images/aqualovespark.PNG" width="500px"
+                height="120px">
+            </a>
+            <br>
+            <br>
+            <a href="other/littleRock.html" target="_blank"><img src="../images/aqualovespark.PNG" width="500px"
+                height="120px"> </a>
+          </div>
+-->
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <hr>
+
+
+        <div>
+          <h1>Meet Our Leadership</h1>
+          <div class=" tab">
+
+            <button class="tablinks" onmouseover="openCity(event, 'CEO')">President and CEO</button>
+            <button class="tablinks" onmouseover="openCity(event, 'VP1')">Vice President & Chief Financial
+              Officer</button>
+            <button class="tablinks" onmouseover="openCity(event, 'VP2')">Vice President, Operations</button>
+            <button class="tablinks" onmouseover="openCity(event, 'VP3')">Vice President, Process Group</button>
+            <button class="tablinks" onmouseover="openCity(event, 'HR')">Director of Human Resources</button>
+            <button class="tablinks" onmouseover="openCity(event, 'CS')">Director of Customer Service</button>
+            <button class="tablinks" onmouseover="openCity(event, 'AS')">Director of Aftermarket Sales</button>
+          </div>
+
+          <div id="CEO" class="tabcontent">
+            <img class="sticky" src="../images/founder/CEO.jpg">
+            <h2>Peter G. Baumann, MBA</h2>
+          </div>
+
+          <div id="VP1" class="tabcontent">
+            <img class="sticky" src="../images/founder/VP.jpg">
+            <h2>Scott Willis, MBA</h2>
+          </div>
+
+          <div id="VP2" class="tabcontent">
+            <img class="sticky" src="../images/founder/vp2.jpg">
+            <h2>Kevin Heasley</h2>
+          </div>
+
+          <div id="VP3" class="tabcontent">
+            <img class="sticky" src="../images/founder/VP3.jpg">
+            <h2>James Horton</h2>
+          </div>
+
+          <div id="HR" class="tabcontent">
+            <img class="sticky" src="../images/founder/hr.jpg">
+            <h2>James Horton</h2>
+          </div>
+
+          <div id="CS" class="tabcontent">
+            <img class="sticky" src="../images/founder/cs.jpg">
+            <h2>Stephanie Duchow</h2>
+          </div>
+
+          <div id="AS" class="tabcontent">
+            <img class="sticky" src="../images/founder/as.jpg">
+            <h2>Paul Klebs</h2>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+  </aside>
+</body>
+
+<script>
+  const buttons = document.querySelectorAll('.toggleButton');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', function () {
+      const contentBox = this.nextElementSibling;
+      const buttonText = this.querySelector('.buttonText');
+      const icon = this.querySelector('i');
+
+      // Close other boxes
+      buttons.forEach(btn => {
+        const otherContentBox = btn.nextElementSibling;
+        if (otherContentBox !== contentBox) {
+          otherContentBox.style.display = 'none';
+          btn.querySelector('.buttonText').textContent = btn.querySelector('.buttonText').textContent.replace('Hide', 'Show');
+          btn.querySelector('i').classList.remove('fa-chevron-up');
+          btn.querySelector('i').classList.add('fa-chevron-down');
+        }
+      });
+
+      // Toggle the clicked box
+      if (contentBox.style.display === 'none' || contentBox.style.display === '') {
+        contentBox.style.display = 'block';
+        buttonText.textContent = buttonText.textContent.replace('Show', 'Hide');
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+      } else {
+        contentBox.style.display = 'none';
+        buttonText.textContent = buttonText.textContent.replace('Hide', 'Show');
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+      }
+    });
+  });
+</script>
+
+<script>
+  let slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+  }
+</script>
+
+<script>
+  function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+</script>
+
+<!-- for Print PDF-->
+<script src="../js/jspdf.umd.min.js"></script>
+
+<!-- for toggle animination -->
+<script src="../js/jquery.min.js"></script>
+<!-- General Script -->
+<script src="../js/script.js"></script>
+
+<script src="../js/clockflapper.js"></script>
+<script src="../js/particles.js"></script>
+
+
+</html>

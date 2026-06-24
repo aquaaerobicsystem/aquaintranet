@@ -195,6 +195,17 @@ async function initDatabase() {
     )
   `);
 
+  await p.request().query(`
+    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_TestResults' AND xtype='U')
+    CREATE TABLE ExRequest_TestResults (
+      Id              INT IDENTITY(1,1) PRIMARY KEY,
+      SlotName        NVARCHAR(100) NOT NULL DEFAULT 'default',
+      ResultData      NVARCHAR(MAX),
+      UpdatedAt       DATETIME DEFAULT GETDATE(),
+      CONSTRAINT UQ_TestResults_SlotName UNIQUE (SlotName)
+    )
+  `);
+
   console.log('✅ Database tables verified/created.');
 }
 
@@ -223,7 +234,7 @@ async function getSettings() {
   return settings;
 }
 
-async function sendEmail(to, subject, html) {
+async function sendEmail(to, subject, html, hostUrl) {
   if (!to) return;
   try {
     const settings = await getSettings();
@@ -240,11 +251,28 @@ async function sendEmail(to, subject, html) {
       tls: { rejectUnauthorized: false }
     });
 
+    // Build "From" address with configurable display name
+    const fromName = settings.fromEmailName || 'CapEx System';
+    const fromAddr = settings.fromEmail || 'noreply@example.com';
+    const from = `"${fromName}" <${fromAddr}>`;
+
+    // Build logo URL for email signature
+    const logoUrl = (hostUrl || '') + '/images/newlogo.png';
+
+    // Append corporate email signature
+    const signature = `
+      <br/>
+      <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;" />
+      <p style="margin: 0; font-size: 14px; color: #333;">Thank you!</p>
+      <p style="margin: 4px 0 10px 0; font-size: 14px; font-weight: bold; color: #1e3a5f;">Aqua-Aerobic Systems Accounting Team</p>
+      <img src="${logoUrl}" alt="Aqua-Aerobic Systems" width="200" style="width: 200px; max-width: 200px; height: auto; display: block;" />
+    `;
+
     await transporter.sendMail({
-      from: settings.fromEmail || '"CapEx System" <noreply@example.com>',
+      from,
       to,
       subject,
-      html
+      html: html + signature
     });
     console.log(`✉️ Email sent to ${to}`);
   } catch (err) {
@@ -370,7 +398,8 @@ app.post('/api/requests', async (req, res) => {
        <p>A new Capital Expenditure Request has been submitted by ${requestedBy} and is pending your approval.</p>
        <p><strong>Vendor:</strong> ${vendor}<br/>
        <strong>Cost:</strong> $${estimatedCost}</p>
-       <p><a href="${hostUrl}/#department?id=${newId}">Click here to review and approve</a></p>`
+       <p><a href="${hostUrl}/#department?id=${newId}">Click here to review and approve</a></p>`,
+      hostUrl
     );
 
     await logActivity('Request Created', `Request #${newId} created by ${requestedBy} for vendor ${vendor}.`);
@@ -524,6 +553,8 @@ app.post('/api/requests/:id/approve', async (req, res) => {
 
     // Update main request status based on approval flow
     let newStatus = 'Pending Department';
+    const denialReason = comments ? `<p><strong>Reason:</strong> ${comments}</p>` : '';
+    
     if (approvalType === 'Department') {
       if (status === 'Denied') {
         newStatus = 'Denied';
@@ -534,7 +565,8 @@ app.post('/api/requests/:id/approve', async (req, res) => {
           settings.accountingEmail,
           `Action Required: CapEx Request #${req.params.id} Pending Financial Approval`,
           `<p>A Capital Expenditure Request for ${reqData.Vendor} ($${cost}) has been approved by the department and is awaiting your financial review/accounting details.</p>
-           <p><a href="${hostUrl}/#financial?id=${req.params.id}">Click here to review</a></p>`
+           <p><a href="${hostUrl}/#financial?id=${req.params.id}">Click here to review</a></p>`,
+          hostUrl
         );
       }
       
@@ -543,7 +575,9 @@ app.post('/api/requests/:id/approve', async (req, res) => {
         requestorEmail,
         `Update on CapEx Request #${req.params.id}`,
         `<p>Hello ${reqData.RequestedBy},</p>
-         <p>Your request for ${reqData.Vendor} has been <strong>${status}</strong> by the Department Manager.</p>`
+         <p>Your Capital Expenditure Request #${req.params.id} for <strong>${reqData.Vendor}</strong> ($${cost}) has been <strong>${status}</strong> by the Department Manager.</p>
+         ${status === 'Denied' ? denialReason : ''}`,
+        hostUrl
       );
 
     } else if (approvalType === 'Financial') {
@@ -553,7 +587,10 @@ app.post('/api/requests/:id/approve', async (req, res) => {
         await sendEmail(
           requestorEmail,
           `Update on CapEx Request #${req.params.id}`,
-          `<p>Hello ${reqData.RequestedBy},</p><p>Your request for ${reqData.Vendor} has been <strong>Denied</strong> by Financial.</p>`
+          `<p>Hello ${reqData.RequestedBy},</p>
+           <p>Your Capital Expenditure Request #${req.params.id} for <strong>${reqData.Vendor}</strong> ($${cost}) has been <strong>Denied</strong> by Financial/Accounting.</p>
+           ${denialReason}`,
+          hostUrl
         );
       } else {
         if (cost > 25000) {
@@ -563,7 +600,8 @@ app.post('/api/requests/:id/approve', async (req, res) => {
             settings.presidentialEmail,
             `Action Required: CapEx Request #${req.params.id} Pending Presidential Approval`,
             `<p>A Capital Expenditure Request for ${reqData.Vendor} ($${cost}) has passed financial review and requires Presidential approval.</p>
-             <p><a href="${hostUrl}/#presidential?id=${req.params.id}">Click here to review</a></p>`
+             <p><a href="${hostUrl}/#presidential?id=${req.params.id}">Click here to review</a></p>`,
+            hostUrl
           );
         } else {
           newStatus = 'Approved';
@@ -571,7 +609,9 @@ app.post('/api/requests/:id/approve', async (req, res) => {
           await sendEmail(
             requestorEmail,
             `CapEx Request #${req.params.id} Approved`,
-            `<p>Hello ${reqData.RequestedBy},</p><p>Your request for ${reqData.Vendor} has been fully <strong>Approved</strong>.</p>`
+            `<p>Hello ${reqData.RequestedBy},</p>
+             <p>Your Capital Expenditure Request #${req.params.id} for <strong>${reqData.Vendor}</strong> ($${cost}) has been fully <strong>Approved</strong>.</p>`,
+            hostUrl
           );
         }
       }
@@ -581,7 +621,10 @@ app.post('/api/requests/:id/approve', async (req, res) => {
       await sendEmail(
         requestorEmail,
         `Update on CapEx Request #${req.params.id}`,
-        `<p>Hello ${reqData.RequestedBy},</p><p>Your request for ${reqData.Vendor} has been <strong>${status}</strong> by the President/CEO.</p>`
+        `<p>Hello ${reqData.RequestedBy},</p>
+         <p>Your Capital Expenditure Request #${req.params.id} for <strong>${reqData.Vendor}</strong> ($${cost}) has been <strong>${status}</strong> by the President/CEO.</p>
+         ${status === 'Denied' ? denialReason : ''}`,
+        hostUrl
       );
     }
 
@@ -627,6 +670,8 @@ app.post('/api/verify-code', async (req, res) => {
 
 app.get('/api/logs', async (req, res) => {
   try {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
+    res.set('Pragma', 'no-cache');
     const p = await getPool();
     const result = await p.request().query('SELECT TOP 100 * FROM ExRequest_ActivityLogs ORDER BY CreatedAt DESC');
     res.json(result.recordset);
@@ -766,6 +811,48 @@ app.get('/api/attachments/:id/download', async (req, res) => {
     const filePath = path.join(uploadsDir, file.StoredName);
     if (!fs.existsSync(filePath)) return res.status(404).json({ error: 'File not found on disk.' });
     res.download(filePath, file.OriginalName);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─────────────────────────────────────────────
+// ROUTES: Test Results
+// ─────────────────────────────────────────────
+app.get('/api/test-results/:slot', async (req, res) => {
+  try {
+    const p = await getPool();
+    const result = await p.request()
+      .input('slot', sql.NVarChar(100), req.params.slot)
+      .query('SELECT ResultData FROM ExRequest_TestResults WHERE SlotName = @slot');
+    if (result.recordset.length === 0) return res.json({});
+    res.json(JSON.parse(result.recordset[0].ResultData || '{}'));
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/test-results/:slot', async (req, res) => {
+  try {
+    const p = await getPool();
+    const data = JSON.stringify(req.body);
+    const existing = await p.request()
+      .input('slot', sql.NVarChar(100), req.params.slot)
+      .query('SELECT Id FROM ExRequest_TestResults WHERE SlotName = @slot');
+    if (existing.recordset.length > 0) {
+      await p.request()
+        .input('slot', sql.NVarChar(100), req.params.slot)
+        .input('data', sql.NVarChar(sql.MAX), data)
+        .query('UPDATE ExRequest_TestResults SET ResultData = @data, UpdatedAt = GETDATE() WHERE SlotName = @slot');
+    } else {
+      await p.request()
+        .input('slot', sql.NVarChar(100), req.params.slot)
+        .input('data', sql.NVarChar(sql.MAX), data)
+        .query('INSERT INTO ExRequest_TestResults (SlotName, ResultData) VALUES (@slot, @data)');
+    }
+    res.json({ message: 'Saved successfully.' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
