@@ -1,0 +1,397 @@
+2026-06-23 12:12:52: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:12:52:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:12:52:        ^^^
+2026-06-23 12:12:52: 
+2026-06-23 12:12:52: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:12:52:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:12:52:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:12:52:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:12:52:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:12:52:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:12:52:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:12:52:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:12:52:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:12:52:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:12:52:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:12:54: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:12:54:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:12:54:        ^^^
+2026-06-23 12:12:54: 
+2026-06-23 12:12:54: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:12:54:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:12:54:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:12:54:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:12:54:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:12:54:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:12:54:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:12:54:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:12:54:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:12:54:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:12:54:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:12:55: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:12:55:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:12:55:        ^^^
+2026-06-23 12:12:55: 
+2026-06-23 12:12:55: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:12:55:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:12:55:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:12:55:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:12:55:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:12:55:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:12:55:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:12:55:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:12:55:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:12:55:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:12:55:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:12:56: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:12:56:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:12:56:        ^^^
+2026-06-23 12:12:56: 
+2026-06-23 12:12:56: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:12:56:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:12:56:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:12:56:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:12:56:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:12:56:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:12:56:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:12:56:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:12:56:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:12:56:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:12:56:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:12:58: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:12:58:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:12:58:        ^^^
+2026-06-23 12:12:58: 
+2026-06-23 12:12:58: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:12:58:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:12:58:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:12:58:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:12:58:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:12:58:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:12:58:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:12:58:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:12:58:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:12:58:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:12:58:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:00: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:13:00:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:13:00:        ^^^
+2026-06-23 12:13:00: 
+2026-06-23 12:13:00: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:13:00:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:00:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:00:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:00:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:00:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:00:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:00:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:00:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:00:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:00:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:00: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:13:00:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:13:00:        ^^^
+2026-06-23 12:13:00: 
+2026-06-23 12:13:00: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:13:00:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:00:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:00:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:00:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:00:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:00:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:00:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:00:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:00:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:00:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:02: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:13:02:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:13:02:        ^^^
+2026-06-23 12:13:02: 
+2026-06-23 12:13:02: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:13:02:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:02:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:02:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:02:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:02:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:02:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:02:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:02:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:02:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:02:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:02: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:13:02:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:13:02:        ^^^
+2026-06-23 12:13:02: 
+2026-06-23 12:13:02: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:13:02:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:02:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:02:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:02:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:02:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:02:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:02:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:02:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:02:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:02:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:03: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:13:03:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:13:03:        ^^^
+2026-06-23 12:13:03: 
+2026-06-23 12:13:03: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:13:03:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:03:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:03:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:03:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:03:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:03:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:03:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:03:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:03:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:03:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:04: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:13:04:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:13:04:        ^^^
+2026-06-23 12:13:04: 
+2026-06-23 12:13:04: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:13:04:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:04:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:04:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:04:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:04:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:04:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:04:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:04:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:04:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:04:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:05: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:13:05:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:13:05:        ^^^
+2026-06-23 12:13:05: 
+2026-06-23 12:13:05: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:13:05:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:05:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:05:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:05:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:05:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:05:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:05:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:05:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:05:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:05:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:06: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:13:06:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:13:06:        ^^^
+2026-06-23 12:13:06: 
+2026-06-23 12:13:06: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:13:06:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:06:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:06:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:06:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:06:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:06:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:06:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:06:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:06:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:06:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:07: X:\Capital Expenditure Request - DEV\server.js:55
+2026-06-23 12:13:07:     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ExRequest_Requests' AND xtype='U')
+2026-06-23 12:13:07:        ^^^
+2026-06-23 12:13:07: 
+2026-06-23 12:13:07: SyntaxError: Unexpected identifier 'NOT'
+2026-06-23 12:13:07:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:07:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:07:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:07:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:07:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:07:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:07:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:07:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:07:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:07:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:09: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:09:   await p.request().query(`
+2026-06-23 12:13:09:   ^^^^^
+2026-06-23 12:13:09: 
+2026-06-23 12:13:09: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:09:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:09:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:09:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:09:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:09:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:09:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:09:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:09:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:09:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:09:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:10: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:10:   await p.request().query(`
+2026-06-23 12:13:10:   ^^^^^
+2026-06-23 12:13:10: 
+2026-06-23 12:13:10: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:10:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:10:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:10:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:10:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:10:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:10:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:10:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:10:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:10:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:10:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:12: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:12:   await p.request().query(`
+2026-06-23 12:13:12:   ^^^^^
+2026-06-23 12:13:12: 
+2026-06-23 12:13:12: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:12:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:12:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:12:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:12:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:12:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:12:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:12:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:12:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:12:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:12:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:13: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:13:   await p.request().query(`
+2026-06-23 12:13:13:   ^^^^^
+2026-06-23 12:13:13: 
+2026-06-23 12:13:13: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:13:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:13:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:13:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:13:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:13:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:13:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:13:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:13:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:13:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:13:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:14: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:14:   await p.request().query(`
+2026-06-23 12:13:14:   ^^^^^
+2026-06-23 12:13:14: 
+2026-06-23 12:13:14: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:14:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:14:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:14:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:14:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:14:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:14:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:14:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:14:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:14:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:14:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:15: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:15:   await p.request().query(`
+2026-06-23 12:13:15:   ^^^^^
+2026-06-23 12:13:15: 
+2026-06-23 12:13:15: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:15:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:15:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:15:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:15:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:15:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:15:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:15:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:15:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:15:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:15:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:16: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:16:   await p.request().query(`
+2026-06-23 12:13:16:   ^^^^^
+2026-06-23 12:13:16: 
+2026-06-23 12:13:16: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:16:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:16:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:16:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:16:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:16:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:16:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:16:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:16:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:17: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:17:   await p.request().query(`
+2026-06-23 12:13:17:   ^^^^^
+2026-06-23 12:13:17: 
+2026-06-23 12:13:17: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:17:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:17:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:17:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:17:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:17:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:17:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:17:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:17:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:17:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:17:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:18: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:18:   await p.request().query(`
+2026-06-23 12:13:18:   ^^^^^
+2026-06-23 12:13:18: 
+2026-06-23 12:13:18: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:18:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:18:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:18:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:18:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:18:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:18:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:18:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:18:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:18:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:18:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:19: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:19:   await p.request().query(`
+2026-06-23 12:13:19:   ^^^^^
+2026-06-23 12:13:19: 
+2026-06-23 12:13:19: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:19:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:19:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:19:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:19:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:19:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:19:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:19:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:19:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:19:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:19:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:21: X:\Capital Expenditure Request - DEV\server.js:52
+2026-06-23 12:13:21:   await p.request().query(`
+2026-06-23 12:13:21:   ^^^^^
+2026-06-23 12:13:21: 
+2026-06-23 12:13:21: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2026-06-23 12:13:21:     at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+2026-06-23 12:13:21:     at Module._compile (node:internal/modules/cjs/loader:1321:27)
+2026-06-23 12:13:21:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:21:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:21:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:13:21:     at Object.<anonymous> (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:13:21:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:13:21:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:13:21:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:13:21:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:18:43: Error: Cannot find module '../shared'
+2026-06-23 12:18:43: Require stack:
+2026-06-23 12:18:43: - X:\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:18:43: - X:\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:18:43: - X:\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:18:43:     at Module._resolveFilename (node:internal/modules/cjs/loader:1145:15)
+2026-06-23 12:18:43:     at Hook._require.Module.require (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:18:43:     at require (node:internal/modules/helpers:179:18)
+2026-06-23 12:18:43:     at Object.<anonymous> (X:\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:18:43:     at Module._compile (node:internal/modules/cjs/loader:1358:14)
+2026-06-23 12:18:43:     at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+2026-06-23 12:18:43:     at Module.load (node:internal/modules/cjs/loader:1208:32)
+2026-06-23 12:18:43:     at Module._load (node:internal/modules/cjs/loader:1024:12)
+2026-06-23 12:18:43:     at Module.require (node:internal/modules/cjs/loader:1233:19)
+2026-06-23 12:18:43:     at Hook._require.Module.require (C:\Users\CKonkol\AppData\Roaming\npm\node_modules\pm2\node_modules\require-in-the-middle\index.js:101:39) {
+2026-06-23 12:18:43:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:18:43:   requireStack: [
+2026-06-23 12:18:43:     'X:\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:18:43:     'X:\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:18:43:     'X:\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:18:43:   ]
+2026-06-23 12:18:43: }

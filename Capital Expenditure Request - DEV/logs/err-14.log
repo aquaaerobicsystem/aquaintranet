@@ -1,0 +1,1924 @@
+2026-06-23 12:20:59: Error: Cannot find module '../shared'
+2026-06-23 12:20:59: Require stack:
+2026-06-23 12:20:59: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:20:59: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:20:59: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:20:59:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:20:59:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:20:59:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:20:59:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:20:59:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:20:59:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:20:59:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:20:59:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:20:59:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:20:59:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:20:59:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:20:59:   requireStack: [
+2026-06-23 12:20:59:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:20:59:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:20:59:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:20:59:   ]
+2026-06-23 12:20:59: }
+2026-06-23 12:21:01: Error: Cannot find module '../shared'
+2026-06-23 12:21:01: Require stack:
+2026-06-23 12:21:01: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:01: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:01: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:01:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:01:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:01:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:01:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:01:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:01:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:01:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:01:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:01:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:01:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:01:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:01:   requireStack: [
+2026-06-23 12:21:01:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:01:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:01:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:01:   ]
+2026-06-23 12:21:01: }
+2026-06-23 12:21:03: Error: Cannot find module '../shared'
+2026-06-23 12:21:03: Require stack:
+2026-06-23 12:21:03: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:03: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:03: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:03:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:03:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:03:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:03:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:03:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:03:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:03:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:03:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:03:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:03:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:03:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:03:   requireStack: [
+2026-06-23 12:21:03:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:03:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:03:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:03:   ]
+2026-06-23 12:21:03: }
+2026-06-23 12:21:04: Error: Cannot find module '../shared'
+2026-06-23 12:21:04: Require stack:
+2026-06-23 12:21:04: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:04: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:04: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:04:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:04:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:04:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:04:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:04:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:04:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:04:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:04:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:04:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:04:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:04:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:04:   requireStack: [
+2026-06-23 12:21:04:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:04:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:04:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:04:   ]
+2026-06-23 12:21:04: }
+2026-06-23 12:21:06: Error: Cannot find module '../shared'
+2026-06-23 12:21:06: Require stack:
+2026-06-23 12:21:06: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:06: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:06: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:06:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:06:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:06:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:06:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:06:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:06:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:06:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:06:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:06:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:06:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:06:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:06:   requireStack: [
+2026-06-23 12:21:06:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:06:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:06:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:06:   ]
+2026-06-23 12:21:06: }
+2026-06-23 12:21:07: Error: Cannot find module '../shared'
+2026-06-23 12:21:07: Require stack:
+2026-06-23 12:21:07: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:07: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:07: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:07:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:07:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:07:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:07:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:07:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:07:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:07:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:07:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:07:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:07:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:07:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:07:   requireStack: [
+2026-06-23 12:21:07:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:07:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:07:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:07:   ]
+2026-06-23 12:21:07: }
+2026-06-23 12:21:08: Error: Cannot find module '../shared'
+2026-06-23 12:21:08: Require stack:
+2026-06-23 12:21:08: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:08: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:08: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:08:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:08:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:08:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:08:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:08:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:08:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:08:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:08:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:08:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:08:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:08:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:08:   requireStack: [
+2026-06-23 12:21:08:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:08:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:08:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:08:   ]
+2026-06-23 12:21:08: }
+2026-06-23 12:21:10: Error: Cannot find module '../shared'
+2026-06-23 12:21:10: Require stack:
+2026-06-23 12:21:10: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:10: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:10: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:10:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:10:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:10:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:10:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:10:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:10:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:10:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:10:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:10:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:10:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:10:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:10:   requireStack: [
+2026-06-23 12:21:10:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:10:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:10:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:10:   ]
+2026-06-23 12:21:10: }
+2026-06-23 12:21:12: Error: Cannot find module '../shared'
+2026-06-23 12:21:12: Require stack:
+2026-06-23 12:21:12: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:12: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:12: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:12:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:12:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:12:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:12:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:12:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:12:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:12:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:12:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:12:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:12:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:12:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:12:   requireStack: [
+2026-06-23 12:21:12:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:12:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:12:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:12:   ]
+2026-06-23 12:21:12: }
+2026-06-23 12:21:13: Error: Cannot find module '../shared'
+2026-06-23 12:21:13: Require stack:
+2026-06-23 12:21:13: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:13: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:13: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:13:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:13:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:13:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:13:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:13:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:13:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:13:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:13:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:13:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:13:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:13:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:13:   requireStack: [
+2026-06-23 12:21:13:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:13:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:13:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:13:   ]
+2026-06-23 12:21:13: }
+2026-06-23 12:21:15: Error: Cannot find module '../shared'
+2026-06-23 12:21:15: Require stack:
+2026-06-23 12:21:15: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:15: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:15: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:15:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:15:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:15:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:15:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:15:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:15:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:15:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:15:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:15:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:15:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:15:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:15:   requireStack: [
+2026-06-23 12:21:15:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:15:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:15:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:15:   ]
+2026-06-23 12:21:15: }
+2026-06-23 12:21:16: Error: Cannot find module '../shared'
+2026-06-23 12:21:16: Require stack:
+2026-06-23 12:21:16: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:16: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:16: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:16:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:16:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:16:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:16:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:16:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:16:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:16:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:16:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:16:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:16:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:16:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:16:   requireStack: [
+2026-06-23 12:21:16:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:16:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:16:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:16:   ]
+2026-06-23 12:21:16: }
+2026-06-23 12:21:18: Error: Cannot find module '../shared'
+2026-06-23 12:21:18: Require stack:
+2026-06-23 12:21:18: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:18: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:18: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:18:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:18:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:18:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:18:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:18:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:18:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:18:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:18:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:18:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:18:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:18:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:18:   requireStack: [
+2026-06-23 12:21:18:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:18:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:18:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:18:   ]
+2026-06-23 12:21:18: }
+2026-06-23 12:21:19: Error: Cannot find module '../shared'
+2026-06-23 12:21:19: Require stack:
+2026-06-23 12:21:19: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:19: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:19: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:19:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:19:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:19:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:19:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:19:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:19:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:19:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:19:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:19:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:19:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:19:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:19:   requireStack: [
+2026-06-23 12:21:19:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:19:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:19:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:19:   ]
+2026-06-23 12:21:19: }
+2026-06-23 12:21:20: Error: Cannot find module '../shared'
+2026-06-23 12:21:20: Require stack:
+2026-06-23 12:21:20: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:20: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:20: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:20:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:20:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:20:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:20:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:20:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:20:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:20:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:20:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:20:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:20:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:20:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:20:   requireStack: [
+2026-06-23 12:21:20:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:20:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:20:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:20:   ]
+2026-06-23 12:21:20: }
+2026-06-23 12:21:22: Error: Cannot find module '../shared'
+2026-06-23 12:21:22: Require stack:
+2026-06-23 12:21:22: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:22: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:22: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:22:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:22:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:22:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:22:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:22:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:22:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:22:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:22:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:22:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:22:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:22:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:22:   requireStack: [
+2026-06-23 12:21:22:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:22:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:22:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:22:   ]
+2026-06-23 12:21:22: }
+2026-06-23 12:21:23: Error: Cannot find module '../shared'
+2026-06-23 12:21:23: Require stack:
+2026-06-23 12:21:23: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:23: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:23: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:23:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:23:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:23:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:23:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:23:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:23:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:23:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:23:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:23:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:23:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:23:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:23:   requireStack: [
+2026-06-23 12:21:23:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:23:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:23:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:23:   ]
+2026-06-23 12:21:23: }
+2026-06-23 12:21:24: Error: Cannot find module '../shared'
+2026-06-23 12:21:24: Require stack:
+2026-06-23 12:21:24: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:24: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:24: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:24:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:24:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:24:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:24:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:24:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:24:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:24:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:24:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:24:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:24:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:24:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:24:   requireStack: [
+2026-06-23 12:21:24:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:24:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:24:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:24:   ]
+2026-06-23 12:21:24: }
+2026-06-23 12:21:25: Error: Cannot find module '../shared'
+2026-06-23 12:21:25: Require stack:
+2026-06-23 12:21:25: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:25: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:25: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:25:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:25:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:25:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:25:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:25:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:25:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:25:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:25:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:25:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:25:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:25:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:25:   requireStack: [
+2026-06-23 12:21:25:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:25:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:25:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:25:   ]
+2026-06-23 12:21:25: }
+2026-06-23 12:21:26: Error: Cannot find module '../shared'
+2026-06-23 12:21:26: Require stack:
+2026-06-23 12:21:26: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:26: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:26: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:26:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:26:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:26:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:26:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:26:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:26:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:26:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:26:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:26:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:26:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:26:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:26:   requireStack: [
+2026-06-23 12:21:26:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:26:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:26:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:26:   ]
+2026-06-23 12:21:26: }
+2026-06-23 12:21:28: Error: Cannot find module '../shared'
+2026-06-23 12:21:28: Require stack:
+2026-06-23 12:21:28: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:28: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:28: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:28:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:28:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:28:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:28:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:28:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:28:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:28:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:28:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:28:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:28:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:28:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:28:   requireStack: [
+2026-06-23 12:21:28:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:28:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:28:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:28:   ]
+2026-06-23 12:21:28: }
+2026-06-23 12:21:29: Error: Cannot find module '../shared'
+2026-06-23 12:21:29: Require stack:
+2026-06-23 12:21:29: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:29: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:29: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:29:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:29:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:29:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:29:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:29:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:29:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:29:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:29:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:29:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:29:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:29:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:29:   requireStack: [
+2026-06-23 12:21:29:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:29:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:29:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:29:   ]
+2026-06-23 12:21:29: }
+2026-06-23 12:21:31: Error: Cannot find module '../shared'
+2026-06-23 12:21:31: Require stack:
+2026-06-23 12:21:31: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:31: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:31: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:31:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:31:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:31:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:31:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:31:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:31:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:31:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:31:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:31:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:31:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:31:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:31:   requireStack: [
+2026-06-23 12:21:31:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:31:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:31:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:31:   ]
+2026-06-23 12:21:31: }
+2026-06-23 12:21:32: Error: Cannot find module '../shared'
+2026-06-23 12:21:32: Require stack:
+2026-06-23 12:21:32: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:32: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:32: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:32:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:32:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:32:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:32:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:32:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:32:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:32:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:32:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:32:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:32:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:32:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:32:   requireStack: [
+2026-06-23 12:21:32:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:32:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:32:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:32:   ]
+2026-06-23 12:21:32: }
+2026-06-23 12:21:33: Error: Cannot find module '../shared'
+2026-06-23 12:21:33: Require stack:
+2026-06-23 12:21:33: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:33: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:33: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:33:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:33:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:33:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:33:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:33:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:33:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:33:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:33:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:33:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:33:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:33:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:33:   requireStack: [
+2026-06-23 12:21:33:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:33:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:33:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:33:   ]
+2026-06-23 12:21:33: }
+2026-06-23 12:21:34: Error: Cannot find module '../shared'
+2026-06-23 12:21:34: Require stack:
+2026-06-23 12:21:34: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:34: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:34: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:34:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:34:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:34:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:34:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:34:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:34:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:34:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:34:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:34:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:34:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:34:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:34:   requireStack: [
+2026-06-23 12:21:34:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:34:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:34:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:34:   ]
+2026-06-23 12:21:34: }
+2026-06-23 12:21:35: Error: Cannot find module '../shared'
+2026-06-23 12:21:35: Require stack:
+2026-06-23 12:21:35: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:35: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:35: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:35:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:35:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:35:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:35:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:35:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:35:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:35:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:35:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:35:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:35:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:35:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:35:   requireStack: [
+2026-06-23 12:21:35:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:35:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:35:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:35:   ]
+2026-06-23 12:21:35: }
+2026-06-23 12:21:37: Error: Cannot find module '../shared'
+2026-06-23 12:21:37: Require stack:
+2026-06-23 12:21:37: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:37: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:37: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:37:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:37:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:37:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:37:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:37:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:37:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:37:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:37:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:37:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:37:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:37:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:37:   requireStack: [
+2026-06-23 12:21:37:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:37:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:37:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:37:   ]
+2026-06-23 12:21:37: }
+2026-06-23 12:21:38: Error: Cannot find module '../shared'
+2026-06-23 12:21:38: Require stack:
+2026-06-23 12:21:38: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:38: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:38: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:38:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:38:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:38:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:38:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:38:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:38:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:38:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:38:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:38:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:38:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:38:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:38:   requireStack: [
+2026-06-23 12:21:38:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:38:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:38:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:38:   ]
+2026-06-23 12:21:38: }
+2026-06-23 12:21:39: Error: Cannot find module '../shared'
+2026-06-23 12:21:39: Require stack:
+2026-06-23 12:21:39: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:39: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:39: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:39:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:39:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:39:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:39:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:39:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:39:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:39:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:39:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:39:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:39:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:39:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:39:   requireStack: [
+2026-06-23 12:21:39:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:39:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:39:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:39:   ]
+2026-06-23 12:21:39: }
+2026-06-23 12:21:41: Error: Cannot find module '../shared'
+2026-06-23 12:21:41: Require stack:
+2026-06-23 12:21:41: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:41: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:41: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:41:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:41:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:41:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:41:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:41:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:41:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:41:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:41:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:41:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:41:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:41:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:41:   requireStack: [
+2026-06-23 12:21:41:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:41:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:41:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:41:   ]
+2026-06-23 12:21:41: }
+2026-06-23 12:21:42: Error: Cannot find module '../shared'
+2026-06-23 12:21:42: Require stack:
+2026-06-23 12:21:42: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:42: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:42: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:42:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:42:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:42:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:42:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:42:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:42:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:42:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:42:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:42:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:42:   requireStack: [
+2026-06-23 12:21:42:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:42:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:42:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:42:   ]
+2026-06-23 12:21:42: }
+2026-06-23 12:21:43: Error: Cannot find module '../shared'
+2026-06-23 12:21:43: Require stack:
+2026-06-23 12:21:43: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:43: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:43: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:43:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:43:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:43:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:43:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:43:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:43:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:43:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:43:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:43:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:43:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:43:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:43:   requireStack: [
+2026-06-23 12:21:43:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:43:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:43:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:43:   ]
+2026-06-23 12:21:43: }
+2026-06-23 12:21:44: Error: Cannot find module '../shared'
+2026-06-23 12:21:44: Require stack:
+2026-06-23 12:21:44: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:44: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:44: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:44:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:44:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:44:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:44:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:44:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:44:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:44:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:44:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:44:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:44:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:44:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:44:   requireStack: [
+2026-06-23 12:21:44:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:44:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:44:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:44:   ]
+2026-06-23 12:21:44: }
+2026-06-23 12:21:45: Error: Cannot find module '../shared'
+2026-06-23 12:21:45: Require stack:
+2026-06-23 12:21:45: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:45: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:45: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:45:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:45:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:45:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:45:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:45:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:45:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:45:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:45:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:45:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:45:   requireStack: [
+2026-06-23 12:21:45:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:45:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:45:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:45:   ]
+2026-06-23 12:21:45: }
+2026-06-23 12:21:47: Error: Cannot find module '../shared'
+2026-06-23 12:21:47: Require stack:
+2026-06-23 12:21:47: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:47: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:47: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:47:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:47:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:47:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:47:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:47:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:47:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:47:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:47:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:47:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:47:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:47:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:47:   requireStack: [
+2026-06-23 12:21:47:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:47:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:47:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:47:   ]
+2026-06-23 12:21:47: }
+2026-06-23 12:21:48: Error: Cannot find module '../shared'
+2026-06-23 12:21:48: Require stack:
+2026-06-23 12:21:48: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:48: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:48: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:48:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:48:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:48:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:48:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:48:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:48:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:48:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:48:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:48:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:48:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:48:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:48:   requireStack: [
+2026-06-23 12:21:48:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:48:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:48:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:48:   ]
+2026-06-23 12:21:48: }
+2026-06-23 12:21:49: Error: Cannot find module '../shared'
+2026-06-23 12:21:49: Require stack:
+2026-06-23 12:21:49: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:49: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:49: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:49:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:49:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:49:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:49:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:49:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:49:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:49:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:49:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:49:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:49:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:49:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:49:   requireStack: [
+2026-06-23 12:21:49:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:49:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:49:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:49:   ]
+2026-06-23 12:21:49: }
+2026-06-23 12:21:51: Error: Cannot find module '../shared'
+2026-06-23 12:21:51: Require stack:
+2026-06-23 12:21:51: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:51: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:51: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:51:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:51:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:51:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:51:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:51:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:51:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:51:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:51:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:51:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:51:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:51:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:51:   requireStack: [
+2026-06-23 12:21:51:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:51:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:51:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:51:   ]
+2026-06-23 12:21:51: }
+2026-06-23 12:21:52: Error: Cannot find module '../shared'
+2026-06-23 12:21:52: Require stack:
+2026-06-23 12:21:52: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:52: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:52: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:52:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:52:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:52:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:52:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:52:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:52:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:52:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:52:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:52:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:52:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:52:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:52:   requireStack: [
+2026-06-23 12:21:52:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:52:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:52:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:52:   ]
+2026-06-23 12:21:52: }
+2026-06-23 12:21:53: Error: Cannot find module '../shared'
+2026-06-23 12:21:53: Require stack:
+2026-06-23 12:21:53: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:53: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:53: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:53:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:53:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:53:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:53:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:53:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:53:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:53:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:53:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:53:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:53:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:53:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:53:   requireStack: [
+2026-06-23 12:21:53:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:53:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:53:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:53:   ]
+2026-06-23 12:21:53: }
+2026-06-23 12:21:55: Error: Cannot find module '../shared'
+2026-06-23 12:21:55: Require stack:
+2026-06-23 12:21:55: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:55: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:55: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:55:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:55:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:55:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:55:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:55:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:55:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:55:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:55:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:55:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:55:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:55:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:55:   requireStack: [
+2026-06-23 12:21:55:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:55:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:55:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:55:   ]
+2026-06-23 12:21:55: }
+2026-06-23 12:21:56: Error: Cannot find module '../shared'
+2026-06-23 12:21:56: Require stack:
+2026-06-23 12:21:56: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:56: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:56: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:56:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:56:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:56:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:56:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:56:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:56:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:56:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:56:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:56:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:56:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:56:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:56:   requireStack: [
+2026-06-23 12:21:56:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:56:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:56:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:56:   ]
+2026-06-23 12:21:56: }
+2026-06-23 12:21:57: Error: Cannot find module '../shared'
+2026-06-23 12:21:57: Require stack:
+2026-06-23 12:21:57: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:57: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:57: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:57:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:57:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:57:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:57:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:57:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:57:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:57:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:57:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:57:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:57:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:57:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:57:   requireStack: [
+2026-06-23 12:21:57:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:57:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:57:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:57:   ]
+2026-06-23 12:21:57: }
+2026-06-23 12:21:58: Error: Cannot find module '../shared'
+2026-06-23 12:21:58: Require stack:
+2026-06-23 12:21:58: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:21:58: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:21:58: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:21:58:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:21:58:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:21:58:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:21:58:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:21:58:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:21:58:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:21:58:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:21:58:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:21:58:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:21:58:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:21:58:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:21:58:   requireStack: [
+2026-06-23 12:21:58:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:21:58:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:21:58:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:21:58:   ]
+2026-06-23 12:21:58: }
+2026-06-23 12:22:00: Error: Cannot find module '../shared'
+2026-06-23 12:22:00: Require stack:
+2026-06-23 12:22:00: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:00: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:00: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:00:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:00:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:00:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:00:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:00:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:00:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:00:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:00:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:00:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:00:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:00:   requireStack: [
+2026-06-23 12:22:00:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:00:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:00:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:00:   ]
+2026-06-23 12:22:00: }
+2026-06-23 12:22:01: Error: Cannot find module '../shared'
+2026-06-23 12:22:01: Require stack:
+2026-06-23 12:22:01: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:01: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:01: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:01:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:01:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:01:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:01:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:01:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:01:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:01:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:01:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:01:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:01:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:01:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:01:   requireStack: [
+2026-06-23 12:22:01:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:01:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:01:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:01:   ]
+2026-06-23 12:22:01: }
+2026-06-23 12:22:02: Error: Cannot find module '../shared'
+2026-06-23 12:22:02: Require stack:
+2026-06-23 12:22:02: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:02: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:02: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:02:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:02:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:02:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:02:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:02:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:02:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:02:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:02:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:02:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:02:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:02:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:02:   requireStack: [
+2026-06-23 12:22:02:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:02:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:02:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:02:   ]
+2026-06-23 12:22:02: }
+2026-06-23 12:22:04: Error: Cannot find module '../shared'
+2026-06-23 12:22:04: Require stack:
+2026-06-23 12:22:04: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:04: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:04: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:04:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:04:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:04:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:04:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:04:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:04:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:04:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:04:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:04:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:04:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:04:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:04:   requireStack: [
+2026-06-23 12:22:04:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:04:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:04:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:04:   ]
+2026-06-23 12:22:04: }
+2026-06-23 12:22:05: Error: Cannot find module '../shared'
+2026-06-23 12:22:05: Require stack:
+2026-06-23 12:22:05: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:05: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:05: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:05:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:05:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:05:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:05:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:05:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:05:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:05:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:05:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:05:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:05:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:05:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:05:   requireStack: [
+2026-06-23 12:22:05:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:05:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:05:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:05:   ]
+2026-06-23 12:22:05: }
+2026-06-23 12:22:06: Error: Cannot find module '../shared'
+2026-06-23 12:22:06: Require stack:
+2026-06-23 12:22:06: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:06: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:06: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:06:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:06:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:06:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:06:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:06:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:06:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:06:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:06:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:06:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:06:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:06:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:06:   requireStack: [
+2026-06-23 12:22:06:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:06:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:06:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:06:   ]
+2026-06-23 12:22:06: }
+2026-06-23 12:22:08: Error: Cannot find module '../shared'
+2026-06-23 12:22:08: Require stack:
+2026-06-23 12:22:08: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:08: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:08: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:08:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:08:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:08:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:08:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:08:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:08:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:08:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:08:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:08:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:08:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:08:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:08:   requireStack: [
+2026-06-23 12:22:08:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:08:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:08:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:08:   ]
+2026-06-23 12:22:08: }
+2026-06-23 12:22:09: Error: Cannot find module '../shared'
+2026-06-23 12:22:09: Require stack:
+2026-06-23 12:22:09: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:09: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:09: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:09:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:09:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:09:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:09:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:09:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:09:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:09:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:09:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:09:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:09:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:09:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:09:   requireStack: [
+2026-06-23 12:22:09:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:09:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:09:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:09:   ]
+2026-06-23 12:22:09: }
+2026-06-23 12:22:10: Error: Cannot find module '../shared'
+2026-06-23 12:22:10: Require stack:
+2026-06-23 12:22:10: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:10: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:10: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:10:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:10:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:10:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:10:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:10:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:10:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:10:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:10:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:10:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:10:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:10:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:10:   requireStack: [
+2026-06-23 12:22:10:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:10:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:10:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:10:   ]
+2026-06-23 12:22:10: }
+2026-06-23 12:22:12: Error: Cannot find module '../shared'
+2026-06-23 12:22:12: Require stack:
+2026-06-23 12:22:12: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:12: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:12: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:12:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:12:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:12:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:12:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:12:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:12:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:12:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:12:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:12:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:12:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:12:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:12:   requireStack: [
+2026-06-23 12:22:12:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:12:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:12:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:12:   ]
+2026-06-23 12:22:12: }
+2026-06-23 12:22:13: Error: Cannot find module '../shared'
+2026-06-23 12:22:13: Require stack:
+2026-06-23 12:22:13: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js
+2026-06-23 12:22:13: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:13: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:13:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:13:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:13:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:13:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\mailer\index.js:4:16)
+2026-06-23 12:22:13:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:13:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:13:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:13:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:13:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:13:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:13:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:13:   requireStack: [
+2026-06-23 12:22:13:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\mailer\\index.js',
+2026-06-23 12:22:13:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:13:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:13:   ]
+2026-06-23 12:22:13: }
+2026-06-23 12:22:14: Error: Cannot find module './mailer'
+2026-06-23 12:22:14: Require stack:
+2026-06-23 12:22:14: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:14: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:14:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:14:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:14:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:14:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:14:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:14:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:14:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:14:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:14:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:14:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:14:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:14:   requireStack: [
+2026-06-23 12:22:14:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:14:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:14:   ]
+2026-06-23 12:22:14: }
+2026-06-23 12:22:15: Error: Cannot find module './mailer'
+2026-06-23 12:22:15: Require stack:
+2026-06-23 12:22:15: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:15: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:15:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:15:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:15:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:15:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:15:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:15:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:15:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:15:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:15:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:15:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:15:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:15:   requireStack: [
+2026-06-23 12:22:15:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:15:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:15:   ]
+2026-06-23 12:22:15: }
+2026-06-23 12:22:17: Error: Cannot find module './mailer'
+2026-06-23 12:22:17: Require stack:
+2026-06-23 12:22:17: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:17: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:17:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:17:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:17:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:17:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:17:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:17:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:17:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:17:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:17:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:17:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:17:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:17:   requireStack: [
+2026-06-23 12:22:17:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:17:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:17:   ]
+2026-06-23 12:22:17: }
+2026-06-23 12:22:18: Error: Cannot find module './mailer'
+2026-06-23 12:22:18: Require stack:
+2026-06-23 12:22:18: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:18: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:18:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:18:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:18:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:18:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:18:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:18:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:18:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:18:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:18:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:18:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:18:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:18:   requireStack: [
+2026-06-23 12:22:18:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:18:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:18:   ]
+2026-06-23 12:22:18: }
+2026-06-23 12:22:20: Error: Cannot find module './mailer'
+2026-06-23 12:22:20: Require stack:
+2026-06-23 12:22:20: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:20: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:20:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:20:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:20:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:20:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:20:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:20:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:20:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:20:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:20:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:20:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:20:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:20:   requireStack: [
+2026-06-23 12:22:20:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:20:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:20:   ]
+2026-06-23 12:22:20: }
+2026-06-23 12:22:21: Error: Cannot find module './mailer'
+2026-06-23 12:22:21: Require stack:
+2026-06-23 12:22:21: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:21: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:21:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:21:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:21:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:21:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:21:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:21:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:21:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:21:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:21:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:21:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:21:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:21:   requireStack: [
+2026-06-23 12:22:21:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:21:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:21:   ]
+2026-06-23 12:22:21: }
+2026-06-23 12:22:23: Error: Cannot find module './mailer'
+2026-06-23 12:22:23: Require stack:
+2026-06-23 12:22:23: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:23: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:23:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:23:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:23:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:23:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:23:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:23:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:23:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:23:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:23:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:23:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:23:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:23:   requireStack: [
+2026-06-23 12:22:23:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:23:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:23:   ]
+2026-06-23 12:22:23: }
+2026-06-23 12:22:24: Error: Cannot find module './mailer'
+2026-06-23 12:22:24: Require stack:
+2026-06-23 12:22:24: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:24: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:24:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:24:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:24:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:24:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:24:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:24:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:24:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:24:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:24:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:24:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:24:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:24:   requireStack: [
+2026-06-23 12:22:24:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:24:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:24:   ]
+2026-06-23 12:22:24: }
+2026-06-23 12:22:25: Error: Cannot find module './mailer'
+2026-06-23 12:22:25: Require stack:
+2026-06-23 12:22:25: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:25: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:25:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:25:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:25:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:25:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:25:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:25:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:25:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:25:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:25:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:25:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:25:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:25:   requireStack: [
+2026-06-23 12:22:25:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:25:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:25:   ]
+2026-06-23 12:22:25: }
+2026-06-23 12:22:27: Error: Cannot find module './mailer'
+2026-06-23 12:22:27: Require stack:
+2026-06-23 12:22:27: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:27: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:27:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:27:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:27:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:27:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:27:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:27:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:27:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:27:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:27:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:27:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:27:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:27:   requireStack: [
+2026-06-23 12:22:27:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:27:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:27:   ]
+2026-06-23 12:22:27: }
+2026-06-23 12:22:28: Error: Cannot find module './mailer'
+2026-06-23 12:22:28: Require stack:
+2026-06-23 12:22:28: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:28: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:28:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:28:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:28:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:28:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:28:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:28:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:28:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:28:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:28:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:28:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:28:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:28:   requireStack: [
+2026-06-23 12:22:28:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:28:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:28:   ]
+2026-06-23 12:22:28: }
+2026-06-23 12:22:29: Error: Cannot find module './mailer'
+2026-06-23 12:22:29: Require stack:
+2026-06-23 12:22:29: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:29: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:29:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:29:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:29:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:29:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:29:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:29:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:29:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:29:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:29:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:29:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:29:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:29:   requireStack: [
+2026-06-23 12:22:29:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:29:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:29:   ]
+2026-06-23 12:22:29: }
+2026-06-23 12:22:30: Error: Cannot find module './mailer'
+2026-06-23 12:22:30: Require stack:
+2026-06-23 12:22:30: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:30: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:30:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:30:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:30:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:30:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:30:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:30:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:30:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:30:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:30:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:30:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:30:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:30:   requireStack: [
+2026-06-23 12:22:30:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:30:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:30:   ]
+2026-06-23 12:22:30: }
+2026-06-23 12:22:32: Error: Cannot find module './mailer'
+2026-06-23 12:22:32: Require stack:
+2026-06-23 12:22:32: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:32: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:32:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:32:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:32:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:32:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:32:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:32:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:32:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:32:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:32:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:32:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:32:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:32:   requireStack: [
+2026-06-23 12:22:32:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:32:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:32:   ]
+2026-06-23 12:22:32: }
+2026-06-23 12:22:33: Error: Cannot find module './mailer'
+2026-06-23 12:22:33: Require stack:
+2026-06-23 12:22:33: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:33: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:33:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:33:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:33:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:33:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:33:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:33:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:33:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:33:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:33:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:33:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:33:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:33:   requireStack: [
+2026-06-23 12:22:33:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:33:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:33:   ]
+2026-06-23 12:22:33: }
+2026-06-23 12:22:34: Error: Cannot find module './mailer'
+2026-06-23 12:22:34: Require stack:
+2026-06-23 12:22:34: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:34: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:34:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:34:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:34:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:34:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:34:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:34:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:34:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:34:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:34:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:34:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:34:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:34:   requireStack: [
+2026-06-23 12:22:34:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:34:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:34:   ]
+2026-06-23 12:22:34: }
+2026-06-23 12:22:35: Error: Cannot find module './mailer'
+2026-06-23 12:22:35: Require stack:
+2026-06-23 12:22:35: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:35: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:35:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:35:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:35:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:35:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:35:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:35:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:35:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:35:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:35:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:35:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:35:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:35:   requireStack: [
+2026-06-23 12:22:35:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:35:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:35:   ]
+2026-06-23 12:22:35: }
+2026-06-23 12:22:37: Error: Cannot find module './mailer'
+2026-06-23 12:22:37: Require stack:
+2026-06-23 12:22:37: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:37: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:37:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:37:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:37:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:37:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:37:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:37:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:37:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:37:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:37:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:37:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:37:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:37:   requireStack: [
+2026-06-23 12:22:37:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:37:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:37:   ]
+2026-06-23 12:22:37: }
+2026-06-23 12:22:38: Error: Cannot find module './mailer'
+2026-06-23 12:22:38: Require stack:
+2026-06-23 12:22:38: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:38: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:38:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:38:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:38:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:38:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:38:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:38:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:38:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:38:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:38:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:38:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:38:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:38:   requireStack: [
+2026-06-23 12:22:38:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:38:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:38:   ]
+2026-06-23 12:22:38: }
+2026-06-23 12:22:39: Error: Cannot find module './mailer'
+2026-06-23 12:22:39: Require stack:
+2026-06-23 12:22:39: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:39: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:39:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:39:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:39:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:39:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:39:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:39:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:39:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:39:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:39:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:39:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:39:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:39:   requireStack: [
+2026-06-23 12:22:39:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:39:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:39:   ]
+2026-06-23 12:22:39: }
+2026-06-23 12:22:41: Error: Cannot find module './mailer'
+2026-06-23 12:22:41: Require stack:
+2026-06-23 12:22:41: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:41: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:41:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:41:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:41:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:41:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:41:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:41:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:41:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:41:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:41:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:41:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:41:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:41:   requireStack: [
+2026-06-23 12:22:41:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:41:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:41:   ]
+2026-06-23 12:22:41: }
+2026-06-23 12:22:42: Error: Cannot find module './mailer'
+2026-06-23 12:22:42: Require stack:
+2026-06-23 12:22:42: - C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js
+2026-06-23 12:22:42: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:42:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:42:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:42:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:42:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js:3:16)
+2026-06-23 12:22:42:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:42:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:42:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:42:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2026-06-23 12:22:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24) {
+2026-06-23 12:22:42:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:42:   requireStack: [
+2026-06-23 12:22:42:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\lib\\nodemailer.js',
+2026-06-23 12:22:42:     'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js'
+2026-06-23 12:22:42:   ]
+2026-06-23 12:22:42: }
+2026-06-23 12:22:44: Error: Cannot find module 'C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js'. Please verify that the package.json has a valid "main" entry
+2026-06-23 12:22:44:     at tryPackage (node:internal/modules/cjs/loader:500:19)
+2026-06-23 12:22:44:     at Function._findPath (node:internal/modules/cjs/loader:760:18)
+2026-06-23 12:22:44:     at Function._resolveFilename (node:internal/modules/cjs/loader:1351:27)
+2026-06-23 12:22:44:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:44:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:44:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:44:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:44:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:44:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:44:     at Function._load (node:internal/modules/cjs/loader:1246:12) {
+2026-06-23 12:22:44:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:44:   path: '\\\\?\\C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\package.json',
+2026-06-23 12:22:44:   requestPath: 'nodemailer'
+2026-06-23 12:22:44: }
+2026-06-23 12:22:45: Error: Cannot find module 'C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js'. Please verify that the package.json has a valid "main" entry
+2026-06-23 12:22:45:     at tryPackage (node:internal/modules/cjs/loader:500:19)
+2026-06-23 12:22:45:     at Function._findPath (node:internal/modules/cjs/loader:760:18)
+2026-06-23 12:22:45:     at Function._resolveFilename (node:internal/modules/cjs/loader:1351:27)
+2026-06-23 12:22:45:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:45:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:45:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:45:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:45:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:45:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:45:     at Function._load (node:internal/modules/cjs/loader:1246:12) {
+2026-06-23 12:22:45:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:45:   path: '\\\\?\\C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\package.json',
+2026-06-23 12:22:45:   requestPath: 'nodemailer'
+2026-06-23 12:22:45: }
+2026-06-23 12:22:46: Error: Cannot find module 'C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js'. Please verify that the package.json has a valid "main" entry
+2026-06-23 12:22:46:     at tryPackage (node:internal/modules/cjs/loader:500:19)
+2026-06-23 12:22:46:     at Function._findPath (node:internal/modules/cjs/loader:760:18)
+2026-06-23 12:22:46:     at Function._resolveFilename (node:internal/modules/cjs/loader:1351:27)
+2026-06-23 12:22:46:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:46:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:46:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:46:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:46:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:46:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:46:     at Function._load (node:internal/modules/cjs/loader:1246:12) {
+2026-06-23 12:22:46:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:46:   path: '\\\\?\\C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\package.json',
+2026-06-23 12:22:46:   requestPath: 'nodemailer'
+2026-06-23 12:22:46: }
+2026-06-23 12:22:47: Error: Cannot find module 'C:\aquaintranet\Capital Expenditure Request - DEV\node_modules\nodemailer\lib\nodemailer.js'. Please verify that the package.json has a valid "main" entry
+2026-06-23 12:22:47:     at tryPackage (node:internal/modules/cjs/loader:500:19)
+2026-06-23 12:22:47:     at Function._findPath (node:internal/modules/cjs/loader:760:18)
+2026-06-23 12:22:47:     at Function._resolveFilename (node:internal/modules/cjs/loader:1351:27)
+2026-06-23 12:22:47:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:47:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:47:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:47:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:47:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:47:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:47:     at Function._load (node:internal/modules/cjs/loader:1246:12) {
+2026-06-23 12:22:47:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:47:   path: '\\\\?\\C:\\aquaintranet\\Capital Expenditure Request - DEV\\node_modules\\nodemailer\\package.json',
+2026-06-23 12:22:47:   requestPath: 'nodemailer'
+2026-06-23 12:22:47: }
+2026-06-23 12:22:48: Error: Cannot find module 'nodemailer'
+2026-06-23 12:22:48: Require stack:
+2026-06-23 12:22:48: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:48:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:48:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:48:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:48:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:48:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:48:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:48:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:48:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:48:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:22:48:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:22:48:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:48:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:22:48: }
+2026-06-23 12:22:50: Error: Cannot find module 'nodemailer'
+2026-06-23 12:22:50: Require stack:
+2026-06-23 12:22:50: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:50:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:50:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:50:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:50:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:50:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:50:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:50:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:50:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:50:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:22:50:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:22:50:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:50:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:22:50: }
+2026-06-23 12:22:51: Error: Cannot find module 'nodemailer'
+2026-06-23 12:22:51: Require stack:
+2026-06-23 12:22:51: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:51:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:51:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:51:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:51:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:51:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:51:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:51:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:51:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:51:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:22:51:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:22:51:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:51:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:22:51: }
+2026-06-23 12:22:53: Error: Cannot find module 'nodemailer'
+2026-06-23 12:22:53: Require stack:
+2026-06-23 12:22:53: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:53:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:53:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:53:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:53:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:53:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:53:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:53:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:53:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:53:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:22:53:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:22:53:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:53:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:22:53: }
+2026-06-23 12:22:54: Error: Cannot find module 'nodemailer'
+2026-06-23 12:22:54: Require stack:
+2026-06-23 12:22:54: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:54:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:54:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:54:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:54:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:54:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:54:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:54:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:54:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:54:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:22:54:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:22:54:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:54:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:22:54: }
+2026-06-23 12:22:55: Error: Cannot find module 'nodemailer'
+2026-06-23 12:22:55: Require stack:
+2026-06-23 12:22:55: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:55:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:55:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:55:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:55:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:55:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:55:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:55:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:55:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:55:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:22:55:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:22:55:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:55:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:22:55: }
+2026-06-23 12:22:58: Error: Cannot find module 'nodemailer'
+2026-06-23 12:22:58: Require stack:
+2026-06-23 12:22:58: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:22:58:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:22:58:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:22:58:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:22:58:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:22:58:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:22:58:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:22:58:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:22:58:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:22:58:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:22:58:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:22:58:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:22:58:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:22:58: }
+2026-06-23 12:23:05: Error: Cannot find module 'nodemailer'
+2026-06-23 12:23:05: Require stack:
+2026-06-23 12:23:05: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:23:05:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:23:05:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:23:05:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:23:05:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:23:05:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:23:05:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:23:05:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:23:05:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:23:05:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:23:05:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:23:05:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:23:05:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:23:05: }
+2026-06-23 12:23:06: Error: Cannot find module 'nodemailer'
+2026-06-23 12:23:06: Require stack:
+2026-06-23 12:23:06: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:23:06:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:23:06:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:23:06:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:23:06:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:23:06:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:23:06:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:23:06:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:23:06:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:23:06:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:23:06:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:23:06:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:23:06:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:23:06: }
+2026-06-23 12:23:08: Error: Cannot find module 'nodemailer'
+2026-06-23 12:23:08: Require stack:
+2026-06-23 12:23:08: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:23:08:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:23:08:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:23:08:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:23:08:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:23:08:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:23:08:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:23:08:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:23:08:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:23:08:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:23:08:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:23:08:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:23:08:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:23:08: }
+2026-06-23 12:23:09: Error: Cannot find module 'nodemailer'
+2026-06-23 12:23:09: Require stack:
+2026-06-23 12:23:09: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:23:09:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:23:09:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:23:09:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:23:09:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:23:09:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:23:09:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:23:09:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:23:09:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:23:09:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:23:09:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:23:09:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:23:09:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:23:09: }
+2026-06-23 12:23:11: Error: Cannot find module 'nodemailer'
+2026-06-23 12:23:11: Require stack:
+2026-06-23 12:23:11: - C:\aquaintranet\Capital Expenditure Request - DEV\server.js
+2026-06-23 12:23:11:     at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+2026-06-23 12:23:11:     at Hook._require.Module.require (C:\pm2\npm-global\node_modules\pm2\node_modules\require-in-the-middle\index.js:81:25)
+2026-06-23 12:23:11:     at require (node:internal/modules/helpers:135:16)
+2026-06-23 12:23:11:     at Object.<anonymous> (C:\aquaintranet\Capital Expenditure Request - DEV\server.js:11:20)
+2026-06-23 12:23:11:     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+2026-06-23 12:23:11:     at Object..js (node:internal/modules/cjs/loader:1820:10)
+2026-06-23 12:23:11:     at Module.load (node:internal/modules/cjs/loader:1423:32)
+2026-06-23 12:23:11:     at Function._load (node:internal/modules/cjs/loader:1246:12)
+2026-06-23 12:23:11:     at Object.<anonymous> (C:\pm2\npm-global\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2026-06-23 12:23:11:     at Module._compile (node:internal/modules/cjs/loader:1688:14) {
+2026-06-23 12:23:11:   code: 'MODULE_NOT_FOUND',
+2026-06-23 12:23:11:   requireStack: [ 'C:\\aquaintranet\\Capital Expenditure Request - DEV\\server.js' ]
+2026-06-23 12:23:11: }

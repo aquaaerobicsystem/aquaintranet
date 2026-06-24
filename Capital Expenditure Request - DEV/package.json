@@ -1,0 +1,24 @@
+{
+  "name": "capital-expenditure-request",
+  "version": "1.0.0",
+  "description": "Capital Expenditure Request web application with multi-level approval workflow",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "capex",
+    "procurement",
+    "approval"
+  ],
+  "author": "AquaAutomate",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mssql": "^12.6.0",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.1"
+  }
+}

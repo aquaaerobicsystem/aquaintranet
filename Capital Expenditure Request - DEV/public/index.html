@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Capital Expenditure Request - Submit and manage procurement requests with multi-level approval workflow.">
+  <title>Capital Expenditure Request</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══ Navigation ══════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-brand" onclick="navigate('home')" style="cursor:pointer;">
+    <img src="/images/newlogo.png" alt="Aqua-Aerobic Systems" class="nav-logo">
+    <span class="nav-brand-divider"></span>
+    <span>Capital Expenditure Request</span>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#" class="nav-item active" data-page="home"><span>🏠</span><span>Home</span></a></li>
+    <li><a href="#" class="nav-item" data-page="dashboard"><span>📊</span><span>Dashboard</span></a></li>
+    <li><a href="#" class="nav-item" data-page="requestor"><span>📝</span><span>Request</span></a></li>
+    <li><a href="#" class="nav-item" data-page="department"><span>🏢</span><span>Department</span></a></li>
+    <li><a href="#" class="nav-item" data-page="financial"><span>💰</span><span>Financial</span></a></li>
+    <li><a href="#" class="nav-item" data-page="presidential"><span>👑</span><span>Presidential</span></a></li>
+    <li><a href="#" class="nav-item" data-page="admin"><span>⚙️</span><span>Admin</span></a></li>
+  </ul>
+</nav>
+
+<!-- ══ Toast Container ═════════════════════════════════════════ -->
+<div id="toast-container"></div>
+
+<!-- ══ Loading Overlay ═════════════════════════════════════════ -->
+<div class="loading-overlay hidden" id="loading">
+  <div class="spinner" style="width:40px;height:40px;border-width:3px;"></div>
+  <span style="color:var(--text-secondary)">Loading...</span>
+</div>
+
+<!-- ══ Main Content ════════════════════════════════════════════ -->
+<main class="main">
+
+  <!-- ── NEW HOME PAGE ──────────────────────────────────────── -->
+  <div class="page-view active" id="page-home">
+    <div style="text-align: center; padding: 6rem 2rem;">
+      <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Capital Expenditure Request</h1>
+      <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 3rem;">
+        Manage and track procurement requests through the full approval workflow.
+      </p>
+      <button class="btn btn-primary" style="font-size: 1.25rem; padding: 1rem 2rem; border-radius: var(--radius-lg);" onclick="window.location.hash='#new-request'">
+        + Create New Request
+      </button>
+    </div>
+  </div>
+
+  <!-- ── DASHBOARD PAGE ───────────────────────────────────────── -->
+  <div class="page-view" id="page-dashboard">
+    <div class="page-header">
+      <h1>📊 Dashboard</h1>
+      <p>Overview of all Capital Expenditure Requests.</p>
+    </div>
+
+    <div class="stats-grid" id="home-stats">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-total">–</div>
+        <div class="stat-label">Total Requests</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-value" id="stat-pending-dept">–</div>
+        <div class="stat-label">Pending Department</div>
+      </div>
+      <div class="stat-card teal">
+        <div class="stat-value" id="stat-pending-fin">–</div>
+        <div class="stat-label">Pending Financial</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-value" id="stat-pending-pres">–</div>
+        <div class="stat-label">Pending Presidential</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-value" id="stat-approved">–</div>
+        <div class="stat-label">Approved</div>
+      </div>
+      <div class="stat-card danger">
+        <div class="stat-value" id="stat-denied">–</div>
+        <div class="stat-label">Denied</div>
+      </div>
+    </div>
+
+    <!-- Recent Requests -->
+    <div class="card">
+      <div class="card-header">
+        <h3>🗂️ All Requests</h3>
+        <div class="flex gap-1">
+          <button class="btn btn-ghost btn-sm" id="btn-refresh-home">↻ Refresh</button>
+          <button class="btn btn-primary btn-sm" onclick="navigate('requestor')">+ New Request</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table id="home-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Requested By</th>
+              <th>Vendor</th>
+              <th>Description</th>
+              <th>Est. Cost</th>
+              <th>Start Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="home-tbody">
+            <tr><td colspan="8" class="text-center text-muted" style="padding:2rem">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── REQUESTOR PAGE ─────────────────────────────────────── -->
+  <div class="page-view" id="page-requestor">
+    <div class="page-header">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1>📝 Request Submission</h1>
+          <p>Complete the procurement request form below. Your signature is mandatory.</p>
+        </div>
+        <button class="btn btn-ghost" onclick="navigate('dashboard')">← Back to Dashboard</button>
+      </div>
+    </div>
+
+    <!-- Request List -->
+    <div class="card mb-3" id="req-list-card">
+      <div class="card-header">
+        <h3>Requests</h3>
+        <button class="btn btn-primary btn-sm" id="btn-new-request">+ New Request</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Vendor</th><th>Description</th><th>Est. Cost</th>
+              <th>Start Date</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="req-list-tbody">
+            <tr><td colspan="7" class="text-center text-muted" style="padding:2rem">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Request Form -->
+    <div class="card" id="req-form-card">
+      <div class="card-header">
+        <h3 id="req-form-title">New Capital Expenditure Request</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-cancel-req">Cancel</button>
+      </div>
+
+      <div id="req-form-alert"></div>
+
+      <form id="req-form">
+        <input type="hidden" id="req-id" value="">
+
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label class="form-label" for="req-vendor">Vendor <span class="required">*</span></label>
+            <input type="text" class="form-control" id="req-vendor" placeholder="Enter vendor name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="req-start-date">Estimated Start Date <span class="required">*</span></label>
+            <input type="date" class="form-control" id="req-start-date" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="req-description">Description <span class="required">*</span></label>
+          <textarea class="form-control" id="req-description" rows="3" placeholder="Describe the expenditure in detail..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="req-cost">Estimated Cost ($) <span class="required">*</span></label>
+          <input type="number" class="form-control" id="req-cost" placeholder="0.00" step="0.01" min="0" required>
+          <div class="form-hint" id="cost-hint"></div>
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label class="form-label" for="req-name">Requested By (Full Name) <span class="required">*</span></label>
+            <input type="text" class="form-control" id="req-name" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="req-email">Requestor Email <span class="required">*</span></label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="req-email" placeholder="enter aqua userid | example: ckonkol" required>
+              <span class="input-group-addon">@aqua-aerobic.com</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label class="form-label" for="req-dept-manager">Department Manager Name <span class="required">*</span></label>
+            <input type="text" class="form-control" id="req-dept-manager" placeholder="Manager's name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="req-dept-manager-email">Dept Manager Email <span class="required">*</span></label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="req-dept-manager-email" placeholder="e.g. manager_id" required>
+              <span class="input-group-addon">@aqua-aerobic.com</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="req-comments">Comments</label>
+          <textarea class="form-control" id="req-comments" rows="2" placeholder="Additional notes or comments..."></textarea>
+        </div>
+
+        <!-- Document Uploads -->
+        <div class="form-group">
+          <label class="form-label">Supporting Documents</label>
+          <div class="form-hint mb-1">Upload quotes, invoices, or supporting documents (PDF, Word, Excel). Max 10MB per file.</div>
+          <div class="file-upload-area" id="file-upload-area">
+            <input type="file" id="req-files" multiple accept=".pdf,.doc,.docx,.xls,.xlsx" style="display:none;">
+            <div class="file-upload-prompt" onclick="document.getElementById('req-files').click()">
+              <span style="font-size:1.5rem;">📎</span>
+              <span>Click to browse or drag files here</span>
+              <span class="text-xs text-muted">PDF, Word, Excel — Max 10MB each</span>
+            </div>
+          </div>
+          <div id="file-list" class="file-list"></div>
+        </div>
+
+        <!-- Signature -->
+        <div class="form-group">
+          <label class="form-label">Digital Signature <span class="required">*</span></label>
+          <div class="form-hint mb-1">Enter your full name above, then click to generate your signature.</div>
+          <div class="sig-container" id="req-sig-container" style="display:none;">
+            <canvas id="req-sig-canvas" height="100"></canvas>
+          </div>
+          <div class="sig-actions">
+            <button type="button" class="btn btn-purple btn-sm" id="req-btn-generate-sig">✍️ Generate Signature</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="req-sig-clear" style="display:none;">Clear</button>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-1 mt-2">
+          <button type="button" class="btn btn-ghost" id="btn-cancel-req-2">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-submit-req">
+            <span>Submit Request</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Request Detail (read-only view for approved/denied) -->
+    <div class="card hidden" id="req-detail-card">
+      <div class="card-header">
+        <h3 id="req-detail-title">Request Details</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-close-detail">← Back</button>
+      </div>
+      <div id="req-detail-content"></div>
+    </div>
+  </div>
+
+  <!-- ── DEPARTMENT PAGE ────────────────────────────────────── -->
+  <div class="page-view" id="page-department">
+    <div class="page-header">
+      <h1>🏢 Department Approval</h1>
+      <p>Review and approve or deny pending procurement requests.</p>
+    </div>
+    <div class="card mb-3" id="dept-table-card">
+      <div class="card-header">
+        <h3>Requests Pending Department Approval</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-refresh-dept">↻ Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Requested By</th><th>Vendor</th><th>Description</th>
+              <th>Est. Cost</th><th>Date</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="dept-tbody">
+            <tr><td colspan="8" class="text-center text-muted" style="padding:2rem">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Detail View -->
+    <div class="card hidden" id="dept-detail-card">
+      <div class="card-header">
+        <h3 id="dept-detail-title">Request Details</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-close-dept-detail">← Back to List</button>
+      </div>
+      <div id="dept-detail-content"></div>
+      <div class="flex gap-1 justify-end mt-2" id="dept-action-btns">
+        <button class="btn btn-danger" id="btn-dept-deny">✗ Deny Request</button>
+        <button class="btn btn-success" id="btn-dept-approve">✓ Approve Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FINANCIAL PAGE ─────────────────────────────────────── -->
+  <div class="page-view" id="page-financial">
+    <div class="page-header">
+      <h1>💰 Financial Approval</h1>
+      <p>Verify fund availability and ensure compliance with financial policies.</p>
+    </div>
+    <div class="card mb-3" id="fin-table-card">
+      <div class="card-header">
+        <h3>Requests Pending Financial Approval</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-refresh-fin">↻ Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Requested By</th><th>Vendor</th><th>Description</th>
+              <th>Est. Cost</th><th>Dept. Approved</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="fin-tbody">
+            <tr><td colspan="8" class="text-center text-muted" style="padding:2rem">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Accounting Details (always shown here for reference) -->
+    <div class="card mb-3" id="fin-acc-card" style="display:none">
+      <div class="card-header">
+        <h3>📊 Accounting Details</h3>
+        <span class="text-sm text-muted">For Request #<span id="fin-acc-req-id"></span></span>
+      </div>
+      <div id="fin-acc-content"></div>
+      <form id="fin-acc-form" class="mt-2">
+        <input type="hidden" id="fin-acc-req-id-hidden">
+        <div class="form-row cols-3">
+          <div class="form-group">
+            <label class="form-label" for="fin-b-number">B Number</label>
+            <input type="text" class="form-control" id="fin-b-number" placeholder="B-XXXX">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fin-fixed-asset">Fixed Asset Account</label>
+            <input type="text" class="form-control" id="fin-fixed-asset" placeholder="Account">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fin-property-type">Property Type</label>
+            <input type="text" class="form-control" id="fin-property-type" placeholder="Property Type">
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label class="form-label" for="fin-fiscal-year">Fiscal Year</label>
+            <input type="text" class="form-control" id="fin-fiscal-year" placeholder="e.g. FY2026">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fin-entered-by">Entered By</label>
+            <input type="text" class="form-control" id="fin-entered-by" placeholder="Your name">
+          </div>
+        </div>
+
+        <div class="form-row cols-3">
+          <div class="form-group">
+            <label class="form-label" for="fin-class">Class</label>
+            <input type="text" class="form-control" id="fin-class" placeholder="Class">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fin-accum-dep">Accum. Depreciation Account</label>
+            <input type="text" class="form-control" id="fin-accum-dep" placeholder="Account">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fin-dep-exp">Depreciation Expense Account</label>
+            <input type="text" class="form-control" id="fin-dep-exp" placeholder="Account">
+          </div>
+        </div>
+
+        <div class="form-row cols-3 mb-2" style="background:var(--bg-input); padding:1rem; border-radius:var(--radius-sm); border:1px solid var(--border);">
+          <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;color:var(--text-primary);font-weight:500;">
+            <input type="checkbox" id="fin-use-tax" style="width:16px;height:16px;cursor:pointer;"> UseTax
+          </label>
+          <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;color:var(--text-primary);font-weight:500;">
+            <input type="checkbox" id="fin-equipment-exempt" style="width:16px;height:16px;cursor:pointer;"> Equipment Exempt
+          </label>
+          <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;color:var(--text-primary);font-weight:500;">
+            <input type="checkbox" id="fin-tooling" style="width:16px;height:16px;cursor:pointer;"> Tooling
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fin-acc-notes">Notes</label>
+          <textarea class="form-control" id="fin-acc-notes" rows="2" placeholder="Accounting notes..."></textarea>
+        </div>
+        <div class="flex justify-end">
+          <button type="submit" class="btn btn-teal">💾 Save Accounting Details</button>
+        </div>
+      </form>
+    </div>
+    <!-- Detail View -->
+    <div class="card hidden" id="fin-detail-card">
+      <div class="card-header">
+        <h3 id="fin-detail-title">Request Details</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-close-fin-detail">← Back to List</button>
+      </div>
+      <div id="fin-detail-content"></div>
+      <div class="flex gap-1 justify-end mt-2" id="fin-action-btns">
+        <button class="btn btn-danger" id="btn-fin-deny">✗ Deny</button>
+        <button class="btn btn-success" id="btn-fin-approve">✓ Approve Financial</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRESIDENTIAL PAGE ──────────────────────────────────── -->
+  <div class="page-view" id="page-presidential">
+    <div class="page-header">
+      <h1>👑 Presidential Approval</h1>
+      <p>Final approval required for requests exceeding $25,000.</p>
+    </div>
+    <div class="alert alert-warning">
+      <span>⚠️</span>
+      <span>Only requests with an Estimated Cost exceeding <strong>$25,000</strong> are routed here for Presidential approval.</span>
+    </div>
+    <div class="card mb-3" id="pres-table-card">
+      <div class="card-header">
+        <h3>Requests Pending Presidential Approval</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-refresh-pres">↻ Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Requested By</th><th>Vendor</th><th>Description</th>
+              <th>Est. Cost</th><th>Fin. Approved</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="pres-tbody">
+            <tr><td colspan="8" class="text-center text-muted" style="padding:2rem">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Detail View -->
+    <div class="card hidden" id="pres-detail-card">
+      <div class="card-header">
+        <h3 id="pres-detail-title">Request Details</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-close-pres-detail">← Back to List</button>
+      </div>
+      <div id="pres-detail-content"></div>
+      <div class="flex gap-1 justify-end mt-2" id="pres-action-btns">
+        <button class="btn btn-danger" id="btn-pres-deny">✗ Deny</button>
+        <button class="btn btn-purple" id="btn-pres-approve">✓ Presidential Approval</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ADMIN PAGE ─────────────────────────────────────────── -->
+  <div class="page-view" id="page-admin">
+    <div class="page-header">
+      <h1>⚙️ Administration</h1>
+      <p>Manage system settings and email configurations.</p>
+    </div>
+
+    <!-- Activity Logs -->
+    <div class="card mb-3">
+      <div class="card-header">
+        <h3>Activity Logs</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-refresh-logs">↻ Refresh</button>
+      </div>
+      <div class="table-wrap" style="max-height: 400px; overflow-y: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 150px;">Date & Time</th>
+              <th style="width: 150px;">Action</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="admin-logs-tbody">
+            <tr><td colspan="3" class="text-center text-muted" style="padding:2rem">Loading logs...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- System Settings -->
+    <div class="card mb-3">
+      <div class="card-header" style="cursor: pointer;" onclick="const f = document.getElementById('admin-settings-form'); f.classList.toggle('hidden'); this.querySelector('.toggle-icon').textContent = f.classList.contains('hidden') ? '▼' : '▲';">
+        <h3>Email & System Settings</h3>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <form id="admin-settings-form" class="hidden" style="padding: 1.5rem;">
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label class="form-label" for="admin-accounting-email">Accounting Email (for Financial Approval)</label>
+            <input type="email" class="form-control" id="admin-accounting-email" placeholder="accounting@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-presidential-email">Presidential Email (for CEO Approval >$25k)</label>
+            <input type="email" class="form-control" id="admin-presidential-email" placeholder="ceo@example.com">
+          </div>
+        </div>
+
+        <h4 style="margin: 1.5rem 0 0.5rem 0; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">System Settings</h4>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label class="form-label" for="admin-app-passcode">App Passcode</label>
+            <input type="text" class="form-control" id="admin-app-passcode" placeholder="1969">
+            <div class="form-hint mt-1">Used for authentication and deleting requests.</div>
+          </div>
+        </div>
+
+        <h4 style="margin: 1.5rem 0 0.5rem 0; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">SMTP Configuration</h4>
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label class="form-label" for="admin-smtp-host">SMTP Host</label>
+            <input type="text" class="form-control" id="admin-smtp-host" placeholder="smtp.example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-smtp-port">SMTP Port</label>
+            <input type="number" class="form-control" id="admin-smtp-port" placeholder="587">
+          </div>
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label class="form-label" for="admin-smtp-user">SMTP Username</label>
+            <input type="text" class="form-control" id="admin-smtp-user" placeholder="user@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-smtp-pass">SMTP Password</label>
+            <input type="password" class="form-control" id="admin-smtp-pass" placeholder="••••••••">
+          </div>
+        </div>
+
+        <div class="form-row cols-2">
+          <div class="form-group">
+            <label class="form-label" for="admin-smtp-secure">Use TLS/SSL</label>
+            <select class="form-control" id="admin-smtp-secure">
+              <option value="false">False (Usually for port 25/587)</option>
+              <option value="true">True (Usually for port 465)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-from-email">From Email Address</label>
+            <input type="email" class="form-control" id="admin-from-email" placeholder="noreply@example.com">
+          </div>
+        </div>
+
+        <div class="flex justify-end mt-2">
+          <button type="submit" class="btn btn-primary" id="btn-save-settings">💾 Save Settings</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</main>
+
+<!-- ══ Approval Modal ═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="approval-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="approval-modal-title">Approval Confirmation</h3>
+      <button class="modal-close" onclick="closeModal('approval-modal')">✕</button>
+    </div>
+    <div id="approval-modal-alert"></div>
+    <div class="form-group">
+      <label class="form-label" for="approver-name">Approver Name <span class="required">*</span></label>
+      <input type="text" class="form-control" id="approver-name" placeholder="Your full name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Digital Signature <span class="required">*</span></label>
+      <div class="form-hint mb-1">Enter your name above, then click to generate your signature.</div>
+      <div class="sig-container" id="approval-sig-container" style="display:none;">
+        <canvas id="approval-sig-canvas" height="100"></canvas>
+      </div>
+      <div class="sig-actions">
+        <button type="button" class="btn btn-purple btn-sm" id="approval-btn-generate-sig">✍️ Generate Signature</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="approval-sig-clear" style="display:none;">Clear</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="approval-date">Approval Date <span class="required">*</span></label>
+      <input type="date" class="form-control" id="approval-date">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="approval-comments">Comments</label>
+      <textarea class="form-control" id="approval-comments" rows="2" placeholder="Optional comments..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('approval-modal')">Cancel</button>
+      <button class="btn" id="approval-confirm-btn" onclick="confirmApproval()">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Deny Modal ═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="deny-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Deny Request</h3>
+      <button class="modal-close" onclick="closeModal('deny-modal')">✕</button>
+    </div>
+    <div class="alert alert-error mb-2">
+      <span>⚠️</span>
+      <span>This will deny the request. This action cannot be undone.</span>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="deny-approver-name">Your Name <span class="required">*</span></label>
+      <input type="text" class="form-control" id="deny-approver-name" placeholder="Your full name">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="deny-comments">Reason for Denial <span class="required">*</span></label>
+      <textarea class="form-control" id="deny-comments" rows="3" placeholder="Please provide a reason for denial..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('deny-modal')">Cancel</button>
+      <button class="btn btn-danger" onclick="confirmDeny()">Confirm Denial</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Delete Modal ═════════════════════════════════════════════ -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Delete Request</h3>
+      <button class="modal-close" onclick="closeModal('delete-modal')">✕</button>
+    </div>
+    <div class="alert alert-error mb-2">
+      <span>⚠️</span>
+      <span>This will permanently delete the request. This action cannot be undone.</span>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="delete-fullname">Your Full Name <span class="required">*</span></label>
+      <input type="text" class="form-control" id="delete-fullname" placeholder="Must match requestor name">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="delete-code">System Passcode <span class="required">*</span></label>
+      <input type="password" class="form-control" id="delete-code" placeholder="Enter system passcode">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('delete-modal')">Cancel</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">Confirm Deletion</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Print Modal ══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="print-modal" style="max-width:100vw;">
+  <div class="modal" style="max-width:860px;width:100%;">
+    <div class="modal-header">
+      <h3>📄 Print Request Form</h3>
+      <button class="modal-close" onclick="closeModal('print-modal')">✕</button>
+    </div>
+    <div id="print-form-content"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('print-modal')">Close</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨️ Print</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Auth Modal ═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Authentication Required</h3>
+      <button class="modal-close" onclick="cancelAuth()">✕</button>
+    </div>
+    <div class="alert alert-info mb-2">
+      <span>ℹ️</span>
+      <span>You must enter your UserID and passcode to view this page.</span>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="auth-name">UserID</label>
+      <input type="text" class="form-control" id="auth-name" placeholder="e.g. ckonkol">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="auth-code">Access Code</label>
+      <input type="password" class="form-control" id="auth-code" placeholder="Enter code">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="cancelAuth()">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmAuth()">Login</button>
+    </div>
+  </div>
+</div>
+
+<footer class="app-footer">
+  <span>Copyright © 2026 Aqua-Aerobic Systems, Inc. — All Rights Reserved</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
