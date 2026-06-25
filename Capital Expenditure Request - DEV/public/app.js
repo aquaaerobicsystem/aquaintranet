@@ -123,7 +123,7 @@ async function loadAllRequests() {
 // ══════════════════════════════════════════════════════════════
 // TOAST NOTIFICATIONS
 // ══════════════════════════════════════════════════════════════
-function toast(message, type = 'info') {
+function toast(message, type = 'info', duration = 4000) {
   const container = document.getElementById('toast-container');
   const el = document.createElement('div');
   el.className = `toast ${type}`;
@@ -134,7 +134,7 @@ function toast(message, type = 'info') {
   setTimeout(() => {
     el.classList.remove('show');
     setTimeout(() => el.remove(), 300);
-  }, 4000);
+  }, duration);
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -586,11 +586,22 @@ document.getElementById('btn-refresh-home').addEventListener('click', async () =
 // REQUESTOR PAGE
 // ══════════════════════════════════════════════════════════════
 async function loadRequestor(targetId) {
+  if (targetId) {
+    // Direct link from email — load requests and try to find the specific one
+    await loadAllRequests();
+    const r = allRequests.find(x => x.Id === parseInt(targetId));
+    if (r) {
+      showReqList();
+      viewReqDetail(parseInt(targetId));
+    } else {
+      // Request not found — likely removed or invalid ID
+      toast('⚠️ Request #' + targetId + ' is no longer available. It may have been removed. Please contact the Accounting department if you have any questions.', 'error', 8000);
+      navigate('home');
+    }
+    return;
+  }
   showReqList();
   await loadReqList();
-  if (targetId) {
-    viewReqDetail(parseInt(targetId));
-  }
 }
 
 function showReqList() {
@@ -892,6 +903,12 @@ async function loadDepartment(targetId) {
     await loadAllRequests();
     renderDeptTable();
     if (targetId) {
+      const r = allRequests.find(x => x.Id === parseInt(targetId));
+      if (!r) {
+        toast('⚠️ Request #' + targetId + ' is no longer available. It may have been removed. Please contact the Accounting department if you have any questions.', 'error', 8000);
+        navigate('home');
+        return;
+      }
       document.getElementById('dept-table-card').classList.add('hidden');
       document.getElementById('btn-close-dept-detail').style.display = 'none';
       viewDeptDetail(parseInt(targetId));
@@ -970,6 +987,12 @@ async function loadFinancial(targetId) {
     await loadAllRequests();
     renderFinTable();
     if (targetId) {
+      const r = allRequests.find(x => x.Id === parseInt(targetId));
+      if (!r) {
+        toast('⚠️ Request #' + targetId + ' is no longer available. It may have been removed. Please contact the Accounting department if you have any questions.', 'error', 8000);
+        navigate('home');
+        return;
+      }
       document.getElementById('fin-table-card').classList.add('hidden');
       document.getElementById('btn-close-fin-detail').style.display = 'none';
       viewFinDetail(parseInt(targetId));
@@ -1103,6 +1126,12 @@ async function loadPresidential(targetId) {
     await loadAllRequests();
     renderPresTable();
     if (targetId) {
+      const r = allRequests.find(x => x.Id === parseInt(targetId));
+      if (!r) {
+        toast('⚠️ Request #' + targetId + ' is no longer available. It may have been removed. Please contact the Accounting department if you have any questions.', 'error', 8000);
+        navigate('home');
+        return;
+      }
       document.getElementById('pres-table-card').classList.add('hidden');
       document.getElementById('btn-close-pres-detail').style.display = 'none';
       viewPresDetail(parseInt(targetId));
@@ -1229,9 +1258,8 @@ async function confirmApproval() {
     });
     toast(result.message, 'success');
     closeModal('approval-modal');
-    // Reload current page or home if not authenticated
-    const activePage = document.querySelector('.page-view.active').id.replace('page-', '');
-    navigate(isAuthenticated ? activePage : 'home');
+    // Send user to home page (approvers arrive via email link, not authenticated)
+    navigate('home');
   } catch (err) {
     showAlert('approval-modal-alert', err.message, 'error');
   } finally {
@@ -1273,8 +1301,7 @@ async function confirmDeny() {
     });
     toast(result.message, 'info');
     closeModal('deny-modal');
-    const activePage = document.querySelector('.page-view.active').id.replace('page-', '');
-    navigate(isAuthenticated ? activePage : 'home');
+    navigate('home');
   } catch (err) {
     toast(err.message, 'error');
   } finally {

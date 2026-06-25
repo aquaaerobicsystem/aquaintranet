@@ -93,6 +93,8 @@
       overflow-y: auto;
       overflow-x: hidden;
       scroll-behavior: smooth;
+      pointer-events: none;  /* Block user interaction — demo is automated */
+      user-select: none;
     }
 
     h1 {
@@ -1388,6 +1390,27 @@
     }
     .demo-speed-value.slow { color: var(--success); }
     .demo-speed-value.fast { color: var(--warning); }
+
+    /* ── Simulated Mouse Cursor ─────────────────────────────── */
+    #demo-cursor {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      pointer-events: none;
+      z-index: 9999;
+      transition: left 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
+                  top 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
+      filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.5));
+      display: none;
+    }
+    #demo-cursor.clicking {
+      animation: cursorClick 0.2s ease;
+    }
+    @keyframes cursorClick {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(0.8); }
+      100% { transform: scale(1); }
+    }
   </style>
 </head>
 
@@ -1805,6 +1828,12 @@
       </footer>
 
     </div><!-- /#demo-app -->
+
+    <!-- Simulated mouse cursor (inside viewport so it scales with the app) -->
+    <svg id="demo-cursor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 2 L5 20 L10 15 L16 22 L19 20 L13 13 L20 13 Z" fill="#fff" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+
   </div><!-- /#demo-viewport -->
 
   <!-- ══ Print Preview Modal ═══════════════════════════════════ -->
@@ -1847,7 +1876,7 @@
       <div class="demo-speed-control" id="speed-control">
         <span class="speed-label">Speed</span>
         <button class="demo-speed-btn" onclick="changeSpeed(-1)" title="Slower">−</button>
-        <span class="demo-speed-value" id="speed-value">1×</span>
+        <span class="demo-speed-value slow" id="speed-value">0.75×</span>
         <button class="demo-speed-btn" onclick="changeSpeed(1)" title="Faster">+</button>
       </div>
     </div>
@@ -1869,15 +1898,60 @@
        AUTOMATED DEMO ENGINE
     ═══════════════════════════════════════════════════════════════ */
 
+    // ── Block user interaction on demo viewport ───────────────────
+    (function() {
+      const viewport = document.getElementById('demo-viewport');
+      let lastToastTime = 0;
+      const messages = [
+        '👀 This is an automated demo — sit back and enjoy the walkthrough!',
+        '🎬 Demo mode is active — use the controls below to pause, adjust speed, or step through manually.',
+        '✨ No interaction needed — the demo runs automatically. Use the controls at the bottom to navigate.',
+      ];
+      let msgIndex = 0;
+
+      viewport.addEventListener('click', function(e) {
+        // Don't block the cursor SVG or controls
+        if (e.target.closest('#demo-controls') || e.target.closest('.modal-overlay')) return;
+        const now = Date.now();
+        if (now - lastToastTime < 4000) return; // throttle
+        lastToastTime = now;
+        showToast(messages[msgIndex % messages.length], 'info');
+        msgIndex++;
+      });
+    })();
+
     let isPaused = false;
     let demoRunning = false;
     let currentStepIndex = 0;
     let pauseResolve = null;
     let manualMode = false;
     let stepResolve = null;
-    let speedFactor = 1;  // 1 = normal, 0.5 = slower (2x duration), 2 = faster (half duration)
+    let speedFactor = 0.75;  // 0.75 = slightly slower default for easier following
     const SPEED_STEPS = [0.5, 0.75, 1, 1.5, 2, 3];
-    let speedIndex = 2; // starts at 1x
+    let speedIndex = 1; // starts at 0.75x
+
+    // ── Simulated Mouse Cursor ──────────────────────────────
+    const demoCursor = document.getElementById('demo-cursor');
+
+    function moveCursorTo(el) {
+      const viewport = document.getElementById('demo-viewport');
+      const rect = el.getBoundingClientRect();
+      const vpRect = viewport.getBoundingClientRect();
+      // Position cursor at center of element, in viewport coords (no scale needed — cursor is in viewport space)
+      const x = rect.left + rect.width / 2 - vpRect.left;
+      const y = rect.top + rect.height / 2 - vpRect.top;
+      demoCursor.style.display = 'block';
+      demoCursor.style.left = x + 'px';
+      demoCursor.style.top = y + 'px';
+      // Return a promise that resolves after the transition
+      return wait(500);
+    }
+
+    function cursorClick() {
+      demoCursor.classList.remove('clicking');
+      void demoCursor.offsetWidth; // force reflow
+      demoCursor.classList.add('clicking');
+    }
 
     // ── Utility: wait with pause support + speed factor ────────────
     function wait(ms) {
@@ -1987,12 +2061,14 @@
     }
 
     // ── Click Ripple Effect ────────────────────────────────────────
-    function showClickAt(el) {
+    async function showClickAt(el) {
+      await moveCursorTo(el);
+      cursorClick();
+
       const app = document.getElementById('demo-app');
       const scale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--demo-scale')) || 0.72;
       const rect = el.getBoundingClientRect();
       const appRect = app.getBoundingClientRect();
-      // Convert screen coords to app-relative coords (accounting for scale)
       const x = (rect.left + rect.width / 2 - appRect.left) / scale;
       const y = (rect.top + rect.height / 2 - appRect.top) / scale + app.scrollTop;
 
@@ -2026,6 +2102,8 @@
     // ── Type Into Input ────────────────────────────────────────────
     async function typeInto(inputId, text, speed = 45) {
       const el = document.getElementById(inputId);
+      await moveCursorTo(el);
+      cursorClick();
       el.focus();
       el.classList.add('demo-highlight');
       el.value = '';
@@ -2041,6 +2119,8 @@
     // ── Set Date Input ─────────────────────────────────────────────
     async function setDate(inputId, dateStr) {
       const el = document.getElementById(inputId);
+      await moveCursorTo(el);
+      cursorClick();
       el.classList.add('demo-highlight');
       await wait(300);
       el.value = dateStr;
@@ -2179,7 +2259,7 @@
 
       document.getElementById('demo-controls').style.display = 'flex';
       demoRunning = true;
-      const TOTAL = 21;
+      const TOTAL = 18;
 
       // ──────────────── STEP 1: HOME PAGE ────────────────
       setNarration(1, TOTAL, 'Welcome to the Home Page', 'This is what employees see when they open the app — no login required.');
@@ -2192,7 +2272,7 @@
       const heroBtn = document.getElementById('hero-btn');
       heroBtn.classList.add('demo-highlight');
       await wait(1200);
-      showClickAt(heroBtn);
+      await showClickAt(heroBtn);
       heroBtn.classList.remove('demo-highlight');
       await wait(600);
       showPage('new-request');
@@ -2244,7 +2324,7 @@
       const sigBtn = document.getElementById('btn-gen-sig');
       sigBtn.classList.add('demo-highlight');
       await wait(800);
-      showClickAt(sigBtn);
+      await showClickAt(sigBtn);
       sigBtn.classList.remove('demo-highlight');
       document.getElementById('sig-container').style.display = 'block';
       document.getElementById('btn-clear-sig').style.display = 'inline-flex';
@@ -2258,7 +2338,7 @@
       const submitBtn = document.getElementById('btn-submit-req');
       submitBtn.classList.add('demo-highlight');
       await wait(1000);
-      showClickAt(submitBtn);
+      await showClickAt(submitBtn);
       submitBtn.classList.remove('demo-highlight');
       await wait(400);
       showToast(`Request #8 submitted! Emails sent to ${DEMO_CONFIG.requestorName} and ${DEMO_CONFIG.deptManagerName}.`, 'success');
@@ -2294,44 +2374,24 @@
         5000
       );
 
-      // Briefly show home page (user is navigated here after submission)
-      setNarration(9, TOTAL, 'Redirected to Home page after submission', 'The requestor can use the email link to return and check status anytime.');
-      showPage('home');
-      await wait(2000);
-
       await waitForAdvance();
 
       // ──────────────── STEP 10: DEPARTMENT APPROVAL ─────
-      setNarration(10, TOTAL, 'Department Manager receives an email link', `${DEMO_CONFIG.deptManagerName} clicks the link to review Request #8.`);
+      setNarration(10, TOTAL, 'Department Manager clicks the email link', `${DEMO_CONFIG.deptManagerName} is taken directly to Request #8.`);
       showPage('department');
-      await wait(1000);
-
-      // Show pending request in table
-      document.getElementById('dept-tbody').innerHTML = `<tr>
-    <td><strong>8</strong></td><td>Jun 25, 2026</td><td>${DEMO_CONFIG.requestorName}</td><td>${DEMO_CONFIG.vendor}</td>
-    <td>${DEMO_CONFIG.description.substring(0, 40)}...</td><td style="font-weight:600;">$${Number(DEMO_CONFIG.cost).toLocaleString()}.00</td>
-    <td><span class="badge badge-pending">⏳ Pending Dept.</span></td>
-    <td><button class="btn btn-primary btn-sm" id="dept-review-btn">Review</button></td>
-  </tr>`;
-      await wait(2000);
-
-      // Click review
-      setNarration(11, TOTAL, 'Reviewing request details', 'The manager sees all request information including attachments and signature.');
-      const reviewBtn = document.getElementById('dept-review-btn');
-      showClickAt(reviewBtn);
-      await wait(600);
+      // Email link goes directly to detail view (skips table)
       document.getElementById('dept-table-card').classList.add('hidden');
       document.getElementById('dept-detail-card').classList.remove('hidden');
       document.getElementById('dept-detail-title').textContent = 'Request #8 — Aqua Precision Parts';
       renderDetail('dept-detail-content', newReq);
       await wait(3000);
 
-      // Approve
-      setNarration(12, TOTAL, 'Department Manager approves the request', 'Signs with their name and confirms. Request moves to Financial Approval.');
+      // ──────────────── STEP 12: DEPARTMENT APPROVAL ACTION ─────
+      setNarration(11, TOTAL, 'Department Manager approves the request', 'Signs with their name and confirms. Request moves to Financial Approval.');
       const approveBtn = document.getElementById('btn-dept-approve');
       approveBtn.classList.add('demo-highlight');
       await wait(1000);
-      showClickAt(approveBtn);
+      await showClickAt(approveBtn);
       approveBtn.classList.remove('demo-highlight');
       await wait(400);
 
@@ -2345,7 +2405,7 @@
       document.getElementById('m-sig-container').style.display = 'block';
       drawSignature('m-sig-canvas', DEMO_CONFIG.deptManagerName);
       await wait(1200);
-      showClickAt(document.getElementById('m-confirm-btn'));
+      await showClickAt(document.getElementById('m-confirm-btn'));
       await wait(400);
       document.getElementById('approval-modal').classList.remove('open');
       showToast('Request #8 approved at Department level!', 'success');
@@ -2362,31 +2422,20 @@
 
       await waitForAdvance();
 
-      // ──────────────── STEP 13: FINANCIAL APPROVAL ──────
-      setNarration(13, TOTAL, 'Financial Approval — Accounting department reviews', 'Accounting logs in and enters accounting details before approval.');
+      // ──────────────── STEP 12: FINANCIAL APPROVAL ──────
+      setNarration(12, TOTAL, 'Financial Approval — Accounting clicks the email link', 'Taken directly to the request details and accounting form.');
       showPage('financial');
-      await wait(1000);
-
-      newReq.statusBadge = '<span class="badge badge-financial">⏳ Pending Fin.</span>';
-      document.getElementById('fin-tbody').innerHTML = `<tr>
-    <td><strong>8</strong></td><td>Jun 25, 2026</td><td>${DEMO_CONFIG.requestorName}</td><td>${DEMO_CONFIG.vendor}</td>
-    <td>${DEMO_CONFIG.description.substring(0, 40)}...</td><td style="font-weight:600;">$${Number(DEMO_CONFIG.cost).toLocaleString()}.00</td>
-    <td><span class="badge badge-financial">⏳ Pending Fin.</span></td>
-    <td><button class="btn btn-teal btn-sm" id="fin-review-btn">Review</button></td>
-  </tr>`;
-      await wait(2000);
-
-      showClickAt(document.getElementById('fin-review-btn'));
-      await wait(600);
+      // Email link goes directly to detail view (skips table)
       document.getElementById('fin-table-card').classList.add('hidden');
       document.getElementById('fin-acc-card').classList.remove('hidden');
       document.getElementById('fin-detail-card').classList.remove('hidden');
       document.getElementById('fin-detail-title').textContent = 'Request #8 — Aqua Precision Parts';
+      newReq.statusBadge = '<span class="badge badge-financial">⏳ Pending Fin.</span>';
       renderDetail('fin-detail-content', newReq);
       await wait(1500);
 
       // Fill accounting details
-      setNarration(14, TOTAL, 'Entering accounting details', 'B Number, Fixed Asset, Property Type, Class, Depreciation Accounts, and more.');
+      setNarration(13, TOTAL, 'Entering accounting details', 'B Number, Fixed Asset, Property Type, Class, Depreciation Accounts, and more.');
       await typeInto('fa-bnum', DEMO_CONFIG.bNumber, 60);
       await wait(200);
       await typeInto('fa-fixed', DEMO_CONFIG.fixedAsset, 60);
@@ -2409,7 +2458,7 @@
       const toolingCb = document.getElementById('fa-tooling');
       toolingCb.classList.add('demo-highlight');
       await wait(400);
-      showClickAt(toolingCb);
+      await showClickAt(toolingCb);
       toolingCb.checked = true;
       toolingCb.classList.remove('demo-highlight');
       await wait(300);
@@ -2420,13 +2469,13 @@
       scrollIntoViewport(document.getElementById('btn-save-acc'));
       await wait(300);
 
-      showClickAt(document.getElementById('btn-save-acc'));
+      await showClickAt(document.getElementById('btn-save-acc'));
       showToast('Accounting details saved!', 'success');
       await wait(2000);
 
       // Approve financial
-      setNarration(15, TOTAL, 'Financial approval confirmed', 'Since cost > $25,000, the request moves to Presidential Approval.');
-      showClickAt(document.getElementById('btn-fin-approve'));
+      setNarration(14, TOTAL, 'Financial approval confirmed', 'Since cost > $25,000, the request moves to Presidential Approval.');
+      await showClickAt(document.getElementById('btn-fin-approve'));
       await wait(400);
 
       document.getElementById('approval-modal-title').textContent = 'Financial Approval';
@@ -2439,7 +2488,7 @@
       document.getElementById('m-sig-container').style.display = 'block';
       drawSignature('m-sig-canvas', DEMO_CONFIG.finApproverName);
       await wait(1000);
-      showClickAt(document.getElementById('m-confirm-btn'));
+      await showClickAt(document.getElementById('m-confirm-btn'));
       await wait(400);
       document.getElementById('approval-modal').classList.remove('open');
       showToast('Request #8 financially approved! Sent to President for final approval.', 'success');
@@ -2456,30 +2505,19 @@
 
       await waitForAdvance();
 
-      // ──────────────── STEP 16: PRESIDENTIAL APPROVAL ───
-      setNarration(16, TOTAL, 'Presidential Approval — CEO receives email notification', 'Requests over $25,000 require the President\'s signature.');
+      // ──────────────── STEP 15: PRESIDENTIAL APPROVAL ───
+      setNarration(15, TOTAL, 'Presidential Approval — CEO clicks the email link', 'Taken directly to the request for final review.');
       showPage('presidential');
-      await wait(1000);
-
-      newReq.statusBadge = '<span class="badge badge-pres">⏳ Pending Pres.</span>';
-      document.getElementById('pres-tbody').innerHTML = `<tr>
-    <td><strong>8</strong></td><td>Jun 25, 2026</td><td>${DEMO_CONFIG.requestorName}</td><td>${DEMO_CONFIG.vendor}</td>
-    <td>${DEMO_CONFIG.description.substring(0, 40)}...</td><td style="font-weight:600;">$${Number(DEMO_CONFIG.cost).toLocaleString()}.00</td>
-    <td><span class="badge badge-pres">⏳ Pending Pres.</span></td>
-    <td><button class="btn btn-purple btn-sm" id="pres-review-btn">Review</button></td>
-  </tr>`;
-      await wait(2000);
-
-      showClickAt(document.getElementById('pres-review-btn'));
-      await wait(600);
+      // Email link goes directly to detail view (skips table)
       document.getElementById('pres-table-card').classList.add('hidden');
       document.getElementById('pres-detail-card').classList.remove('hidden');
       document.getElementById('pres-detail-title').textContent = 'Request #8 — Aqua Precision Parts';
+      newReq.statusBadge = '<span class="badge badge-pres">⏳ Pending Pres.</span>';
       renderDetail('pres-detail-content', newReq);
       await wait(2000);
 
-      setNarration(17, TOTAL, 'President approves — Request is fully approved!', 'The requestor receives an email notification that their request is approved.');
-      showClickAt(document.getElementById('btn-pres-approve'));
+      setNarration(16, TOTAL, 'President approves — Request is fully approved!', 'The requestor receives an email notification that their request is approved.');
+      await showClickAt(document.getElementById('btn-pres-approve'));
       await wait(400);
 
       document.getElementById('approval-modal-title').textContent = 'Presidential Approval';
@@ -2492,7 +2530,7 @@
       document.getElementById('m-sig-container').style.display = 'block';
       drawSignature('m-sig-canvas', DEMO_CONFIG.presApproverName);
       await wait(1000);
-      showClickAt(document.getElementById('m-confirm-btn'));
+      await showClickAt(document.getElementById('m-confirm-btn'));
       await wait(400);
       document.getElementById('approval-modal').classList.remove('open');
       showToast('🎉 Request #8 received Presidential approval! Fully approved!', 'success');
@@ -2511,7 +2549,7 @@
       await waitForAdvance();
 
       // ──────────────── STEP 18: PRINT PREVIEW ───────────
-      setNarration(18, TOTAL, 'Print Preview — Generates a printable form with all signatures', 'The approved request can be printed as a formal document.');
+      setNarration(17, TOTAL, 'Print Preview — Generates a printable form with all signatures', 'The approved request can be printed as a formal document.');
       await wait(1000);
 
       // Build print preview content
@@ -2560,7 +2598,7 @@
       await wait(1000);
 
       // ──────────────── STEP 19: DASHBOARD ───────────────
-      setNarration(19, TOTAL, 'Dashboard — The full overview (Accounting only)', 'Shows all requests with summary statistics and quick actions.');
+      setNarration(18, TOTAL, 'Dashboard — The full overview (Accounting only)', 'Shows all requests with summary statistics and quick actions.');
       showPage('dashboard');
 
       document.getElementById('ds-total').textContent = '8';
@@ -2589,7 +2627,7 @@
       await wait(4000);
 
       // ──────────────── STEP 20: BACK TO HOME ────────────
-      setNarration(20, TOTAL, 'Updated Home Page — Stats reflect the new approval', '');
+      setNarration(18, TOTAL, 'Updated Home Page — Stats reflect the new approval', '');
       showPage('home');
       document.getElementById('hp-total').textContent = '8';
       document.getElementById('hp-pending').textContent = '3';
@@ -2598,7 +2636,7 @@
       await wait(3000);
 
       // ──────────────── STEP 21: DONE ────────────────────
-      setNarration(21, TOTAL, '✅ Demo Complete!', 'The full workflow: Submit → Dept Approval → Financial → Presidential → Print → Done!');
+      setNarration(18, TOTAL, '✅ Demo Complete!', 'The full workflow: Submit → Dept Approval → Financial → Presidential → Print → Done!');
       showToast('🎬 Demo complete! Thanks for watching.', 'success');
       document.getElementById('btn-play-pause').textContent = '✓';
       document.getElementById('btn-play-pause').classList.remove('playing');

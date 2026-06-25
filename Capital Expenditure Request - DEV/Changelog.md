@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-06-25
+### Added
+- **`public/demo.html`** — Added a **simulated mouse cursor** (white SVG arrow with drop shadow) that smoothly animates to each interactive element throughout the demo. Integrated into `showClickAt`, `typeInto`, and `setDate` with click animation.
+- **`public/demo.html`** — **Blocked user input** on the demo viewport (`pointer-events: none`, `user-select: none`). Clicking the viewport shows a rotating set of professional toast messages explaining it's an automated demo.
+- **`public/app.js`** — **Removed-request protection**: when navigating to a request via email link (`#requestor?id=X`, `#department?id=X`, `#financial?id=X`, `#presidential?id=X`) and the request has been removed, shows an 8-second error toast ("Request is no longer available — contact Accounting") and redirects to Home.
+- **`public/app.js`** — Added optional `duration` parameter to `toast()` function (defaults to 4000ms).
+- **`public/index.html`** — **How To page**: Added 🎬 "Watch Demo" button in the Quick Navigation card header (right-aligned, green gradient). Added full "Interactive Demo" section with feature list, controls guide, and launch button.
+- **`public/index.html`** — **How To page**: Updated Step 5 (Submit) to mention both emails and home redirect. Added new Step 6 (View, Edit & Track) with email link instructions, bookmark tip, and edit window warning. Updated FAQ "Can I edit?" answer.
+
+### Changed
+- **`public/demo.html`** — Default auto-play speed changed from **1×** to **0.75×** for easier following.
+- **`public/demo.html`** — **Email link flow**: Department, Financial, and Presidential approval steps now go **directly to the request detail view** (skip table list) to match real app email link behavior.
+- **`public/demo.html`** — Removed intermediate Home page transition between submission emails and department approval.
+- **`public/demo.html`** — **Status badges** now update correctly: Financial step shows "⏳ Pending Fin." and Presidential step shows "⏳ Pending Pres." instead of all showing "Pending Dept."
+- **`public/demo.html`** — Step count reduced from 21 to 18 (removed table/review intermediate steps).
+- **`public/app.js`** — After approving or denying a request, **always navigate to Home page** (previously stayed on approval page for authenticated users).
+
 ## [1.5.0] - 2026-06-25
 ### Added
 - **`server.js`** — After creating a new request, a **confirmation email** is now sent to the requestor containing request details (ID, Vendor, Cost, Status) and a "View / Edit Request" button linking to `#requestor?id=X`.
