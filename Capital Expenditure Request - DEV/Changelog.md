@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-06-25
+### Added
+- **`server.js`** — After creating a new request, a **confirmation email** is now sent to the requestor containing request details (ID, Vendor, Cost, Status) and a "View / Edit Request" button linking to `#requestor?id=X`.
+- **`server.js`** — After editing a request (PUT), a **notification email** is sent to the department manager informing them the request was updated, with a "Review Request" button.
+- **`server.js`** — All requestor-facing status update emails (department approval/denial, financial denial, full approval, presidential approval/denial) now include a **"View Request"** button linking back to `#requestor?id=X`.
+- **`public/app.js`** — `loadRequestor()` now accepts a `targetId` parameter. Navigating to `#requestor?id=X` directly opens the request detail view (no auth required).
+- **`public/index.html`** — Added **"✏️ Edit Request"** button to the request detail card header. Shown only when request status is "Pending Department".
+- **`public/app.js`** — `viewReqDetail()` dynamically shows/hides the Edit button based on request status and wires `editRequest()` on click.
+- **`public/index.html`** — How To page updated:
+  - Submit Step 5 now documents both emails (approval request + confirmation) and home page redirect.
+  - New Step 6 "View, Edit & Track Your Request" explains the email link, editing, bookmark tip, and edit window warning.
+  - FAQ "Can I edit?" updated to reference the email link and ✏️ Edit Request button.
+- **`public/demo.html`** — Demo now shows **requestor confirmation email** preview (with details table and View/Edit button) after submission, before the dept manager email.
+- **`public/demo.html`** — Demo briefly shows **Home page** after submission with narration "Redirected to Home page after submission".
+
+### Changed
+- **`public/app.js`** — After both new submission and edit, user is navigated to the **Home page** instead of the requestor list (which requires auth).
+- **`public/app.js`** — Edit toast updated to: "Request #X updated! Notification email sent to department manager."
+- **`public/app.js`** — `navigate()` now passes `targetId` to `loadRequestor()`.
+
 ## [1.4.0] - 2026-06-25
 ### Added
 - **`public/demo.html`** — Added `DEMO_CONFIG` configuration object at the top of the demo script, allowing easy customization of all names, userIDs, emails, vendor, cost, description, and accounting details from a single location.

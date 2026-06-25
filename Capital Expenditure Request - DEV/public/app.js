@@ -77,7 +77,7 @@ function navigate(hashStr) {
   switch (page) {
     case 'home':       loadHome();       break;
     case 'dashboard':  loadDashboard();  break;
-    case 'requestor':  loadRequestor();  break;
+    case 'requestor':  loadRequestor(targetId);  break;
     case 'department': loadDepartment(targetId); break;
     case 'financial':  loadFinancial(targetId);  break;
     case 'presidential': loadPresidential(targetId); break;
@@ -585,9 +585,12 @@ document.getElementById('btn-refresh-home').addEventListener('click', async () =
 // ══════════════════════════════════════════════════════════════
 // REQUESTOR PAGE
 // ══════════════════════════════════════════════════════════════
-function loadRequestor() {
+async function loadRequestor(targetId) {
   showReqList();
-  loadReqList();
+  await loadReqList();
+  if (targetId) {
+    viewReqDetail(parseInt(targetId));
+  }
 }
 
 function showReqList() {
@@ -699,6 +702,15 @@ function viewReqDetail(id) {
   document.getElementById('req-detail-title').textContent = `Request #${r.Id} - ${r.Vendor}`;
   document.getElementById('req-detail-content').innerHTML = renderRequestDetail(r);
   loadAttachments(r.Id);
+
+  // Show edit button if request is still editable (Pending Department)
+  const editBtn = document.getElementById('btn-edit-from-detail');
+  if (r.Status === 'Pending Department') {
+    editBtn.style.display = 'inline-flex';
+    editBtn.onclick = () => editRequest(r.Id);
+  } else {
+    editBtn.style.display = 'none';
+  }
 }
 
 document.getElementById('btn-new-request').addEventListener('click', () => showReqForm('new'));
@@ -849,15 +861,15 @@ document.getElementById('req-form').addEventListener('submit', async (e) => {
     if (reqFormMode === 'edit' && id) {
       await apiFetch(`/api/requests/${id}`, { method: 'PUT', body: JSON.stringify(body) });
       await uploadFiles(id);
-      toast('Request updated successfully!', 'success');
+      toast('Request #' + id + ' updated! Notification email sent to department manager.', 'success');
     } else {
       const result = await apiFetch('/api/requests', { method: 'POST', body: JSON.stringify(body) });
       requestId = result.id;
       await uploadFiles(requestId);
-      toast('Request submitted successfully!', 'success');
+      toast('Request #' + requestId + ' submitted! Confirmation email sent.', 'success');
     }
-    showReqList();
-    loadReqList();
+    // Navigate to home page — user can use the email link to return and check status
+    navigate('home');
   } catch (err) {
     showAlert('req-form-alert', err.message, 'error');
     toast(err.message, 'error');

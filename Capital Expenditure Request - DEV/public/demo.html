@@ -2252,7 +2252,7 @@
       await wait(2000);
 
       // ──────────────── STEP 9: SUBMIT ───────────────────
-      setNarration(9, TOTAL, 'Submitting the request!', 'An email notification is automatically sent to the department manager.');
+      setNarration(9, TOTAL, 'Submitting the request!', 'Confirmation email sent to requestor + notification email sent to department manager.');
       scrollIntoViewport(document.getElementById('btn-submit-req'));
       await wait(400);
       const submitBtn = document.getElementById('btn-submit-req');
@@ -2261,8 +2261,26 @@
       showClickAt(submitBtn);
       submitBtn.classList.remove('demo-highlight');
       await wait(400);
-      showToast(`Request #8 submitted successfully! Email sent to ${DEMO_CONFIG.deptManagerName}.`, 'success');
+      showToast(`Request #8 submitted! Emails sent to ${DEMO_CONFIG.requestorName} and ${DEMO_CONFIG.deptManagerName}.`, 'success');
       await wait(2000);
+
+      // Show the confirmation email sent to the requestor
+      await showEmailAndWait(
+        `${DEMO_CONFIG.requestorEmail}@aqua-aerobic.com`,
+        `CapEx Request #8 Submitted Successfully`,
+        `<p>Hello ${DEMO_CONFIG.requestorName},</p>
+         <p>Your Capital Expenditure Request has been submitted successfully and is now pending department approval by ${DEMO_CONFIG.deptManagerName}.</p>
+         <table style="border-collapse:collapse; margin:12px 0;">
+           <tr><td style="padding:4px 12px 4px 0; font-weight:bold; color:#1e3a5f;">Request #</td><td style="padding:4px 0;">8</td></tr>
+           <tr><td style="padding:4px 12px 4px 0; font-weight:bold; color:#1e3a5f;">Vendor</td><td style="padding:4px 0;">${DEMO_CONFIG.vendor}</td></tr>
+           <tr><td style="padding:4px 12px 4px 0; font-weight:bold; color:#1e3a5f;">Estimated Cost</td><td style="padding:4px 0;">$${Number(DEMO_CONFIG.cost).toLocaleString()}</td></tr>
+           <tr><td style="padding:4px 12px 4px 0; font-weight:bold; color:#1e3a5f;">Status</td><td style="padding:4px 0;">⏳ Pending Department Approval</td></tr>
+         </table>
+         <p>Use the link below to <strong>view your request status</strong> and <strong>edit your request</strong> while it is still pending:</p>
+         <p style="margin:16px 0;"><a href="#" style="display:inline-block; padding:10px 24px; background:#29AAE2; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">View / Edit Request #8</a></p>
+         <p style="font-size:0.85em; color:#666;">Bookmark this link to check back on the status of your request at any time.</p>`,
+        5000
+      );
 
       // Show the email that was sent to the department manager
       await showEmailAndWait(
@@ -2275,6 +2293,11 @@
          <p><a href="#">Click here to review and approve</a></p>`,
         5000
       );
+
+      // Briefly show home page (user is navigated here after submission)
+      setNarration(9, TOTAL, 'Redirected to Home page after submission', 'The requestor can use the email link to return and check status anytime.');
+      showPage('home');
+      await wait(2000);
 
       await waitForAdvance();
 

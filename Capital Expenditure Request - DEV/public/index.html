@@ -287,7 +287,10 @@
     <div class="card hidden" id="req-detail-card">
       <div class="card-header">
         <h3 id="req-detail-title">Request Details</h3>
-        <button class="btn btn-ghost btn-sm" id="btn-close-detail">← Back</button>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <button class="btn btn-primary btn-sm" id="btn-edit-from-detail" style="display:none;">✏️ Edit Request</button>
+          <button class="btn btn-ghost btn-sm" id="btn-close-detail">← Back</button>
+        </div>
       </div>
       <div id="req-detail-content"></div>
     </div>
@@ -809,7 +812,31 @@
             <div class="howto-step-number">5</div>
             <div class="howto-step-body">
               <h4>Submit</h4>
-              <p>Click <strong>"Submit Request"</strong>. Your request will be saved and an email notification will be sent to your department manager for review. The status will show as <span class="badge badge-pending">⏳ Pending Dept.</span></p>
+              <p>Click <strong>"Submit Request"</strong>. Two emails are automatically sent:</p>
+              <ul style="margin:0.5rem 0;padding-left:1.5rem;">
+                <li>An <strong>approval request</strong> email to your department manager</li>
+                <li>A <strong>confirmation</strong> email to you with a link to view/edit your request</li>
+              </ul>
+              <p>After submission you are taken back to the Home page. The status will show as <span class="badge badge-pending">⏳ Pending Dept.</span></p>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">6</div>
+            <div class="howto-step-body">
+              <h4>View, Edit & Track Your Request</h4>
+              <p>Your confirmation email includes a <strong>"View / Edit Request"</strong> button that links directly to your request. Use this link to:</p>
+              <ul style="margin:0.5rem 0;padding-left:1.5rem;">
+                <li><strong>View</strong> your request details and current approval status at any time</li>
+                <li><strong>Edit</strong> your request while it is still in "Pending Department" status (click the ✏️ Edit Request button)</li>
+              </ul>
+              <div class="howto-tip">
+                <span>🔖</span>
+                <span>Bookmark the link from your confirmation email! You'll also receive status update emails with the same link whenever your request is approved or denied at each stage.</span>
+              </div>
+              <div class="howto-warning">
+                <span>⚠️</span>
+                <span>Once your department manager has reviewed the request, editing is no longer available. If you edit a request, a notification email is automatically sent to your department manager about the changes.</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1056,7 +1083,7 @@
               <span class="howto-faq-chevron">▼</span>
             </button>
             <div class="howto-faq-answer">
-              <p>Yes, but <strong>only</strong> while the request is in <strong>"Pending Department"</strong> status. Once your department manager has reviewed it, the request is locked and can no longer be edited. You'll see an "✏ Edit" button in the Dashboard for eligible requests.</p>
+              <p>Yes, but <strong>only</strong> while the request is in <strong>"Pending Department"</strong> status. Open the link from your confirmation email and click the <strong>"✏️ Edit Request"</strong> button in the detail view. Once your department manager has reviewed it, the request is locked and can no longer be edited. When you save changes, a notification email is automatically sent to your department manager.</p>
             </div>
           </div>
           <div class="howto-faq-item">

@@ -427,7 +427,26 @@ app.post('/api/requests', async (req, res) => {
 
     await logActivity('Request Created', `Request #${newId} created by ${requestedBy} for vendor ${vendor}.`);
 
-    res.json({ id: newId, message: 'Request submitted successfully.' });
+    // Send confirmation email to requestor with link to view/edit
+    const requestorLink = `${hostUrl}/#requestor?id=${newId}`;
+    await sendEmail(
+      requestorEmail,
+      `CapEx Request #${newId} Submitted Successfully`,
+      `<p>Hello ${requestedBy},</p>
+       <p>Your Capital Expenditure Request has been submitted successfully and is now pending department approval by ${deptManagerName}.</p>
+       <table style="border-collapse:collapse; margin:12px 0;">
+         <tr><td style="padding:4px 12px 4px 0; font-weight:bold; color:#1e3a5f;">Request #</td><td style="padding:4px 0;">${newId}</td></tr>
+         <tr><td style="padding:4px 12px 4px 0; font-weight:bold; color:#1e3a5f;">Vendor</td><td style="padding:4px 0;">${vendor}</td></tr>
+         <tr><td style="padding:4px 12px 4px 0; font-weight:bold; color:#1e3a5f;">Estimated Cost</td><td style="padding:4px 0;">$${estimatedCost}</td></tr>
+         <tr><td style="padding:4px 12px 4px 0; font-weight:bold; color:#1e3a5f;">Status</td><td style="padding:4px 0;">⏳ Pending Department Approval</td></tr>
+       </table>
+       <p>You can use the link below to <strong>view your request status</strong> and <strong>edit your request</strong> while it is still pending department approval:</p>
+       <p style="margin:16px 0;"><a href="${requestorLink}" style="display:inline-block; padding:10px 24px; background:#29AAE2; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">View / Edit Request #${newId}</a></p>
+       <p style="font-size:0.85em; color:#666;">Bookmark this link to check back on the status of your request at any time.</p>`,
+      hostUrl
+    );
+
+    res.json({ id: newId, message: 'Request submitted successfully.', link: requestorLink });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
@@ -470,6 +489,21 @@ app.put('/api/requests/:id', async (req, res) => {
       `);
     
     await logActivity('Request Updated', `Request #${req.params.id} updated by ${requestedBy}.`);
+
+    // Send notification email to department manager about the update
+    const hostUrl = req.protocol + '://' + req.get('host');
+    await sendEmail(
+      deptManagerEmail,
+      `Updated: CapEx Request #${req.params.id} Has Been Modified`,
+      `<p>Hello ${deptManagerName},</p>
+       <p>Capital Expenditure Request #${req.params.id} has been <strong>updated</strong> by ${requestedBy} and is still pending your approval.</p>
+       <p><strong>Vendor:</strong> ${vendor}<br/>
+       <strong>Cost:</strong> $${estimatedCost}</p>
+       <p>Please review the updated request:</p>
+       <p style="margin:16px 0;"><a href="${hostUrl}/#department?id=${req.params.id}" style="display:inline-block; padding:10px 24px; background:#29AAE2; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">Review Request #${req.params.id}</a></p>`,
+      hostUrl
+    );
+
     res.json({ message: 'Request updated.' });
   } catch (err) {
     console.error(err);
@@ -618,6 +652,8 @@ app.post('/api/requests/:id/approve', async (req, res) => {
     let newStatus = 'Pending Department';
     const denialReason = comments ? `<p><strong>Reason:</strong> ${comments}</p>` : '';
     
+    const requestorLink = `${hostUrl}/#requestor?id=${req.params.id}`;
+    
     if (approvalType === 'Department') {
       if (status === 'Denied') {
         newStatus = 'Denied';
@@ -639,7 +675,8 @@ app.post('/api/requests/:id/approve', async (req, res) => {
         `Update on CapEx Request #${req.params.id}`,
         `<p>Hello ${reqData.RequestedBy},</p>
          <p>Your Capital Expenditure Request #${req.params.id} for <strong>${reqData.Vendor}</strong> ($${cost}) has been <strong>${status}</strong> by the Department Manager.</p>
-         ${status === 'Denied' ? denialReason : ''}`,
+         ${status === 'Denied' ? denialReason : ''}
+         <p style="margin:16px 0;"><a href="${requestorLink}" style="display:inline-block; padding:8px 20px; background:#29AAE2; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">View Request #${req.params.id}</a></p>`,
         hostUrl
       );
 
@@ -652,7 +689,8 @@ app.post('/api/requests/:id/approve', async (req, res) => {
           `Update on CapEx Request #${req.params.id}`,
           `<p>Hello ${reqData.RequestedBy},</p>
            <p>Your Capital Expenditure Request #${req.params.id} for <strong>${reqData.Vendor}</strong> ($${cost}) has been <strong>Denied</strong> by Financial/Accounting.</p>
-           ${denialReason}`,
+           ${denialReason}
+           <p style="margin:16px 0;"><a href="${requestorLink}" style="display:inline-block; padding:8px 20px; background:#29AAE2; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">View Request #${req.params.id}</a></p>`,
           hostUrl
         );
       } else {
@@ -673,7 +711,8 @@ app.post('/api/requests/:id/approve', async (req, res) => {
             requestorEmail,
             `CapEx Request #${req.params.id} Approved`,
             `<p>Hello ${reqData.RequestedBy},</p>
-             <p>Your Capital Expenditure Request #${req.params.id} for <strong>${reqData.Vendor}</strong> ($${cost}) has been fully <strong>Approved</strong>.</p>`,
+             <p>Your Capital Expenditure Request #${req.params.id} for <strong>${reqData.Vendor}</strong> ($${cost}) has been fully <strong>Approved</strong>.</p>
+             <p style="margin:16px 0;"><a href="${requestorLink}" style="display:inline-block; padding:8px 20px; background:#29AAE2; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">View Request #${req.params.id}</a></p>`,
             hostUrl
           );
         }
@@ -686,7 +725,8 @@ app.post('/api/requests/:id/approve', async (req, res) => {
         `Update on CapEx Request #${req.params.id}`,
         `<p>Hello ${reqData.RequestedBy},</p>
          <p>Your Capital Expenditure Request #${req.params.id} for <strong>${reqData.Vendor}</strong> ($${cost}) has been <strong>${status}</strong> by the President/CEO.</p>
-         ${status === 'Denied' ? denialReason : ''}`,
+         ${status === 'Denied' ? denialReason : ''}
+         <p style="margin:16px 0;"><a href="${requestorLink}" style="display:inline-block; padding:8px 20px; background:#29AAE2; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">View Request #${req.params.id}</a></p>`,
         hostUrl
       );
     }
