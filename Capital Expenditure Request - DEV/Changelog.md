@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-06-25
+### Added
+- **`public/demo.html`** — Added `DEMO_CONFIG` configuration object at the top of the demo script, allowing easy customization of all names, userIDs, emails, vendor, cost, description, and accounting details from a single location.
+- **`public/demo.html`** — Added **Print Preview** step (Step 18) to the automated demo, displaying a full-page printable form with Request Information, Approval Signatures (with cursive font rendering), and Accounting Details tables — matching the real app's print modal layout.
+- **`public/demo.html`** — Added **Email Notification Previews** at 4 key workflow points:
+  - After request submission → email to Department Manager
+  - After department approval → email to Accounting/Financial
+  - After financial approval → email to President/CEO
+  - After presidential approval → email to Requestor (fully approved)
+  - Each email preview shows From/To/Subject headers, formatted body, and corporate signature with logo.
+- **`public/demo.html`** — Added **Manual Advance Mode** toggle (`AUTO` / `MANUAL`) on the controls bar. In MANUAL mode, a green "Next ▶" button appears at step transitions, allowing users to advance at their own pace.
+- **`public/demo.html`** — Added **Speed Control** (`−` / `+` buttons) on the controls bar with 6 speed levels (0.5×, 0.75×, 1×, 1.5×, 2×, 3×). All `wait()` delays are scaled by the speed factor in real-time. Speed label changes color: green when slow, amber when fast.
+- **`public/demo.html`** — Added Email Preview Modal HTML and CSS with email-client styling (header bar with From/To/Subject fields, body area, corporate signature block).
+- **`public/demo.html`** — Added print-form CSS styles (`.print-form`, `.print-table`, `.print-sig`, `.print-footer-bar`, `.print-table-accounting`) for the in-demo print preview.
+- **`public/demo.html`** — Expanded Accounting Details form in the demo to include: Class, Accum. Depreciation Account, Depreciation Expense Account, UseTax, Equipment Exempt, Tooling (with checkbox interaction), and Notes fields.
+
+### Changed
+- **`public/demo.html`** — All hardcoded names, emails, vendor, cost, and description values throughout the demo script (form fields, table rows, approval modals, signatures, dashboard, print preview) now reference `DEMO_CONFIG` instead of inline strings.
+- **`public/demo.html`** — `newReq` object now derives all values from `DEMO_CONFIG` (moved `DEMO_CONFIG` declaration before `newReq`).
+- **`public/demo.html`** — Demo step count increased from 20 to 21 (added Print Preview step; Dashboard → Step 19, Home → Step 20, Done → Step 21).
+- **`public/demo.html`** — `wait()` function now applies a speed multiplier (`ms / speedFactor`) for real-time speed adjustment.
+- **`public/demo.html`** — Controls bar expanded with Next Step button, AUTO/MANUAL mode toggle, and Speed ± controls.
+
 ## [1.3.0] - 2026-06-24
 ### Added
 - **`public/index.html`** — Added 🔍 search input to all 5 data grid card headers (Dashboard, Requestor, Department, Financial, Presidential) for live text filtering across ID, Requested By, Vendor, Description, Status, and Est. Cost.
