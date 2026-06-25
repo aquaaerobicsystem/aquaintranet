@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.1] - 2026-06-25
+### Changed
+- **`public/demo.html`** — **Narration timing**: Added 5-second pauses after narration on key transition steps (Home, Department, Financial, Presidential) so voice narration finishes before the page changes.
+- **`public/demo.html`** — Added 3-second pause before Step 2 (Create New Request) for smoother pacing.
+- **`public/demo.html`** — Financial approval narration updated: "greater than $25,000" instead of "> $25,000" for clearer voice-over reading.
+- **`public/demo.html`** — Final narration updated: "Submit request to Presidential approval of Capital Expenditure Request!"
+- **`public/demo.html`** — CSS formatting cleanup: expanded shorthand rules, added consistent spacing between selectors.
+
+### Fixed
+- **`public/demo.html`** — Fixed syntax error where `showPage('financial')` was accidentally split across two lines, breaking the demo script.
+- **`public/demo.html`** — Fixed typo "Reguest" → "Request" in final demo narration.
+
 ## [1.8.0] - 2026-06-25
 ### Added
 - **`public/demo.html`** — **Voice-over narration** using the Web Speech API. Each demo step is spoken aloud when enabled. No external services or API keys required.

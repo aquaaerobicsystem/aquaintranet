@@ -93,7 +93,8 @@
       overflow-y: auto;
       overflow-x: hidden;
       scroll-behavior: smooth;
-      pointer-events: none;  /* Block user interaction — demo is automated */
+      pointer-events: none;
+      /* Block user interaction — demo is automated */
       user-select: none;
     }
 
@@ -1270,6 +1271,7 @@
       border-radius: 8px;
       overflow: hidden;
     }
+
     .email-header-bar {
       background: #f5f5f5;
       padding: 0.75rem 1rem;
@@ -1277,30 +1279,36 @@
       font-size: 0.8rem;
       color: #555;
     }
+
     .email-header-bar .email-field {
       margin-bottom: 0.3rem;
     }
+
     .email-header-bar .email-field strong {
       color: #333;
       display: inline-block;
       width: 60px;
     }
+
     .email-body {
       padding: 1.25rem 1.5rem;
       font-size: 0.9rem;
       line-height: 1.6;
       color: #333;
     }
+
     .email-body a {
       color: #0066cc;
       text-decoration: underline;
     }
+
     .email-signature {
       border-top: 1px solid #e0e0e0;
       padding: 0.75rem 1.5rem;
       font-size: 0.85rem;
       color: #555;
     }
+
     .email-signature strong {
       color: #1e3a5f;
     }
@@ -1319,10 +1327,12 @@
       transition: all 0.25s ease;
       white-space: nowrap;
     }
+
     .demo-btn-next:hover {
       background: rgba(34, 197, 94, 0.3);
       transform: scale(1.05);
     }
+
     .demo-mode-toggle {
       font-size: 0.65rem;
       font-weight: 600;
@@ -1336,9 +1346,11 @@
       border: 1px solid var(--border);
       transition: all 0.2s ease;
     }
+
     .demo-mode-toggle:hover {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
     }
+
     .demo-mode-toggle.manual {
       color: var(--warning);
       border-color: rgba(245, 158, 11, 0.4);
@@ -1351,6 +1363,7 @@
       gap: 0.35rem;
       margin-left: 0.25rem;
     }
+
     .demo-speed-control .speed-label {
       font-size: 0.6rem;
       color: var(--text-muted);
@@ -1358,6 +1371,7 @@
       letter-spacing: 0.05em;
       font-weight: 600;
     }
+
     .demo-speed-btn {
       width: 22px;
       height: 22px;
@@ -1375,11 +1389,13 @@
       padding: 0;
       font-family: 'Inter', sans-serif;
     }
+
     .demo-speed-btn:hover {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.08);
       border-color: var(--accent-light);
       color: var(--accent-light);
     }
+
     .demo-speed-value {
       font-size: 0.75rem;
       font-weight: 700;
@@ -1388,8 +1404,14 @@
       text-align: center;
       font-family: 'Inter', sans-serif;
     }
-    .demo-speed-value.slow { color: var(--success); }
-    .demo-speed-value.fast { color: var(--warning); }
+
+    .demo-speed-value.slow {
+      color: var(--success);
+    }
+
+    .demo-speed-value.fast {
+      color: var(--warning);
+    }
 
     /* ── Voice Control ────────────────────────────────────────────── */
     .demo-voice-control {
@@ -1400,6 +1422,7 @@
       padding-left: 0.5rem;
       border-left: 1px solid var(--border);
     }
+
     .demo-voice-btn {
       width: 28px;
       height: 28px;
@@ -1415,16 +1438,19 @@
       transition: all 0.25s ease;
       padding: 0;
     }
+
     .demo-voice-btn:hover {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.08);
       border-color: var(--accent-light);
       color: var(--accent-light);
     }
+
     .demo-voice-btn.active {
       border-color: rgba(34, 197, 94, 0.5);
       color: var(--success);
       background: rgba(34, 197, 94, 0.1);
     }
+
     .demo-voice-select {
       font-family: 'Inter', sans-serif;
       font-size: 0.65rem;
@@ -1439,11 +1465,13 @@
       outline: none;
       transition: all 0.2s ease;
     }
+
     .demo-voice-select:hover,
     .demo-voice-select:focus {
       border-color: var(--accent-light);
       color: var(--text-primary);
     }
+
     .demo-voice-select option {
       background: var(--bg-card);
       color: var(--text-primary);
@@ -1457,17 +1485,27 @@
       pointer-events: none;
       z-index: 9999;
       transition: left 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
-                  top 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
-      filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.5));
+        top 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
+      filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
       display: none;
     }
+
     #demo-cursor.clicking {
       animation: cursorClick 0.2s ease;
     }
+
     @keyframes cursorClick {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(0.8); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(0.8);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
   </style>
 </head>
@@ -1889,7 +1927,8 @@
 
     <!-- Simulated mouse cursor (inside viewport so it scales with the app) -->
     <svg id="demo-cursor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 2 L5 20 L10 15 L16 22 L19 20 L13 13 L20 13 Z" fill="#fff" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M5 2 L5 20 L10 15 L16 22 L19 20 L13 13 L20 13 Z" fill="#fff" stroke="#000" stroke-width="1.5"
+        stroke-linejoin="round" />
     </svg>
 
   </div><!-- /#demo-viewport -->
@@ -1911,7 +1950,8 @@
   </div>
 
   <!-- ══ Email Preview Modal ═══════════════════════════════════ -->
-  <div class="modal-overlay" id="email-modal" style="position:fixed;inset:0;bottom:var(--narration-height);z-index:9998;">
+  <div class="modal-overlay" id="email-modal"
+    style="position:fixed;inset:0;bottom:var(--narration-height);z-index:9998;">
     <div class="modal" style="max-width:700px;width:100%;max-height:85vh;overflow-y:auto;">
       <div class="modal-header">
         <h3>✉️ Email Notification Preview</h3>
@@ -1919,7 +1959,8 @@
       </div>
       <div id="email-preview-content"></div>
       <div class="modal-footer">
-        <button class="btn btn-ghost" onclick="document.getElementById('email-modal').classList.remove('open')">Close</button>
+        <button class="btn btn-ghost"
+          onclick="document.getElementById('email-modal').classList.remove('open')">Close</button>
       </div>
     </div>
   </div>
@@ -1930,7 +1971,8 @@
       <button class="demo-btn playing" id="btn-play-pause" onclick="togglePause()" title="Pause / Resume">⏸</button>
       <button class="demo-btn" id="btn-restart" onclick="restartDemo()" title="Restart">⟲</button>
       <button class="demo-btn-next" id="btn-next-step" onclick="advanceStep()" style="display:none;">Next ▶</button>
-      <span class="demo-mode-toggle" id="btn-mode-toggle" onclick="toggleMode()" title="Switch between Auto and Manual advance">AUTO</span>
+      <span class="demo-mode-toggle" id="btn-mode-toggle" onclick="toggleMode()"
+        title="Switch between Auto and Manual advance">AUTO</span>
       <div class="demo-speed-control" id="speed-control">
         <span class="speed-label">Speed</span>
         <button class="demo-speed-btn" onclick="changeSpeed(-1)" title="Slower">−</button>
@@ -1938,8 +1980,10 @@
         <button class="demo-speed-btn" onclick="changeSpeed(1)" title="Faster">+</button>
       </div>
       <div class="demo-voice-control">
-        <button class="demo-voice-btn" id="btn-voice-toggle" onclick="toggleVoice()" title="Toggle voice narration">🔇</button>
-        <select class="demo-voice-select" id="voice-select" onchange="selectVoice()" title="Choose narrator voice"></select>
+        <button class="demo-voice-btn" id="btn-voice-toggle" onclick="toggleVoice()"
+          title="Toggle voice narration">🔇</button>
+        <select class="demo-voice-select" id="voice-select" onchange="selectVoice()"
+          title="Choose narrator voice"></select>
       </div>
     </div>
     <div class="demo-narration">
@@ -1961,7 +2005,7 @@
     ═══════════════════════════════════════════════════════════════ */
 
     // ── Block user interaction on demo viewport ───────────────────
-    (function() {
+    (function () {
       const viewport = document.getElementById('demo-viewport');
       let lastToastTime = 0;
       const messages = [
@@ -1971,7 +2015,7 @@
       ];
       let msgIndex = 0;
 
-      viewport.addEventListener('click', function(e) {
+      viewport.addEventListener('click', function (e) {
         // Don't block the cursor SVG or controls
         if (e.target.closest('#demo-controls') || e.target.closest('.modal-overlay')) return;
         const now = Date.now();
@@ -2054,10 +2098,10 @@
       if (availableVoices.length === 0) {
         availableVoices = voices.filter(v => v.lang.startsWith('en'));
       }
-      
+
       const select = document.getElementById('voice-select');
       select.innerHTML = '';
-      
+
       // Preferred voice order: Zira first (default), then David, Google voices, then others
       const preferred = ['Zira', 'David', 'Mark', 'Google US English'];
       availableVoices.sort((a, b) => {
@@ -2441,11 +2485,12 @@
       // ──────────────── STEP 1: HOME PAGE ────────────────
       setNarration(1, TOTAL, 'Welcome to the Home Page', 'This is what employees see when they open the app — no login required.');
       showPage('home');
-      await wait(2000);
+      await wait(5000);
       await waitForAdvance();
 
       // ──────────────── STEP 2: CLICK CREATE NEW REQUEST ──
       setNarration(2, TOTAL, 'Clicking "Create New Request"', 'Any employee can submit a capital expenditure request.');
+      await wait(3000);
       const heroBtn = document.getElementById('hero-btn');
       heroBtn.classList.add('demo-highlight');
       await wait(1200);
@@ -2555,6 +2600,7 @@
 
       // ──────────────── STEP 10: DEPARTMENT APPROVAL ─────
       setNarration(10, TOTAL, 'Department Manager clicks the email link', `${DEMO_CONFIG.deptManagerName} is taken directly to Request #8.`);
+      await wait(5000);
       showPage('department');
       // Email link goes directly to detail view (skips table)
       document.getElementById('dept-table-card').classList.add('hidden');
@@ -2601,6 +2647,7 @@
 
       // ──────────────── STEP 12: FINANCIAL APPROVAL ──────
       setNarration(12, TOTAL, 'Financial Approval — Accounting clicks the email link', 'Taken directly to the request details and accounting form.');
+      await wait(5000);
       showPage('financial');
       // Email link goes directly to detail view (skips table)
       document.getElementById('fin-table-card').classList.add('hidden');
@@ -2651,7 +2698,7 @@
       await wait(2000);
 
       // Approve financial
-      setNarration(14, TOTAL, 'Financial approval confirmed', 'Since cost > $25,000, the request moves to Presidential Approval.');
+      setNarration(14, TOTAL, 'Financial approval confirmed', 'Since cost is greater than $25,000, the request moves to Presidential Approval.');
       await showClickAt(document.getElementById('btn-fin-approve'));
       await wait(400);
 
@@ -2684,6 +2731,7 @@
 
       // ──────────────── STEP 15: PRESIDENTIAL APPROVAL ───
       setNarration(15, TOTAL, 'Presidential Approval — CEO clicks the email link', 'Taken directly to the request for final review.');
+      await wait(5000);
       showPage('presidential');
       // Email link goes directly to detail view (skips table)
       document.getElementById('pres-table-card').classList.add('hidden');
@@ -2842,7 +2890,7 @@
       await wait(3000);
 
       // ──────────────── STEP 21: DONE ────────────────────
-      setNarration(18, TOTAL, '✅ Demo Complete!', 'The full workflow: Submit → Dept Approval → Financial → Presidential → Print → Done!');
+      setNarration(18, TOTAL, '✅ Demo Complete!', 'The full workflow: Submit request to Presidential approval of Capital Expenditure Request!');
       showToast('🎬 Demo complete! Thanks for watching.', 'success');
       document.getElementById('btn-play-pause').textContent = '✓';
       document.getElementById('btn-play-pause').classList.remove('playing');
