@@ -1391,6 +1391,64 @@
     .demo-speed-value.slow { color: var(--success); }
     .demo-speed-value.fast { color: var(--warning); }
 
+    /* ── Voice Control ────────────────────────────────────────────── */
+    .demo-voice-control {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-left: 0.5rem;
+      padding-left: 0.5rem;
+      border-left: 1px solid var(--border);
+    }
+    .demo-voice-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      padding: 0;
+    }
+    .demo-voice-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--accent-light);
+      color: var(--accent-light);
+    }
+    .demo-voice-btn.active {
+      border-color: rgba(34, 197, 94, 0.5);
+      color: var(--success);
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .demo-voice-select {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      padding: 0.15rem 0.3rem;
+      cursor: pointer;
+      max-width: 110px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .demo-voice-select:hover,
+    .demo-voice-select:focus {
+      border-color: var(--accent-light);
+      color: var(--text-primary);
+    }
+    .demo-voice-select option {
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+
     /* ── Simulated Mouse Cursor ─────────────────────────────── */
     #demo-cursor {
       position: absolute;
@@ -1839,7 +1897,7 @@
   <!-- ══ Print Preview Modal ═══════════════════════════════════ -->
   <div class="modal-overlay" id="print-modal"
     style="position:fixed;inset:0;bottom:var(--narration-height);z-index:9998;">
-    <div class="modal" style="max-width:820px;width:100%;max-height:85vh;overflow-y:auto;">
+    <div class="modal" id="print-modal-body" style="max-width:820px;width:100%;max-height:85vh;overflow-y:auto;">
       <div class="modal-header">
         <h3>📄 Print Request Form</h3>
         <button class="modal-close">✕</button>
@@ -1878,6 +1936,10 @@
         <button class="demo-speed-btn" onclick="changeSpeed(-1)" title="Slower">−</button>
         <span class="demo-speed-value slow" id="speed-value">0.75×</span>
         <button class="demo-speed-btn" onclick="changeSpeed(1)" title="Faster">+</button>
+      </div>
+      <div class="demo-voice-control">
+        <button class="demo-voice-btn" id="btn-voice-toggle" onclick="toggleVoice()" title="Toggle voice narration">🔇</button>
+        <select class="demo-voice-select" id="voice-select" onchange="selectVoice()" title="Choose narrator voice"></select>
       </div>
     </div>
     <div class="demo-narration">
@@ -1976,6 +2038,113 @@
       label.className = 'demo-speed-value' + (speedFactor < 1 ? ' slow' : speedFactor > 1 ? ' fast' : '');
     }
 
+    // ── Voice Narration (Web Speech API) ───────────────────────────
+    let voiceEnabled = false;
+    let availableVoices = [];
+    let selectedVoice = null;
+    const synth = window.speechSynthesis;
+
+    function loadVoices() {
+      const voices = synth.getVoices();
+      // Filter to US English voices for professional sound
+      availableVoices = voices.filter(v =>
+        v.lang === 'en-US' || v.lang === 'en_US'
+      );
+      // If no en-US voices, fall back to any English
+      if (availableVoices.length === 0) {
+        availableVoices = voices.filter(v => v.lang.startsWith('en'));
+      }
+      
+      const select = document.getElementById('voice-select');
+      select.innerHTML = '';
+      
+      // Preferred voice order: Zira first (default), then David, Google voices, then others
+      const preferred = ['Zira', 'David', 'Mark', 'Google US English'];
+      availableVoices.sort((a, b) => {
+        const aIdx = preferred.findIndex(p => a.name.includes(p));
+        const bIdx = preferred.findIndex(p => b.name.includes(p));
+        const aRank = aIdx >= 0 ? aIdx : 99;
+        const bRank = bIdx >= 0 ? bIdx : 99;
+        return aRank - bRank;
+      });
+
+      availableVoices.forEach((voice, i) => {
+        const opt = document.createElement('option');
+        // Shorten the display name
+        let label = voice.name.replace('Microsoft ', '').replace(' Online (Natural)', '').replace(' Desktop', '');
+        if (label.length > 18) label = label.substring(0, 16) + '…';
+        opt.textContent = label;
+        opt.value = i;
+        select.appendChild(opt);
+      });
+
+      // Restore saved preference or pick first voice
+      const savedVoice = localStorage.getItem('demo_voice_name');
+      if (savedVoice) {
+        const idx = availableVoices.findIndex(v => v.name === savedVoice);
+        if (idx >= 0) {
+          select.value = idx;
+          selectedVoice = availableVoices[idx];
+        }
+      }
+      if (!selectedVoice && availableVoices.length > 0) {
+        selectedVoice = availableVoices[0];
+      }
+
+      // Restore voice enabled state
+      const savedEnabled = localStorage.getItem('demo_voice_enabled');
+      if (savedEnabled === 'true') {
+        voiceEnabled = true;
+        document.getElementById('btn-voice-toggle').textContent = '🔊';
+        document.getElementById('btn-voice-toggle').classList.add('active');
+      }
+    }
+
+    // Voices load asynchronously in some browsers
+    if (synth.onvoiceschanged !== undefined) {
+      synth.onvoiceschanged = loadVoices;
+    }
+    loadVoices();
+
+    function toggleVoice() {
+      voiceEnabled = !voiceEnabled;
+      const btn = document.getElementById('btn-voice-toggle');
+      if (voiceEnabled) {
+        btn.textContent = '🔊';
+        btn.classList.add('active');
+        // Speak a test phrase to confirm it's working
+        speak('Voice narration enabled.');
+      } else {
+        btn.textContent = '🔇';
+        btn.classList.remove('active');
+        synth.cancel(); // Stop any current speech
+      }
+      localStorage.setItem('demo_voice_enabled', voiceEnabled.toString());
+    }
+
+    function selectVoice() {
+      const idx = parseInt(document.getElementById('voice-select').value);
+      if (availableVoices[idx]) {
+        selectedVoice = availableVoices[idx];
+        localStorage.setItem('demo_voice_name', selectedVoice.name);
+        if (voiceEnabled) {
+          synth.cancel();
+          speak('Voice changed.');
+        }
+      }
+    }
+
+    function speak(text) {
+      if (!voiceEnabled || !selectedVoice || !text) return;
+      synth.cancel(); // Cancel any previous speech
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.voice = selectedVoice;
+      utterance.rate = 0.95;  // Slightly slower for clarity
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+      synth.speak(utterance);
+    }
+
     // ── Wait for user click in manual mode ─────────────────────────
     function waitForAdvance() {
       if (!manualMode) return Promise.resolve();
@@ -2018,15 +2187,18 @@
         btn.textContent = '▶';
         btn.classList.remove('playing');
         document.getElementById('narration-sub').textContent = '⏸ Paused — click ▶ to resume';
+        if (synth.speaking) synth.pause();
       } else {
         btn.textContent = '⏸';
         btn.classList.add('playing');
         document.getElementById('narration-sub').textContent = '';
+        if (synth.paused) synth.resume();
         if (pauseResolve) { const r = pauseResolve; pauseResolve = null; r(); }
       }
     }
 
     function restartDemo() {
+      synth.cancel();
       location.reload();
     }
 
@@ -2188,6 +2360,11 @@
       const pct = Math.round((step / total) * 100);
       document.getElementById('progress-fill').style.width = pct + '%';
       document.getElementById('progress-label').textContent = pct + '%';
+      // Voice narration — clean emoji for cleaner TTS
+      const cleanText = text.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}]/gu, '').trim();
+      const cleanSub = sub.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}]/gu, '').trim();
+      const speech = cleanSub ? `${cleanText}. ${cleanSub}` : cleanText;
+      speak(speech);
     }
 
     // ── Render Detail View ─────────────────────────────────────────
@@ -2549,7 +2726,7 @@
       await waitForAdvance();
 
       // ──────────────── STEP 18: PRINT PREVIEW ───────────
-      setNarration(17, TOTAL, 'Print Preview — Generates a printable form with all signatures', 'The approved request can be printed as a formal document.');
+      setNarration(17, TOTAL, 'Print Preview — Scrolling through the approved form', 'The completed form includes all request details, approval signatures, and accounting information.');
       await wait(1000);
 
       // Build print preview content
@@ -2587,13 +2764,42 @@
           </table>
           <div class="print-footer-bar">
             <span>Copyright © 2026 Aqua-Aerobic Systems, Inc. — All Rights Reserved</span>
-            <span>Page 1 of 1</span>
+            <span>Page 1 of 2</span>
           </div>
         </div>`;
 
       // Open print modal
       document.getElementById('print-modal').classList.add('open');
-      await wait(5000);
+      await wait(1500);
+
+      // Slowly scroll through the print preview to show both pages
+      const printBody = document.getElementById('print-modal-body');
+      const scrollHeight = printBody.scrollHeight - printBody.clientHeight;
+      if (scrollHeight > 0) {
+        // Scroll down slowly
+        const scrollDuration = 4000; // ms for full scroll
+        const scrollStep = 12;
+        const scrollInterval = Math.round((scrollDuration / (scrollHeight / scrollStep)) / speedFactor);
+        await new Promise(resolve => {
+          let scrolled = 0;
+          const timer = setInterval(() => {
+            scrolled += scrollStep;
+            printBody.scrollTop = scrolled;
+            if (scrolled >= scrollHeight) {
+              clearInterval(timer);
+              resolve();
+            }
+          }, scrollInterval);
+        });
+        // Pause at the bottom
+        await wait(2000);
+        // Scroll back to top smoothly
+        printBody.scrollTo({ top: 0, behavior: 'smooth' });
+        await wait(1500);
+      } else {
+        await wait(3000);
+      }
+
       document.getElementById('print-modal').classList.remove('open');
       await wait(1000);
 

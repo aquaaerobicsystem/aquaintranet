@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-06-25
+### Added
+- **`public/demo.html`** — **Voice-over narration** using the Web Speech API. Each demo step is spoken aloud when enabled. No external services or API keys required.
+- **`public/demo.html`** — **Voice toggle button** (🔇/🔊) in the demo controls bar with green active state indicator.
+- **`public/demo.html`** — **Voice selector dropdown** showing available US English voices (Microsoft Zira, David, Mark, Google US English). Sorted by preference with Zira (female) as the default.
+- **`public/demo.html`** — Voice preferences (enabled state and selected voice) persist in `localStorage` across sessions.
+- **`public/demo.html`** — Speech pauses/resumes with the demo play/pause toggle and cancels on restart.
+- **`public/demo.html`** — Emoji characters are stripped from narration text before speaking for cleaner TTS output.
+- **`public/demo.html`** — **Print preview auto-scroll**: The print modal now slowly scrolls from top to bottom (~4 seconds), pauses at the bottom (2 seconds), then scrolls back to the top — showing both pages of the approved request form. Scroll speed respects the demo speed factor.
+
+### Changed
+- **`public/demo.html`** — Print preview narration updated: "Scrolling through the approved form" with descriptive subtext about form contents.
+- **`public/demo.html`** — Print form footer changed from "Page 1 of 1" to "Page 1 of 2".
+
 ## [1.7.0] - 2026-06-25
 ### Added
 - **`public/index.html`** — **Login/Logout toggle button** in the navigation bar (far right). Shows "🔒 Login" when not authenticated and switches to "🔓 Logout" when logged in. Always visible for easy access.
