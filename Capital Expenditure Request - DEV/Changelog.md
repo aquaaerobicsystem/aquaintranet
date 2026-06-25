@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-06-25
+### Added
+- **`public/index.html`** — **Login/Logout toggle button** in the navigation bar (far right). Shows "🔒 Login" when not authenticated and switches to "🔓 Logout" when logged in. Always visible for easy access.
+- **`public/index.html`** — **Separate SMTP Configuration card** on the Admin page with IT passcode authentication gate. SMTP fields are hidden behind a "🔓 Unlock SMTP Settings" prompt and only visible after entering the IT Passcode.
+- **`public/index.html`** — **"🔑 Change IT Passcode"** section inside the unlocked SMTP form, allowing IT staff to update their own passcode from within the restricted area (not visible to Accounting).
+- **`public/index.html`** — **IT Department role card** added to the How To → Overview "Who Can Do What" section (purple-themed, 4-column grid).
+- **`public/index.html`** — **New FAQ**: "How do I log out?" explaining the Logout button behavior and automatic 1-hour session expiry.
+- **`public/app.js`** — `handleAuthToggle()` — single function that routes to login (opens auth modal) or logout (clears session, navigates home) based on current auth state.
+- **`public/app.js`** — `updateAuthButton()` — toggles button icon (🔒/🔓), label (Login/Logout), title, and `.authenticated` CSS class.
+- **`public/app.js`** — `unlockSmtpConfig()` — verifies IT passcode via `/api/verify-it-code`, then loads and displays SMTP fields.
+- **`public/app.js`** — `saveItPasscode()` — saves a new IT passcode from within the SMTP section (min 4 characters).
+- **`public/app.js`** — Separate `smtp-settings-form` submit handler for saving SMTP settings independently from main admin settings.
+- **`public/app.js`** — `confirmAuth()` now tries both App Passcode and IT Passcode (fallback), granting IT staff full app access via the standard login prompt.
+- **`public/app.js`** — Login success toast ("Logged in successfully") shown when logging in via the Login button (not via restricted page redirect).
+- **`public/style.css`** — `.nav-auth-btn` styles with dual-state design: teal/accent border for login state, red border for authenticated/logout state. Responsive mobile support hides label, shows icon only.
+- **`server.js`** — `POST /api/verify-it-code` endpoint for IT passcode verification (default: `IT2026`). Separate from the App Passcode verification.
+
+### Changed
+- **`public/index.html`** — **SMTP fields removed from Email & System Settings form**. SMTP is now exclusively managed in its own IT-only card.
+- **`public/index.html`** — **IT Passcode field removed from Admin settings** (no longer visible to Accounting staff). IT passcode is self-managed by IT from within the SMTP section.
+- **`public/index.html`** — App Passcode hint updated to "Used for Accounting authentication and deleting requests."
+- **`public/index.html`** — How To: Printing section updated from "Accounting Department Only" badge references to include IT staff. Tip now mentions "🔒 Login" button.
+- **`public/index.html`** — How To: Admin Settings badge changed from "Accounting Department Only" to "Accounting & IT". Tip updated to mention both passcodes and the Login button.
+- **`public/index.html`** — How To: Financial Approval Step 1 updated to mention "🔒 Login" button as primary action with auto-prompt as fallback.
+- **`public/index.html`** — How To: FAQ "Who needs to log in?" expanded with two login methods (Login button + auto-prompt), button state change note, and both passcode types.
+- **`public/index.html`** — How To: FAQ "Who can remove a request?" and "What does the Dashboard show?" updated to include IT staff.
+- **`public/index.html`** — How To: Step 5 (SMTP Configuration) fully rewritten with IT-only badge, default passcode reference, "Change IT Passcode" instructions, full-access login tip, and separation warning.
+- **`public/app.js`** — `loadAdmin()` no longer pre-populates SMTP fields; resets SMTP section to locked state on each load.
+- **`public/app.js`** — Admin settings save now only includes `accountingEmail`, `presidentialEmail`, and `appPasscode` (SMTP and IT passcode saved separately).
+
+
 ## [1.6.0] - 2026-06-25
 ### Added
 - **`public/demo.html`** — Added a **simulated mouse cursor** (white SVG arrow with drop shadow) that smoothly animates to each interactive element throughout the demo. Integrated into `showClickAt`, `typeInto`, and `setDate` with click animation.

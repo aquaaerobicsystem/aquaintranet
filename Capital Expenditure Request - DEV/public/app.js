@@ -47,6 +47,7 @@ function navigate(hashStr) {
     const authTime = localStorage.getItem('capex_auth_time');
     if (authTime && (Date.now() - parseInt(authTime)) < 3600000) { // 1 hour in ms
       isAuthenticated = true;
+      updateAuthButton();
     }
   }
 
@@ -1491,14 +1492,12 @@ async function loadAdmin() {
     const settings = await apiFetch('/api/settings');
     document.getElementById('admin-accounting-email').value = settings.accountingEmail || '';
     document.getElementById('admin-presidential-email').value = settings.presidentialEmail || '';
-    document.getElementById('admin-smtp-host').value = settings.smtpHost || '';
-    document.getElementById('admin-smtp-port').value = settings.smtpPort || '';
-    document.getElementById('admin-smtp-user').value = settings.smtpUser || '';
-    document.getElementById('admin-smtp-pass').value = settings.smtpPass || '';
-    document.getElementById('admin-smtp-secure').value = settings.smtpSecure || 'false';
-    document.getElementById('admin-from-email').value = settings.fromEmail || '';
-    document.getElementById('admin-from-email-name').value = settings.fromEmailName || '';
     document.getElementById('admin-app-passcode').value = settings.appPasscode || '1969';
+    
+    // Reset SMTP section to locked state on each load
+    document.getElementById('smtp-auth-gate').classList.remove('hidden');
+    document.getElementById('smtp-settings-form').classList.add('hidden');
+    document.getElementById('smtp-it-code').value = '';
     
     // Load logs
     await loadAdminLogs();
@@ -1544,13 +1543,6 @@ document.getElementById('admin-settings-form')?.addEventListener('submit', async
   const body = {
     accountingEmail: document.getElementById('admin-accounting-email').value.trim(),
     presidentialEmail: document.getElementById('admin-presidential-email').value.trim(),
-    smtpHost: document.getElementById('admin-smtp-host').value.trim(),
-    smtpPort: document.getElementById('admin-smtp-port').value.trim(),
-    smtpUser: document.getElementById('admin-smtp-user').value.trim(),
-    smtpPass: document.getElementById('admin-smtp-pass').value,
-    smtpSecure: document.getElementById('admin-smtp-secure').value,
-    fromEmail: document.getElementById('admin-from-email').value.trim(),
-    fromEmailName: document.getElementById('admin-from-email-name').value.trim(),
     appPasscode: document.getElementById('admin-app-passcode').value.trim() || '1969',
   };
 
@@ -1570,6 +1562,84 @@ document.getElementById('admin-settings-form')?.addEventListener('submit', async
     hideLoading();
   }
 });
+
+// ── SMTP Configuration (IT Only) ──
+async function unlockSmtpConfig() {
+  const code = document.getElementById('smtp-it-code').value.trim();
+  if (!code) { toast('Please enter the IT passcode.', 'error'); return; }
+
+  showLoading();
+  try {
+    const res = await apiFetch('/api/verify-it-code', { method: 'POST', body: JSON.stringify({ code }) });
+    if (res.valid) {
+      // Load SMTP values and show the form
+      const settings = await apiFetch('/api/settings');
+      document.getElementById('admin-smtp-host').value = settings.smtpHost || '';
+      document.getElementById('admin-smtp-port').value = settings.smtpPort || '';
+      document.getElementById('admin-smtp-user').value = settings.smtpUser || '';
+      document.getElementById('admin-smtp-pass').value = settings.smtpPass || '';
+      document.getElementById('admin-smtp-secure').value = settings.smtpSecure || 'false';
+      document.getElementById('admin-from-email').value = settings.fromEmail || '';
+      document.getElementById('admin-from-email-name').value = settings.fromEmailName || '';
+
+      document.getElementById('smtp-auth-gate').classList.add('hidden');
+      document.getElementById('smtp-settings-form').classList.remove('hidden');
+      toast('SMTP settings unlocked.', 'success');
+    } else {
+      toast('Invalid IT passcode.', 'error');
+    }
+  } catch (e) {
+    toast('Error verifying IT passcode.', 'error');
+  } finally {
+    hideLoading();
+  }
+}
+
+document.getElementById('smtp-settings-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const body = {
+    smtpHost: document.getElementById('admin-smtp-host').value.trim(),
+    smtpPort: document.getElementById('admin-smtp-port').value.trim(),
+    smtpUser: document.getElementById('admin-smtp-user').value.trim(),
+    smtpPass: document.getElementById('admin-smtp-pass').value,
+    smtpSecure: document.getElementById('admin-smtp-secure').value,
+    fromEmail: document.getElementById('admin-from-email').value.trim(),
+    fromEmailName: document.getElementById('admin-from-email-name').value.trim(),
+  };
+
+  const btn = document.getElementById('btn-save-smtp');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Saving...';
+  showLoading();
+
+  try {
+    await apiFetch('/api/settings', { method: 'POST', body: JSON.stringify(body) });
+    toast('SMTP settings saved successfully!', 'success');
+  } catch (err) {
+    toast('Error saving SMTP settings: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '💾 Save SMTP Settings';
+    hideLoading();
+  }
+});
+
+async function saveItPasscode() {
+  const newCode = document.getElementById('smtp-new-it-passcode').value.trim();
+  if (!newCode) { toast('Please enter a new IT passcode.', 'error'); return; }
+  if (newCode.length < 4) { toast('IT passcode must be at least 4 characters.', 'error'); return; }
+
+  showLoading();
+  try {
+    await apiFetch('/api/settings', { method: 'POST', body: JSON.stringify({ itPasscode: newCode }) });
+    toast('IT passcode updated successfully!', 'success');
+    document.getElementById('smtp-new-it-passcode').value = '';
+  } catch (err) {
+    toast('Error updating IT passcode: ' + err.message, 'error');
+  } finally {
+    hideLoading();
+  }
+}
 
 // ── Removed Requests (Soft-Deleted) ──
 let allRemovedRequests = [];
@@ -1645,22 +1715,76 @@ async function confirmAuth() {
   
   showLoading();
   try {
+    // Try app passcode first, then IT passcode (IT gets full access)
     const res = await apiFetch('/api/verify-code', { method: 'POST', body: JSON.stringify({ code }) });
     if (res.valid) {
       isAuthenticated = true;
       localStorage.setItem('capex_auth_time', Date.now().toString());
+      updateAuthButton();
       closeModal('auth-modal');
       if (authTargetPage) {
         navigate(authTargetPage);
         authTargetPage = null;
+      } else {
+        toast('Logged in successfully.', 'success');
       }
     } else {
-      toast('Invalid passcode.', 'error');
+      // Try IT passcode as fallback (IT has full app access)
+      const itRes = await apiFetch('/api/verify-it-code', { method: 'POST', body: JSON.stringify({ code }) });
+      if (itRes.valid) {
+        isAuthenticated = true;
+        localStorage.setItem('capex_auth_time', Date.now().toString());
+        updateAuthButton();
+        closeModal('auth-modal');
+        if (authTargetPage) {
+          navigate(authTargetPage);
+          authTargetPage = null;
+        } else {
+          toast('Logged in successfully.', 'success');
+        }
+      } else {
+        toast('Invalid passcode.', 'error');
+      }
     }
   } catch (e) {
     toast('Error verifying code.', 'error');
   } finally {
     hideLoading();
+  }
+}
+
+function handleAuthToggle() {
+  if (isAuthenticated) {
+    // Logout
+    isAuthenticated = false;
+    localStorage.removeItem('capex_auth_time');
+    updateAuthButton();
+    navigate('home');
+    toast('You have been logged out.', 'info');
+  } else {
+    // Login — open auth modal
+    authTargetPage = null;
+    document.getElementById('auth-name').value = '';
+    document.getElementById('auth-code').value = '';
+    openModal('auth-modal');
+  }
+}
+
+function updateAuthButton() {
+  const btn = document.getElementById('nav-auth-btn');
+  if (!btn) return;
+  const icon = btn.querySelector('.nav-auth-icon');
+  const label = btn.querySelector('.nav-auth-label');
+  if (isAuthenticated) {
+    icon.textContent = '🔓';
+    label.textContent = 'Logout';
+    btn.title = 'Log out';
+    btn.classList.add('authenticated');
+  } else {
+    icon.textContent = '🔒';
+    label.textContent = 'Login';
+    btn.title = 'Log in';
+    btn.classList.remove('authenticated');
   }
 }
 
@@ -1684,6 +1808,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set default approval date to today
   document.getElementById('approval-date').value = today();
   document.getElementById('req-start-date').min = today();
+
+  // Check if already authenticated (session restore)
+  const authTime = localStorage.getItem('capex_auth_time');
+  if (authTime && (Date.now() - parseInt(authTime)) < 3600000) {
+    isAuthenticated = true;
+    updateAuthButton();
+  }
 
   const hash = window.location.hash.replace('#', '');
   const pageStr = hash.split('?')[0];

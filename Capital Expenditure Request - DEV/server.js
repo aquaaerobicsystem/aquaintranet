@@ -771,6 +771,19 @@ app.post('/api/verify-code', async (req, res) => {
   }
 });
 
+// POST verify IT access code (for SMTP config + full app access)
+app.post('/api/verify-it-code', async (req, res) => {
+  try {
+    const { code } = req.body;
+    const settings = await getSettings();
+    const expectedCode = settings.itPasscode || 'IT2026';
+    res.json({ valid: code === expectedCode });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get('/api/logs', async (req, res) => {
   try {
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate');

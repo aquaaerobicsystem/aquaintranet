@@ -28,6 +28,9 @@
     <li><a href="#" class="nav-item" data-page="admin"><span>⚙️</span><span>Admin</span></a></li>
     <li><a href="#" class="nav-item" data-page="howto"><span>❓</span><span>How To</span></a></li>
   </ul>
+  <button class="nav-auth-btn" id="nav-auth-btn" onclick="handleAuthToggle()" title="Log in">
+    <span class="nav-auth-icon">🔒</span><span class="nav-auth-label">Login</span>
+  </button>
 </nav>
 
 <!-- ══ Toast Container ═════════════════════════════════════════ -->
@@ -576,52 +579,7 @@
           <div class="form-group">
             <label class="form-label" for="admin-app-passcode">App Passcode</label>
             <input type="text" class="form-control" id="admin-app-passcode" placeholder="1969">
-            <div class="form-hint mt-1">Used for authentication and deleting requests.</div>
-          </div>
-        </div>
-
-        <h4 style="margin: 1.5rem 0 0.5rem 0; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">SMTP Configuration (FOR IT ONLY)</h4>
-        <div class="form-row cols-2">
-          <div class="form-group">
-            <label class="form-label" for="admin-smtp-host">SMTP Host</label>
-            <input type="text" class="form-control" id="admin-smtp-host" placeholder="smtp.example.com">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="admin-smtp-port">SMTP Port</label>
-            <input type="number" class="form-control" id="admin-smtp-port" placeholder="587">
-          </div>
-        </div>
-
-        <div class="form-row cols-2">
-          <div class="form-group">
-            <label class="form-label" for="admin-smtp-user">SMTP Username</label>
-            <input type="text" class="form-control" id="admin-smtp-user" placeholder="user@example.com">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="admin-smtp-pass">SMTP Password</label>
-            <input type="password" class="form-control" id="admin-smtp-pass" placeholder="••••••••">
-          </div>
-        </div>
-
-        <div class="form-row cols-2">
-          <div class="form-group">
-            <label class="form-label" for="admin-smtp-secure">Use TLS/SSL</label>
-            <select class="form-control" id="admin-smtp-secure">
-              <option value="false">False (Usually for port 25/587)</option>
-              <option value="true">True (Usually for port 465)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="admin-from-email">From Email Address</label>
-            <input type="email" class="form-control" id="admin-from-email" placeholder="noreply@example.com">
-          </div>
-        </div>
-
-        <div class="form-row cols-2">
-          <div class="form-group">
-            <label class="form-label" for="admin-from-email-name">From Email Address Name</label>
-            <input type="text" class="form-control" id="admin-from-email-name" placeholder="Aqua-Aerobic Systems Accounting">
-            <div class="form-hint mt-1">Display name shown in the "From" field of outgoing emails.</div>
+            <div class="form-hint mt-1">Used for Accounting authentication and deleting requests.</div>
           </div>
         </div>
 
@@ -629,6 +587,98 @@
           <button type="submit" class="btn btn-primary" id="btn-save-settings">💾 Save Settings</button>
         </div>
       </form>
+    </div>
+
+    <!-- SMTP Configuration (IT Only) -->
+    <div class="card mb-3">
+      <div class="card-header" style="cursor: pointer;" onclick="const f = document.getElementById('smtp-config-body'); f.classList.toggle('hidden'); this.querySelector('.toggle-icon').textContent = f.classList.contains('hidden') ? '▼' : '▲';">
+        <h3>🔧 SMTP Configuration <span style="font-size:0.75rem;color:var(--text-muted);font-weight:400;margin-left:0.5rem;">Restricted to IT</span></h3>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div id="smtp-config-body" class="hidden" style="padding: 1.5rem;">
+        <!-- IT Auth Gate -->
+        <div id="smtp-auth-gate">
+          <div class="alert alert-info mb-2">
+            <span>🔐</span>
+            <span>SMTP settings are restricted to <strong>IT personnel only</strong>. Enter the IT passcode to unlock editing.</span>
+          </div>
+          <div class="form-row cols-2" style="max-width:500px;">
+            <div class="form-group">
+              <label class="form-label" for="smtp-it-code">IT Passcode</label>
+              <input type="password" class="form-control" id="smtp-it-code" placeholder="Enter IT passcode">
+            </div>
+            <div class="form-group" style="display:flex;align-items:flex-end;">
+              <button type="button" class="btn btn-primary" id="btn-unlock-smtp" onclick="unlockSmtpConfig()">🔓 Unlock SMTP Settings</button>
+            </div>
+          </div>
+        </div>
+        <!-- SMTP Fields (hidden until unlocked) -->
+        <form id="smtp-settings-form" class="hidden">
+          <div class="alert alert-success mb-2">
+            <span>✅</span>
+            <span>SMTP settings unlocked. You may now view and edit the mail server configuration.</span>
+          </div>
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label" for="admin-smtp-host">SMTP Host</label>
+              <input type="text" class="form-control" id="admin-smtp-host" placeholder="smtp.example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="admin-smtp-port">SMTP Port</label>
+              <input type="number" class="form-control" id="admin-smtp-port" placeholder="587">
+            </div>
+          </div>
+
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label" for="admin-smtp-user">SMTP Username</label>
+              <input type="text" class="form-control" id="admin-smtp-user" placeholder="user@example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="admin-smtp-pass">SMTP Password</label>
+              <input type="password" class="form-control" id="admin-smtp-pass" placeholder="••••••••">
+            </div>
+          </div>
+
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label" for="admin-smtp-secure">Use TLS/SSL</label>
+              <select class="form-control" id="admin-smtp-secure">
+                <option value="false">False (Usually for port 25/587)</option>
+                <option value="true">True (Usually for port 465)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="admin-from-email">From Email Address</label>
+              <input type="email" class="form-control" id="admin-from-email" placeholder="noreply@example.com">
+            </div>
+          </div>
+
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label class="form-label" for="admin-from-email-name">From Email Address Name</label>
+              <input type="text" class="form-control" id="admin-from-email-name" placeholder="Aqua-Aerobic Systems Accounting">
+              <div class="form-hint mt-1">Display name shown in the "From" field of outgoing emails.</div>
+            </div>
+          </div>
+
+          <div class="flex justify-end mt-2">
+            <button type="submit" class="btn btn-primary" id="btn-save-smtp">💾 Save SMTP Settings</button>
+          </div>
+
+          <h4 style="margin: 2rem 0 0.5rem 0; border-top: 2px solid var(--border); padding-top: 1.25rem; color: var(--text-primary);">🔑 Change IT Passcode</h4>
+          <div class="form-hint mb-2">Update the IT passcode used to access this section. Only IT personnel should know this code.</div>
+          <div class="form-row cols-2" style="max-width:500px;">
+            <div class="form-group">
+              <label class="form-label" for="smtp-new-it-passcode">New IT Passcode</label>
+              <input type="password" class="form-control" id="smtp-new-it-passcode" placeholder="Enter new IT passcode">
+            </div>
+            <div class="form-group" style="display:flex;align-items:flex-end;">
+              <button type="button" class="btn btn-primary" onclick="saveItPasscode()">💾 Update IT Passcode</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -736,7 +786,7 @@
         <!-- Access Roles Summary -->
         <div style="margin-bottom:1.5rem;">
           <h4 class="mb-1" style="color:var(--text-primary);">Who Can Do What</h4>
-          <div class="howto-dual-action" style="grid-template-columns:1fr 1fr 1fr;">
+          <div class="howto-dual-action" style="grid-template-columns:1fr 1fr 1fr 1fr;">
             <div class="howto-action-card" style="background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.25);">
               <h5 style="color:#93c5fd;">📝 All Employees</h5>
               <p>Visit <a href="http://www.aqua-aerobic.net:5030/" style="color:var(--accent-light);font-weight:600;">aqua-aerobic.net:5030</a> to create a new expenditure request. No login required.</p>
@@ -746,8 +796,12 @@
               <p>Approve or deny requests <strong>exclusively via the email link</strong> sent when a request reaches your approval stage.</p>
             </div>
             <div class="howto-action-card" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.25);">
-              <h5 style="color:#4ade80;">🔐 Accounting Only</h5>
-              <p>Full access to Dashboard, Financial, Admin, and the ability to <strong>remove and restore requests</strong>. Requires Aqua UserID &amp; passcode.</p>
+              <h5 style="color:#4ade80;">🔐 Accounting</h5>
+              <p>Full access to Dashboard, Financial, Admin, and the ability to <strong>remove and restore requests</strong>. Click <strong>"🔒 Login"</strong> in the nav bar or navigate to a restricted page to log in.</p>
+            </div>
+            <div class="howto-action-card" style="background:rgba(139,92,246,0.06);border-color:rgba(139,92,246,0.25);">
+              <h5 style="color:#c4b5fd;">🔧 IT Department</h5>
+              <p>Full app access (same as Accounting) <strong>plus</strong> SMTP mail server configuration. Uses a separate <strong>IT Passcode</strong> via the same Login button.</p>
             </div>
           </div>
         </div>
@@ -943,14 +997,14 @@
         </div>
         <div class="howto-tip mb-2" style="margin-top:0;">
           <span>🔐</span>
-          <span>This section applies to the <strong>Accounting department only</strong>. Accounting staff have global access to the app using their Aqua UserID and passcode.</span>
+          <span>This section applies to the <strong>Accounting department</strong> and <strong>IT staff</strong>. Both have full access to the app using their respective passcodes.</span>
         </div>
         <div class="howto-steps">
           <div class="howto-step">
             <div class="howto-step-number">1</div>
             <div class="howto-step-body">
               <h4>Log In &amp; Open the Financial Page</h4>
-              <p>Click <strong>"Financial"</strong> in the navigation bar and log in with your <strong>Aqua UserID and passcode</strong>. Only Accounting staff have access to this page. Requests that have passed department approval will appear here.</p>
+              <p>Click <strong>"🔒 Login"</strong> in the navigation bar (or click <strong>"Financial"</strong> in the nav to be prompted automatically). Enter your <strong>Aqua UserID and passcode</strong>. Requests that have passed department approval will appear here.</p>
             </div>
           </div>
           <div class="howto-step">
@@ -1033,13 +1087,18 @@
       <div class="card mb-3">
         <div class="card-header">
           <h3>🖨️ Printing a Request Form</h3>
+          <span class="badge badge-financial">Accounting Department Only</span>
+        </div>
+        <div class="howto-tip mb-2" style="margin-top:0;">
+          <span>🔐</span>
+          <span>Printing is restricted to <strong>Accounting</strong> and <strong>IT staff</strong>. Log in via the <strong>"🔒 Login"</strong> button in the nav bar to access the Dashboard where the Print button is available.</span>
         </div>
         <div class="howto-steps">
           <div class="howto-step">
             <div class="howto-step-number">1</div>
             <div class="howto-step-body">
               <h4>When Can I Print?</h4>
-              <p>The <strong>"🖨 Print"</strong> button becomes available once a request has been <strong>fully approved</strong>. You'll find it in the Actions column on the Dashboard or Request page.</p>
+              <p>The <strong>"🖨 Print"</strong> button becomes available once a request has been <strong>fully approved</strong>. You'll find it in the Actions column on the Dashboard.</p>
             </div>
           </div>
           <div class="howto-step">
@@ -1058,11 +1117,11 @@
       <div class="card mb-3">
         <div class="card-header">
           <h3>⚙️ Admin Settings</h3>
-          <span class="badge badge-financial">Accounting Department Only</span>
+          <span class="badge badge-financial">Accounting &amp; IT</span>
         </div>
         <div class="howto-tip mb-2" style="margin-top:0;">
           <span>🔐</span>
-          <span>The Admin page is restricted to the <strong>Accounting department</strong>. You must log in with your Aqua UserID and passcode to access it.</span>
+          <span>The Admin page is restricted to <strong>Accounting</strong> and <strong>IT staff</strong>. Click <strong>"🔒 Login"</strong> in the nav bar or navigate to the Admin page to be prompted. Use your Aqua UserID and App Passcode (Accounting) or IT Passcode (IT).</span>
         </div>
         <div class="howto-steps">
           <div class="howto-step">
@@ -1088,7 +1147,6 @@
                 <li><strong>Accounting Email</strong> — Where financial approval notifications are sent</li>
                 <li><strong>Presidential Email</strong> — Where CEO approval notifications are sent (for requests > $25K)</li>
                 <li><strong>App Passcode</strong> — The authentication code used for Accounting login and removing requests</li>
-                <li><strong>SMTP Configuration</strong> — Host, port, credentials, and TLS settings for outgoing email</li>
               </ul>
             </div>
           </div>
@@ -1104,6 +1162,28 @@
               <div class="howto-tip">
                 <span>💡</span>
                 <span>Removed requests are <strong>not permanently deleted</strong>. They can be restored from the <strong>Admin page → Removed Requests</strong> section. Click <strong>"♻ Restore"</strong> to bring a request back to its previous status.</span>
+              </div>
+            </div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-step-number">5</div>
+            <div class="howto-step-body">
+              <h4>SMTP Configuration <span class="badge" style="background:var(--accent);color:#fff;font-size:0.7rem;vertical-align:middle;">IT Only</span></h4>
+              <p>SMTP mail server settings are managed in a <strong>separate section</strong> on the Admin page, restricted to IT personnel. To access:</p>
+              <ul class="howto-list">
+                <li>Expand the <strong>"🔧 SMTP Configuration"</strong> panel</li>
+                <li>Enter the <strong>IT Passcode</strong> to unlock the settings (default: <code style="background:var(--bg-input);padding:2px 6px;border-radius:4px;font-size:0.8rem;">IT2026</code>)</li>
+                <li>Configure the SMTP host, port, credentials, TLS, and From address</li>
+                <li>Click <strong>"💾 Save SMTP Settings"</strong> to apply changes</li>
+                <li>Use the <strong>"🔑 Change IT Passcode"</strong> section at the bottom to update the code</li>
+              </ul>
+              <div class="howto-tip">
+                <span>💡</span>
+                <span>The IT Passcode also works as a <strong>full-access login</strong> for the entire app (Dashboard, Financial, Admin). IT staff can use their IT passcode in the standard login prompt to access all areas.</span>
+              </div>
+              <div class="howto-warning">
+                <span>⚠️</span>
+                <span>The IT Passcode is completely separate from the App Passcode and is <strong>not visible</strong> to Accounting staff. Only IT can view and change it from within the unlocked SMTP section. Change it from the default immediately after first use.</span>
               </div>
             </div>
           </div>
@@ -1151,8 +1231,22 @@
               <span class="howto-faq-chevron">▼</span>
             </button>
             <div class="howto-faq-answer">
-              <p>Only the <strong>Accounting department</strong> needs to log in. They use their <strong>Aqua UserID</strong> and the system <strong>passcode</strong> to access the Dashboard, Financial page, Admin page, and deletion features. Authentication lasts for <strong>1 hour</strong> before re-authentication is required.</p>
+              <p>Only the <strong>Accounting department</strong> and <strong>IT staff</strong> need to log in. You can log in two ways:</p>
+              <ul class="howto-list">
+                <li>Click the <strong>"🔒 Login"</strong> button on the far right of the navigation bar</li>
+                <li>Navigate to any restricted page (Dashboard, Financial, Admin) — the login prompt appears automatically</li>
+              </ul>
+              <p style="margin-top:0.5rem;">Accounting uses their <strong>Aqua UserID</strong> and the system <strong>App Passcode</strong>. IT staff use their separate <strong>IT Passcode</strong>, which grants the same full access plus SMTP configuration. Once logged in, the button changes to <strong>"🔓 Logout"</strong>. Authentication lasts for <strong>1 hour</strong> before re-authentication is required.</p>
               <p style="margin-top:0.5rem;">All other users — requestors, department managers, and the president — do <strong>not</strong> need to log in. Requestors visit the app URL to submit requests, and approvers use the direct link from their email notification.</p>
+            </div>
+          </div>
+          <div class="howto-faq-item">
+            <button class="howto-faq-question" onclick="this.parentElement.classList.toggle('open')">
+              <span>How do I log out?</span>
+              <span class="howto-faq-chevron">▼</span>
+            </button>
+            <div class="howto-faq-answer">
+              <p>Click the <strong>"🔓 Logout"</strong> button on the far right of the navigation bar. This immediately ends your session, returns you to the Home page, and the button switches back to <strong>"🔒 Login"</strong>. Your session also expires automatically after <strong>1 hour</strong> of inactivity.</p>
             </div>
           </div>
           <div class="howto-faq-item">
@@ -1186,7 +1280,7 @@
               <span class="howto-faq-chevron">▼</span>
             </button>
             <div class="howto-faq-answer">
-              <p>The Dashboard provides an overview of all requests with summary statistics: total requests, pending department, pending financial, pending presidential, approved, and denied counts. It includes a <strong>search bar</strong> to filter requests, a <strong>"+ Create New Request"</strong> button, and a complete table with quick actions (View, Print, Remove). <strong>Only the Accounting department</strong> has access to the Dashboard. The public <strong>Home page</strong> also shows summary stat cards (Total, In Progress, Approved, Denied) without requiring login.</p>
+              <p>The Dashboard provides an overview of all requests with summary statistics: total requests, pending department, pending financial, pending presidential, approved, and denied counts. It includes a <strong>search bar</strong> to filter requests, a <strong>"+ Create New Request"</strong> button, and a complete table with quick actions (View, Print, Remove). <strong>Accounting and IT staff</strong> have access to the Dashboard. The public <strong>Home page</strong> also shows summary stat cards (Total, In Progress, Approved, Denied) without requiring login.</p>
             </div>
           </div>
           <div class="howto-faq-item">
@@ -1195,7 +1289,7 @@
               <span class="howto-faq-chevron">▼</span>
             </button>
             <div class="howto-faq-answer">
-              <p><strong>Only the Accounting department</strong> can remove requests. Removal requires entering the requestor's full name and the system passcode. Removed requests are <strong>not permanently deleted</strong> — they can be restored at any time from the <strong>Admin page → Removed Requests</strong> section. Other users (requestors, managers, president) do not have remove access.</p>
+              <p><strong>Accounting and IT staff</strong> can remove requests. Removal requires entering the requestor's full name and the system passcode. Removed requests are <strong>not permanently deleted</strong> — they can be restored at any time from the <strong>Admin page → Removed Requests</strong> section. Other users (requestors, managers, president) do not have remove access.</p>
             </div>
           </div>
         </div>

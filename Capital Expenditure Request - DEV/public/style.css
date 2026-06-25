@@ -177,6 +177,40 @@ a:hover {
   color: #29AAE2;
 }
 
+.nav-auth-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.875rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid rgba(41, 170, 226, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nav-auth-btn:hover {
+  background: rgba(41, 170, 226, 0.1);
+  color: var(--accent-light);
+  border-color: rgba(41, 170, 226, 0.45);
+}
+
+.nav-auth-btn.authenticated {
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.nav-auth-btn.authenticated:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
 /* ── Footer ──────────────────────────────────────────────────── */
 .app-footer {
   text-align: center;
@@ -1595,6 +1629,14 @@ tr:last-child td {
 
   .nav-links a span {
     display: none;
+  }
+
+  .nav-auth-btn .nav-auth-label {
+    display: none;
+  }
+
+  .nav-auth-btn {
+    padding: 0.4rem 0.5rem;
   }
 
   .main {
