@@ -47,7 +47,7 @@
       --radius-xl: 24px;
       --nav-height: 68px;
       --transition: 0.2s ease;
-      --narration-height: 100px;
+      --narration-height: 110px;
     }
 
     *,
@@ -136,14 +136,14 @@
       right: 0;
       z-index: 9999;
       height: var(--narration-height);
-      background: linear-gradient(180deg, rgba(10, 22, 40, 0.95), rgba(5, 12, 25, 0.98));
-      backdrop-filter: blur(20px);
-      border-top: 1px solid var(--border-light);
+      background: linear-gradient(180deg, rgba(15, 30, 55, 0.97), rgba(5, 12, 25, 0.99));
+      backdrop-filter: blur(24px);
+      border-top: 2px solid rgba(41, 170, 226, 0.35);
       display: flex;
       align-items: center;
       padding: 0 2rem;
       gap: 1.5rem;
-      box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 -4px 40px rgba(0, 0, 0, 0.6), 0 -1px 20px rgba(41, 170, 226, 0.08);
     }
 
     .demo-controls-left {
@@ -189,26 +189,42 @@
     }
 
     .demo-narration-step {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: var(--accent-light);
+      text-shadow: 0 0 12px rgba(41, 170, 226, 0.4);
+      animation: stepPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes stepPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
     }
 
     .demo-narration-text {
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: var(--text-primary);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #fff;
       line-height: 1.4;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      text-shadow: 0 1px 8px rgba(255, 255, 255, 0.1);
     }
 
     .demo-narration-subtext {
-      font-size: 0.78rem;
-      color: var(--text-muted);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 400;
     }
 
     .demo-progress-container {
@@ -228,16 +244,18 @@
 
     .demo-progress-bar {
       width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 3px;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
       overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .demo-progress-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--accent-light), var(--purple));
-      border-radius: 3px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(41, 170, 226, 0.4);
       transition: width 0.5s ease;
       width: 0%;
     }
@@ -1413,69 +1431,6 @@
       color: var(--warning);
     }
 
-    /* ── Voice Control ────────────────────────────────────────────── */
-    .demo-voice-control {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      margin-left: 0.5rem;
-      padding-left: 0.5rem;
-      border-left: 1px solid var(--border);
-    }
-
-    .demo-voice-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border);
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.25s ease;
-      padding: 0;
-    }
-
-    .demo-voice-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--accent-light);
-      color: var(--accent-light);
-    }
-
-    .demo-voice-btn.active {
-      border-color: rgba(34, 197, 94, 0.5);
-      color: var(--success);
-      background: rgba(34, 197, 94, 0.1);
-    }
-
-    .demo-voice-select {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 600;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      color: var(--text-secondary);
-      padding: 0.15rem 0.3rem;
-      cursor: pointer;
-      max-width: 110px;
-      outline: none;
-      transition: all 0.2s ease;
-    }
-
-    .demo-voice-select:hover,
-    .demo-voice-select:focus {
-      border-color: var(--accent-light);
-      color: var(--text-primary);
-    }
-
-    .demo-voice-select option {
-      background: var(--bg-card);
-      color: var(--text-primary);
-    }
 
     /* ── Simulated Mouse Cursor ─────────────────────────────── */
     #demo-cursor {
@@ -1979,12 +1934,7 @@
         <span class="demo-speed-value slow" id="speed-value">0.75×</span>
         <button class="demo-speed-btn" onclick="changeSpeed(1)" title="Faster">+</button>
       </div>
-      <div class="demo-voice-control">
-        <button class="demo-voice-btn" id="btn-voice-toggle" onclick="toggleVoice()"
-          title="Toggle voice narration">🔇</button>
-        <select class="demo-voice-select" id="voice-select" onchange="selectVoice()"
-          title="Choose narrator voice"></select>
-      </div>
+
     </div>
     <div class="demo-narration">
       <div class="demo-narration-step" id="narration-step">Step 1 of 15</div>
@@ -2082,112 +2032,6 @@
       label.className = 'demo-speed-value' + (speedFactor < 1 ? ' slow' : speedFactor > 1 ? ' fast' : '');
     }
 
-    // ── Voice Narration (Web Speech API) ───────────────────────────
-    let voiceEnabled = false;
-    let availableVoices = [];
-    let selectedVoice = null;
-    const synth = window.speechSynthesis;
-
-    function loadVoices() {
-      const voices = synth.getVoices();
-      // Filter to US English voices for professional sound
-      availableVoices = voices.filter(v =>
-        v.lang === 'en-US' || v.lang === 'en_US'
-      );
-      // If no en-US voices, fall back to any English
-      if (availableVoices.length === 0) {
-        availableVoices = voices.filter(v => v.lang.startsWith('en'));
-      }
-
-      const select = document.getElementById('voice-select');
-      select.innerHTML = '';
-
-      // Preferred voice order: Zira first (default), then David, Google voices, then others
-      const preferred = ['Zira', 'David', 'Mark', 'Google US English'];
-      availableVoices.sort((a, b) => {
-        const aIdx = preferred.findIndex(p => a.name.includes(p));
-        const bIdx = preferred.findIndex(p => b.name.includes(p));
-        const aRank = aIdx >= 0 ? aIdx : 99;
-        const bRank = bIdx >= 0 ? bIdx : 99;
-        return aRank - bRank;
-      });
-
-      availableVoices.forEach((voice, i) => {
-        const opt = document.createElement('option');
-        // Shorten the display name
-        let label = voice.name.replace('Microsoft ', '').replace(' Online (Natural)', '').replace(' Desktop', '');
-        if (label.length > 18) label = label.substring(0, 16) + '…';
-        opt.textContent = label;
-        opt.value = i;
-        select.appendChild(opt);
-      });
-
-      // Restore saved preference or pick first voice
-      const savedVoice = localStorage.getItem('demo_voice_name');
-      if (savedVoice) {
-        const idx = availableVoices.findIndex(v => v.name === savedVoice);
-        if (idx >= 0) {
-          select.value = idx;
-          selectedVoice = availableVoices[idx];
-        }
-      }
-      if (!selectedVoice && availableVoices.length > 0) {
-        selectedVoice = availableVoices[0];
-      }
-
-      // Restore voice enabled state
-      const savedEnabled = localStorage.getItem('demo_voice_enabled');
-      if (savedEnabled === 'true') {
-        voiceEnabled = true;
-        document.getElementById('btn-voice-toggle').textContent = '🔊';
-        document.getElementById('btn-voice-toggle').classList.add('active');
-      }
-    }
-
-    // Voices load asynchronously in some browsers
-    if (synth.onvoiceschanged !== undefined) {
-      synth.onvoiceschanged = loadVoices;
-    }
-    loadVoices();
-
-    function toggleVoice() {
-      voiceEnabled = !voiceEnabled;
-      const btn = document.getElementById('btn-voice-toggle');
-      if (voiceEnabled) {
-        btn.textContent = '🔊';
-        btn.classList.add('active');
-        // Speak a test phrase to confirm it's working
-        speak('Voice narration enabled.');
-      } else {
-        btn.textContent = '🔇';
-        btn.classList.remove('active');
-        synth.cancel(); // Stop any current speech
-      }
-      localStorage.setItem('demo_voice_enabled', voiceEnabled.toString());
-    }
-
-    function selectVoice() {
-      const idx = parseInt(document.getElementById('voice-select').value);
-      if (availableVoices[idx]) {
-        selectedVoice = availableVoices[idx];
-        localStorage.setItem('demo_voice_name', selectedVoice.name);
-        if (voiceEnabled) {
-          synth.cancel();
-          speak('Voice changed.');
-        }
-      }
-    }
-
-    function speak(text) {
-      if (!voiceEnabled || !selectedVoice || !text) return;
-      synth.cancel(); // Cancel any previous speech
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.voice = selectedVoice;
-      utterance.rate = 0.95;  // Slightly slower for clarity
-      utterance.pitch = 1.0;
-      utterance.volume = 1.0;
-      synth.speak(utterance);
-    }
 
     // ── Wait for user click in manual mode ─────────────────────────
     function waitForAdvance() {
@@ -2231,18 +2075,15 @@
         btn.textContent = '▶';
         btn.classList.remove('playing');
         document.getElementById('narration-sub').textContent = '⏸ Paused — click ▶ to resume';
-        if (synth.speaking) synth.pause();
       } else {
         btn.textContent = '⏸';
         btn.classList.add('playing');
         document.getElementById('narration-sub').textContent = '';
-        if (synth.paused) synth.resume();
         if (pauseResolve) { const r = pauseResolve; pauseResolve = null; r(); }
       }
     }
 
     function restartDemo() {
-      synth.cancel();
       location.reload();
     }
 
@@ -2404,11 +2245,6 @@
       const pct = Math.round((step / total) * 100);
       document.getElementById('progress-fill').style.width = pct + '%';
       document.getElementById('progress-label').textContent = pct + '%';
-      // Voice narration — clean emoji for cleaner TTS
-      const cleanText = text.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}]/gu, '').trim();
-      const cleanSub = sub.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}]/gu, '').trim();
-      const speech = cleanSub ? `${cleanText}. ${cleanSub}` : cleanText;
-      speak(speech);
     }
 
     // ── Render Detail View ─────────────────────────────────────────
@@ -2485,12 +2321,12 @@
       // ──────────────── STEP 1: HOME PAGE ────────────────
       setNarration(1, TOTAL, 'Welcome to the Home Page', 'This is what employees see when they open the app — no login required.');
       showPage('home');
-      await wait(5000);
+      await wait(2000);
       await waitForAdvance();
 
       // ──────────────── STEP 2: CLICK CREATE NEW REQUEST ──
       setNarration(2, TOTAL, 'Clicking "Create New Request"', 'Any employee can submit a capital expenditure request.');
-      await wait(3000);
+      await wait(500);
       const heroBtn = document.getElementById('hero-btn');
       heroBtn.classList.add('demo-highlight');
       await wait(1200);
@@ -2600,7 +2436,7 @@
 
       // ──────────────── STEP 10: DEPARTMENT APPROVAL ─────
       setNarration(10, TOTAL, 'Department Manager clicks the email link', `${DEMO_CONFIG.deptManagerName} is taken directly to Request #8.`);
-      await wait(5000);
+      await wait(3000);
       showPage('department');
       // Email link goes directly to detail view (skips table)
       document.getElementById('dept-table-card').classList.add('hidden');
@@ -2634,6 +2470,11 @@
       showToast('Request #8 approved at Department level!', 'success');
       await wait(2000);
 
+      // Update status and re-render so viewer sees it change to Pending Fin.
+      newReq.statusBadge = '<span class="badge badge-financial">⏳ Pending Fin.</span>';
+      renderDetail('dept-detail-content', newReq);
+      await wait(2000);
+
       // Show email sent to Financial/Accounting
       await showEmailAndWait(
         'accounting@aqua-aerobic.com',
@@ -2647,7 +2488,7 @@
 
       // ──────────────── STEP 12: FINANCIAL APPROVAL ──────
       setNarration(12, TOTAL, 'Financial Approval — Accounting clicks the email link', 'Taken directly to the request details and accounting form.');
-      await wait(5000);
+      await wait(3000);
       showPage('financial');
       // Email link goes directly to detail view (skips table)
       document.getElementById('fin-table-card').classList.add('hidden');
@@ -2731,7 +2572,7 @@
 
       // ──────────────── STEP 15: PRESIDENTIAL APPROVAL ───
       setNarration(15, TOTAL, 'Presidential Approval — CEO clicks the email link', 'Taken directly to the request for final review.');
-      await wait(5000);
+      await wait(3000);
       showPage('presidential');
       // Email link goes directly to detail view (skips table)
       document.getElementById('pres-table-card').classList.add('hidden');

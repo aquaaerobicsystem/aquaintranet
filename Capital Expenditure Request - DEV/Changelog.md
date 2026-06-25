@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.2] - 2026-06-25
+### Changed
+- **`public/demo.html`** — **Enhanced demo controls bar**: Taller (110px), richer gradient background, blue accent top border (2px), dual box shadow with blue glow, stronger backdrop blur (24px).
+- **`public/demo.html`** — **Enhanced narration text**: Larger font (1.15rem), bolder weight (600), pure white color with subtle text glow. Subtext is brighter and slightly larger.
+- **`public/demo.html`** — **Pulsing step indicator**: "Step X of Y" label now pulses with a blue text shadow for visual emphasis.
+- **`public/demo.html`** — **Progress bar upgrade**: Thicker (7px), inset shadow for depth, blue glow on the fill gradient.
+- **`public/demo.html`** — **Narration timing refinements**: Reduced pauses on key steps (Home 2s, Step 2 500ms, Dept/Fin/Pres 3s) for tighter pacing.
+- **`public/demo.html`** — **Status badge flow**: Department detail view now re-renders after approval so the viewer sees the status change from "Pending Dept." → "Pending Fin." before the email preview appears.
+
+### Removed
+- **`public/demo.html`** — **Removed voice-over narration feature**: Removed all TTS code (Web Speech API), voice toggle button, voice selector dropdown, and related CSS/JS. Controls bar is cleaner without the voice section.
+
 ## [1.8.1] - 2026-06-25
 ### Changed
 - **`public/demo.html`** — **Narration timing**: Added 5-second pauses after narration on key transition steps (Home, Department, Financial, Presidential) so voice narration finishes before the page changes.
